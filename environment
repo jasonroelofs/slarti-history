@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export OGRE_HOME=/Users/roelofs/bin/ogre
+export DYLD_FRAMEWORK_PATH=$OGRE_HOME/lib/debug/Debug:$DYLD_FRAMEWORK_PATH
