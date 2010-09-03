@@ -191,13 +191,8 @@ void BaseApplication::loadResources(void)
 //-------------------------------------------------------------------------------------
 void BaseApplication::go(void)
 {
-#ifdef _DEBUG
-    mResourcesCfg = "resources_d.cfg";
-    mPluginsCfg = "plugins_d.cfg";
-#else
     mResourcesCfg = "resources.cfg";
     mPluginsCfg = "plugins.cfg";
-#endif
 
     if (!setup())
         return;
@@ -271,14 +266,18 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 //-------------------------------------------------------------------------------------
 bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 {
+    Ogre::LogManager::getSingletonPtr()->logMessage("Key Pressed!!! " + arg.key);
+
     if (mTrayMgr->isDialogVisible()) return true;   // don't process any more keys if dialog is up
 
     if (arg.key == OIS::KC_F)   // toggle visibility of advanced frame stats
     {
+    Ogre::LogManager::getSingletonPtr()->logMessage("\tF");
         mTrayMgr->toggleAdvancedFrameStats();
     }
     else if (arg.key == OIS::KC_G)   // toggle visibility of even rarer debugging details
     {
+    Ogre::LogManager::getSingletonPtr()->logMessage("\tG");
         if (mDetailsPanel->getTrayLocation() == OgreBites::TL_NONE)
         {
             mTrayMgr->moveWidgetToTray(mDetailsPanel, OgreBites::TL_TOPRIGHT, 0);
@@ -292,6 +291,7 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
     }
     else if (arg.key == OIS::KC_T)   // cycle polygon rendering mode
     {
+    Ogre::LogManager::getSingletonPtr()->logMessage("\tT");
         Ogre::String newVal;
         Ogre::TextureFilterOptions tfo;
         unsigned int aniso;
@@ -325,6 +325,7 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
     }
     else if (arg.key == OIS::KC_R)   // cycle polygon rendering mode
     {
+    Ogre::LogManager::getSingletonPtr()->logMessage("\tR");
         Ogre::String newVal;
         Ogre::PolygonMode pm;
 
@@ -358,6 +359,7 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
     {
         mShutDown = true;
     }
+    Ogre::LogManager::getSingletonPtr()->logMessage("Send to Camera and Done");
 
     mCameraMan->injectKeyDown(arg);
     return true;

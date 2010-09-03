@@ -36,19 +36,21 @@ if(UNIX)
 endif(UNIX)
 
 if(APPLE)
-  set(OGRE_HOME /Users/roelofs/bin/ogre)
+  set(OGRE_HOME $ENV{OGRE_HOME})
   set(CMAKE_MODULE_PATH "${OGRE_HOME}/CMake;${CMAKE_MODULE_PATH}")
   set(CMAKE_OSX_ARCHITECTURES "i386")
 
+  FIND_LIBRARY(COCOA_LIBRARY Cocoa)
   FIND_LIBRARY(CARBON_LIBRARY Carbon)
   FIND_LIBRARY(IOKit_LIBRARY IOKit)
+  MARK_AS_ADVANCED(COCOA_LIBRARY)
   MARK_AS_ADVANCED(CARBON_LIBRARY)
   MARK_AS_ADVANCED(IOKit_LIBRARY)
 
   set(OGRE_LIB_TYPE SHARED)
   set(OGRE_STATIC OFF)
 
-  set(EXTRA_LIBS ${CARBON_LIBRARY} ${IOKit_LIBRARY})
+  set(EXTRA_LIBS ${COCOA_LIBRARY} ${CARBON_LIBRARY} ${IOKit_LIBRARY})
 endif(APPLE)
 
 if (CMAKE_BUILD_TYPE STREQUAL "")
@@ -120,17 +122,16 @@ include_directories(
   ${OGRE_SAMPLES_INCLUDEPATH}
   )
 
-add_executable(slartibartfast ${HDRS} ${SRCS})
+add_executable(${PROJECT_NAME} ${HDRS} ${SRCS})
 
 # Add the path where the Ogre framework was found
-set(OGRE_FRAMEWORK_PATH "${OGRE_HOME}/lib/debug/Debug")
-set(OIS_FRAMEWORK_PATH "${OGRE_HOME}/lib/debug/Debug")
+set(OGRE_FRAMEWORK_PATH "${OGRE_HOME}/lib/release")
+set(OIS_FRAMEWORK_PATH "${OGRE_HOME}/lib/release")
 set_target_properties(${PROJECT_NAME} PROPERTIES
   LINK_FLAGS "-F${OGRE_FRAMEWORK_PATH} -framework Ogre"
-  DEBUG_POSTFIX _d
 )
 
-target_link_libraries(slartibartfast ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${EXTRA_LIBS})
+target_link_libraries(${PROJECT_NAME} ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${EXTRA_LIBS})
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/media)
