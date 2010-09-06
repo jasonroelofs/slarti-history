@@ -19,6 +19,11 @@ task :build do
   end
 end
 
+desc "Clean up the build"
+task :clean do
+  rm "bin/slartibartfast"
+end
+
 desc "Install built binary"
 task :install do
   cp "build/Debug/slartibartfast", "bin/"

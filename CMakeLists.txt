@@ -107,6 +107,21 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
   set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 
+## 
+# QtOgre
+##
+set(QtOGRE_LIB_PATH "./vendor/QtOgre/build/Debug")
+set(QtOGRE_INCLUDE_PATH "./vendor/QtOgre/include")
+
+FIND_PACKAGE(Qt4 REQUIRED)
+SET(QT_USE_QTGUI 1)
+SET(QT_USE_QTSCRIPT 1)
+SET(QT_USE_QTXML 1)
+INCLUDE(${QT_USE_FILE})
+
+##
+# Source and Header Files
+##
 FILE(GLOB_RECURSE SRCS "./src/*.cpp")
 FILE(GLOB_RECURSE HDRS "./include/*.h")
 
@@ -114,7 +129,8 @@ include_directories(
   "${PROJECT_ROOT_DIR}/include"
   ${OIS_INCLUDE_DIRS}
   ${OGRE_INCLUDE_DIRS}
-  ${OGRE_SAMPLES_INCLUDEPATH}
+  "${OGRE_INCLUDE_DIRS}/OGRE"
+  ${QtOGRE_INCLUDE_PATH}
   )
 
 add_executable(${PROJECT_NAME} ${SRCS})
@@ -123,62 +139,10 @@ add_executable(${PROJECT_NAME} ${SRCS})
 set(OGRE_FRAMEWORK_PATH "${OGRE_HOME}/lib/release")
 set(OIS_FRAMEWORK_PATH "${OGRE_HOME}/lib/release")
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  LINK_FLAGS "-F${OGRE_FRAMEWORK_PATH} -framework Ogre"
+  LINK_FLAGS "-F${OGRE_FRAMEWORK_PATH} -framework Ogre -L${QtOGRE_LIB_PATH} -lQtOgre"
 )
 
-target_link_libraries(${PROJECT_NAME} ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${EXTRA_LIBS})
+target_link_libraries(${PROJECT_NAME} ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${QT_LIBRARIES} ${EXTRA_LIBS})
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/media)
-
-# post-build copy for win32
-if(WIN32 AND NOT MINGW)
-  add_custom_command( TARGET slartibartfast PRE_BUILD
-    COMMAND if not exist .\\dist\\bin mkdir .\\dist\\bin )
-  add_custom_command( TARGET slartibartfast POST_BUILD
-    COMMAND copy \"$(TargetPath)\" .\\dist\\bin )
-endif(WIN32 AND NOT MINGW)
-if(MINGW)
-  set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/dist/bin)
-endif(MINGW)
-
-if(WIN32)
-
-  install(TARGETS slartibartfast
-    RUNTIME DESTINATION bin
-    CONFIGURATIONS All)
-
-  install(DIRECTORY ${CMAKE_SOURCE_DIR}/dist/Media
-    DESTINATION ./
-    CONFIGURATIONS Release RelWithDebInfo Debug
-    )
-
-  install(FILES ${CMAKE_SOURCE_DIR}/dist/bin/plugins.cfg
-    ${CMAKE_SOURCE_DIR}/dist/bin/resources.cfg
-    DESTINATION bin
-    CONFIGURATIONS Release RelWithDebInfo
-    )
-
-  install(FILES ${CMAKE_SOURCE_DIR}/dist/bin/plugins_d.cfg
-    ${CMAKE_SOURCE_DIR}/dist/bin/resources_d.cfg
-    DESTINATION bin
-    CONFIGURATIONS Debug
-    )
-
-  install(FILES ${OGRE_PLUGIN_DIR_REL}/OgreMain.dll
-    ${OGRE_PLUGIN_DIR_REL}/RenderSystem_Direct3D9.dll
-    ${OGRE_PLUGIN_DIR_REL}/RenderSystem_GL.dll
-    ${OGRE_PLUGIN_DIR_REL}/OIS.dll
-    DESTINATION bin
-    CONFIGURATIONS Release RelWithDebInfo
-    )
-
-  install(FILES ${OGRE_PLUGIN_DIR_DBG}/OgreMain_d.dll
-    ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_Direct3D9_d.dll
-    ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_GL_d.dll
-    ${OGRE_PLUGIN_DIR_DBG}/OIS_d.dll
-    DESTINATION bin
-    CONFIGURATIONS Debug
-    )
-endif(WIN32)
-
