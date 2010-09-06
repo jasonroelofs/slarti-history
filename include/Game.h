@@ -3,6 +3,8 @@
 
 #include <GameLogic.h>
 
+#include <Ogre.h>
+
 class Game : public QtOgre::GameLogic
 {
   public:
@@ -31,6 +33,13 @@ class Game : public QtOgre::GameLogic
     virtual void onMouseMove(QMouseEvent* event);
 
     virtual void onWheel(QWheelEvent* event);
+
+  protected:
+    Ogre::Root* mRoot;
+    Ogre::SceneManager* mSceneManager;
+    Ogre::Camera* mCamera;
+
+    Ogre::SceneNode* mOgreHeadNode;
 };
 
 #endif // __GAME_H__

@@ -20,7 +20,7 @@ namespace QtOgre
 	:QWidget(parent, f | Qt::MSWindowsOwnDC)
 	,m_pOgreRenderWindow(0)
 	,mIsInitialised(false)
-	{		
+	{
 		QPalette colourPalette = palette();
 		colourPalette.setColor(QPalette::Active, QPalette::WindowText, Qt::black);
 		colourPalette.setColor(QPalette::Active, QPalette::Window, Qt::black);
@@ -35,7 +35,9 @@ namespace QtOgre
 	{
 		//These attributes are the same as those use in a QGLWidget
 		setAttribute(Qt::WA_PaintOnScreen);
+    setAttribute(Qt::WA_OpaquePaintEvent);
 		setAttribute(Qt::WA_NoSystemBackground);
+    setAutoFillBackground(false);
 
 		//Parameters to pass to Ogre::Root::createRenderWindow()
 		Ogre::NameValuePairList params;
@@ -73,7 +75,7 @@ namespace QtOgre
 	#endif
 
 		//Add the external window handle parameters to the existing params set.
-	#if defined(Q_WS_WIN)		
+	#if defined(Q_WS_WIN)
 		params["externalWindowHandle"] = externalWindowHandleParams;
 	#endif
 
@@ -144,13 +146,13 @@ namespace QtOgre
 			else
 			{
 				QStringList splitResolution = resolution.split("x", QString::SkipEmptyParts, Qt::CaseInsensitive);
-				
+
 				if(splitResolution.size() == 2)
 				{
 					bool widthValid = false;
 					int width = splitResolution.at(0).toInt(&widthValid);
 					widthValid &= (width > 10) && (width < 10000);
-					
+
 					bool heightValid = false;
 					int height = splitResolution.at(1).toInt(&heightValid);
 					heightValid &= (height > 10) && (height < 10000);
@@ -162,7 +164,7 @@ namespace QtOgre
 						Application::centerWidget(this);
 						applied = true;
 					}
-				}			
+				}
 			}
 		}
 
