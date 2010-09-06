@@ -40,6 +40,8 @@ if(APPLE)
   set(CMAKE_MODULE_PATH "${OGRE_HOME}/CMake;${CMAKE_MODULE_PATH}")
   set(CMAKE_OSX_ARCHITECTURES "i386")
 
+  include_directories("${OGRE_HOME}/include/OGRE/OSX")
+
   FIND_LIBRARY(COCOA_LIBRARY Cocoa)
   FIND_LIBRARY(CARBON_LIBRARY Carbon)
   FIND_LIBRARY(IOKit_LIBRARY IOKit)
@@ -105,15 +107,8 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
   set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 
-set(HDRS
-  ./include/BaseApplication.h
-  ./include/TutorialApplication.h
-  )
-
-set(SRCS
-  ./src/BaseApplication.cpp
-  ./src/TutorialApplication.cpp
-  )
+FILE(GLOB_RECURSE SRCS "./src/*.cpp")
+FILE(GLOB_RECURSE HDRS "./include/*.h")
 
 include_directories( 
   "${PROJECT_ROOT_DIR}/include"
@@ -122,7 +117,7 @@ include_directories(
   ${OGRE_SAMPLES_INCLUDEPATH}
   )
 
-add_executable(${PROJECT_NAME} ${HDRS} ${SRCS})
+add_executable(${PROJECT_NAME} ${SRCS})
 
 # Add the path where the Ogre framework was found
 set(OGRE_FRAMEWORK_PATH "${OGRE_HOME}/lib/release")
