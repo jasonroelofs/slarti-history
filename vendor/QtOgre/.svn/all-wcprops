@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/ogreaddons/!svn/ver/2965/trunk/QtOgreFramework/QtOgre
+END
+qtogre.pro
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/ogreaddons/!svn/ver/2738/trunk/QtOgreFramework/QtOgre/qtogre.pro
+END
+QtOgreConfigVersion.cmake.in
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/ogreaddons/!svn/ver/2655/trunk/QtOgreFramework/QtOgre/QtOgreConfigVersion.cmake.in
+END
+ogre.tag
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/ogreaddons/!svn/ver/2531/trunk/QtOgreFramework/QtOgre/ogre.tag
+END
+Doxyfile.in
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/ogreaddons/!svn/ver/2538/trunk/QtOgreFramework/QtOgre/Doxyfile.in
+END
+Mainpage.dox
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/ogreaddons/!svn/ver/2538/trunk/QtOgreFramework/QtOgre/Mainpage.dox
+END
+QtOgreConfig.cmake.in
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/ogreaddons/!svn/ver/2749/trunk/QtOgreFramework/QtOgre/QtOgreConfig.cmake.in
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/ogreaddons/!svn/ver/2910/trunk/QtOgreFramework/QtOgre/CMakeLists.txt
+END
+qt.tag
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/ogreaddons/!svn/ver/2531/trunk/QtOgreFramework/QtOgre/qt.tag
+END
