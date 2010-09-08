@@ -1,5 +1,7 @@
 #include "Game.h"
 #include <Application.h>
+#include <QMouseEvent>
+#include <QWidget>
 
 Game::Game(void)
   : GameLogic()
@@ -8,6 +10,7 @@ Game::Game(void)
 
 void Game::initialise(void)
 {
+  // Initialize Ogre
   mRoot = Ogre::Root::getSingletonPtr();
   mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC);
 
@@ -36,41 +39,60 @@ void Game::initialise(void)
 
   Ogre::Light* l = mSceneManager->createLight("MainLight");
   l->setPosition(20, 80, 50);
+
+  mApplication->mainWidget()->setMouseTracking(true);
 }
 
 void Game::update(void)
 {
-  mOgreHeadNode->roll(Ogre::Degree(5));
 }
 
 void Game::shutdown(void)
 {
+  log("SHUTTING DOWN");
 }
+
+/**
+ * KeyPress Handling (once I figure out the freakin window issue)
+ *
+ * Will keep a hash of key states around, keyed on the key, and set to
+ * true / false. The following events will update that hash, and during
+ * #update will act on the current state of the events
+ */
 
 void Game::onKeyPress(QKeyEvent* event)
 {
+  log("ON KEY PRESS EVENT!");
 }
 
 void Game::onKeyRelease(QKeyEvent* event)
 {
+  log("ON KEY RELEASE EVENT!");
 }
 
 void Game::onMousePress(QMouseEvent* event)
 {
+  log("ON MOUSE PRESS EVENT!");
 }
 
 void Game::onMouseRelease(QMouseEvent* event)
 {
+  log("ON MOUSE RELEASE EVENT!");
 }
 
 void Game::onMouseDoubleClick(QMouseEvent* event)
 {
+  log("ON MOUSE DOUBLE CLICK EVENT!");
 }
 
 void Game::onMouseMove(QMouseEvent* event)
 {
+  log("ON MOUSE MOVE EVENT!");
+  mCamera->yaw(Ogre::Degree(-event->x() * 0.0015f));
+  mCamera->pitch(Ogre::Degree(-event->y() * 0.0015f));
 }
 
 void Game::onWheel(QWheelEvent* event)
 {
+  log("ON MOUSE WHEEL EVENT!");
 }

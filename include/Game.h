@@ -34,6 +34,10 @@ class Game : public QtOgre::GameLogic
 
     virtual void onWheel(QWheelEvent* event);
 
+    void log(const Ogre::String& message) {
+      Ogre::LogManager::getSingleton().logMessage(message);
+    }
+
   protected:
     Ogre::Root* mRoot;
     Ogre::SceneManager* mSceneManager;
