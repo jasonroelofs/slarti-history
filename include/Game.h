@@ -2,8 +2,9 @@
 #define __GAME_H__
 
 #include <GameLogic.h>
-
 #include <Ogre.h>
+
+#include "InputManager.h"
 
 class Game : public QtOgre::GameLogic
 {
@@ -12,15 +13,21 @@ class Game : public QtOgre::GameLogic
 
   public:
     /**
+     * Shut down the game
+     */
+    void stop();
+
+    /**
      * Initialise the game logic
      */
     virtual void initialise(void);
+
     /**
-     * Update the game
+     * Callback: Update the game
      */
     virtual void update(void);
     /**
-     * Shut down the game
+     * Callback: game is shutting down, clean up resources
      */
     virtual void shutdown(void);
 
@@ -44,6 +51,8 @@ class Game : public QtOgre::GameLogic
     Ogre::Camera* mCamera;
 
     Ogre::SceneNode* mOgreHeadNode;
+
+    InputManager* mInputManager;
 };
 
 #endif // __GAME_H__

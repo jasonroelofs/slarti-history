@@ -1,7 +1,10 @@
-#include "Game.h"
 #include <Application.h>
 #include <QMouseEvent>
 #include <QWidget>
+#include <QCursor>
+
+#include "Game.h"
+#include "Event.h"
 
 Game::Game(void)
   : GameLogic()
@@ -40,29 +43,62 @@ void Game::initialise(void)
   Ogre::Light* l = mSceneManager->createLight("MainLight");
   l->setPosition(20, 80, 50);
 
+  /**
+   * Set up our initial mouse cursor handling
+   */
   mApplication->mainWidget()->setMouseTracking(true);
+  mApplication->mainWidget()->setCursor( QCursor(Qt::BlankCursor) );
+  mApplication->mainWidget()->grabMouse();
+
+  // Set up our input manager and hook up a few keys for ourselves
+  mInputManager = new InputManager();
+
+  // Hook up some top level events
+  mInputManager->map(Event::QUIT, this, &Game::stop);
 }
 
 void Game::update(void)
 {
 }
 
-void Game::shutdown(void)
-{
-  log("SHUTTING DOWN");
+/**
+ * Our handler to shut the game down.
+ * Simply tells the Application to shut down, which will then
+ * call ::shutdown, where we will clean up all resources
+ */
+void Game::stop(void) {
+  mApplication->shutdown();  
 }
 
 /**
- * KeyPress Handling (once I figure out the freakin window issue)
- *
- * Will keep a hash of key states around, keyed on the key, and set to
- * true / false. The following events will update that hash, and during
- * #update will act on the current state of the events
+ * This method is called via Application::shutdown.
+ * To close the game out, please use ::stop instead.
+ */
+void Game::shutdown(void)
+{
+  log("SHUTTING DOWN");
+  mApplication->mainWidget()->releaseMouse();
+}
+
+/**
+ * KeyPress Handling. The following are Qt events we use
+ * to keep an internal mapped state of the input system
  */
 
 void Game::onKeyPress(QKeyEvent* event)
 {
   log("ON KEY PRESS EVENT!");
+
+  /** NOTES
+   * Need to take QKeyEvent / QMouseEvent and transform them to our own
+   * internal Event object.
+   *
+   * See http://doc.qt.nokia.com/4.6/qt.html#Key-enum
+   *
+   * For QKeyEvent, grab the values of ::text() and ::key(), and we
+   * should save the code, the text, and the modifier map
+   */
+  //mInputManager->injectKeyDown(QtEventConverter::convert(event));
 }
 
 void Game::onKeyRelease(QKeyEvent* event)
