@@ -3,7 +3,7 @@
 
 #include <QKeyEvent>
 
-#include "KeyboardEvent.h"
+#include "Event.h"
 
 /**
  * Static class with a few helper methods to convert information

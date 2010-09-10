@@ -4,7 +4,6 @@
 #include <map>
 
 #include "Event.h"
-#include "KeyboardEvent.h"
 
 /**
  * This class handles all manner of input dispatch throughout

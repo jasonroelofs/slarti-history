@@ -16,6 +16,8 @@ CameraManager::CameraManager(Ogre::Camera* camera, InputManager* manager)
   mInput->map(Event::MoveRight, this, &CameraManager::moveRight);
   mInput->map(Event::MoveForward, this, &CameraManager::moveForward);
   mInput->map(Event::MoveBack, this, &CameraManager::moveBack);
+
+  mInput->map(Event::MouseMoved, this, &CameraManager::rotateView);
 }
 
 // Copying logic used in SdkCameraMan
@@ -53,6 +55,9 @@ void CameraManager::update(float timeSinceLastFrame) {
   if (mVelocity != Ogre::Vector3::ZERO) {
     mCamera->move(mVelocity * timeSinceLastFrame);
   }
+}
+
+void CameraManager::rotateView(MouseEvent event) {
 }
 
 void CameraManager::moveLeft(KeyboardEvent event) {

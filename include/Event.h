@@ -3,21 +3,25 @@
 
 #include <Qt>
 
-#include "KeyboardEvent.h"
-
 #define CALL_EVENT_CALLBACK(object, function) ((object).*(function))
+
+/********************************************
+ * Event related definitions
+ ********************************************/
 
 namespace Event {
   /**
-   * Enumeration of available EVENT types for input handling,
+   * Enumeration of available Event types for input handling,
    * scoped so as to be able to write simple code like
-   * Event::QUIT
+   * Event::Quit
    */
   enum Events {
     MoveBack,
     MoveForward,
     MoveLeft,
     MoveRight,
+
+    MouseMoved,
 
     Quit
   };
@@ -33,14 +37,51 @@ namespace Key {
   enum Keys {
     Escape = Qt::Key_Escape,
 
+    Down = Qt::Key_Down,
     Left = Qt::Key_Left,
     Right = Qt::Key_Right,
     Up = Qt::Key_Up,
-    Down = Qt::Key_Down,
 
     Q = Qt::Key_Q
   };
 }
+
+/********************************************
+ * Internal Input Event Classes
+ ********************************************/
+
+/**
+ * Base class for all input event classes.
+ * Don't use this class directly
+ */
+class InputEvent { };
+
+/**
+ * Our own keyboard event handler class.
+ */
+class KeyboardEvent : public InputEvent {
+  public:
+    KeyboardEvent(int key) : key(key) { }
+
+    // Keycode of the key hit for this event
+    int key;
+
+    // Is this key event a key down event?
+    int isDown;
+};
+
+/**
+ * Handles mouse events
+ */
+class MouseEvent : public InputEvent {
+  public:
+    MouseEvent() {}
+};
+
+
+/********************************************
+ * Event Callback Handlers
+ ********************************************/
 
 class EventCallbackBase {
   public:
@@ -50,7 +91,7 @@ class EventCallbackBase {
     /**
      * Run this event, executing the callback
      */
-    virtual void call(KeyboardEvent event) = 0;
+    virtual void call(InputEvent event) = 0;
 };
 
 template<typename Object_T, typename Callback_T>
@@ -62,15 +103,17 @@ class EventCallback : public EventCallbackBase {
     {
     }
 
-    virtual void call(KeyboardEvent event) {
-      CALL_EVENT_CALLBACK(*mObject, mCallback)(event);
+    virtual void call(InputEvent event) {
+      // TODO
+      // Need to pointer-ify the event stuff for this to work
+      // 
+      CALL_EVENT_CALLBACK(*mObject, mCallback)((KeyboardEvent)event);
     }
 
   private:
     Object_T* mObject;
     Callback_T mCallback;
 };
-
 
 
 #endif // __EVENT_H__

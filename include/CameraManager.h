@@ -4,7 +4,7 @@
 #include <Ogre.h>
 
 #include "InputManager.h"
-#include "KeyboardEvent.h"
+#include "Event.h"
 
 /**
  * A CameraManager controls and manages a Camera
@@ -35,6 +35,11 @@ class CameraManager {
     void moveRight(KeyboardEvent event);
     void moveForward(KeyboardEvent event);
     void moveBack(KeyboardEvent event);
+
+    /**
+     * Rotating the view according to the mouse movement
+     */
+    void rotateView(MouseEvent event);
 
   private:
     Ogre::Camera* mCamera;

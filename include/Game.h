@@ -8,7 +8,7 @@
 
 #include "InputManager.h"
 #include "CameraManager.h"
-#include "KeyboardEvent.h"
+#include "Event.h"
 
 class Game : public QtOgre::GameLogic
 {
