@@ -12,6 +12,11 @@ namespace Event {
    * Event::QUIT
    */
   enum Events {
+    MoveBack,
+    MoveForward,
+    MoveLeft,
+    MoveRight,
+
     Quit
   };
 }
@@ -25,6 +30,12 @@ namespace Key {
    */
   enum Keys {
     Escape = Qt::Key_Escape,
+
+    Left = Qt::Key_Left,
+    Right = Qt::Key_Right,
+    Up = Qt::Key_Up,
+    Down = Qt::Key_Down,
+
     Q = Qt::Key_Q
   };
 }
@@ -37,7 +48,7 @@ class EventCallbackBase {
     /**
      * Run this event, executing the callback
      */
-    virtual void call() = 0;
+    virtual void call(bool) = 0;
 };
 
 template<typename Object_T, typename Callback_T>
@@ -49,8 +60,8 @@ class EventCallback : public EventCallbackBase {
     {
     }
 
-    virtual void call() {
-      CALL_EVENT_CALLBACK(*mObject, mCallback)();
+    virtual void call(bool down) {
+      CALL_EVENT_CALLBACK(*mObject, mCallback)(down);
     }
 
   private:

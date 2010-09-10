@@ -7,6 +7,15 @@ InputManager::InputManager()
       std::pair<int, int>(Key::Q, Event::Quit) );
   mKeyToEventMappings.insert( 
       std::pair<int, int>(Key::Escape, Event::Quit) );
+
+  mKeyToEventMappings.insert( 
+      std::pair<int, int>(Key::Left, Event::MoveLeft) );
+  mKeyToEventMappings.insert( 
+      std::pair<int, int>(Key::Right, Event::MoveRight) );
+  mKeyToEventMappings.insert( 
+      std::pair<int, int>(Key::Up, Event::MoveForward) );
+  mKeyToEventMappings.insert( 
+      std::pair<int, int>(Key::Up, Event::MoveBack) );
 }
 
 InputManager::~InputManager()
@@ -24,11 +33,12 @@ InputManager::~InputManager()
 
 void InputManager::injectKeyDown(KeyboardEvent event)
 {
-  mEventMappings[ mKeyToEventMappings[event.key] ]->call();
+  mEventMappings[ mKeyToEventMappings[event.key] ]->call(true);
 }
 
 void InputManager::injectKeyUp(KeyboardEvent event)
 {
+  mEventMappings[ mKeyToEventMappings[event.key] ]->call(false);
 }
 
 void InputManager::injectMouseDown()

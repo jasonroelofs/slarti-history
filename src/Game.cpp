@@ -59,6 +59,10 @@ void Game::initialise(void)
 
   // Hook up some top level events
   mInputManager->map(Event::Quit, this, &Game::stop);
+
+  // Set up our clock so we can keep track of time between frames
+  mTime.start();
+  mTimeOfLastFrame = mTime.elapsed();
 }
 
 /**
@@ -66,7 +70,7 @@ void Game::initialise(void)
  * Simply tells the Application to shut down, which will then
  * call ::shutdown, where we will clean up all resources
  */
-void Game::stop(void) {
+void Game::stop(bool down) {
   mApplication->shutdown();  
 }
 
@@ -76,6 +80,11 @@ void Game::stop(void) {
 
 void Game::update(void)
 {
+  unsigned int timeSinceLastFrame = mTime.elapsed() - mTimeOfLastFrame;
+
+  mCameraManager->update(timeSinceLastFrame / 1000.0f);
+
+  mTimeOfLastFrame = mTime.elapsed();
 }
 
 /**
@@ -102,6 +111,7 @@ void Game::onKeyPress(QKeyEvent* event)
 void Game::onKeyRelease(QKeyEvent* event)
 {
   log("ON KEY RELEASE EVENT!");
+  mInputManager->injectKeyUp(QtEventConverter::convert(event));
 }
 
 void Game::onMousePress(QMouseEvent* event)

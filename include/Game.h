@@ -4,7 +4,10 @@
 #include <GameLogic.h>
 #include <Ogre.h>
 
+#include <QTime>
+
 #include "InputManager.h"
+#include "CameraManager.h"
 
 class Game : public QtOgre::GameLogic
 {
@@ -15,7 +18,7 @@ class Game : public QtOgre::GameLogic
     /**
      * Shut down the game
      */
-    void stop();
+    void stop(bool);
 
     /**
      * Initialise the game logic
@@ -26,6 +29,7 @@ class Game : public QtOgre::GameLogic
      * Callback: Update the game
      */
     virtual void update(void);
+
     /**
      * Callback: game is shutting down, clean up resources
      */
@@ -52,7 +56,12 @@ class Game : public QtOgre::GameLogic
 
     Ogre::SceneNode* mOgreHeadNode;
 
+    QTime mTime;
+    unsigned int mTimeOfLastFrame;
+
     InputManager* mInputManager;
+
+    CameraManager* mCameraManager;
 };
 
 #endif // __GAME_H__

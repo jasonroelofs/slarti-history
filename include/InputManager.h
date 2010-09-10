@@ -40,6 +40,10 @@ class InputManager
      * They are used to inform ourselves of new keyboard or mouse interactions
      */
 
+    /**
+     * The following map to a single event, but set the down parameter
+     * of the callback according to the event we've received from Qt
+     */
     void injectKeyDown(KeyboardEvent event);
     void injectKeyUp(KeyboardEvent event);
 
