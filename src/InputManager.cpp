@@ -2,6 +2,9 @@
 
 InputManager::InputManager()
 {
+  // TODO Make this map configurable / built from a file
+  mKeyToEventMappings.insert( 
+      std::pair<int, int>(Key::Q, Event::QUIT) );
 }
 
 InputManager::~InputManager()
@@ -17,11 +20,12 @@ InputManager::~InputManager()
   mEventMappings.clear();
 }
 
-void InputManager::injectKeyDown()
+void InputManager::injectKeyDown(KeyboardEvent event)
 {
+  mEventMappings[ mKeyToEventMappings[event.key] ]->call();
 }
 
-void InputManager::injectKeyUp()
+void InputManager::injectKeyUp(KeyboardEvent event)
 {
 }
 

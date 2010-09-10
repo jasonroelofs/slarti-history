@@ -5,6 +5,7 @@
 
 #include "Game.h"
 #include "Event.h"
+#include "QtEventConverter.h"
 
 Game::Game(void)
   : GameLogic()
@@ -57,10 +58,6 @@ void Game::initialise(void)
   mInputManager->map(Event::QUIT, this, &Game::stop);
 }
 
-void Game::update(void)
-{
-}
-
 /**
  * Our handler to shut the game down.
  * Simply tells the Application to shut down, which will then
@@ -68,6 +65,14 @@ void Game::update(void)
  */
 void Game::stop(void) {
   mApplication->shutdown();  
+}
+
+/**
+ * GameLogic Callbacks
+ */
+
+void Game::update(void)
+{
 }
 
 /**
@@ -88,17 +93,7 @@ void Game::shutdown(void)
 void Game::onKeyPress(QKeyEvent* event)
 {
   log("ON KEY PRESS EVENT!");
-
-  /** NOTES
-   * Need to take QKeyEvent / QMouseEvent and transform them to our own
-   * internal Event object.
-   *
-   * See http://doc.qt.nokia.com/4.6/qt.html#Key-enum
-   *
-   * For QKeyEvent, grab the values of ::text() and ::key(), and we
-   * should save the code, the text, and the modifier map
-   */
-  //mInputManager->injectKeyDown(QtEventConverter::convert(event));
+  mInputManager->injectKeyDown(QtEventConverter::convert(event));
 }
 
 void Game::onKeyRelease(QKeyEvent* event)

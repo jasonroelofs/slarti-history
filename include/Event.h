@@ -1,6 +1,10 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
+#include <Qt>
+
+#define CALL_EVENT_CALLBACK(object, function) ((object).*(function))
+
 namespace Event {
   /**
    * Enumeration of available EVENT types for input handling,
@@ -9,6 +13,18 @@ namespace Event {
    */
   enum Events {
     QUIT
+  };
+}
+
+namespace Key {
+  /**
+   * Our custom key binding enumeration.
+   * For simplicity's sake, they are equal to Qt values.
+   * I much prefer to build an API that lets one say
+   * Key::Q over Key_Q
+   */
+  enum Keys {
+    Q = Qt::Key_Q
   };
 }
 
@@ -33,7 +49,7 @@ class EventCallback : public EventCallbackBase {
     }
 
     virtual void call() {
-
+      CALL_EVENT_CALLBACK(*mObject, mCallback)();
     }
 
   private:

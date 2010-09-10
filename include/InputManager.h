@@ -4,6 +4,7 @@
 #include <map>
 
 #include "Event.h"
+#include "KeyboardEvent.h"
 
 /**
  * This class handles all manner of input dispatch throughout
@@ -24,10 +25,13 @@ class InputManager
      * Map an Event to an object and a method to call on that object.
      */
     template<typename Object_T, typename Callback_T>
-    void map(enum Event::Events event, Object_T* object, Callback_T callback)
+    void map(int event, Object_T* object, Callback_T callback)
     {
-      EventCallbackBase* eventCallback = new EventCallback<Object_T, Callback_T>(object, callback);
-      mEventMappings.insert( std::pair<enum Event::Events, EventCallbackBase*>(event, eventCallback) );
+      EventCallbackBase* eventCallback = 
+        new EventCallback<Object_T, Callback_T>(object, callback);
+
+      mEventMappings.insert( 
+          std::pair<int, EventCallbackBase*>(event, eventCallback) );
     }
 
 
@@ -36,8 +40,8 @@ class InputManager
      * They are used to inform ourselves of new keyboard or mouse interactions
      */
 
-    void injectKeyDown();
-    void injectKeyUp();
+    void injectKeyDown(KeyboardEvent event);
+    void injectKeyUp(KeyboardEvent event);
 
     void injectMouseDown();
     void injectMouseUp();
@@ -49,9 +53,15 @@ class InputManager
     void injectMouseWheel();
 
   private:
-    typedef std::map<enum Event::Events, EventCallbackBase*> EventMapping_T;
+    // Map Event Types to Callbacks
+    typedef std::map<int, EventCallbackBase*> EventMapping_T;
+
+    // Map Keys to Event Types
+    typedef std::map<int, int> KeyToEventMapping_T;
 
     EventMapping_T mEventMappings;
+
+    KeyToEventMapping_T mKeyToEventMappings;
 };
 
 #endif // __INPUT_MANAGER_H__
