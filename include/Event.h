@@ -24,6 +24,7 @@ namespace Key {
    * Key::Q over Key_Q
    */
   enum Keys {
+    ESCAPE = Qt::Key_Escape,
     Q = Qt::Key_Q
   };
 }
