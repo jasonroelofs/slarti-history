@@ -54,8 +54,11 @@ void Game::initialise(void)
   // Set up our input manager and hook up a few keys for ourselves
   mInputManager = new InputManager();
 
+  // Get our camera situated
+  mCameraManager = new CameraManager(mCamera, mInputManager);
+
   // Hook up some top level events
-  mInputManager->map(Event::QUIT, this, &Game::stop);
+  mInputManager->map(Event::Quit, this, &Game::stop);
 }
 
 /**

@@ -4,9 +4,9 @@ InputManager::InputManager()
 {
   // TODO Make this map configurable / built from a file
   mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Q, Event::QUIT) );
+      std::pair<int, int>(Key::Q, Event::Quit) );
   mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::ESCAPE, Event::QUIT) );
+      std::pair<int, int>(Key::Escape, Event::Quit) );
 }
 
 InputManager::~InputManager()
