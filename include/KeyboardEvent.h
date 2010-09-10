@@ -10,6 +10,9 @@ class KeyboardEvent {
 
     // Keycode of the key hit for this event
     int key;
+
+    // Is this key event a key down event?
+    int isDown;
 };
 
 #endif // __KEYBOARD_EVENT_H__

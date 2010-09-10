@@ -5,10 +5,10 @@
 CameraManager::CameraManager(Ogre::Camera* camera, InputManager* manager) 
   : mCamera(camera), 
     mInput(manager),
+    mMovingLeft(false),
+    mMovingRight(false),
     mMovingForward(false),
     mMovingBack(false),
-    mMovingRight(false),
-    mMovingLeft(false),
     mTopSpeed(50),
     mVelocity(Ogre::Vector3::ZERO)
 {
@@ -55,18 +55,18 @@ void CameraManager::update(float timeSinceLastFrame) {
   }
 }
 
-void CameraManager::moveLeft(bool down) {
-  mMovingLeft = down;
+void CameraManager::moveLeft(KeyboardEvent event) {
+  mMovingLeft = event.isDown;
 }
 
-void CameraManager::moveRight(bool down) {
-  mMovingRight = down;
+void CameraManager::moveRight(KeyboardEvent event) {
+  mMovingRight = event.isDown;
 }
 
-void CameraManager::moveForward(bool down) {
-  mMovingForward = down;
+void CameraManager::moveForward(KeyboardEvent event) {
+  mMovingForward = event.isDown;
 }
 
-void CameraManager::moveBack(bool down) {
-  mMovingBack = down;
+void CameraManager::moveBack(KeyboardEvent event) {
+  mMovingBack = event.isDown;
 }

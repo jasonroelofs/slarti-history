@@ -70,7 +70,7 @@ void Game::initialise(void)
  * Simply tells the Application to shut down, which will then
  * call ::shutdown, where we will clean up all resources
  */
-void Game::stop(bool down) {
+void Game::stop(KeyboardEvent event) {
   mApplication->shutdown();  
 }
 

@@ -8,6 +8,7 @@
 
 #include "InputManager.h"
 #include "CameraManager.h"
+#include "KeyboardEvent.h"
 
 class Game : public QtOgre::GameLogic
 {
@@ -18,7 +19,7 @@ class Game : public QtOgre::GameLogic
     /**
      * Shut down the game
      */
-    void stop(bool);
+    void stop(KeyboardEvent event);
 
     /**
      * Initialise the game logic

@@ -33,12 +33,14 @@ InputManager::~InputManager()
 
 void InputManager::injectKeyDown(KeyboardEvent event)
 {
-  mEventMappings[ mKeyToEventMappings[event.key] ]->call(true);
+  event.isDown = true;
+  mEventMappings[ mKeyToEventMappings[event.key] ]->call(event);
 }
 
 void InputManager::injectKeyUp(KeyboardEvent event)
 {
-  mEventMappings[ mKeyToEventMappings[event.key] ]->call(false);
+  event.isDown = false;
+  mEventMappings[ mKeyToEventMappings[event.key] ]->call(event);
 }
 
 void InputManager::injectMouseDown()

@@ -3,6 +3,8 @@
 
 #include <Qt>
 
+#include "KeyboardEvent.h"
+
 #define CALL_EVENT_CALLBACK(object, function) ((object).*(function))
 
 namespace Event {
@@ -48,7 +50,7 @@ class EventCallbackBase {
     /**
      * Run this event, executing the callback
      */
-    virtual void call(bool) = 0;
+    virtual void call(KeyboardEvent event) = 0;
 };
 
 template<typename Object_T, typename Callback_T>
@@ -60,8 +62,8 @@ class EventCallback : public EventCallbackBase {
     {
     }
 
-    virtual void call(bool down) {
-      CALL_EVENT_CALLBACK(*mObject, mCallback)(down);
+    virtual void call(KeyboardEvent event) {
+      CALL_EVENT_CALLBACK(*mObject, mCallback)(event);
     }
 
   private:
