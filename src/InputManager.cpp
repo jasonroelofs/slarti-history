@@ -15,7 +15,7 @@ InputManager::InputManager()
   mKeyToEventMappings.insert( 
       std::pair<int, int>(Key::Up, Event::MoveForward) );
   mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Up, Event::MoveBack) );
+      std::pair<int, int>(Key::Down, Event::MoveBack) );
 }
 
 InputManager::~InputManager()
