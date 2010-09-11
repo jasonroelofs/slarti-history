@@ -31,15 +31,15 @@ class CameraManager {
      * is released.
      */
 
-    void moveLeft(KeyboardEvent event);
-    void moveRight(KeyboardEvent event);
-    void moveForward(KeyboardEvent event);
-    void moveBack(KeyboardEvent event);
+    void moveLeft(InputEvent event);
+    void moveRight(InputEvent event);
+    void moveForward(InputEvent event);
+    void moveBack(InputEvent event);
 
     /**
      * Rotating the view according to the mouse movement
      */
-    void rotateView(MouseEvent event);
+    void rotateView(InputEvent event);
 
   private:
     Ogre::Camera* mCamera;

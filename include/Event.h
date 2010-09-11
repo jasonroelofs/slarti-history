@@ -25,6 +25,11 @@ namespace Event {
 
     Quit
   };
+
+  enum EventTypes {
+    KeyboardEvent,
+    MouseEvent
+  };
 }
 
 namespace Key {
@@ -51,17 +56,21 @@ namespace Key {
  ********************************************/
 
 /**
- * Base class for all input event classes.
- * Don't use this class directly
+ * All input events get converted into this
+ * class. It knows if it's keyboard or mouse
+ * via type.
  */
-class InputEvent { };
-
-/**
- * Our own keyboard event handler class.
- */
-class KeyboardEvent : public InputEvent {
+class InputEvent {
   public:
-    KeyboardEvent(int key) : key(key) { }
+    InputEvent(int key, int type) 
+      : type(type),
+        key(key)
+    { }
+
+    // What type of event is this? 
+    // Will be one of Event::KeyboardEvent or
+    // Event::MouseEvent
+    int type;
 
     // Keycode of the key hit for this event
     int key;
@@ -69,15 +78,6 @@ class KeyboardEvent : public InputEvent {
     // Is this key event a key down event?
     int isDown;
 };
-
-/**
- * Handles mouse events
- */
-class MouseEvent : public InputEvent {
-  public:
-    MouseEvent() {}
-};
-
 
 /********************************************
  * Event Callback Handlers
@@ -104,10 +104,7 @@ class EventCallback : public EventCallbackBase {
     }
 
     virtual void call(InputEvent event) {
-      // TODO
-      // Need to pointer-ify the event stuff for this to work
-      // 
-      CALL_EVENT_CALLBACK(*mObject, mCallback)((KeyboardEvent)event);
+      CALL_EVENT_CALLBACK(*mObject, mCallback)(event);
     }
 
   private:

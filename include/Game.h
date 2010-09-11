@@ -19,7 +19,7 @@ class Game : public QtOgre::GameLogic
     /**
      * Shut down the game
      */
-    void stop(KeyboardEvent event);
+    void stop(InputEvent event);
 
     /**
      * Initialise the game logic

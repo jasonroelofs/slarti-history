@@ -31,13 +31,13 @@ InputManager::~InputManager()
   mEventMappings.clear();
 }
 
-void InputManager::injectKeyDown(KeyboardEvent event)
+void InputManager::injectKeyDown(InputEvent event)
 {
   event.isDown = true;
   mEventMappings[ mKeyToEventMappings[event.key] ]->call(event);
 }
 
-void InputManager::injectKeyUp(KeyboardEvent event)
+void InputManager::injectKeyUp(InputEvent event)
 {
   event.isDown = false;
   mEventMappings[ mKeyToEventMappings[event.key] ]->call(event);

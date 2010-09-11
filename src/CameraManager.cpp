@@ -57,21 +57,21 @@ void CameraManager::update(float timeSinceLastFrame) {
   }
 }
 
-void CameraManager::rotateView(MouseEvent event) {
+void CameraManager::rotateView(InputEvent event) {
 }
 
-void CameraManager::moveLeft(KeyboardEvent event) {
+void CameraManager::moveLeft(InputEvent event) {
   mMovingLeft = event.isDown;
 }
 
-void CameraManager::moveRight(KeyboardEvent event) {
+void CameraManager::moveRight(InputEvent event) {
   mMovingRight = event.isDown;
 }
 
-void CameraManager::moveForward(KeyboardEvent event) {
+void CameraManager::moveForward(InputEvent event) {
   mMovingForward = event.isDown;
 }
 
-void CameraManager::moveBack(KeyboardEvent event) {
+void CameraManager::moveBack(InputEvent event) {
   mMovingBack = event.isDown;
 }

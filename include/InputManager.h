@@ -43,8 +43,8 @@ class InputManager
      * The following map to a single event, but set the down parameter
      * of the callback according to the event we've received from Qt
      */
-    void injectKeyDown(KeyboardEvent event);
-    void injectKeyUp(KeyboardEvent event);
+    void injectKeyDown(InputEvent event);
+    void injectKeyUp(InputEvent event);
 
     void injectMouseDown();
     void injectMouseUp();

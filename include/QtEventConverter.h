@@ -16,8 +16,8 @@ class QtEventConverter {
      * Given a Key Event from Qt, convert it into
      * our own KeyboardEvent.
      */
-    static KeyboardEvent convert(QKeyEvent* event) {
-      return KeyboardEvent(event->key());
+    static InputEvent convert(QKeyEvent* event) {
+      return InputEvent(event->key(), Event::KeyboardEvent);
     }
 
 };
