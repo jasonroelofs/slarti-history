@@ -49,7 +49,7 @@ class InputManager
     void injectMouseDown();
     void injectMouseUp();
 
-    void injectMouseMoved();
+    void injectMouseMoved(InputEvent event);
 
     void injectMouseDoubleClick();
 

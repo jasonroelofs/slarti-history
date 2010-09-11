@@ -49,6 +49,16 @@ namespace Key {
 
     Q = Qt::Key_Q
   };
+
+  /**
+   * Our map of mouse buttons
+   */
+  enum Buttons {
+    None = Qt::NoButton,
+    LeftMouse = Qt::LeftButton,
+    RightMouse = Qt::RightButton,
+    MiddleMouse = Qt::MidButton
+  };
 }
 
 /********************************************
@@ -72,11 +82,19 @@ class InputEvent {
     // Event::MouseEvent
     int type;
 
-    // Keycode of the key hit for this event
+    // Keycode of the key hit for this event.
+    // For MouseEvents, this will be an OR map of
+    // LeftButton / RightButton / MiddleButton
     int key;
 
     // Is this key event a key down event?
     int isDown;
+
+    // Current position of the mouse, relative to the window
+    int x, y;
+
+    // Current global position of the mouse
+    int globalX, globalY;
 };
 
 /********************************************

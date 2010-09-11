@@ -2,6 +2,7 @@
 #define __Qt_EVENT_CONVERTER_H__
 
 #include <QKeyEvent>
+#include <QMouseEvent>
 
 #include "Event.h"
 
@@ -14,10 +15,23 @@ class QtEventConverter {
 
     /**
      * Given a Key Event from Qt, convert it into
-     * our own KeyboardEvent.
+     * our own InputEvent.
      */
     static InputEvent convert(QKeyEvent* event) {
       return InputEvent(event->key(), Event::KeyboardEvent);
+    }
+
+    /**
+     * Given a Mouse Event from Qt, convert it to
+     * our InputEvent with the information we need
+     */
+    static InputEvent convert(QMouseEvent* event) {
+      InputEvent evt(event->buttons(), Event::MouseEvent);
+      evt.x = event->x();
+      evt.y = event->y();
+      evt.globalX = event->globalX();
+      evt.globalY = event->globalY();
+      return evt;
     }
 
 };

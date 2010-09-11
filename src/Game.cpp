@@ -132,8 +132,9 @@ void Game::onMouseDoubleClick(QMouseEvent* event)
 void Game::onMouseMove(QMouseEvent* event)
 {
   log("ON MOUSE MOVE EVENT!");
-  mCamera->yaw(Ogre::Degree(-event->x() * 0.0015f));
-  mCamera->pitch(Ogre::Degree(-event->y() * 0.0015f));
+  mInputManager->injectMouseMoved(QtEventConverter::convert(event));
+  //mCamera->yaw(Ogre::Degree(-event->x() * 0.0015f));
+  //mCamera->pitch(Ogre::Degree(-event->y() * 0.0015f));
 }
 
 void Game::onWheel(QWheelEvent* event)

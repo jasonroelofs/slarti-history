@@ -51,8 +51,13 @@ void InputManager::injectMouseUp()
 {
 }
 
-void InputManager::injectMouseMoved()
+/**
+ * MouseMove is a special case. There is no key to bind
+ * to, just look for events waiting on MouseMoved
+ */
+void InputManager::injectMouseMoved(InputEvent event)
 {
+  mEventMappings[ Event::MouseMoved ]->call(event);
 }
 
 void InputManager::injectMouseDoubleClick()
