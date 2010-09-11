@@ -58,8 +58,8 @@ void CameraManager::update(float timeSinceLastFrame) {
 }
 
 void CameraManager::rotateView(InputEvent event) {
-  mCamera->yaw(Ogre::Degree(-event.x * 0.0015f));
-  mCamera->pitch(Ogre::Degree(-event.y * 0.0015f));
+  mCamera->yaw(Ogre::Degree(-event.xDiff * 0.015f));
+  mCamera->pitch(Ogre::Degree(-event.yDiff * 0.015f));
 }
 
 void CameraManager::moveLeft(InputEvent event) {

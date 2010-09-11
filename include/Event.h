@@ -93,6 +93,9 @@ class InputEvent {
     // Current position of the mouse, relative to the window
     int x, y;
 
+    // How has the mouse changed since the last event?
+    int xDiff, yDiff;
+
     // Current global position of the mouse
     int globalX, globalY;
 };

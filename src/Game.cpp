@@ -2,6 +2,7 @@
 #include <QMouseEvent>
 #include <QWidget>
 #include <QCursor>
+#include <QPoint>
 
 #include "Game.h"
 #include "Event.h"
@@ -49,7 +50,6 @@ void Game::initialise(void)
    */
   mApplication->mainWidget()->setMouseTracking(true);
   mApplication->mainWidget()->setCursor( QCursor(Qt::BlankCursor) );
-  mApplication->mainWidget()->grabMouse();
 
   // Set up our input manager and hook up a few keys for ourselves
   mInputManager = new InputManager();
@@ -131,10 +131,8 @@ void Game::onMouseDoubleClick(QMouseEvent* event)
 
 void Game::onMouseMove(QMouseEvent* event)
 {
-  log("ON MOUSE MOVE EVENT!");
-  mInputManager->injectMouseMoved(QtEventConverter::convert(event));
-  //mCamera->yaw(Ogre::Degree(-event->x() * 0.0015f));
-  //mCamera->pitch(Ogre::Degree(-event->y() * 0.0015f));
+  InputEvent evt = QtEventConverter::convert(event);
+  mInputManager->injectMouseMoved(evt);
 }
 
 void Game::onWheel(QWheelEvent* event)
