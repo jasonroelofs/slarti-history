@@ -34,13 +34,13 @@ InputManager::~InputManager()
 void InputManager::injectKeyDown(InputEvent event)
 {
   event.isDown = true;
-  mEventMappings[ mKeyToEventMappings[event.key] ]->call(event);
+  runMappingForEvent(event, findKeyFor(event.key));
 }
 
 void InputManager::injectKeyUp(InputEvent event)
 {
   event.isDown = false;
-  mEventMappings[ mKeyToEventMappings[event.key] ]->call(event);
+  runMappingForEvent(event, findKeyFor(event.key));
 }
 
 void InputManager::injectMouseDown()
@@ -57,7 +57,7 @@ void InputManager::injectMouseUp()
  */
 void InputManager::injectMouseMoved(InputEvent event)
 {
-  mEventMappings[ Event::MouseMoved ]->call(event);
+  runMappingForEvent(event, Event::MouseMoved);
 }
 
 void InputManager::injectMouseDoubleClick()
@@ -66,4 +66,29 @@ void InputManager::injectMouseDoubleClick()
 
 void InputManager::injectMouseWheel()
 {
+}
+
+/**
+ * Find an event handler and run it for the given key.
+ * We do this because std::map::operator[] will end up creating
+ * an entry if one doesn't exist, and we want to make very sure
+ * that unmapped keys are ignored.
+ */
+
+void InputManager::runMappingForEvent(InputEvent event, int key) {
+  if(key < 0) {
+    return;
+  }
+  
+  if(mEventMappings.count(key) > 0) {
+    mEventMappings[key]->call(event); 
+  }
+}
+
+int InputManager::findKeyFor(int key) {
+  if(mKeyToEventMappings.count(key) > 0) {
+    return mKeyToEventMappings[key];
+  } else {
+    return -1;
+  }
 }

@@ -55,6 +55,11 @@ class InputManager
 
     void injectMouseWheel();
 
+  protected:
+
+    void runMappingForEvent(InputEvent event, int key);
+    int findKeyFor(int key);
+
   private:
     // Map Event Types to Callbacks
     typedef std::map<int, EventCallbackBase*> EventMapping_T;
