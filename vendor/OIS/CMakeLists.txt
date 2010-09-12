@@ -8,10 +8,6 @@ set(OIS_SRC
     src/OISObject.cpp
 )
 
-if (OGREKIT_BUILD_IPHONE)
-	set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/OISInputManager.cpp PROPERTIES COMPILE_FLAGS "-x objective-c++")
-endif()
-
 set(OIS_HDR
 	include/OIS.h
 	include/OISConfig.h
@@ -32,13 +28,9 @@ set(OIS_HDR
 
 if (WIN32)
 	set(OIS_BUILD_WIN32 FALSE)
-	if (OGREKIT_OIS_WIN32_NATIVE)
-		set(OIS_BUILD_WIN32 TRUE)
-	else ()
-		if (NOT DirectX_FOUND)
-			set(OIS_BUILD_WIN32 TRUE)
-		endif()
-	endif()
+  if (NOT DirectX_FOUND)
+    set(OIS_BUILD_WIN32 TRUE)
+  endif()
 	
 	if (NOT OIS_BUILD_WIN32)
 		set(OIS_PLAT 
@@ -74,39 +66,24 @@ endif()
 
 
 if (APPLE) 
-	if (OGREKIT_BUILD_IPHONE)
-		#add_definitions(-DOIS_IPHONE_PLATFORM)
-		set(OIS_PLAT
-			include/iphone/iPhoneAccelerometer.h
-			include/iphone/iPhoneHelpers.h
-			include/iphone/iPhoneInputManager.h
-			include/iphone/iPhoneMultiTouch.h
-			include/iphone/iPhonePrereqs.h
+  set(OIS_PLAT 
+    include/mac/MacHIDManager.h
+    include/mac/MacHelpers.h
+    include/mac/MacInputManager.h
+    include/mac/MacJoyStick.h
+    include/mac/MacKeyboard.h
+    include/mac/MacMouse.h
+    include/mac/MacPrereqs.h
 
-			src/iphone/iPhoneAccelerometer.mm
-			src/iphone/iPhoneInputManager.mm
-			src/iphone/iPhoneMultiTouch.mm
-		)
-	else()
-		set(OIS_PLAT 
-			include/mac/MacHIDManager.h
-			include/mac/MacHelpers.h
-			include/mac/MacInputManager.h
-			include/mac/MacJoyStick.h
-			include/mac/MacKeyboard.h
-			include/mac/MacMouse.h
-			include/mac/MacPrereqs.h
-
-			src/mac/MacHIDManager.cpp
-			src/mac/MacHelpers.cpp
-			src/mac/MacInputManager.cpp
-			src/mac/MacJoyStick.cpp
-			src/mac/MacKeyboard.cpp
-			src/mac/MacMouse.cpp
-		)
-	endif()
+    src/mac/MacHIDManager.cpp
+    src/mac/MacHelpers.cpp
+    src/mac/MacInputManager.cpp
+    src/mac/MacJoyStick.cpp
+    src/mac/MacKeyboard.cpp
+    src/mac/MacMouse.cpp
+  )
     
-    if (IOKit_FOUND)
+  if (IOKit_FOUND)
 		link_libraries(${IOKit_LIBRARIES})
 	endif()
 else ()
@@ -131,5 +108,5 @@ else ()
 	endif()
 endif()
 
-include_directories(${OGREKIT_OIS_INCLUDE} )
+include_directories(include include/OIS)
 add_library(OIS ${OIS_SRC} ${OIS_HDR} ${OIS_PLAT})
