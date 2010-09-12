@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/src
+END
+libraw_cxx.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/src/libraw_cxx.cpp
+END
+libraw_c_api.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/src/libraw_c_api.cpp
+END

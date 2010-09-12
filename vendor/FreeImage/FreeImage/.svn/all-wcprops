@@ -1,0 +1,377 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage
+END
+WuQuantizer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/WuQuantizer.cpp
+END
+tmoColorConvert.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/tmoColorConvert.cpp
+END
+PluginSGI.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginSGI.cpp
+END
+PSDParser.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PSDParser.cpp
+END
+PluginRAS.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginRAS.cpp
+END
+PluginJ2K.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginJ2K.cpp
+END
+PluginPSD.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginPSD.cpp
+END
+PluginKOALA.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginKOALA.cpp
+END
+PluginTIFF.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginTIFF.cpp
+END
+PluginRAW.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginRAW.cpp
+END
+PluginPCX.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginPCX.cpp
+END
+Conversion4.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Conversion4.cpp
+END
+PluginJP2.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginJP2.cpp
+END
+PluginCUT.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginCUT.cpp
+END
+Conversion8.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Conversion8.cpp
+END
+tmoDrago03.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/tmoDrago03.cpp
+END
+tmoReinhard05.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/tmoReinhard05.cpp
+END
+GetType.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/GetType.cpp
+END
+PluginIFF.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginIFF.cpp
+END
+PluginWBMP.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginWBMP.cpp
+END
+Conversion.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Conversion.cpp
+END
+PluginDDS.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginDDS.cpp
+END
+Conversion32.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Conversion32.cpp
+END
+Conversion16_555.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Conversion16_555.cpp
+END
+PluginHDR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginHDR.cpp
+END
+Plugin.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Plugin.cpp
+END
+BitmapAccess.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/BitmapAccess.cpp
+END
+MemoryIO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/MemoryIO.cpp
+END
+PluginMNG.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginMNG.cpp
+END
+PluginPFM.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginPFM.cpp
+END
+PluginPNG.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginPNG.cpp
+END
+PixelAccess.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PixelAccess.cpp
+END
+CacheFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/CacheFile.cpp
+END
+PluginJPEG.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginJPEG.cpp
+END
+PluginXBM.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginXBM.cpp
+END
+PSDParser.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PSDParser.h
+END
+ColorLookup.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/ColorLookup.cpp
+END
+PluginPNM.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginPNM.cpp
+END
+FreeImageIO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/FreeImageIO.cpp
+END
+PluginTARGA.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginTARGA.cpp
+END
+PluginEXR.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginEXR.cpp
+END
+NNQuantizer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/NNQuantizer.cpp
+END
+PluginPICT.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginPICT.cpp
+END
+ToneMapping.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/ToneMapping.cpp
+END
+TIFFLogLuv.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/TIFFLogLuv.cpp
+END
+ZLibInterface.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/ZLibInterface.cpp
+END
+PluginXPM.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginXPM.cpp
+END
+FreeImage.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/FreeImage.cpp
+END
+PluginGIF.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginGIF.cpp
+END
+PluginPCD.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginPCD.cpp
+END
+J2KHelper.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/J2KHelper.cpp
+END
+ConversionRGBF.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/ConversionRGBF.cpp
+END
+FreeImageC.c
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/FreeImageC.c
+END
+ConversionType.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/ConversionType.cpp
+END
+MultiPage.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/MultiPage.cpp
+END
+PluginG3.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginG3.cpp
+END
+PluginICO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginICO.cpp
+END
+Halftoning.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Halftoning.cpp
+END
+Conversion24.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Conversion24.cpp
+END
+Conversion16_565.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/Conversion16_565.cpp
+END
+PluginBMP.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/PluginBMP.cpp
+END
+tmoFattal02.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/FreeImage/tmoFattal02.cpp
+END

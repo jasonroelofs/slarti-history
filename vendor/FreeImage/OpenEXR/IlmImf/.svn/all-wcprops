@@ -1,0 +1,773 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf
+END
+ImfTiledRgbaFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTiledRgbaFile.h
+END
+ImfXdr.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfXdr.h
+END
+ImfRationalAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRationalAttribute.h
+END
+ImfB44Compressor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfB44Compressor.cpp
+END
+ImfBoxAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfBoxAttribute.cpp
+END
+ImfChromaticities.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfChromaticities.h
+END
+ImfIO.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfIO.h
+END
+ImfScanLineInputFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfScanLineInputFile.cpp
+END
+ImfAutoArray.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfAutoArray.h
+END
+ImfEnvmapAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfEnvmapAttribute.h
+END
+ImfRgbaFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRgbaFile.h
+END
+ImfIntAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfIntAttribute.h
+END
+ImfEnvmap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfEnvmap.cpp
+END
+ImfChannelListAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfChannelListAttribute.cpp
+END
+b44ExpLogTable.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/b44ExpLogTable.h
+END
+ImfCompressionAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfCompressionAttribute.h
+END
+ImfVersion.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfVersion.h
+END
+ImfTileDescriptionAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTileDescriptionAttribute.h
+END
+ImfChromaticitiesAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfChromaticitiesAttribute.cpp
+END
+ImfTimeCode.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTimeCode.h
+END
+ImfRleCompressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRleCompressor.h
+END
+ImfOutputFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfOutputFile.h
+END
+ImfThreading.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfThreading.cpp
+END
+ImfIO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfIO.cpp
+END
+ImfChromaticities.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfChromaticities.cpp
+END
+ImfInt64.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfInt64.h
+END
+ImfChannelList.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfChannelList.h
+END
+ImfB44Compressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfB44Compressor.h
+END
+ImfRgbaFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRgbaFile.cpp
+END
+ImfLineOrderAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfLineOrderAttribute.h
+END
+ImfKeyCodeAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfKeyCodeAttribute.h
+END
+ImfHuf.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfHuf.cpp
+END
+ImfName.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfName.h
+END
+ImfPixelType.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPixelType.h
+END
+ImfEnvmap.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfEnvmap.h
+END
+ImfPxr24Compressor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPxr24Compressor.cpp
+END
+ImfRleCompressor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRleCompressor.cpp
+END
+ImfLut.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfLut.cpp
+END
+ImfVecAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfVecAttribute.h
+END
+ImfLineOrderAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfLineOrderAttribute.cpp
+END
+ImfKeyCodeAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfKeyCodeAttribute.cpp
+END
+ImfAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfAttribute.h
+END
+ImfOpaqueAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfOpaqueAttribute.cpp
+END
+ImfStdIO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfStdIO.cpp
+END
+ImfTimeCodeAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTimeCodeAttribute.h
+END
+ImfTiledMisc.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTiledMisc.h
+END
+ImfPreviewImage.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPreviewImage.cpp
+END
+ImfPizCompressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPizCompressor.h
+END
+ImfConvert.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfConvert.h
+END
+ImfHuf.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfHuf.h
+END
+ImfFrameBuffer.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfFrameBuffer.h
+END
+ImfCompressor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfCompressor.cpp
+END
+ImfHeader.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfHeader.h
+END
+ImfMatrixAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfMatrixAttribute.h
+END
+ImfFloatAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfFloatAttribute.h
+END
+ImfMisc.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfMisc.h
+END
+ImfWav.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfWav.h
+END
+ImfAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfAttribute.cpp
+END
+ImfRational.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRational.cpp
+END
+ImfStandardAttributes.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfStandardAttributes.h
+END
+ImfCRgbaFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfCRgbaFile.cpp
+END
+ImfPizCompressor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPizCompressor.cpp
+END
+ImfTiledOutputFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTiledOutputFile.cpp
+END
+ImfArray.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfArray.h
+END
+ImfOpaqueAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfOpaqueAttribute.h
+END
+b44ExpLogTable.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/b44ExpLogTable.cpp
+END
+ImfStdIO.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfStdIO.h
+END
+ImfMisc.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfMisc.cpp
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/Makefile.am
+END
+ImfDoubleAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfDoubleAttribute.cpp
+END
+ImfOutputFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfOutputFile.cpp
+END
+ImfChannelList.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfChannelList.cpp
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/Makefile.in
+END
+ImfStandardAttributes.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfStandardAttributes.cpp
+END
+ImfThreading.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfThreading.h
+END
+ImfPreviewImageAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPreviewImageAttribute.h
+END
+ImfRgbaYca.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRgbaYca.h
+END
+ImfRgba.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRgba.h
+END
+ImfTiledInputFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTiledInputFile.cpp
+END
+ImfCRgbaFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfCRgbaFile.h
+END
+ImfTestFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTestFile.h
+END
+ImfFramesPerSecond.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfFramesPerSecond.h
+END
+ImfTiledOutputFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTiledOutputFile.h
+END
+ImfTileOffsets.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTileOffsets.h
+END
+ImfTiledRgbaFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTiledRgbaFile.cpp
+END
+ImfRationalAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRationalAttribute.cpp
+END
+ImfDoubleAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfDoubleAttribute.h
+END
+ImfTestFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTestFile.cpp
+END
+ImfConvert.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfConvert.cpp
+END
+ImfBoxAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfBoxAttribute.h
+END
+ImfScanLineInputFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfScanLineInputFile.h
+END
+ImfFrameBuffer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfFrameBuffer.cpp
+END
+ImfTileDescriptionAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTileDescriptionAttribute.cpp
+END
+ImfVersion.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfVersion.cpp
+END
+ImfCompressionAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfCompressionAttribute.cpp
+END
+ImfTileOffsets.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTileOffsets.cpp
+END
+ImfKeyCode.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfKeyCode.h
+END
+ImfLineOrder.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfLineOrder.h
+END
+ImfHeader.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfHeader.cpp
+END
+ImfMatrixAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfMatrixAttribute.cpp
+END
+ImfTimeCode.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTimeCode.cpp
+END
+ImfChannelListAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfChannelListAttribute.h
+END
+ImfInputFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfInputFile.h
+END
+ImfRational.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRational.h
+END
+ImfKeyCode.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfKeyCode.cpp
+END
+ImfZipCompressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfZipCompressor.h
+END
+ImfStringAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfStringAttribute.cpp
+END
+ImfInputFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfInputFile.cpp
+END
+ImfVecAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfVecAttribute.cpp
+END
+ImfPxr24Compressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPxr24Compressor.h
+END
+ImfTileDescription.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTileDescription.h
+END
+ImfCompression.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfCompression.h
+END
+ImfPreviewImageAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPreviewImageAttribute.cpp
+END
+ImfRgbaYca.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfRgbaYca.cpp
+END
+ImfLut.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfLut.h
+END
+ImfEnvmapAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfEnvmapAttribute.cpp
+END
+ImfTimeCodeAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTimeCodeAttribute.cpp
+END
+ImfTiledMisc.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTiledMisc.cpp
+END
+ImfIntAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfIntAttribute.cpp
+END
+ImfZipCompressor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfZipCompressor.cpp
+END
+ImfFramesPerSecond.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfFramesPerSecond.cpp
+END
+ImfTiledInputFile.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfTiledInputFile.h
+END
+ImfFloatAttribute.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfFloatAttribute.cpp
+END
+ImfPreviewImage.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfPreviewImage.h
+END
+ImfWav.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfWav.cpp
+END
+ImfStringAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfStringAttribute.h
+END
+ImfChromaticitiesAttribute.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfChromaticitiesAttribute.h
+END
+ImfCompressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/OpenEXR/IlmImf/ImfCompressor.h
+END

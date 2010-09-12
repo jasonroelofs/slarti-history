@@ -1,0 +1,203 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG
+END
+pngerror.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngerror.c
+END
+configure
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/configure
+END
+pngwtran.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngwtran.c
+END
+pngvcrd.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngvcrd.c
+END
+libpng.txt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/libpng.txt
+END
+KNOWNBUG
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/KNOWNBUG
+END
+pngread.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngread.c
+END
+pngmem.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngmem.c
+END
+pngget.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngget.c
+END
+png.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/png.c
+END
+INSTALL
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/INSTALL
+END
+CHANGES
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/CHANGES
+END
+pnggccrd.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pnggccrd.c
+END
+png.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/png.h
+END
+libpng.3
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/libpng.3
+END
+pngtrans.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngtrans.c
+END
+pngrio.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngrio.c
+END
+pngconf.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngconf.h
+END
+pngwrite.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngwrite.c
+END
+pngpread.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngpread.c
+END
+Y2KINFO
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/Y2KINFO
+END
+pngset.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngset.c
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/LICENSE
+END
+pngwio.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngwio.c
+END
+pngrutil.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngrutil.c
+END
+png.5
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/png.5
+END
+pngwutil.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngwutil.c
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/README
+END
+libpngpf.3
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/libpngpf.3
+END
+pngtest.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngtest.c
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/TODO
+END
+ANNOUNCE
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/ANNOUNCE
+END
+pngrtran.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibPNG/pngrtran.c
+END

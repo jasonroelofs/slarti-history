@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/libraw
+END
+libraw_alloc.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/libraw/libraw_alloc.h
+END
+libraw_internal.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/libraw/libraw_internal.h
+END
+libraw.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/libraw/libraw.h
+END
+libraw_types.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/libraw/libraw_types.h
+END
+libraw_version.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/libraw/libraw_version.h
+END
+libraw_datastream.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/libraw/libraw_datastream.h
+END
+libraw_const.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/259/trunk/Dependencies/Source/FreeImage/LibRawLite/libraw/libraw_const.h
+END
