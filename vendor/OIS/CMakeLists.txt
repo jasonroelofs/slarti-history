@@ -108,5 +108,5 @@ else ()
 	endif()
 endif()
 
-include_directories(include include/OIS)
+include_directories(${OIS_INCLUDE_DIR})
 add_library(OIS ${OIS_SRC} ${OIS_HDR} ${OIS_PLAT})

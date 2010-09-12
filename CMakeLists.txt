@@ -17,4 +17,6 @@ if(APPLE)
 
 endif(APPLE)
 
+set(OIS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vendor/OIS/include)
+
 subdirs(vendor/OIS)
