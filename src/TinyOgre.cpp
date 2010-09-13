@@ -22,6 +22,10 @@ This source file is part of the
 #include <OgreEntity.h>
 #include <OgreWindowEventUtilities.h>
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+#include <macUtils.h>
+#endif
+
 //-------------------------------------------------------------------------------------
 TinyOgre::TinyOgre(void)
     : mRoot(0),
@@ -40,9 +44,9 @@ TinyOgre::~TinyOgre(void)
 
 bool TinyOgre::go(void)
 {
-#ifdef _DEBUG
-    mResourcesCfg = "resources_d.cfg";
-    mPluginsCfg = "plugins_d.cfg";
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+		mResourcesCfg = Ogre::macBundlePath() + "/Contents/Resources/resources.cfg";
+		mPluginsCfg = Ogre::macBundlePath() + "/Contents/Resources/plugins.cfg";
 #else
     mResourcesCfg = "resources.cfg";
     mPluginsCfg = "plugins.cfg";

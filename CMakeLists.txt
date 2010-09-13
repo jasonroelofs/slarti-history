@@ -27,6 +27,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/ext/include
   ${CMAKE_CURRENT_SOURCE_DIR}/ext/include/OGRE
+  ${CMAKE_CURRENT_SOURCE_DIR}/ext/include/OGRE/OSX
   ${CMAKE_CURRENT_SOURCE_DIR}/ext/include/OIS
 )
 
