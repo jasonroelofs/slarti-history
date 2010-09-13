@@ -24,3 +24,34 @@ namespace :base do
 
 end
 
+task :default => [:build, :run]
+
+desc "Re-run cmake"
+task :configure do
+  mkdir_p "build"
+  cd "build" do
+    sh "cmake -G Xcode ../"
+  end
+end
+
+desc "Build slartibartfast"
+task :build do
+  mkdir_p "build"
+  cd "build" do
+    sh "xcodebuild"
+  end
+end
+
+desc "Clean up the build"
+task :clean do
+  cd "build" do
+    sh "xcodebuild clean"
+  end
+end
+
+desc "Run the app"
+task :run do
+  cd "build" do
+    system "open Debug/slartibartfast.app"
+  end
+end

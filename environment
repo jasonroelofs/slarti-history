@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export OGRE_HOME=/Users/roelofs/Development/OgreSDK
+export DYLD_FRAMEWORK_PATH=$OGRE_HOME/lib/release:$DYLD_FRAMEWORK_PATH
