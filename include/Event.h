@@ -1,6 +1,9 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
+#include <OISKeyboard.h>
+#include <OISMouse.h>
+
 #define CALL_EVENT_CALLBACK(object, function) ((object).*(function))
 
 /********************************************
@@ -38,24 +41,23 @@ namespace Key {
    * Key::Q over Key_Q
    */
   enum Keys {
-    Escape,
+    Escape = OIS::KC_ESCAPE,
 
-    Down,
-    Left,
-    Right,
-    Up,
+    Down = OIS::KC_DOWN,
+    Left = OIS::KC_LEFT,
+    Right = OIS::KC_RIGHT,
+    Up = OIS::KC_UP,
 
-    Q,
+    Q = OIS::KC_Q,
   };
 
   /**
    * Our map of mouse buttons
    */
   enum Buttons {
-    None,
-    LeftMouse,
-    RightMouse,
-    MiddleMouse,
+    LeftMouse = OIS::MB_Left,
+    RightMouse = OIS::MB_Right,
+    MiddleMouse = OIS::MB_Middle,
   };
 }
 
@@ -97,6 +99,16 @@ class InputEvent {
     // Current global position of the mouse
     int globalX, globalY;
 };
+
+namespace Event {
+  /**
+   * Convert OIS input events to our own InputEvent
+   */
+  static InputEvent convert(const OIS::KeyEvent& arg) {
+    InputEvent event(arg.key, Event::KeyboardEvent);
+    return event;
+  }
+}
 
 /********************************************
  * Event Callback Handlers
