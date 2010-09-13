@@ -1,8 +1,6 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
-#include <Qt>
-
 #define CALL_EVENT_CALLBACK(object, function) ((object).*(function))
 
 /********************************************
@@ -40,24 +38,24 @@ namespace Key {
    * Key::Q over Key_Q
    */
   enum Keys {
-    Escape = Qt::Key_Escape,
+    Escape,
 
-    Down = Qt::Key_Down,
-    Left = Qt::Key_Left,
-    Right = Qt::Key_Right,
-    Up = Qt::Key_Up,
+    Down,
+    Left,
+    Right,
+    Up,
 
-    Q = Qt::Key_Q
+    Q,
   };
 
   /**
    * Our map of mouse buttons
    */
   enum Buttons {
-    None = Qt::NoButton,
-    LeftMouse = Qt::LeftButton,
-    RightMouse = Qt::RightButton,
-    MiddleMouse = Qt::MidButton
+    None,
+    LeftMouse,
+    RightMouse,
+    MiddleMouse,
   };
 }
 

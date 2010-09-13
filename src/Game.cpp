@@ -1,68 +1,171 @@
-#include <Application.h>
-#include <QMouseEvent>
-#include <QWidget>
-#include <QCursor>
-#include <QPoint>
-
 #include "Game.h"
 #include "Event.h"
-#include "QtEventConverter.h"
 
-Game::Game(void)
-  : GameLogic()
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+#include <macUtils.h>
+#endif
+
+Game::Game() 
+  : mShutdown(false)
 {
 }
 
-void Game::initialise(void)
+Game::~Game() 
 {
-  // Initialize Ogre
-  mRoot = Ogre::Root::getSingletonPtr();
-  mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC);
+}
 
-  mCamera = mSceneManager->createCamera("PlayerCam");
+void Game::go()
+{
+  if(!setup()) {
+    return;
+  }
 
-  mCamera->setPosition(Ogre::Vector3(0, 0, 80));
-  mCamera->lookAt(Ogre::Vector3(0, 0, -300));
-  mCamera->setNearClipDistance(5);
+  mRoot->startRendering();
 
-  Ogre::RenderWindow* window = mApplication->ogreRenderWindow();
+  // destroyScene();
+}
 
-  Ogre::Viewport* vp = window->addViewport(mCamera);
-  vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+bool Game::setup() {
+  Ogre::String resourcesCfg, pluginsCfg;
 
-  mCamera->setAspectRatio(
-      Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+  resourcesCfg = Ogre::macBundlePath() + "/Contents/Resources/resources.cfg";
+  pluginsCfg = Ogre::macBundlePath() + "/Contents/Resources/plugins.cfg";
+#else
+  resourcesCfg = "resources.cfg";
+  pluginsCfg = "plugins.cfg";
+#endif
 
-  Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+  mRoot = new Ogre::Root(pluginsCfg);
 
+  //----------------------
+  // Load Resources Config
+  //----------------------
+  {
+    // Load resource paths from config file
+    Ogre::ConfigFile cf;
+    cf.load(resourcesCfg);
+
+    // Go through all sections & settings in the file
+    Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+
+    Ogre::String secName, typeName, archName;
+    while (seci.hasMoreElements())
+    {
+      secName = seci.peekNextKey();
+      Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
+      Ogre::ConfigFile::SettingsMultiMap::iterator i;
+      for (i = settings->begin(); i != settings->end(); ++i)
+      {
+        typeName = i->first;
+        archName = i->second;
+        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+            archName, typeName, secName);
+      }
+    }
+  }
+
+  //----------------------
+  // Show Config Dialog
+  //----------------------
+  if(mRoot->showConfigDialog()) {
+    mWindow = mRoot->initialise(true, "Slartibartfast");
+  } else {
+    return false;
+  }
+
+  //----------------------
+  // Scene Manager Setup  
+  //----------------------
+  {
+    mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC);
+
+    mCamera = mSceneManager->createCamera("PlayerCam");
+
+    mCamera->setPosition(Ogre::Vector3(0, 0, 80));
+    mCamera->lookAt(Ogre::Vector3(0, 0, -300));
+    mCamera->setNearClipDistance(5);
+  }
+
+
+  //----------------------
+  // Viewport Setup
+  //----------------------
+  {
+    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+    vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+
+    mCamera->setAspectRatio(
+        Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+  }
+
+
+  //----------------------
+  // Initialise Resources
+  //----------------------
+  {
+    Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+  }
+
+  //----------------------
   // Creating the scene
-  Ogre::Entity* ogreHead = mSceneManager->createEntity("Head", "ogrehead.mesh");
-  mOgreHeadNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
-  mOgreHeadNode->attachObject(ogreHead);
+  //----------------------
+  {
+    Ogre::Entity* ogreHead = mSceneManager->createEntity("Head", "ogrehead.mesh");
+    mOgreHeadNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
+    mOgreHeadNode->attachObject(ogreHead);
 
-  mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 
-  Ogre::Light* l = mSceneManager->createLight("MainLight");
-  l->setPosition(20, 80, 50);
+    Ogre::Light* l = mSceneManager->createLight("MainLight");
+    l->setPosition(20, 80, 50);
+  }
 
-  /**
-   * Set up our initial mouse cursor handling
-   */
-  mApplication->mainWidget()->setMouseTracking(true);
-  mApplication->mainWidget()->setCursor( QCursor(Qt::BlankCursor) );
+  //----------------------
+  // Initialize OIS
+  //----------------------
+  {
+    OIS::ParamList pl;
+    size_t windowHnd = 0;
+    std::ostringstream windowHndStr;
 
-  // Set up our input manager and hook up a few keys for ourselves
-  mInputManager = new InputManager();
+    mWindow->getCustomAttribute("WINDOW", &windowHnd);
+    windowHndStr << windowHnd;
+    pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
-  // Get our camera situated
-  mCameraManager = new CameraManager(mCamera, mInputManager);
+    mOISInputManager = OIS::InputManager::createInputSystem( pl );
 
-  // Hook up some top level events
-  mInputManager->map(Event::Quit, this, &Game::stop);
+    mKeyboard = static_cast<OIS::Keyboard*>(mOISInputManager->createInputObject( OIS::OISKeyboard, true ));
+    mMouse = static_cast<OIS::Mouse*>(mOISInputManager->createInputObject( OIS::OISMouse, true ));
+  }
 
-  // Set up our clock so we can keep track of time between frames
-  mTime.start();
-  mTimeOfLastFrame = mTime.elapsed();
+  //----------------------
+  // Set up listeners
+  //----------------------
+  {
+    mRoot->addFrameListener(this);
+
+    mMouse->setEventCallback(this);
+    mKeyboard->setEventCallback(this);
+
+    //Set initial mouse clipping size
+    windowResized(mWindow);
+
+    //Register as a Window listener
+    Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+
+    // Set up our input manager and hook up a few keys for ourselves
+    mInputManager = new InputManager();
+
+    // Get our camera situated
+    mCameraManager = new CameraManager(mCamera, mInputManager);
+
+    // Hook up some top level events
+    mInputManager->map(Event::Quit, this, &Game::stop);
+  }
+
+  return true;
 }
 
 /**
@@ -71,71 +174,72 @@ void Game::initialise(void)
  * call ::shutdown, where we will clean up all resources
  */
 void Game::stop(InputEvent event) {
-  mApplication->shutdown();  
 }
 
-/**
- * GameLogic Callbacks
- */
+bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 
-void Game::update(void)
-{
-  unsigned int timeSinceLastFrame = mTime.elapsed() - mTimeOfLastFrame;
+  // Check shutdown state
+  if(mWindow->isClosed() || mShutdown) {
+    return false;
+  }
 
-  mCameraManager->update(timeSinceLastFrame / 1000.0f);
+  // Capture input
+  mKeyboard->capture();
+  mMouse->capture();
 
-  mTimeOfLastFrame = mTime.elapsed();
+  return true;
 }
 
-/**
- * This method is called via Application::shutdown.
- * To close the game out, please use ::stop instead.
- */
-void Game::shutdown(void)
-{
-  log("SHUTTING DOWN");
-  mApplication->mainWidget()->releaseMouse();
+bool Game::keyPressed( const OIS::KeyEvent &arg ) {
+  log("KEY PRESSED!");
+  return true;
 }
 
-/**
- * KeyPress Handling. The following are Qt events we use
- * to keep an internal mapped state of the input system
- */
-
-void Game::onKeyPress(QKeyEvent* event)
-{
-  log("ON KEY PRESS EVENT!");
-  mInputManager->injectKeyDown(QtEventConverter::convert(event));
+bool Game::keyReleased( const OIS::KeyEvent &arg ) {
+  log("KEY RELEASED!");
+  return true;
 }
 
-void Game::onKeyRelease(QKeyEvent* event)
-{
-  log("ON KEY RELEASE EVENT!");
-  mInputManager->injectKeyUp(QtEventConverter::convert(event));
+bool Game::mouseMoved( const OIS::MouseEvent &arg ) {
+  log("MOUSE MOVED!");
+  return true;
 }
 
-void Game::onMousePress(QMouseEvent* event)
-{
-  log("ON MOUSE PRESS EVENT!");
+bool Game::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id ) {
+  log("MOUSE BUTTON PRESSED!");
+  return true;
 }
 
-void Game::onMouseRelease(QMouseEvent* event)
-{
-  log("ON MOUSE RELEASE EVENT!");
+bool Game::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id ) {
+  log("MOUSE BUTTON RELEASED!");
+  return true;
 }
 
-void Game::onMouseDoubleClick(QMouseEvent* event)
+//Adjust mouse clipping area
+void Game::windowResized(Ogre::RenderWindow* rw)
 {
-  log("ON MOUSE DOUBLE CLICK EVENT!");
+    unsigned int width, height, depth;
+    int left, top;
+    rw->getMetrics(width, height, depth, left, top);
+
+    const OIS::MouseState &ms = mMouse->getMouseState();
+    ms.width = width;
+    ms.height = height;
 }
 
-void Game::onMouseMove(QMouseEvent* event)
+//Unattach OIS before window shutdown (very important under Linux)
+void Game::windowClosed(Ogre::RenderWindow* rw)
 {
-  InputEvent evt = QtEventConverter::convert(event);
-  mInputManager->injectMouseMoved(evt);
-}
+    //Only close for window that created OIS (the main window in these demos)
+    if( rw == mWindow )
+    {
+        if( mOISInputManager )
+        {
+            mOISInputManager->destroyInputObject( mMouse );
+            mOISInputManager->destroyInputObject( mKeyboard );
 
-void Game::onWheel(QWheelEvent* event)
-{
-  log("ON MOUSE WHEEL EVENT!");
+            OIS::InputManager::destroyInputSystem(mOISInputManager);
+            mOISInputManager = 0;
+        }
+    }
 }
