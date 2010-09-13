@@ -12,6 +12,10 @@ Game::Game()
 
 Game::~Game() 
 {
+  //Remove ourself as a Window listener
+  Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
+  windowClosed(mWindow);
+  delete mRoot;
 }
 
 void Game::go()
@@ -174,6 +178,7 @@ bool Game::setup() {
  * call ::shutdown, where we will clean up all resources
  */
 void Game::stop(InputEvent event) {
+  mShutdown = true;
 }
 
 bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
@@ -192,11 +197,13 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 
 bool Game::keyPressed( const OIS::KeyEvent &arg ) {
   log("KEY PRESSED!");
+  mInputManager->injectKeyDown(Event::convert(arg));
   return true;
 }
 
 bool Game::keyReleased( const OIS::KeyEvent &arg ) {
   log("KEY RELEASED!");
+  mInputManager->injectKeyUp(Event::convert(arg));
   return true;
 }
 
