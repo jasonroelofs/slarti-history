@@ -3,11 +3,9 @@
 
 #include <Ogre.h>
 
-#include <OISEvents.h>
 #include <OISInputManager.h>
-#include <OISKeyboard.h>
-#include <OISMouse.h>
 
+#include "InputDispatcher.h"
 #include "InputManager.h"
 #include "CameraManager.h"
 #include "Event.h"
@@ -19,9 +17,7 @@
  */
 class Game : 
   public Ogre::FrameListener, 
-  public Ogre::WindowEventListener,
-  public OIS::KeyListener, 
-  public OIS::MouseListener
+  public Ogre::WindowEventListener
 {
   public:
     Game(void);
@@ -39,21 +35,24 @@ class Game :
     void go();
     bool setup(); 
 
+    /////////////////////////////
     // Ogre::FrameListener
+    /////////////////////////////
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 
-    // OIS::KeyListener
-    virtual bool keyPressed( const OIS::KeyEvent &arg );
-    virtual bool keyReleased( const OIS::KeyEvent &arg );
-    // OIS::MouseListener
-    virtual bool mouseMoved( const OIS::MouseEvent &arg );
-    virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-    virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-
+    /////////////////////////////
     // Ogre::WindowEventListener
-    //Adjust mouse clipping area
+    /////////////////////////////
+    
+    /**
+     * When the window is resized we need to make sure
+     * to adjust the mouse clipping area for OIS
+     */
     virtual void windowResized(Ogre::RenderWindow* rw);
-    //Unattach OIS before window shutdown (very important under Linux)
+
+    /**
+     * Clear out all input information when the window closes
+     */
     virtual void windowClosed(Ogre::RenderWindow* rw);
 
     void log(const Ogre::String& message) {
@@ -72,6 +71,8 @@ class Game :
     Ogre::SceneNode* mOgreHeadNode;
 
     InputManager* mInputManager;
+
+    InputDispatcher* mInputDispatcher;
 
     CameraManager* mCameraManager;
 

@@ -150,9 +150,6 @@ bool Game::setup() {
   {
     mRoot->addFrameListener(this);
 
-    mMouse->setEventCallback(this);
-    mKeyboard->setEventCallback(this);
-
     //Set initial mouse clipping size
     windowResized(mWindow);
 
@@ -161,6 +158,15 @@ bool Game::setup() {
 
     // Set up our input manager and hook up a few keys for ourselves
     mInputManager = new InputManager();
+
+    // Get our dispatcher up and running
+    mInputDispatcher = new InputDispatcher();
+
+    mMouse->setEventCallback(mInputDispatcher);
+    mKeyboard->setEventCallback(mInputDispatcher);
+
+    // Hook up our input manager as the current
+    mInputDispatcher->setCurrentInputManager(mInputManager);
 
     // Get our camera situated
     mCameraManager = new CameraManager(mCamera, mInputManager);
@@ -194,31 +200,6 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 
   mCameraManager->update(evt.timeSinceLastFrame);
 
-  return true;
-}
-
-bool Game::keyPressed( const OIS::KeyEvent &arg ) {
-  mInputManager->injectKeyDown(Event::convert(arg));
-  return true;
-}
-
-bool Game::keyReleased( const OIS::KeyEvent &arg ) {
-  mInputManager->injectKeyUp(Event::convert(arg));
-  return true;
-}
-
-bool Game::mouseMoved( const OIS::MouseEvent &arg ) {
-  mInputManager->injectMouseMoved(Event::convert(arg));
-  return true;
-}
-
-bool Game::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id ) {
-  log("MOUSE BUTTON PRESSED!");
-  return true;
-}
-
-bool Game::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id ) {
-  log("MOUSE BUTTON RELEASED!");
   return true;
 }
 
