@@ -90,24 +90,20 @@ class InputEvent {
     // Is this key event a key down event?
     int isDown;
 
-    // Current position of the mouse, relative to the window
-    int x, y;
-
     // How has the mouse changed since the last event?
     int xDiff, yDiff;
-
-    // Current global position of the mouse
-    int globalX, globalY;
 };
 
 namespace Event {
   /**
-   * Convert OIS input events to our own InputEvent
+   * Convert OIS keyboard input events to our own InputEvent
    */
-  static InputEvent convert(const OIS::KeyEvent& arg) {
-    InputEvent event(arg.key, Event::KeyboardEvent);
-    return event;
-  }
+  InputEvent convert(const OIS::KeyEvent& arg); 
+
+  /**
+   * Convert OIS mouse movement  events to our own InputEvent
+   */
+  InputEvent convert(const OIS::MouseEvent& arg);
 }
 
 /********************************************

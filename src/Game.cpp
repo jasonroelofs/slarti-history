@@ -192,23 +192,23 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   mKeyboard->capture();
   mMouse->capture();
 
+  mCameraManager->update(evt.timeSinceLastFrame);
+
   return true;
 }
 
 bool Game::keyPressed( const OIS::KeyEvent &arg ) {
-  log("KEY PRESSED!");
   mInputManager->injectKeyDown(Event::convert(arg));
   return true;
 }
 
 bool Game::keyReleased( const OIS::KeyEvent &arg ) {
-  log("KEY RELEASED!");
   mInputManager->injectKeyUp(Event::convert(arg));
   return true;
 }
 
 bool Game::mouseMoved( const OIS::MouseEvent &arg ) {
-  log("MOUSE MOVED!");
+  mInputManager->injectMouseMoved(Event::convert(arg));
   return true;
 }
 

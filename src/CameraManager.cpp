@@ -1,5 +1,8 @@
 #include <limits>
 
+#include <iostream>
+using namespace std;
+
 #include "CameraManager.h"
 
 CameraManager::CameraManager(Ogre::Camera* camera, InputManager* manager) 
@@ -58,8 +61,8 @@ void CameraManager::update(float timeSinceLastFrame) {
 }
 
 void CameraManager::rotateView(InputEvent event) {
-  mCamera->yaw(Ogre::Degree(-event.xDiff * 0.015f));
-  mCamera->pitch(Ogre::Degree(-event.yDiff * 0.015f));
+  mCamera->yaw(Ogre::Degree(-event.xDiff * 0.030f));
+  mCamera->pitch(Ogre::Degree(-event.yDiff * 0.030f));
 }
 
 void CameraManager::moveLeft(InputEvent event) {
