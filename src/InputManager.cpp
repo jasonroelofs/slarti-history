@@ -2,20 +2,6 @@
 
 InputManager::InputManager()
 {
-  // TODO Make this map configurable / built from a file
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Q, Event::Quit) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Escape, Event::Quit) );
-
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Left, Event::MoveLeft) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Right, Event::MoveRight) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Up, Event::MoveForward) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Down, Event::MoveBack) );
 }
 
 InputManager::~InputManager()
@@ -34,13 +20,13 @@ InputManager::~InputManager()
 void InputManager::injectKeyDown(InputEvent event)
 {
   event.isDown = true;
-  runMappingForEvent(event, findKeyFor(event.key));
+  runMappingForEvent(event);
 }
 
 void InputManager::injectKeyUp(InputEvent event)
 {
   event.isDown = false;
-  runMappingForEvent(event, findKeyFor(event.key));
+  runMappingForEvent(event);
 }
 
 void InputManager::injectMouseDown()
@@ -57,7 +43,7 @@ void InputManager::injectMouseUp()
  */
 void InputManager::injectMouseMoved(InputEvent event)
 {
-  runMappingForEvent(event, Event::MouseMoved);
+  runMappingForEvent(event);
 }
 
 void InputManager::injectMouseDoubleClick()
@@ -74,21 +60,9 @@ void InputManager::injectMouseWheel()
  * an entry if one doesn't exist, and we want to make very sure
  * that unmapped keys are ignored.
  */
-
-void InputManager::runMappingForEvent(InputEvent event, int key) {
-  if(key < 0) {
-    return;
-  }
-  
-  if(mEventMappings.count(key) > 0) {
-    mEventMappings[key]->call(event); 
+void InputManager::runMappingForEvent(InputEvent event) {
+  if(mEventMappings.count(event.event) > 0) {
+    mEventMappings[event.event]->call(event); 
   }
 }
 
-int InputManager::findKeyFor(int key) {
-  if(mKeyToEventMappings.count(key) > 0) {
-    return mKeyToEventMappings[key];
-  } else {
-    return -1;
-  }
-}

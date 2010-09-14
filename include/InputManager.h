@@ -57,19 +57,14 @@ class InputManager
 
   protected:
 
-    void runMappingForEvent(InputEvent event, int key);
-    int findKeyFor(int key);
+    void runMappingForEvent(InputEvent event);
 
   private:
     // Map Event Types to Callbacks
     typedef std::map<int, EventCallbackBase*> EventMapping_T;
 
-    // Map Keys to Event Types
-    typedef std::map<int, int> KeyToEventMapping_T;
-
     EventMapping_T mEventMappings;
 
-    KeyToEventMapping_T mKeyToEventMappings;
 };
 
 #endif // __INPUT_MANAGER_H__

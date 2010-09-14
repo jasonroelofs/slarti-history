@@ -17,6 +17,8 @@ namespace Event {
    * Event::Quit
    */
   enum Events {
+    None,
+
     MoveBack,
     MoveForward,
     MoveLeft,
@@ -47,6 +49,11 @@ namespace Key {
     Left = OIS::KC_LEFT,
     Right = OIS::KC_RIGHT,
     Up = OIS::KC_UP,
+
+    D = OIS::KC_D,
+    E = OIS::KC_E,
+    F = OIS::KC_F,
+    S = OIS::KC_S,
 
     Q = OIS::KC_Q,
   };
@@ -86,6 +93,9 @@ class InputEvent {
     // For MouseEvents, this will be an OR map of
     // LeftButton / RightButton / MiddleButton
     int key;
+
+    // What Event type (from Event::Events) does this input event map to?
+    int event;
 
     // Is this key event a key down event?
     int isDown;
