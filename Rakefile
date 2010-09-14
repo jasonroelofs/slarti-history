@@ -51,7 +51,7 @@ end
 
 desc "Run the app"
 task :run do
-  cd "build" do
-    system "open Debug/slartibartfast.app"
+  cd "build/Debug/slartibartfast.app/Contents/MacOS" do
+    sh "./slartibartfast"
   end
 end
