@@ -26,6 +26,8 @@ namespace Event {
 
     MouseMoved,
 
+    RebuildLevel,
+
     Quit
   };
 
@@ -53,6 +55,7 @@ namespace Key {
     D = OIS::KC_D,
     E = OIS::KC_E,
     F = OIS::KC_F,
+    R = OIS::KC_R,
     S = OIS::KC_S,
 
     Q = OIS::KC_Q,

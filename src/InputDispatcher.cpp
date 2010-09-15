@@ -1,31 +1,27 @@
 #include "InputDispatcher.h"
 
+#define MAP_KEY(key, event) \
+  mKeyToEventMappings.insert(std::pair<int, int>(key, event) );
+  
+
 InputDispatcher::InputDispatcher()
   : mCurrentInputManager(0)
 {
   // TODO Make this map configurable / built from a file
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Q, Event::Quit) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Escape, Event::Quit) );
+  MAP_KEY(Key::Q, Event::Quit);
+  MAP_KEY(Key::Escape, Event::Quit);
 
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Left, Event::MoveLeft) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Right, Event::MoveRight) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Up, Event::MoveForward) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::Down, Event::MoveBack) );
+  MAP_KEY(Key::Left, Event::MoveLeft);
+  MAP_KEY(Key::Right, Event::MoveRight);
+  MAP_KEY(Key::Up, Event::MoveForward);
+  MAP_KEY(Key::Down, Event::MoveBack);
 
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::S, Event::MoveLeft) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::F, Event::MoveRight) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::E, Event::MoveForward) );
-  mKeyToEventMappings.insert( 
-      std::pair<int, int>(Key::D, Event::MoveBack) );
+  MAP_KEY(Key::S, Event::MoveLeft);
+  MAP_KEY(Key::F, Event::MoveRight);
+  MAP_KEY(Key::E, Event::MoveForward);
+  MAP_KEY(Key::D, Event::MoveBack);
+
+  MAP_KEY(Key::D, Event::RebuildLevel);
 }
 
 void InputDispatcher::setCurrentInputManager(InputManager* im) {

@@ -9,6 +9,7 @@
 #include "InputManager.h"
 #include "CameraManager.h"
 #include "Event.h"
+#include "Level.h"
 
 /**
  * The starting point for the entire game.
@@ -24,6 +25,11 @@ class Game :
     ~Game();
 
   public:
+    /**
+     * Build a new level
+     */
+    void newLevel(InputEvent event);
+
     /**
      * Shut down the game
      */
@@ -75,6 +81,9 @@ class Game :
     InputDispatcher* mInputDispatcher;
 
     CameraManager* mCameraManager;
+
+    // Our current 'level'
+    Level* mLevel;
 
     //OIS Input devices
     OIS::InputManager* mOISInputManager;

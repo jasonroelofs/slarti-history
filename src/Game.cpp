@@ -177,6 +177,15 @@ bool Game::setup() {
     mInputManager->map(Event::Quit, this, &Game::stop);
   }
 
+  // Initialize a Level, generate, and render
+  {
+    mLevel = new Level(mSceneManager);
+    mLevel->generate();
+
+    // Hook up an event to allow us to rebuild with a simple keystroke
+    mInputManager->map(Event::RebuildLevel, this, &Game::newLevel);
+  }
+
   // Build our Galaxy
   // Build our various game states (only Play right now, later Menu and possibly Loading)
   //   - Send self and Galaxy to Play State
@@ -201,6 +210,13 @@ bool Game::setup() {
   // like rooms in levels
 
   return true;
+}
+
+void Game::newLevel(InputEvent event) {
+  // Process on key-up only
+  if(!event.isDown) {
+    mLevel->generate();
+  }
 }
 
 /**
