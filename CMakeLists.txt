@@ -51,19 +51,19 @@ if(APPLE)
   # Install the files directly into the app bundle.
   # Do this for building a deployable release
   ##
-  # SET_SOURCE_FILES_PROPERTIES(${DATA} PROPERTIES MACOSX_PACKAGE_LOCATION Resources )
+  SET_SOURCE_FILES_PROPERTIES(${DATA} PROPERTIES MACOSX_PACKAGE_LOCATION Resources )
 
   ## 
   # Symlink the data files into the bundle so we don't need
   # to rebuild for changes to them
   ##
-  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND mkdir ARGS -p ${MACOSX_PACKAGE_LOCATION}/Resources
-		COMMAND ln ARGS -s -f bin/plugins.cfg 
-		${OGRE_SAMPLE_CONTENTS_PATH}/Resources/
-		COMMAND ln ARGS -s -f ${OGRE_BINARY_DIR}/bin/resources.cfg 
-		${OGRE_SAMPLE_CONTENTS_PATH}/Resources/
-		)
+  #add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+  #  COMMAND mkdir ARGS -p ${MACOSX_PACKAGE_LOCATION}/Resources
+  #	COMMAND ln ARGS -s -f bin/plugins.cfg 
+  #	${OGRE_SAMPLE_CONTENTS_PATH}/Resources/
+  #	COMMAND ln ARGS -s -f ${OGRE_BINARY_DIR}/bin/resources.cfg 
+  #	${OGRE_SAMPLE_CONTENTS_PATH}/Resources/
+  #	)
 
   set_target_properties(${PROJECT_NAME} PROPERTIES
     LINK_FLAGS "-F${CMAKE_CURRENT_SOURCE_DIR}/ext/lib/debug/Debug -framework Ogre"

@@ -120,6 +120,8 @@ bool Game::setup() {
     mOgreHeadNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
     mOgreHeadNode->attachObject(ogreHead);
 
+    mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
+
     mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 
     Ogre::Light* l = mSceneManager->createLight("MainLight");
@@ -174,6 +176,29 @@ bool Game::setup() {
     // Hook up some top level events
     mInputManager->map(Event::Quit, this, &Game::stop);
   }
+
+  // Build our Galaxy
+  // Build our various game states (only Play right now, later Menu and possibly Loading)
+  //   - Send self and Galaxy to Play State
+  // 
+  // PlayState builds new input manager, hooks up for player interaction
+  //   - calls Game.useInputManager, which forwards to InputDispatcher
+  //
+  // Game tells PlayState to initialize
+  //
+  // Game starts rendering loop
+  //
+  // Each frame, 
+  //   - Possibly send update to Galaxy, before everything else
+  //   - Send update to all states
+  //
+  // PlayState sets up PlayerController, gets hooked up with input interactions, camera, etc
+  //
+  // PlayState sets user in starting sector (from Galaxy) and sets player free
+  //
+  // Where does the connection between where the user is and rendering the galaxy fit in? 
+  // Learn about PCZSM. Zones can be Sectors, inside planets, levels in planets, or even more fine grained
+  // like rooms in levels
 
   return true;
 }
