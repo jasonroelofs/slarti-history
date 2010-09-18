@@ -28,6 +28,8 @@ namespace Event {
 
     RebuildLevel,
 
+    ToggleWireframe,
+
     Quit
   };
 
@@ -58,6 +60,7 @@ namespace Key {
     R = OIS::KC_R,
     S = OIS::KC_S,
 
+    P = OIS::KC_P,
     Q = OIS::KC_Q,
   };
 

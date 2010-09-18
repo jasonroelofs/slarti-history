@@ -2,6 +2,10 @@
 #define __LEVEL_H__
 
 #include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
+
+#include "PolyVox/Volume.h"
+#include "PolyVox/MaterialDensityPair.h"
 
 /**
  * This class handles the generation of a single
@@ -17,9 +21,20 @@ class Level {
      */
     void generate();
 
+    void clearExisting();
+
+    void createVoxelVolume();
+    void buildRenderable();
+
   private:
     // Link back to the scene manager
     Ogre::SceneManager* mSceneManager;
+
+    // Base node that we use as a parent to our level
+    Ogre::SceneNode* mBaseLevelNode;
+
+    // Our volume of voxel data
+    PolyVox::Volume<PolyVox::MaterialDensityPair44>* mVolume;
 };
 
 #endif // __LEVEL_H__

@@ -41,6 +41,8 @@ class Game :
     void go();
     bool setup(); 
 
+    void toggleWireframe(InputEvent event);
+
     /////////////////////////////
     // Ogre::FrameListener
     /////////////////////////////

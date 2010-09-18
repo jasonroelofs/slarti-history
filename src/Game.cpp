@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Event.h"
+#include "SurfacePatchRenderable.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <macUtils.h>
@@ -110,6 +111,8 @@ bool Game::setup() {
   {
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+
+	  mRoot->addMovableObjectFactory(new SurfacePatchRenderableFactory);
   }
 
   //----------------------
@@ -175,6 +178,9 @@ bool Game::setup() {
 
     // Hook up some top level events
     mInputManager->map(Event::Quit, this, &Game::stop);
+
+    // Polygon rendering
+    mInputManager->map(Event::ToggleWireframe, this, &Game::toggleWireframe);
   }
 
   // Initialize a Level, generate, and render
@@ -216,6 +222,23 @@ void Game::newLevel(InputEvent event) {
   // Process on key-up only
   if(!event.isDown) {
     mLevel->generate();
+  }
+}
+
+void Game::toggleWireframe(InputEvent event) {
+  if(event.isDown) {
+    Ogre::PolygonMode pm;
+
+    switch (mCamera->getPolygonMode())
+    {
+    case Ogre::PM_SOLID:
+      pm = Ogre::PM_WIREFRAME;
+      break;
+    default:
+      pm = Ogre::PM_SOLID;
+    }
+
+    mCamera->setPolygonMode(pm);
   }
 }
 

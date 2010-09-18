@@ -21,7 +21,9 @@ InputDispatcher::InputDispatcher()
   MAP_KEY(Key::E, Event::MoveForward);
   MAP_KEY(Key::D, Event::MoveBack);
 
-  MAP_KEY(Key::D, Event::RebuildLevel);
+  MAP_KEY(Key::R, Event::RebuildLevel);
+
+  MAP_KEY(Key::P, Event::ToggleWireframe);
 }
 
 void InputDispatcher::setCurrentInputManager(InputManager* im) {
