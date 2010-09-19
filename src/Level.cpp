@@ -27,6 +27,7 @@ void Level::generate() {
   clearExisting();
 
   mBaseLevelNode = mSceneManager->getRootSceneNode()->createChildSceneNode("VoxelLevel");
+	mVolume = new Volume<MaterialDensityPair44>(32, 32, 512);
 
   createVoxelVolume();
   buildRenderable();
@@ -52,9 +53,37 @@ void Level::clearExisting() {
  */
 
 void Level::createVoxelVolume() {
-	mVolume = new Volume<MaterialDensityPair44>(128, 128, 128);
+  uint8_t density = MaterialDensityPair44::getMaxDensity();
+  int depth = mVolume->getDepth(),
+      width = mVolume->getWidth(),
+      height = mVolume->getHeight();
 
-  int radius = 60;
+  for(int x = 0; x < width; x++) {
+    for(int y = 0; y < height; y++) {
+      for(int z = 0; z < depth; z++) {
+
+        //Get the old voxel
+        MaterialDensityPair44 voxel = mVolume->getVoxelAt(x,y,z);
+
+        if( (x > 15 && x < 20) &&
+            (y > 15 && y < 20)) {
+          voxel.setDensity(0);
+        } else {
+          //Modify the density
+          voxel.setDensity(density);
+        }
+
+        //Wrte the voxel value into the volume	
+        mVolume->setVoxelAt(x, y, z, voxel);
+      }
+    }
+  }
+}
+
+/*
+void createSphere() {
+
+  int radius = 10;
 
 	//This vector hold the position of the center of the volume
 	Vector3DFloat volumeCenter(mVolume->getWidth() / 2, mVolume->getHeight() / 2, mVolume->getDepth() / 2);
@@ -90,6 +119,7 @@ void Level::createVoxelVolume() {
 		}
   }
 }
+*/
 
 void Level::buildRenderable() {
   // Extract the data to build our render node
@@ -100,8 +130,11 @@ void Level::buildRenderable() {
   SurfacePatchRenderable* renderable =  dynamic_cast<SurfacePatchRenderable*>(
       mSceneManager->createMovableObject("VoxelRenderable", SurfacePatchRenderableFactory::FACTORY_TYPE_NAME));
   renderable->setMaterial("BaseWhiteNoLighting");
-  
+
   mBaseLevelNode->attachObject(renderable);
 
   renderable->buildRenderOperationFrom(mesh, true);
+
+  mBaseLevelNode->setScale(100, 100, 100);
+  mBaseLevelNode->setPosition(0.0f, 0.0f, 0.0f);
 }
