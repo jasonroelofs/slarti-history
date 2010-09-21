@@ -3,9 +3,6 @@
 #include <OgreManualObject.h>
 #include <OgreRenderOperation.h>
 
-//#include <cstdio>
-//#include <ctime>
-
 #include <iostream>
 using namespace std;
 
@@ -20,15 +17,12 @@ Level::Level(Ogre::SceneManager* manager)
     mBaseLevelNode(0),
     mVolume(0)
 {
- // srand( time(NULL) );
 }
 
 void Level::generate() {
   clearExisting();
 
   mBaseLevelNode = mSceneManager->getRootSceneNode()->createChildSceneNode("VoxelLevel");
-	mVolume = new Volume<MaterialDensityPair44>(32, 32, 512);
-
   createVoxelVolume();
   buildRenderable();
 }
@@ -44,7 +38,8 @@ void Level::clearExisting() {
     mBaseLevelNode = 0;
   }
 
-  mSceneManager->destroyMovableObject("VoxelRenderable", SurfacePatchRenderableFactory::FACTORY_TYPE_NAME);
+  mSceneManager->destroyMovableObject("VoxelRenderable", 
+      SurfacePatchRenderableFactory::FACTORY_TYPE_NAME);
 }
 
 /**
@@ -53,6 +48,15 @@ void Level::clearExisting() {
  */
 
 void Level::createVoxelVolume() {
+	mVolume = new VoxelVolume(128, 16, 128);
+
+  Burrower burrower(mVolume);
+
+  // Start the burrower half way in the field
+  burrower.burrow(64, 64);
+
+  /*
+
   uint8_t density = MaterialDensityPair44::getMaxDensity();
   int depth = mVolume->getDepth(),
       width = mVolume->getWidth(),
@@ -65,8 +69,8 @@ void Level::createVoxelVolume() {
         //Get the old voxel
         MaterialDensityPair44 voxel = mVolume->getVoxelAt(x,y,z);
 
-        if( (x > 15 && x < 20) &&
-            (y > 15 && y < 20)) {
+        if( (x > 2 && x < 30) &&
+            (y > 2 && y < 30)) {
           voxel.setDensity(0);
         } else {
           //Modify the density
@@ -78,6 +82,7 @@ void Level::createVoxelVolume() {
       }
     }
   }
+  */
 }
 
 /*

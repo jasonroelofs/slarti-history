@@ -2,6 +2,9 @@
 #include "Event.h"
 #include "SurfacePatchRenderable.h"
 
+#include <cstdio>
+#include <ctime>
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <macUtils.h>
 #endif
@@ -9,6 +12,8 @@
 Game::Game() 
   : mShutdown(false)
 {
+  // Initialize the random number generator
+  srand( time(NULL) );
 }
 
 Game::~Game() 
