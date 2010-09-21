@@ -4,8 +4,7 @@
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
 
-#include "PolyVox/Volume.h"
-#include "PolyVox/MaterialDensityPair.h"
+#include "VoxelVolume.h"
 
 /**
  * This class handles the generation of a single
@@ -34,7 +33,7 @@ class Level {
     Ogre::SceneNode* mBaseLevelNode;
 
     // Our volume of voxel data
-    PolyVox::Volume<PolyVox::MaterialDensityPair44>* mVolume;
+    VoxelVolume* mVolume;
 };
 
 #endif // __LEVEL_H__

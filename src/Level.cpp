@@ -11,6 +11,8 @@ using namespace std;
 using namespace PolyVox;
 
 #include "SurfacePatchRenderable.h"
+#include "Burrower.h"
+#include "VoxelVolume.h"
 
 Level::Level(Ogre::SceneManager* manager)
   : mSceneManager(manager),
@@ -48,32 +50,27 @@ void Level::clearExisting() {
  */
 
 void Level::createVoxelVolume() {
-	mVolume = new VoxelVolume(128, 16, 128);
+	mVolume = new VoxelVolume(128, 32, 128, 0);
 
   Burrower burrower(mVolume);
 
-  // Start the burrower half way in the field
-  burrower.burrow(64, 64);
-
-  /*
-
-  uint8_t density = MaterialDensityPair44::getMaxDensity();
   int depth = mVolume->getDepth(),
       width = mVolume->getWidth(),
       height = mVolume->getHeight();
+  Voxel voxel;
+  uint8_t density = Voxel::getMaxDensity();
 
   for(int x = 0; x < width; x++) {
     for(int y = 0; y < height; y++) {
       for(int z = 0; z < depth; z++) {
 
         //Get the old voxel
-        MaterialDensityPair44 voxel = mVolume->getVoxelAt(x,y,z);
+        voxel = mVolume->getVoxelAt(x,y,z);
 
         if( (x > 2 && x < 30) &&
             (y > 2 && y < 30)) {
           voxel.setDensity(0);
         } else {
-          //Modify the density
           voxel.setDensity(density);
         }
 
@@ -82,7 +79,9 @@ void Level::createVoxelVolume() {
       }
     }
   }
-  */
+
+  // Start the burrower half way in the field
+  burrower.burrow(64, 64);
 }
 
 /*
@@ -129,7 +128,7 @@ void createSphere() {
 void Level::buildRenderable() {
   // Extract the data to build our render node
   SurfaceMesh mesh;
-  SurfaceExtractor<MaterialDensityPair44> extractor(mVolume, mVolume->getEnclosingRegion(), &mesh);
+  SurfaceExtractor<Voxel> extractor(mVolume, mVolume->getEnclosingRegion(), &mesh);
   extractor.execute();
   
   SurfacePatchRenderable* renderable =  dynamic_cast<SurfacePatchRenderable*>(
