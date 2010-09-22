@@ -136,5 +136,5 @@ void Level::buildRenderable() {
   renderable->buildRenderOperationFrom(mesh, true);
 
   mBaseLevelNode->setPosition(0.0f, 0.0f, 0.0f);
-  mBaseLevelNode->setScale(100, 100, 100);
+  mBaseLevelNode->setScale(-100, -100, -100);
 }
