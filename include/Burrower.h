@@ -26,6 +26,8 @@ class Burrower {
      */
     void burrow(int startX, int startZ);
 
+    void takeSteps(int x, int y, int z, int moveX, int moveY, int moveZ, int toTake, int tunnelSize);
+
   protected:
     VoxelVolume* mVolume;
 

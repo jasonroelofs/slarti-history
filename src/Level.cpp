@@ -60,20 +60,16 @@ void Level::createVoxelVolume() {
   Voxel voxel;
   uint8_t density = Voxel::getMaxDensity();
 
+  // TODO FIXME
+  // Need to find out how I can default the volume
+  // to be full. For now, fill the volume for the
+  // burrower
   for(int x = 0; x < width; x++) {
     for(int y = 0; y < height; y++) {
       for(int z = 0; z < depth; z++) {
-
         //Get the old voxel
         voxel = mVolume->getVoxelAt(x,y,z);
-
-        if( (x > 2 && x < 30) &&
-            (y > 2 && y < 30)) {
-          voxel.setDensity(0);
-        } else {
-          voxel.setDensity(density);
-        }
-
+        voxel.setDensity(density);
         //Wrte the voxel value into the volume	
         mVolume->setVoxelAt(x, y, z, voxel);
       }
@@ -81,7 +77,7 @@ void Level::createVoxelVolume() {
   }
 
   // Start the burrower half way in the field
-  burrower.burrow(64, 64);
+  burrower.burrow(4, 4);
 }
 
 /*
@@ -139,6 +135,6 @@ void Level::buildRenderable() {
 
   renderable->buildRenderOperationFrom(mesh, true);
 
-  mBaseLevelNode->setScale(100, 100, 100);
   mBaseLevelNode->setPosition(0.0f, 0.0f, 0.0f);
+  mBaseLevelNode->setScale(100, 100, 100);
 }
