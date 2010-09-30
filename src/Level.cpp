@@ -128,8 +128,9 @@ void Level::buildRenderable() {
   extractor.execute();
   
   SurfacePatchRenderable* renderable =  dynamic_cast<SurfacePatchRenderable*>(
-      mSceneManager->createMovableObject("VoxelRenderable", SurfacePatchRenderableFactory::FACTORY_TYPE_NAME));
-  renderable->setMaterial("BaseWhiteNoLighting");
+      mSceneManager->createMovableObject("VoxelRenderable", 
+        SurfacePatchRenderableFactory::FACTORY_TYPE_NAME));
+  renderable->setMaterial("Ogre/Skin");
 
   mBaseLevelNode->attachObject(renderable);
 

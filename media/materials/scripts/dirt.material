@@ -1,0 +1,15 @@
+material walls/dirt
+{
+  technique 
+  {
+    pass 
+    {
+      ambient 0.5 0.5 0.5
+
+      texture_unit
+      {
+        texture Dirt.jpg
+      }
+    }
+  }
+}

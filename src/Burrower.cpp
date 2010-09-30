@@ -35,6 +35,7 @@ void Burrower::burrow(int startX, int startZ) {
   int stepsToTake = 240, stepsTaken = 0;
 
   int moveX = 1, moveY = 0, moveZ = 0;
+  int tmp;
 
   while(stepsToTake > 0) {
     stepsTaken = rand() % 10;
@@ -47,6 +48,18 @@ void Burrower::burrow(int startX, int startZ) {
     } else {
       moveZ = 1;
     }
+
+    /*
+    // Play with up / down
+    tmp = rand() % 20;
+    if(tmp < 10) {
+      moveY = 0;
+    } else if (tmp < 15) {
+      moveY = 1;
+    } else {
+      moveY = -1;
+    }
+    */
 
     // Pick a tunnel size
     tunnelSize = rand() % 4 + 1;
