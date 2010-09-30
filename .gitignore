@@ -6,3 +6,4 @@ bin/ogre.cfg
 .*.swp
 logs
 ext
+.DS_Store
