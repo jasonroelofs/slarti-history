@@ -130,7 +130,7 @@ void Level::buildRenderable() {
   SurfacePatchRenderable* renderable =  dynamic_cast<SurfacePatchRenderable*>(
       mSceneManager->createMovableObject("VoxelRenderable", 
         SurfacePatchRenderableFactory::FACTORY_TYPE_NAME));
-  renderable->setMaterial("Ogre/Skin");
+  renderable->setMaterial("walls/dirt");
 
   mBaseLevelNode->attachObject(renderable);
 

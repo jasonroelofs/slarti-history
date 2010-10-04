@@ -1,0 +1,34 @@
+#include "VertexFormats.cg"
+
+float4 main(v2f IN,  uniform float4 ambientLightColor, uniform sampler2D colorMap : TEXUNIT0, uniform float4x4 textureMatrix) : COLOR
+{	
+	//Ensure a material id of zero comes out black
+//	if(IN.Material.x < 0.5f)
+//	{
+//		return float4(0.0,0.0,0.0,1.0);
+//	}
+	
+	//Apply any texture transformations
+	IN.TexCoords = mul(textureMatrix, IN.TexCoords);
+	
+	float3 normal = IN.Normal;
+	float3 worldPos = IN.TexCoords.xyz;
+	
+	//Interpolation means normals may not be unit length
+	normal = normalize(normal);
+	
+	//Squaring a unit vector makes the components add to one.
+	float3 blendWeights = abs(normal * normal);
+	
+	//For each axis, sample the texture and multiply by the blend weights.
+	float4 colourMapValueYZ = tex2D(colorMap, worldPos.yz) * blendWeights.xxxx;
+	float4 colourMapValueXZ = tex2D(colorMap, worldPos.xz) * blendWeights.yyyy;
+	float4 colourMapValueXY = tex2D(colorMap, worldPos.xy) * blendWeights.zzzz;
+	
+	//Combine the results
+	float4 colourMapValue = colourMapValueXY + colourMapValueYZ + colourMapValueXZ;
+		
+	colourMapValue *= IN.DiffuseLightColor + ambientLightColor;
+	colourMapValue *= IN.Material.y;
+	return colourMapValue;
+}
