@@ -26,6 +26,7 @@ void Burrower::burrow(int startX, int startZ) {
         //Get the old voxel
         voxel = mVolume->getVoxelAt(x,y,z);
         voxel.setDensity(0);
+        voxel.setMaterial(1);
         //Wrte the voxel value into the volume
         mVolume->setVoxelAt(x, y, z, voxel);
       }
@@ -108,6 +109,7 @@ void Burrower::takeSteps(
           //Get the old voxel
           voxel = mVolume->getVoxelAt(x,y,z);
           voxel.setDensity(0);
+          voxel.setMaterial(1);
           //Wrte the voxel value into the volume
           mVolume->setVoxelAt(x, y, z, voxel);
         }
