@@ -12,6 +12,7 @@ using namespace PolyVox;
 
 #include "SurfacePatchRenderable.h"
 #include "Burrower.h"
+#include "Roomer.h"
 #include "VoxelVolume.h"
 
 Level::Level(Ogre::SceneManager* manager)
@@ -52,7 +53,8 @@ void Level::clearExisting() {
 void Level::createVoxelVolume() {
 	mVolume = new VoxelVolume(128, 32, 128, 0);
 
-  Burrower burrower(mVolume);
+//  Burrower burrower(mVolume);
+  Roomer roomer(mVolume);
 
   int depth = mVolume->getDepth(),
       width = mVolume->getWidth(),
@@ -77,7 +79,9 @@ void Level::createVoxelVolume() {
   }
 
   // Start the burrower half way in the field
-  burrower.burrow(4, 4);
+  //burrower.burrow(4, 4);
+
+  roomer.go();
 }
 
 /*
