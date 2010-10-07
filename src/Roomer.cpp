@@ -26,21 +26,25 @@ void Roomer::go() {
   //
   // Once the rooms are built, try to connect them
 
-  int numRooms = rand() % 5;
+  int numRooms = (rand() % 8) + 4;
   int roomWidth, roomHeight, roomDepth;
+  int roomX, roomY, roomZ;
   Ogre::Vector3 topLeft, bottomRight;
 
   for(int i = 0; i < numRooms; i++) {
-    // Size of room
-    roomWidth = rand() % (maxRoomWidth - minRoomWidth);
-    roomHeight = rand() % (maxRoomHeight - minRoomHeight);
-    roomDepth = rand() % (maxRoomDepth - minRoomDepth);
-
     // Position of room
-    topLeft.x = rand() % (maxRoomWidth - minRoomWidth - minRoomWidth);
-    topLeft.y = rand() % (maxRoomHeight - minRoomHeight - minRoomHeight);
-    topLeft.z = rand() % (maxRoomDepth - minRoomDepth - minRoomDepth);
+    roomX = rand() % (maxRoomWidth - minRoomWidth - minRoomWidth);
+    roomY = rand() % (maxRoomHeight - minRoomHeight - minRoomHeight);
+    roomZ = rand() % (maxRoomDepth - minRoomDepth - minRoomDepth);
 
+    // Size of room
+    roomWidth = rand() % (maxRoomWidth - roomX - minRoomWidth);
+    roomHeight = rand() % (maxRoomHeight - roomY - minRoomHeight);
+    roomDepth = rand() % (maxRoomDepth - roomZ - minRoomDepth);
+
+    topLeft.x = roomX;
+    topLeft.y = roomY;
+    topLeft.z = roomZ;
     bottomRight.x = topLeft.x + roomWidth;
     bottomRight.y = topLeft.y + roomHeight;
     bottomRight.z = topLeft.z + roomDepth;
