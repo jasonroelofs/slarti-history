@@ -1,0 +1,35 @@
+Thoughts on dungeon generation:
+
+Level is split up into a grid
+
+- Small (3x3 - 6x6)
+- Medium (7x7 - 10x10)
+- Large (11x11 - 20x20)
+- Mega (> 21x21)
+
+When generating, loop through each grid cell and determine:
+
+- Has a room center?
+- Type of room?
+- Size of room?
+
+- Build room.
+
+From this, we can calculate the size of VoxelVolume we need to hold
+the level, build it, hollow it out and go.
+
+Each block is 32x32 voxels
+Each room is a region
+Tunnels will span regions
+
+Scene Manager setup:
+
+- Each room becomes a Zone 
+- Each tunnel becomes a Zone
+- Portals placed at doors between tunnels and rooms
+
+Need to support overlapping rooms?
+
+Tunnelling?
+
+- Graph theory on connectivity, this is next
