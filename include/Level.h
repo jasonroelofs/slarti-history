@@ -20,9 +20,18 @@ class Level {
      */
     void generate();
 
+    /**
+     * When a level is getting kicked out for a new
+     * one, we need to clear out all old scene nodes
+     * and polygon data.
+     */
     void clearExisting();
 
-    void createVoxelVolume();
+    /**
+     * Once we've got a new volume from
+     * the generator in mVolume, we turn the
+     * voxel data into polygon data to be rendered.
+     */
     void buildRenderable();
 
   private:

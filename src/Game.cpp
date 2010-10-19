@@ -190,6 +190,8 @@ bool Game::setup() {
 
   // Initialize a Level, generate, and render
   {
+    mLevelGenerator = new LevelGenerator();
+
     mLevel = new Level(mSceneManager);
     mLevel->generate();
 
