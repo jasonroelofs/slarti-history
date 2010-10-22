@@ -2,6 +2,9 @@
 #define __generators_LEVEL_GENERATOR_H__
 
 #include "VoxelVolume.h"
+#include "OgreVector3.h"
+
+#include <vector>
 
 /**
  * This static generator class starts the process of
@@ -30,11 +33,41 @@ class LevelGenerator {
     };
 
     /**
+     * Define a Room inside of a level
+     */
+    struct Room {
+      // Block location
+      int blockX, blockY, blockZ;
+      
+      // Offset inside of Block (0 - 100, percentage of size)
+      int x, y, z;
+
+      // Size of room itself (0 - 100 percentage of size)
+      int width, height, depth;
+    };
+
+    struct LevelData {
+      // See LevelSizes
+      int size;
+      
+      // Size in 'blocks' or regions
+      int blockWidth, blockHeight, blockDepth;
+      
+      // Size in voxels
+      int width, height, depth;
+
+      int blockSize;
+
+      std::vector<Room> rooms;
+    };
+
+    /**
      * The following are meant to be used internally only
      * Use LevelGenerator::generate for a new randomly
      * generated level
      */
     LevelGenerator();
+    ~LevelGenerator();
 
     void chooseSizeOfLevel();
 
@@ -42,15 +75,14 @@ class LevelGenerator {
 
     void calculateLevelBounds();
 
-    void prepareVolume(VoxelVolume* volume);
+    VoxelVolume* prepareVolume();
 
     void carveOutVolume(VoxelVolume* volume);
 
-    // Will either be the dimensions of the level in blocks
-    // or the dimensions of the level in voxels depending on
-    // what point in the process we're on
-    int width, height, depth, blockSize;
+    void carveRoom(VoxelVolume* volume, Ogre::Vector3 topLeft, Ogre::Vector3 bottomRight);
 
+  private:
+    LevelData* mLevelData;
 };
 
 #endif // __generators_LEVEL_GENERATOR_H__
