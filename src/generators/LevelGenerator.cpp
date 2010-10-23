@@ -1,5 +1,7 @@
 #include "generators/LevelGenerator.h"
 
+#include "Utils.h"
+
 #include <iostream>
 using namespace std;
 
@@ -74,22 +76,22 @@ void LevelGenerator::buildRoomsInLevel() {
     for(int y = 0; y < mLevelData->blockHeight; y++) {
       for(int x = 0; x < mLevelData->blockWidth; x++) {
         // In most cases, put a room
-        //bool hasRoom = rand() % 100 > 20;
+        bool hasRoom = rand() % 100 > 30;
 
-        //if(hasRoom) {
+        if(hasRoom) {
           struct Room room = {
             // In block
             x, y, z,
-            // Centered
-            50, 50, 50,
-            // Half the size of the block
-            50, 50, 50
+            // Position
+            Utils::random(5, 95), Utils::random(5, 95), Utils::random(5, 95),
+            // Size
+            Utils::random(20, 80), Utils::random(5, 50), Utils::random(20, 80),
           };
 
           cout << "Adding a room to our level!" << endl;
 
           mLevelData->rooms.push_back(room);
-        //}
+        }
       }
     }
   }
@@ -148,19 +150,31 @@ void LevelGenerator::carveOutVolume(VoxelVolume* volume) {
   Ogre::Vector3 bottomRight;
 
   int blockSize = mLevelData->blockSize;
+  int regionHeight = blockSize * mLevelData->blockHeight;
+  int regionDepth = blockSize * mLevelData->blockDepth;
+  int regionWidth = blockSize * mLevelData->blockWidth;
 
   for(int idx = 0; idx < mLevelData->rooms.size(); idx++) {
     room = mLevelData->rooms[idx];
 
     cout << "Building room" << endl;
 
-    topLeft.x = ((blockSize * room.blockX) + (blockSize * (1 / room.x))) - ((blockSize / 2) * (1 / room.width));
-    topLeft.y = ((blockSize * room.blockY) + (blockSize * (1 / room.y))) - ((blockSize / 2) * (1 / room.height));
-    topLeft.z = ((blockSize * room.blockZ) + (blockSize * (1 / room.z))) - ((blockSize / 2) * (1 / room.depth));
+    topLeft.x = ((blockSize * room.blockX) + (blockSize * (room.x / 100.0f))) - ((blockSize / 2) * (room.width / 100.0f));
+    topLeft.y = ((blockSize * room.blockY) + (blockSize * (room.y / 100.0f))) - ((blockSize / 2) * (room.height / 100.0f));
+    topLeft.z = ((blockSize * room.blockZ) + (blockSize * (room.z / 100.0f))) - ((blockSize / 2) * (room.depth / 100.0f));
 
-    bottomRight.x = topLeft.x + (blockSize * (1.0f / room.width));
-    bottomRight.y = topLeft.y + (blockSize * (1.0f / room.height));
-    bottomRight.z = topLeft.z + (blockSize * (1.0f / room.depth));
+    bottomRight.x = topLeft.x + (blockSize * (room.width / 100.0f));
+    bottomRight.y = topLeft.y + (blockSize * (room.height / 100.0f));
+    bottomRight.z = topLeft.z + (blockSize * (room.depth / 100.0f));
+
+    // Fix positions to always be inside the grid
+    topLeft.x = max(topLeft.x, 2);
+    topLeft.y = max(topLeft.y, 2);
+    topLeft.z = max(topLeft.z, 2);
+
+    bottomRight.x = min(bottomRight.x, regionWidth - 2);
+    bottomRight.y = min(bottomRight.y, regionHeight - 2);
+    bottomRight.z = min(bottomRight.z, regionDepth - 2);
 
     cout << "Carving with " << topLeft << " to " << bottomRight << endl;
 
