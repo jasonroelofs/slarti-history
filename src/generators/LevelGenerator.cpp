@@ -115,7 +115,7 @@ void LevelGenerator::buildTunnels() {
 
   for(int idx = 0; idx < mLevelData->rooms.size(); idx++) {
     room = &mLevelData->rooms[idx];
-    to = ( (idx + 1) % (mLevelData->rooms.size() - 1) );
+    to = ( (idx + 1) % mLevelData->rooms.size() );
     cout << "Setting room " << idx << " to be connected to room " << to << endl;
 
     room->connectedToId = to;
@@ -288,12 +288,12 @@ void LevelGenerator::carveTunnel(VoxelVolume* volume, Ogre::Vector3 from, Ogre::
 
     if(xDir > 0) {
       topLeft = Ogre::Vector3( from.x, from.y - 1, from.z - 1 );
-      bottomRight = Ogre::Vector3 ( to.x, from.y + 1, from.z + 1 );
-      distance = from.x - to.x;
+      bottomRight = Ogre::Vector3( to.x, from.y + 1, from.z + 1 );
+      distance = to.x - from.x;
     } else {
       topLeft = Ogre::Vector3( to.x, from.y - 1, from.z - 1 );
-      bottomRight = Ogre::Vector3 ( from.x, from.y + 1, from.z + 1 );
-      distance = to.x - from.x;
+      bottomRight = Ogre::Vector3( from.x, from.y + 1, from.z + 1 );
+      distance = from.x - to.x;
     }
 
     cout << "xDir(" << xDir << ") Connecting tunnel from " << topLeft << " to " << bottomRight << endl;
@@ -313,11 +313,11 @@ void LevelGenerator::carveTunnel(VoxelVolume* volume, Ogre::Vector3 from, Ogre::
     if(yDir > 0) {
       topLeft = Ogre::Vector3( from.x - 1, from.y, from.z - 1 );
       bottomRight = Ogre::Vector3 ( from.x + 1, to.y, from.z + 1 );
-      distance = from.y - to.y;
+      distance = to.y - from.y;
     } else {
       topLeft = Ogre::Vector3( from.x - 1, to.y, from.z - 1 );
       bottomRight = Ogre::Vector3 ( from.x + 1, from.y, from.z + 1 );
-      distance = to.y - from.y;
+      distance = from.y - to.y;
     }
 
     cout << "yDir(" << yDir << ") Connecting tunnel from " << topLeft << " to " << bottomRight << endl;
