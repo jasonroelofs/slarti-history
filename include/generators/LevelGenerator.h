@@ -44,6 +44,20 @@ class LevelGenerator {
 
       // Size of room itself (0 - 100 percentage of size)
       int width, height, depth;
+
+      // What room is this room connected to?
+      // This is the index of LevelData::rooms
+      int connectedToId;
+
+      Ogre::Vector3 centerBlock() {
+        Ogre::Vector3 point;
+
+        point.x = ((32 * blockX) + (32 * (x / 100.0f)));
+        point.y = ((32 * blockY) + (32 * (y / 100.0f)));
+        point.z = ((32 * blockZ) + (32 * (z / 100.0f))); 
+
+        return point;
+      }
     };
 
     struct LevelData {
@@ -61,6 +75,8 @@ class LevelGenerator {
       std::vector<Room> rooms;
     };
 
+
+
     /**
      * The following are meant to be used internally only
      * Use LevelGenerator::generate for a new randomly
@@ -75,11 +91,15 @@ class LevelGenerator {
 
     void calculateLevelBounds();
 
+    void buildTunnels();
+
     VoxelVolume* prepareVolume();
 
     void carveOutVolume(VoxelVolume* volume);
 
-    void carveRoom(VoxelVolume* volume, Ogre::Vector3 topLeft, Ogre::Vector3 bottomRight);
+    void carveRoom(VoxelVolume* volume, Ogre::Vector3 topLeft, Ogre::Vector3 bottomRight, int material = 1);
+
+    void carveTunnel(VoxelVolume* volume, Ogre::Vector3 from, Ogre::Vector3 to);
 
   private:
     LevelData* mLevelData;

@@ -28,6 +28,8 @@ VoxelVolume* LevelGenerator::generate() {
 
   levelGen.buildRoomsInLevel();
 
+  levelGen.buildTunnels();
+
   levelGen.calculateLevelBounds();
 
   VoxelVolume* volume = levelGen.prepareVolume();
@@ -57,9 +59,9 @@ void LevelGenerator::chooseSizeOfLevel() {
   //
   // From selection give ourselves a size in blocks w x h x d
   //  ( for now all rooms will be on the same plane [same h] )
-  mLevelData->blockWidth = 3 + rand() % 3;
-  mLevelData->blockHeight = 1;
-  mLevelData->blockDepth = 3 + rand() % 3;
+  mLevelData->blockWidth = 4; //+ rand() % 10;
+  mLevelData->blockHeight = 1; // + rand() % 2;
+  mLevelData->blockDepth = 4; //+ rand() % 10;
 }
 
 void LevelGenerator::buildRoomsInLevel() {
@@ -86,6 +88,8 @@ void LevelGenerator::buildRoomsInLevel() {
             Utils::random(5, 95), Utils::random(5, 95), Utils::random(5, 95),
             // Size
             Utils::random(20, 80), Utils::random(5, 50), Utils::random(20, 80),
+            // Connected to
+            -1
           };
 
           cout << "Adding a room to our level!" << endl;
@@ -95,6 +99,28 @@ void LevelGenerator::buildRoomsInLevel() {
       }
     }
   }
+}
+
+/**
+ * Now that we have our list of rooms, we need to build up a list
+ * of connectivity. This will probably be a test of many different 
+ * algorithms to develop any number of different connectivity systems.
+ *
+ * To start, we want a simple room-to-room tunnel that ensures all
+ * rooms are reachable
+ */
+void LevelGenerator::buildTunnels() {
+  Room* room;
+  int to;
+
+  for(int idx = 0; idx < mLevelData->rooms.size(); idx++) {
+    room = &mLevelData->rooms[idx];
+    to = ( (idx + 1) % (mLevelData->rooms.size() - 1) );
+    cout << "Setting room " << idx << " to be connected to room " << to << endl;
+
+    room->connectedToId = to;
+  }
+
 }
 
 void LevelGenerator::calculateLevelBounds() {
@@ -154,6 +180,7 @@ void LevelGenerator::carveOutVolume(VoxelVolume* volume) {
   int regionDepth = blockSize * mLevelData->blockDepth;
   int regionWidth = blockSize * mLevelData->blockWidth;
 
+  // Carve out our rooms
   for(int idx = 0; idx < mLevelData->rooms.size(); idx++) {
     room = mLevelData->rooms[idx];
 
@@ -176,13 +203,33 @@ void LevelGenerator::carveOutVolume(VoxelVolume* volume) {
     bottomRight.y = min(bottomRight.y, regionHeight - 2);
     bottomRight.z = min(bottomRight.z, regionDepth - 2);
 
-    cout << "Carving with " << topLeft << " to " << bottomRight << endl;
+    cout << "Carving with " << topLeft << " to " << bottomRight << " with the center being " << room.centerBlock() << endl;
 
-    carveRoom(volume, topLeft, bottomRight);
+    carveRoom(volume, topLeft, bottomRight, 1);
+  }
+
+  Ogre::Vector3 from;
+  Ogre::Vector3 to;
+  Room connectingRoom;
+
+  // Now carve out the tunnels that connect the rooms
+  for(int idx = 0; idx < mLevelData->rooms.size(); idx++) {
+    room = mLevelData->rooms[idx];
+    connectingRoom = mLevelData->rooms[room.connectedToId];
+
+    cout << "Got room in idx " << idx << " and it's connected to room: " << room.connectedToId << endl;
+
+    from = room.centerBlock();
+
+    to = connectingRoom.centerBlock();
+
+    cout << "Connecting rooms from " << from << " to " << to << endl;
+
+    carveTunnel(volume, from, to);
   }
 }
 
-void LevelGenerator::carveRoom(VoxelVolume* volume, Ogre::Vector3 topLeft, Ogre::Vector3 bottomRight) {
+void LevelGenerator::carveRoom(VoxelVolume* volume, Ogre::Vector3 topLeft, Ogre::Vector3 bottomRight, int material) {
   Voxel voxel;
   uint8_t density = 0;
 
@@ -196,11 +243,107 @@ void LevelGenerator::carveRoom(VoxelVolume* volume, Ogre::Vector3 topLeft, Ogre:
         voxel = volume->getVoxelAt(x,y,z);
         voxel.setDensity(density);
 
-        voxel.setMaterial(1);
+        voxel.setMaterial(material);
 
         //Wrte the voxel value into the volume
         volume->setVoxelAt(x, y, z, voxel);
       }
     }
+  }
+}
+
+int calcDir(int from, int to) {
+  if(from == to) {
+    return 0;
+  } else {
+    return from < to ? 1 : -1;
+  }
+}
+
+/**
+ * Build a tunnel that connects the two points in the volumn
+ */
+void LevelGenerator::carveTunnel(VoxelVolume* volume, Ogre::Vector3 from, Ogre::Vector3 to) {
+
+  // To make things easier on me, we do one direction at a time
+  int xDir = calcDir(from.x, to.x);
+  int yDir = calcDir(from.y, to.y);
+  int zDir = calcDir(from.z, to.z);
+
+  int distance;
+
+  Ogre::Vector3 topLeft, bottomRight;
+
+  cout << "Connecting tunnel from " << from << " to " << to << endl;
+
+
+  // Reminder
+  // x is width
+  // y is height
+  // z is depth
+
+  if(xDir) {
+    // Extrude along x
+    // Size of tunnel is y height and z deep
+
+    if(xDir > 0) {
+      topLeft = Ogre::Vector3( from.x, from.y - 1, from.z - 1 );
+      bottomRight = Ogre::Vector3 ( to.x, from.y + 1, from.z + 1 );
+      distance = from.x - to.x;
+    } else {
+      topLeft = Ogre::Vector3( to.x, from.y - 1, from.z - 1 );
+      bottomRight = Ogre::Vector3 ( from.x, from.y + 1, from.z + 1 );
+      distance = to.x - from.x;
+    }
+
+    cout << "xDir(" << xDir << ") Connecting tunnel from " << topLeft << " to " << bottomRight << endl;
+
+    carveRoom(volume, topLeft, bottomRight, 1);
+
+    // Move our next start point to the end of the tunnel we just built
+    from.x += distance;
+
+    cout << "xDir: New from is " << from << endl;
+  }
+
+  if(yDir) {
+    // Extrude along y
+    // Size of tunnel is x width and z deep
+
+    if(yDir > 0) {
+      topLeft = Ogre::Vector3( from.x - 1, from.y, from.z - 1 );
+      bottomRight = Ogre::Vector3 ( from.x + 1, to.y, from.z + 1 );
+      distance = from.y - to.y;
+    } else {
+      topLeft = Ogre::Vector3( from.x - 1, to.y, from.z - 1 );
+      bottomRight = Ogre::Vector3 ( from.x + 1, from.y, from.z + 1 );
+      distance = to.y - from.y;
+    }
+
+    cout << "yDir(" << yDir << ") Connecting tunnel from " << topLeft << " to " << bottomRight << endl;
+
+    carveRoom(volume, topLeft, bottomRight, 1);
+
+    // Move our next start point to the end of the tunnel we just built
+    from.y += distance;
+
+    cout << "yDir: New from is " << from << endl;
+  }
+
+  if(zDir) {
+    // Extrude along z
+    // Size of tunnel is x width and z height
+
+    if(zDir > 0) {
+      topLeft = Ogre::Vector3( from.x - 1, from.y - 1, from.z );
+      bottomRight = Ogre::Vector3 ( from.x + 1, from.y + 1, to.z );
+    } else {
+      topLeft = Ogre::Vector3( from.x - 1, from.y - 1, to.z );
+      bottomRight = Ogre::Vector3 ( from.x + 1, from.y + 1, from.z );
+    }
+
+    cout << "zDir(" << zDir << ") Connecting tunnel from " << topLeft << " to " << bottomRight << endl;
+
+    carveRoom(volume, topLeft, bottomRight, 1);
   }
 }
