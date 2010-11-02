@@ -4,7 +4,9 @@ cmake_minimum_required(VERSION 2.6)
 set(PROJECT_NAME slartibartfast)
 project(${PROJECT_NAME})
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/ext/CMake)
+set(OGRE_HOME $ENV{OGRE_HOME})
+
+set(CMAKE_MODULE_PATH ${OGRE_HOME}/CMake)
 
 if(APPLE)
   set(XCODE_ATTRIBUTE_SDKROOT macosx10.4)
@@ -33,15 +35,15 @@ FILE(GLOB_RECURSE HDRS "include/*.h")
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
-  ${CMAKE_CURRENT_SOURCE_DIR}/ext/include
-  ${CMAKE_CURRENT_SOURCE_DIR}/ext/include/OGRE
-  ${CMAKE_CURRENT_SOURCE_DIR}/ext/include/OGRE/OSX
-  ${CMAKE_CURRENT_SOURCE_DIR}/ext/include/OIS
+  ${OGRE_HOME}/include
+  ${OGRE_HOME}/include/OGRE
+  ${OGRE_HOME}/include/OGRE/OSX
+  ${OGRE_HOME}/include/OIS
 )
 
 link_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}/ext/lib
-  ${CMAKE_CURRENT_SOURCE_DIR}/ext/lib/debug
+  ${OGRE_HOME}/lib
+  ${OGRE_HOME}/lib/release
 )
 
 if(APPLE)
@@ -66,7 +68,7 @@ if(APPLE)
   #	)
 
   set_target_properties(${PROJECT_NAME} PROPERTIES
-    LINK_FLAGS "-F${CMAKE_CURRENT_SOURCE_DIR}/ext/lib/debug/Debug -framework Ogre"
+    LINK_FLAGS "-F${OGRE_HOME}/lib/release -framework Ogre"
   )
 else()
   add_executable(${PROJECT_NAME} ${SRCS})
