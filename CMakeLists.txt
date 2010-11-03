@@ -23,17 +23,12 @@ if(APPLE)
   set(EXTRA_LIBS ${COCOA_LIBRARY} ${CARBON_LIBRARY} ${IOKit_LIBRARY})
 endif(APPLE)
 
-find_package(Boost QUIET)
-
-# Set up referencing of Boost
-include_directories(${Boost_INCLUDE_DIR})
-add_definitions(-DBOOST_ALL_NO_LIB)
-
 FILE(GLOB_RECURSE DATA "bin/*")
 FILE(GLOB_RECURSE SRCS "src/*.cpp")
 FILE(GLOB_RECURSE HDRS "include/*.h")
 
 include_directories(
+  ${OGRE_HOME}/boost_1_42
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${OGRE_HOME}/include
   ${OGRE_HOME}/include/OGRE
@@ -42,6 +37,7 @@ include_directories(
 )
 
 link_directories(
+  ${OGRE_HOME}/boost_1_42/lib
   ${OGRE_HOME}/lib
   ${OGRE_HOME}/lib/release
 )
