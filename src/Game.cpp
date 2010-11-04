@@ -94,7 +94,7 @@ bool Game::setup() {
 
     mCamera->setPosition(Ogre::Vector3(0, 0, 80));
     mCamera->lookAt(Ogre::Vector3(0, 0, -300));
-    mCamera->setNearClipDistance(5);
+    mCamera->setNearClipDistance(1);
   }
 
 
@@ -130,7 +130,7 @@ bool Game::setup() {
 
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
 
-    mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    //mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 
     Ogre::Light* l = mSceneManager->createLight("MainLight");
     l->setPosition(20, 80, 50);

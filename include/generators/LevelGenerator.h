@@ -51,10 +51,11 @@ class LevelGenerator {
 
       Ogre::Vector3 centerBlock() {
         Ogre::Vector3 point;
+        int blockSize = 64;
 
-        point.x = ((32 * blockX) + (32 * (x / 100.0f)));
-        point.y = ((32 * blockY) + (32 * (y / 100.0f)));
-        point.z = ((32 * blockZ) + (32 * (z / 100.0f))); 
+        point.x = ((blockSize * blockX) + (blockSize * (x / 100.0f)));
+        point.y = ((blockSize * blockY) + (blockSize * (y / 100.0f)));
+        point.z = ((blockSize * blockZ) + (blockSize * (z / 100.0f))); 
 
         return point;
       }

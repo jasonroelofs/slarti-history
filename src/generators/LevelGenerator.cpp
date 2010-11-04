@@ -59,9 +59,9 @@ void LevelGenerator::chooseSizeOfLevel() {
   //
   // From selection give ourselves a size in blocks w x h x d
   //  ( for now all rooms will be on the same plane [same h] )
-  mLevelData->blockWidth = 4; //+ rand() % 10;
+  mLevelData->blockWidth = 6; //+ rand() % 10;
   mLevelData->blockHeight = 2; // + rand() % 2;
-  mLevelData->blockDepth = 4; //+ rand() % 10;
+  mLevelData->blockDepth = 6; //+ rand() % 10;
 }
 
 void LevelGenerator::buildRoomsInLevel() {
@@ -126,7 +126,7 @@ void LevelGenerator::buildTunnels() {
 void LevelGenerator::calculateLevelBounds() {
   // Given w h d from chooseSizeOfLevel calculate the size in voxels
   // Resets width, height, depth to new values
-  mLevelData->blockSize = 32;
+  mLevelData->blockSize = 64;
 
   mLevelData->width = mLevelData->blockWidth * mLevelData->blockSize;
   mLevelData->height = mLevelData->blockHeight * mLevelData->blockSize;
@@ -270,6 +270,8 @@ void LevelGenerator::carveTunnel(VoxelVolume* volume, Ogre::Vector3 from, Ogre::
   int yDir = calcDir(from.y, to.y);
   int zDir = calcDir(from.z, to.z);
 
+  int halfTunnel = 1;
+
   int distance;
 
   Ogre::Vector3 topLeft, bottomRight;
@@ -287,11 +289,11 @@ void LevelGenerator::carveTunnel(VoxelVolume* volume, Ogre::Vector3 from, Ogre::
     // Size of tunnel is y height and z deep
 
     if(xDir > 0) {
-      topLeft = Ogre::Vector3( from.x, from.y - 1, from.z - 1 );
-      bottomRight = Ogre::Vector3( to.x, from.y + 1, from.z + 1 );
+      topLeft = Ogre::Vector3( from.x, from.y - halfTunnel, from.z - halfTunnel );
+      bottomRight = Ogre::Vector3( to.x, from.y + halfTunnel, from.z + halfTunnel );
     } else {
-      topLeft = Ogre::Vector3( to.x, from.y - 1, from.z - 1 );
-      bottomRight = Ogre::Vector3( from.x, from.y + 1, from.z + 1 );
+      topLeft = Ogre::Vector3( to.x, from.y - halfTunnel, from.z - halfTunnel );
+      bottomRight = Ogre::Vector3( from.x, from.y + halfTunnel, from.z + halfTunnel );
     }
 
     distance = to.x - from.x;
@@ -311,11 +313,11 @@ void LevelGenerator::carveTunnel(VoxelVolume* volume, Ogre::Vector3 from, Ogre::
     // Size of tunnel is x width and z deep
 
     if(yDir > 0) {
-      topLeft = Ogre::Vector3( from.x - 1, from.y, from.z - 1 );
-      bottomRight = Ogre::Vector3 ( from.x + 1, to.y, from.z + 1 );
+      topLeft = Ogre::Vector3( from.x - halfTunnel, from.y, from.z - halfTunnel );
+      bottomRight = Ogre::Vector3 ( from.x + halfTunnel, to.y, from.z + halfTunnel );
     } else {
-      topLeft = Ogre::Vector3( from.x - 1, to.y, from.z - 1 );
-      bottomRight = Ogre::Vector3 ( from.x + 1, from.y, from.z + 1 );
+      topLeft = Ogre::Vector3( from.x - halfTunnel, to.y, from.z - halfTunnel );
+      bottomRight = Ogre::Vector3 ( from.x + halfTunnel, from.y, from.z + halfTunnel );
     }
 
     distance = to.y - from.y;
@@ -335,11 +337,11 @@ void LevelGenerator::carveTunnel(VoxelVolume* volume, Ogre::Vector3 from, Ogre::
     // Size of tunnel is x width and z height
 
     if(zDir > 0) {
-      topLeft = Ogre::Vector3( from.x - 1, from.y - 1, from.z );
-      bottomRight = Ogre::Vector3 ( from.x + 1, from.y + 1, to.z );
+      topLeft = Ogre::Vector3( from.x - halfTunnel, from.y - halfTunnel, from.z );
+      bottomRight = Ogre::Vector3 ( from.x + halfTunnel, from.y + halfTunnel, to.z );
     } else {
-      topLeft = Ogre::Vector3( from.x - 1, from.y - 1, to.z );
-      bottomRight = Ogre::Vector3 ( from.x + 1, from.y + 1, from.z );
+      topLeft = Ogre::Vector3( from.x - halfTunnel, from.y - halfTunnel, to.z );
+      bottomRight = Ogre::Vector3 ( from.x + halfTunnel, from.y + halfTunnel, from.z );
     }
 
     cout << "zDir(" << zDir << ") Connecting tunnel from " << topLeft << " to " << bottomRight << endl;
