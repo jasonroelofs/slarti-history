@@ -10,6 +10,7 @@
 #include "CameraManager.h"
 #include "Event.h"
 #include "Level.h"
+#include "SolarSystem.h"
 
 /**
  * The starting point for the entire game.
@@ -86,6 +87,9 @@ class Game :
 
     // Our current 'level'
     Level* mLevel;
+    
+    // The current Solar System
+    SolarSystem* mSolarSystem;
 
     //OIS Input devices
     OIS::InputManager* mOISInputManager;

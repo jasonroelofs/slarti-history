@@ -199,9 +199,13 @@ bool Game::setup() {
   }
   */
 
-  // GalaxyEngine planet rendering
+  // Planet rendering
   {
+    mSolarSystem = new SolarSystem(mSceneManager);
+    mSolarSystem->generate();
 
+    // Hook up an event to allow us to rebuild with a simple keystroke
+    mInputManager->map(Event::RebuildLevel, this, &Game::newLevel);
   }
 
   // Build our Galaxy
@@ -233,7 +237,7 @@ bool Game::setup() {
 void Game::newLevel(InputEvent event) {
   // Process on key-up only
   if(!event.isDown) {
-    mLevel->generate();
+    mSolarSystem->generate();
   }
 }
 
