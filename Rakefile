@@ -38,7 +38,7 @@ desc "Build slartibartfast"
 task :build do
   mkdir_p "build"
   cd "build" do
-    sh "xcodebuild"
+    sh "xcodebuild | grep -v setenv"
   end
 end
 
