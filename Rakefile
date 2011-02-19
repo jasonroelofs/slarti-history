@@ -38,10 +38,7 @@ desc "Build slartibartfast"
 task :build do
   mkdir_p "build"
   cd "build" do
-    sh "xcodebuild | grep -v setenv"
-    if !system("echo ${PIPESTATUS[0]}")
-      raise "BUILD FAILED"
-    end
+    system("xcodebuild | grep -v setenv")
   end
 end
 
