@@ -1,4 +1,4 @@
-#include "generators/LevelGenerator.h"
+#include "LevelGenerator.h"
 
 #include "Utils.h"
 

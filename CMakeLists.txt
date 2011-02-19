@@ -27,13 +27,20 @@ FILE(GLOB_RECURSE DATA "bin/*")
 FILE(GLOB_RECURSE SRCS "src/*.cpp")
 FILE(GLOB_RECURSE HDRS "include/*.h")
 
+SET(SLARTI_INCLUDES
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/generators
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/generators/voxel
+)
+
+
 include_directories(
   ${OGRE_HOME}/boost_1_42
-  ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${OGRE_HOME}/include
   ${OGRE_HOME}/include/OGRE
   ${OGRE_HOME}/include/OGRE/OSX
   ${OGRE_HOME}/include/OIS
+  ${SLARTI_INCLUDES}
 )
 
 link_directories(

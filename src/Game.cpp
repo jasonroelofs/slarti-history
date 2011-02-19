@@ -88,7 +88,7 @@ bool Game::setup() {
   // Scene Manager Setup  
   //----------------------
   {
-    mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC);
+    mSceneManager = mRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "SceneManager");
 
     mCamera = mSceneManager->createCamera("PlayerCam");
 
@@ -189,12 +189,19 @@ bool Game::setup() {
   }
 
   // Initialize a Level, generate, and render
+  /*
   {
     mLevel = new Level(mSceneManager);
     mLevel->generate();
 
     // Hook up an event to allow us to rebuild with a simple keystroke
     mInputManager->map(Event::RebuildLevel, this, &Game::newLevel);
+  }
+  */
+
+  // GalaxyEngine planet rendering
+  {
+
   }
 
   // Build our Galaxy

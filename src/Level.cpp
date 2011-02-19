@@ -1,5 +1,5 @@
 #include "Level.h"
-#include "generators/LevelGenerator.h"
+#include "LevelGenerator.h"
 
 #include <OgreManualObject.h>
 #include <OgreRenderOperation.h>
