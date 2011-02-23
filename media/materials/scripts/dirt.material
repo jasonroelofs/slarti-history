@@ -1,19 +1,14 @@
-import TriplanarTextureMaterial from "TriplanarTexture.material"
+import SimpleTexture from "SimpleTexture.material"
 
-material walls/dirt : TriplanarTextureMaterial
+material dirt : SimpleTexture
 {
-  technique 
+  technique
   {
-    pass Main
-    {
-      fragment_program_ref TriplanarTextureFP
+    pass 
+    { 
+      texture_unit 
       {
-				param_named textureMatrix matrix4x4 0.004 0.0 0.0 0.0 0.0 0.004 0.0 0.0 0.0 0.0 0.004 0.0 0.0 0.0 0.0 1.0
-      }
-
-      texture_unit
-      {
-        texture Dirt.jpg 2d
+        texture Dirt.jpg
       }
     }
   }

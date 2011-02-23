@@ -20,4 +20,5 @@ void SolarSystem::generate() {
   mPlanet->attachTo(planetNode);
 
   mBaseSceneNode->setPosition(0.0f, 0.0f, 0.0f);
+  mBaseSceneNode->setScale(10, 10, 10);
 }

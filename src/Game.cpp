@@ -92,8 +92,8 @@ bool Game::setup() {
 
     mCamera = mSceneManager->createCamera("PlayerCam");
 
-    mCamera->setPosition(Ogre::Vector3(0, 0, 80));
-    mCamera->lookAt(Ogre::Vector3(0, 0, -300));
+    mCamera->setPosition(Ogre::Vector3(0, 0, 3000));
+    mCamera->lookAt(Ogre::Vector3(0, 0, 0));
     mCamera->setNearClipDistance(1);
   }
 
@@ -133,7 +133,7 @@ bool Game::setup() {
     //mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 
     Ogre::Light* l = mSceneManager->createLight("MainLight");
-    l->setPosition(20, 80, 50);
+    l->setPosition(mCamera->getPosition());
   }
 
   //----------------------

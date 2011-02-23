@@ -7,6 +7,7 @@ require 'packages/lib/packages'
 
 # Setup some global Ogre.rb information
 PROJECT_ROOT = File.expand_path(File.dirname(__FILE__))
+PATH_TO_BIN = "build/Debug/slartibartfast.app/Contents/MacOS"
 
 # Need to run through the 'packages' dir, running the package definitions
 # and building rake tasks as needed
@@ -37,6 +38,10 @@ end
 desc "Build slartibartfast"
 task :build do
   mkdir_p "build"
+  cd PATH_TO_BIN do
+    rm_f "slartibartfast"
+  end
+
   cd "build" do
     system("xcodebuild | grep -v setenv")
   end
@@ -51,7 +56,7 @@ end
 
 desc "Run the app"
 task :run do
-  cd "build/Debug/slartibartfast.app/Contents/MacOS" do
+  cd PATH_TO_BIN do
     sh "./slartibartfast"
   end
 end

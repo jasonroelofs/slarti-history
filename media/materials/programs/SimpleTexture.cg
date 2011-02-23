@@ -1,0 +1,29 @@
+void main_vp(
+  // Inputs
+  float4 position   : POSITION,
+  float4 texCoord0  : TEXCOORD0,
+
+  // Outputs
+  out float4 oPosition  : POSITION,
+  out float4 oTexCoord0 : TEXCOORD0,
+
+  // Global info
+  uniform float4x4 worldViewProj
+)
+{
+  oPosition = mul(worldViewProj, position);
+  oTexCoord0  = texCoord0;
+}
+
+void main_fp(
+  // Inputs
+  float2 texCoord0  : TEXCOORD0,
+
+  // Outputs
+  out float4 color  : COLOR,
+
+  // Global info
+  uniform sampler2D texture)
+{
+  color = tex2D(texture, texCoord0);
+}
