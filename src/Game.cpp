@@ -92,7 +92,7 @@ bool Game::setup() {
 
     mCamera = mSceneManager->createCamera("PlayerCam");
 
-    mCamera->setPosition(Ogre::Vector3(0, 0, 3000));
+    mCamera->setPosition(Ogre::Vector3(0, 0, 30000));
     mCamera->lookAt(Ogre::Vector3(0, 0, 0));
     mCamera->setNearClipDistance(1);
   }
