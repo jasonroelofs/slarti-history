@@ -7,3 +7,4 @@ bin/ogre.cfg
 logs
 ext
 .DS_Store
+*.log
