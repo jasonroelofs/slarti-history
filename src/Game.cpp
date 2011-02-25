@@ -124,10 +124,6 @@ bool Game::setup() {
   // Creating the scene
   //----------------------
   {
-    Ogre::Entity* ogreHead = mSceneManager->createEntity("Head", "ogrehead.mesh");
-    mOgreHeadNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
-    mOgreHeadNode->attachObject(ogreHead);
-
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
 
     //mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));

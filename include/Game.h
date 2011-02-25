@@ -77,8 +77,6 @@ class Game :
 
     Ogre::RenderWindow* mWindow;
 
-    Ogre::SceneNode* mOgreHeadNode;
-
     InputManager* mInputManager;
 
     InputDispatcher* mInputDispatcher;
