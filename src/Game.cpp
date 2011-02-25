@@ -92,9 +92,11 @@ bool Game::setup() {
 
     mCamera = mSceneManager->createCamera("PlayerCam");
 
-    mCamera->setPosition(Ogre::Vector3(0, 0, 30000));
+    mCamera->setPosition(Ogre::Vector3(0, 0, 300000.0f));
     mCamera->lookAt(Ogre::Vector3(0, 0, 0));
+
     mCamera->setNearClipDistance(1);
+    mCamera->setFarClipDistance(500000.0f);
   }
 
 
@@ -117,7 +119,7 @@ bool Game::setup() {
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
-	  mRoot->addMovableObjectFactory(new SurfacePatchRenderableFactory);
+	  //mRoot->addMovableObjectFactory(new SurfacePatchRenderableFactory);
   }
 
   //----------------------
@@ -125,8 +127,6 @@ bool Game::setup() {
   //----------------------
   {
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
-
-    //mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 
     Ogre::Light* l = mSceneManager->createLight("MainLight");
     l->setPosition(mCamera->getPosition());
