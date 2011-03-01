@@ -1,0 +1,48 @@
+Component System
+================
+
+After spending a very long time researching many different component-based designs,
+giving lots of thought into how I'll be managing the structure of this game, I've come
+up with the following design and will work on refining the idea as I go along.
+
+Basically the question I needed to answer was: what exactly am I trying to model? After
+plenty of deliberation I decided that I want a system that is basically actions on
+data. The world is just data, and things happen in the world.
+
+With this in mind, here's the current object breakdown:
+
+Actor
+-----
+
+Actors are the core object of anything that goes into the world. They are a simple
+object with a few bits of data that all Actors need to have. From here Actors are given
+special information via Components.
+
+Component
+---------
+
+Components are containers of data for a very specific purpose. Use or build a Component
+and give it to an Actor to add more data to the Actor. For example, add a HealthComponent
+to an Actor to give it health. Components are also the flags to the various Managers
+that new functionality needs to be associated with that Actor.
+
+Managers
+--------
+
+Managers are where the custom functionality resides, and they are also the managers
+of the Components they work with (CameraManager <-> CameraComponent). Managers handle
+all aspects of managing Components and their relationships with Actors in the world, as
+well as communication with other aspects of the system (e.g. Ogre). If a Component exists
+on an Actor in the World, it's related Manager knows of it and will process that Component
+come update time.
+
+
+Usage
+=====
+
+--- Need to figure out a proper API for this ---
+
+To put something into the world, you create an Actor, give this actor the components which 
+define the functionality requested, and Managers will do the rest.
+
+For an example, look at Game.cpp on how the initial scene Camera is created.
