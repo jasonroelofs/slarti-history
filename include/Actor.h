@@ -1,10 +1,13 @@
 #ifndef __ACTOR_H__
 #define __ACTOR_H__
 
+#include "components/TransformComponent.h"
+
 #include <vector>
 
-class Component;
-class Ogre::Vector3;
+namespace components {
+  class Component;
+}
 
 /**
  * Base class of all objects that go into the scene.
@@ -20,19 +23,19 @@ class Actor {
      * We make it directly accessible because in the end this
      * is the most used set of data for an Actor.
      */
-    TransformComponent transform;
+    components::TransformComponent* transform;
 
     /**
      * Add a component to this actor
      */
-    void addComponent(Component* comp);
+    void addComponent(components::Component* comp);
 
   protected:
     /**
      * Actors are composed of Components, which add
      * data to the Actor and flag this Actor for added functionality.
      */
-    std::vector<Component*> mComponents;
+    std::vector<components::Component*> mComponents;
 
 };
 

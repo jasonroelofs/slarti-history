@@ -3,9 +3,13 @@
 
 #include "components/CameraComponent.h"
 
-#include <OgreSceneManager.h>
-
 #include <vector>
+
+namespace Ogre {
+  class SceneManager; 
+}
+
+using namespace components;
 
 /**
  * Manager class that handles all CameraComponents.

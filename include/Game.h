@@ -7,7 +7,7 @@
 
 #include "InputDispatcher.h"
 #include "InputManager.h"
-#include "CameraManager.h"
+#include "managers/CameraManager.h"
 #include "Event.h"
 #include "Level.h"
 #include "SolarSystem.h"
