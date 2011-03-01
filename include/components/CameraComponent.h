@@ -1,46 +1,55 @@
 #ifndef __CAMERA_COMPONENT_H__
 #define __CAMERA_COMPONENT_H__
 
-#include "Component.h"
+#include "components/Component.h"
 
-class Ogre::Vector3;
-class Ogre::Camera;
-class Ogre::RenderTarget;
-class Ogre::ColourValue;
+#include <OgreVector3.h>
+#include <OgreColourValue.h>
 
-/**
- * Component that defines information related to being
- * a camera viewing the scene
- */
-class CameraComponent : public Component {
+namespace Ogre {
+  class Camera;
+  class RenderTarget;
+}
 
-  public:
-    /**
-     * Where the camera is looking at
-     */
-    Ogre::Vector3 lookAt;
+namespace components {
 
-    /**
-     * View frustum clip distances
-     */
-    int nearClipDistance = 1;
-    int farClipDistance = 0;
+  /**
+   * Component that defines information related to being
+   * a camera viewing the scene
+   */
+  class CameraComponent : public Component {
 
-    /**
-     * Ogre's camera object
-     */
-    Ogre::Camera* camera;
+    public:
+      /**
+       * Where the camera is looking at
+       */
+      Ogre::Vector3 lookAt;
 
-    /**
-     * Render target this camera is rendering to
-     */
-    Ogre::RenderTarget* renderTarget;
+      /**
+       * View frustum clip distances
+       */
+      int nearClipDistance; // = 1;
+      int farClipDistance; // = 0;
 
-    /**
-     * Color the framebuffer will get cleared to on
-     * each frame
-     */
-    Ogre::ColourValue clearColor;
-};
+      /**
+       * Color the framebuffer will get cleared to on
+       * each frame
+       */
+      Ogre::ColourValue clearColor;
 
+      /**
+       * Render target this camera is rendering to
+       */
+      Ogre::RenderTarget* renderTarget;
+
+      /** Internal **/
+
+      /**
+       * Ogre's camera object
+       */
+      Ogre::Camera* _camera;
+
+  };
+
+}
 #endif // __CAMERA_COMPONENT_H__

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Event.h"
-#include "SurfacePatchRenderable.h"
+#include "Actor.h"
+#include "components/CameraComponent.h"
 
 #include <cstdio>
 #include <ctime>
@@ -97,7 +98,7 @@ bool Game::setup() {
     Actor* camera = new Actor();
     camera->transform->position = Ogre::Vector3(0, 0, 3000.0f);
     
-    CameraComponent* cameraComp = new CameraComponent();
+    components::CameraComponent* cameraComp = new components::CameraComponent();
     cameraComp->renderTarget = mWindow;
     
     camera->addComponent(cameraComp);

@@ -1,9 +1,10 @@
 #include "managers/CameraManager.h"
 
+#include <OgreSceneManager.h>
 #include <OgreViewport.h>
 
 CameraManager::CameraManager(Ogre::SceneManager* manager)
-  : mSceneManager(manager);
+  : mSceneManager(manager)
 {
 }
 
@@ -20,11 +21,14 @@ void CameraManager::initialize(CameraComponent* component) {
   // Viewport Setup
   if(component->renderTarget) {
     Ogre::Viewport* vp = component->renderTarget->addViewport(camera);
-    vp->setBackgroundColour(camera->clearColor);
+    vp->setBackgroundColour(component->clearColor);
 
     camera->setAspectRatio(
         Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
   } // Alert if this isn't the case?
 
-  component->camera = camera;
+  component->_camera = camera;
+}
+
+void CameraManager::update() {
 }
