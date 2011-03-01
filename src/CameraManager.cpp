@@ -12,7 +12,7 @@ CameraManager::CameraManager(Ogre::Camera* camera, InputManager* manager)
     mMovingRight(false),
     mMovingForward(false),
     mMovingBack(false),
-    mTopSpeed(500),
+    mTopSpeed(1),
     mVelocity(Ogre::Vector3::ZERO)
 {
   mInput->map(Event::MoveLeft, this, &CameraManager::moveLeft);

@@ -27,7 +27,7 @@ void SolarSystem::chooseSunType() {
 
   // OMG BIG and right in the center
   sunNode->setPosition(0.0f, 0.0f, 0.0f);
-  sunNode->setScale(100000, 100000, 100000);
+  sunNode->setScale(1000, 1000, 1000);
 }
 
 void SolarSystem::generatePlanets() {
@@ -40,6 +40,6 @@ void SolarSystem::generatePlanet() {
   Ogre::SceneNode* planetNode = mBaseSceneNode->createChildSceneNode();
   mPlanet->attachTo(planetNode);
 
-  planetNode->setPosition(0.0f, 0.0f, 200000.0f);
-  planetNode->setScale(20000, 20000, 20000);
+  planetNode->setPosition(0.0f, 0.0f, 2000.0f);
+  planetNode->setScale(200, 200, 200);
 }

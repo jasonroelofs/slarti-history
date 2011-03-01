@@ -85,30 +85,22 @@ bool Game::setup() {
   }
 
   //----------------------
-  // Scene Manager Setup  
+  // Scene Manager and Camera Setup  
   //----------------------
   {
     mSceneManager = mRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "SceneManager");
 
-    mCamera = mSceneManager->createCamera("PlayerCam");
+    new CameraManager(mSceneManager);
 
-    mCamera->setPosition(Ogre::Vector3(0, 0, 300000.0f));
-    mCamera->lookAt(Ogre::Vector3(0, 0, 0));
-
-    mCamera->setNearClipDistance(1);
-    mCamera->setFarClipDistance(500000.0f);
-  }
-
-
-  //----------------------
-  // Viewport Setup
-  //----------------------
-  {
-    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
-    vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
-
-    mCamera->setAspectRatio(
-        Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+    // Prototype for setting up an actor with components.
+    // Want to move this stuff into managers more, or factories
+    Actor* camera = new Actor();
+    camera->transform->position = Ogre::Vector3(0, 0, 3000.0f);
+    
+    CameraComponent* cameraComp = new CameraComponent();
+    cameraComp->renderTarget = mWindow;
+    
+    camera->addComponent(cameraComp);
   }
 
 
@@ -175,7 +167,7 @@ bool Game::setup() {
     mInputDispatcher->setCurrentInputManager(mInputManager);
 
     // Get our camera situated
-    mCameraManager = new CameraManager(mCamera, mInputManager);
+    //mCameraManager = new CameraManager(mCamera, mInputManager);
 
     // Hook up some top level events
     mInputManager->map(Event::Quit, this, &Game::stop);
@@ -237,6 +229,7 @@ void Game::newLevel(InputEvent event) {
   }
 }
 
+// Need to move this to CameraManager?
 void Game::toggleWireframe(InputEvent event) {
   if(event.isDown) {
     Ogre::PolygonMode pm;
@@ -274,7 +267,8 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   mKeyboard->capture();
   mMouse->capture();
 
-  mCameraManager->update(evt.timeSinceLastFrame);
+  // New update goes here
+  //mCameraManager->update(evt.timeSinceLastFrame);
 
   return true;
 }
