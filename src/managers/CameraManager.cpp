@@ -3,32 +3,36 @@
 #include <OgreSceneManager.h>
 #include <OgreViewport.h>
 
-CameraManager::CameraManager(Ogre::SceneManager* manager)
-  : mSceneManager(manager)
-{
-}
+namespace managers {
 
-void CameraManager::initialize(CameraComponent* component) {
-  mComponents.push_back(component);
+  CameraManager::CameraManager(Ogre::SceneManager* manager)
+    : mSceneManager(manager)
+  {
+  }
 
-  Ogre::Camera* camera = mSceneManager->createCamera("PlayerCam");
+  void CameraManager::initialize(CameraComponent* component) {
+    mComponents.push_back(component);
 
-  // View configuration
-  camera->lookAt(component->lookAt);
-  camera->setNearClipDistance(component->nearClipDistance);
-  camera->setFarClipDistance(component->farClipDistance);
+    Ogre::Camera* camera = mSceneManager->createCamera("PlayerCam");
 
-  // Viewport Setup
-  if(component->renderTarget) {
-    Ogre::Viewport* vp = component->renderTarget->addViewport(camera);
-    vp->setBackgroundColour(component->clearColor);
+    // View configuration
+    camera->lookAt(component->lookAt);
+    camera->setNearClipDistance(component->nearClipDistance);
+    camera->setFarClipDistance(component->farClipDistance);
 
-    camera->setAspectRatio(
-        Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
-  } // Alert if this isn't the case?
+    // Viewport Setup
+    if(component->renderTarget) {
+      Ogre::Viewport* vp = component->renderTarget->addViewport(camera);
+      vp->setBackgroundColour(component->clearColor);
 
-  component->_camera = camera;
-}
+      camera->setAspectRatio(
+          Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+    } // Alert if this isn't the case?
 
-void CameraManager::update() {
+    component->_camera = camera;
+  }
+
+  void CameraManager::update() {
+  }
+
 }

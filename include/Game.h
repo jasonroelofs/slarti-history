@@ -81,7 +81,7 @@ class Game :
 
     InputDispatcher* mInputDispatcher;
 
-    CameraManager* mCameraManager;
+    // CameraManager* mCameraManager;
 
     // Our current 'level'
     Level* mLevel;

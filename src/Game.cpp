@@ -91,7 +91,7 @@ bool Game::setup() {
   {
     mSceneManager = mRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "SceneManager");
 
-    new CameraManager(mSceneManager);
+    new managers::CameraManager(mSceneManager);
 
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
