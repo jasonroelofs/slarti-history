@@ -1,5 +1,7 @@
 #include "managers/TransformManager.h"
 
+#include <OgreSceneManager.h>
+
 namespace managers {
 
   TransformManager::TransformManager(Ogre::SceneManager* manager)
@@ -8,8 +10,6 @@ namespace managers {
   }
 
   void TransformManager::initialize(TransformComponent* component) {
-    mComponents.push_back(component);
-
     // Figure out where to add the SceneNode for this component.
     // We'll want to look at the Actor's parent, if one exists,
     // otherwise it's pulled off of the root scene node
@@ -20,4 +20,5 @@ namespace managers {
     // into their scene node
   }
 
+  MANAGER_IMPLEMENTATION(Transform)
 }

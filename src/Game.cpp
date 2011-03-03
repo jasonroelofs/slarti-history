@@ -3,6 +3,9 @@
 #include "Actor.h"
 #include "components/CameraComponent.h"
 
+#include "managers/TransformManager.h"
+#include "managers/CameraManager.h"
+
 #include <cstdio>
 #include <ctime>
 
@@ -91,17 +94,15 @@ bool Game::setup() {
   {
     mSceneManager = mRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "SceneManager");
 
+    new managers::TransformManager(mSceneManager);
     new managers::CameraManager(mSceneManager);
 
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
-    Actor* camera = new Actor();
-    camera->transform->position = Ogre::Vector3(0, 0, 3000.0f);
-    
-    components::CameraComponent* cameraComp = new components::CameraComponent();
-    cameraComp->renderTarget = mWindow;
-    
-    camera->addComponent(cameraComp);
+
+    Actor* actor = new Actor(Ogre::Vector3(0, 0, 3000.0f));
+    //actor->addComponent(new CameraComponent(renderTarget));
+    //actor->addComponent(new InputComponent());
   }
 
 

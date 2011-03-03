@@ -1,4 +1,5 @@
 #include "managers/CameraManager.h"
+#include "components/CameraComponent.h"
 
 #include <OgreSceneManager.h>
 #include <OgreViewport.h>
@@ -35,4 +36,6 @@ namespace managers {
   void CameraManager::update() {
   }
 
+
+  MANAGER_IMPLEMENTATION(Camera)
 }

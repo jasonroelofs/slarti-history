@@ -1,12 +1,13 @@
 #ifndef __ACTOR_H__
 #define __ACTOR_H__
 
-#include "components/TransformComponent.h"
-
 #include <vector>
+
+#include <OgreVector3.h>
 
 namespace components {
   class Component;
+  class TransformComponent;
 }
 
 /**
@@ -18,6 +19,12 @@ namespace components {
 class Actor {
 
   public:
+    /**
+     * Initialize a new Actor at a given position in World Space,
+     * defaults to the origin
+     */
+    Actor(Ogre::Vector3 position = Ogre::Vector3::ZERO);
+
     /**
      * Every actor automatically gets a Transform component.
      * We make it directly accessible because in the end this

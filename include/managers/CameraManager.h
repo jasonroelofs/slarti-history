@@ -1,12 +1,14 @@
 #ifndef __CAMERA_MANAGER_H__
 #define __CAMERA_MANAGER_H__
 
-#include "components/CameraComponent.h"
-
-#include <vector>
+#include "managers/ComponentManager.h"
 
 namespace Ogre {
   class SceneManager; 
+}
+
+namespace components {
+  class CameraComponent;
 }
 
 namespace managers {
@@ -17,7 +19,7 @@ namespace managers {
    * This class will setup, hook up, and update all Cameras
    * with the Ogre subsystem.
    */
-  class CameraManager { // : public ComponentManager<CameraComponent>
+  class CameraManager {
 
     public:
 
@@ -44,12 +46,8 @@ namespace managers {
        */
       Ogre::SceneManager* mSceneManager;
 
-      /**
-       * List of all CameraComponents currently in
-       * the system
-       */
-      std::vector<CameraComponent*> mComponents;
 
+    MANAGER_DEFINITION(Camera)
   };
 }
 #endif // __CAMERA_MANAGER_H__
