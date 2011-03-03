@@ -3,7 +3,9 @@
 
 #include "managers/ComponentManager.h"
 
-#include <OgreSceneManager.h>
+namespace Ogre {
+  class SceneManager;
+}
 
 namespace components {
   class TransformComponent;
