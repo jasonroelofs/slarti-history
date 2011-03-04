@@ -9,6 +9,7 @@ namespace managers {
   CameraManager::CameraManager(Ogre::SceneManager* manager)
     : mSceneManager(manager)
   {
+    msInstance = this;
   }
 
   void CameraManager::initialize(CameraComponent* component) {
@@ -22,13 +23,11 @@ namespace managers {
     camera->setFarClipDistance(component->farClipDistance);
 
     // Viewport Setup
-    if(component->renderTarget) {
-      Ogre::Viewport* vp = component->renderTarget->addViewport(camera);
-      vp->setBackgroundColour(component->clearColor);
+    Ogre::Viewport* vp = component->renderTarget->addViewport(camera);
+    vp->setBackgroundColour(component->clearColor);
 
-      camera->setAspectRatio(
-          Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
-    } // Alert if this isn't the case?
+    camera->setAspectRatio(
+        Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
     component->_camera = camera;
   }

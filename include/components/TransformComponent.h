@@ -22,17 +22,20 @@ namespace components {
   class TransformComponent : public Component {
 
     public:
+      /**
+       * Initialize a new Transform component at a given world position
+       */
       TransformComponent(Ogre::Vector3 position = Ogre::Vector3::ZERO) 
         : position(position)
       {
- //       managers::TransformManager::getInstance()->_registerComponent(this);
-
         rotation = Ogre::Quaternion::ZERO;
         scale = Ogre::Vector3::UNIT_SCALE;
+
+        REGISTER_WITH(TransformManager)
       }
 
       ~TransformComponent() {
-//        managers::TransformManager::getInstance()->_unregisterComponent(this);
+        UNREGISTER_WITH(TransformManager)
       }
 
       /**
