@@ -101,8 +101,8 @@ bool Game::setup() {
     // Want to move this stuff into managers more, or factories
 
     Actor* actor = new Actor(Ogre::Vector3(0, 0, 3000.0f));
-    //actor->addComponent(new CameraComponent(renderTarget));
-    //actor->addComponent(new InputComponent());
+    actor->addComponent(new components::CameraComponent(mWindow));
+    //actor->addComponent(new components::InputComponent());
   }
 
 

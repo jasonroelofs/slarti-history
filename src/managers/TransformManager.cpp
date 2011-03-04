@@ -7,6 +7,7 @@ namespace managers {
   TransformManager::TransformManager(Ogre::SceneManager* manager)
     : mSceneManager(manager)
   {
+    msInstance = this;
   }
 
   void TransformManager::initialize(TransformComponent* component) {

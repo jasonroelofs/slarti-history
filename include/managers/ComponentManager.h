@@ -36,28 +36,31 @@
 
 #define MANAGER_DEFINITION(ComponentType)                               \
   public:                                                               \
-    void _registerComponent( ComponentType##Component * component );    \
-    void _unregisterComponent( ComponentType##Component * component );  \
+    void _registerComponent( components::ComponentType##Component * component );    \
+    void _unregisterComponent( components::ComponentType##Component * component );  \
     static ComponentType##Manager * getInstance();                      \
   protected:                                                            \
-    std::vector< ComponentType##Component *> mComponents;                            \
-    typedef std::vector< ComponentType##Component *>::iterator ComponentIterator;    \
+    std::vector< components::ComponentType##Component *> mComponents;                            \
+    typedef std::vector< components::ComponentType##Component *>::iterator ComponentIterator;    \
     static ComponentType##Manager * msInstance;
 
 
 #define MANAGER_IMPLEMENTATION(ComponentType) \
   ComponentType##Manager* ComponentType##Manager::msInstance = 0; \
-  void ComponentType##Manager::_registerComponent(ComponentType##Component * component) { \
+  void ComponentType##Manager::_registerComponent(components::ComponentType##Component * component) { \
     mComponents.push_back(component); \
     initialize(component); \
   } \
-  void ComponentType##Manager::_unregisterComponent(ComponentType ## Component * component) { \
+  void ComponentType##Manager::_unregisterComponent(components::ComponentType##Component * component) { \
     ComponentIterator it = mComponents.begin(), end = mComponents.end();  \
     for( ; it < end; it++) { \
       if(*it == component) { break; } \
     } \
     if(it != end) { mComponents.erase(it); } \
   } \
-  ComponentType##Manager* ComponentType##Manager::getInstance() { return msInstance; } \
+  ComponentType##Manager* ComponentType##Manager::getInstance() { \
+    assert(msInstance && "You have to set msInstance in the Manager's constructor"); \
+    return msInstance; \
+  }
 
 #endif // __COMPONENT_MANAGER_H__

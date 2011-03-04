@@ -3,6 +3,12 @@
 
 class Actor;
 
+#define REGISTER_WITH(Manager) \
+  managers::Manager::getInstance()->_registerComponent(this);
+
+#define UNREGISTER_WITH(Manager) \
+  managers::Manager::getInstance()->_unregisterComponent(this);
+
 namespace components {
   /**
    * Base class of all components.
