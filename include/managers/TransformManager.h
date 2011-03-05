@@ -36,6 +36,12 @@ namespace managers {
       void initialize(TransformComponent* component);
 
       /**
+       * When a component is removed from the system, 
+       * allow the manager to clean up before destruction
+       */
+      void remove(TransformComponent* component);
+
+      /**
        * Update all actors
        */
       void update();

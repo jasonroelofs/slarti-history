@@ -12,6 +12,9 @@
  *   // Called after a component is registered
  *   void initialize(ComponentType* component);
  *
+ *   // Called before a component is unregistered
+ *   void remove(ComponentType* component);
+ *
  *   // Called every frame to update all known components
  *   void update();
  *
@@ -33,6 +36,7 @@
  */
 
 #include <vector>
+#include <cassert>
 
 #define MANAGER_DEFINITION(ComponentType)                               \
   public:                                                               \
@@ -56,6 +60,7 @@
     for( ; it < end; it++) { \
       if(*it == component) { break; } \
     } \
+    remove(component); \
     if(it != end) { mComponents.erase(it); } \
   } \
   ComponentType##Manager* ComponentType##Manager::getInstance() { \

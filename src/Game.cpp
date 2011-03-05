@@ -1,10 +1,13 @@
 #include "Game.h"
 #include "Event.h"
 #include "Actor.h"
-#include "components/CameraComponent.h"
 
 #include "managers/TransformManager.h"
 #include "managers/CameraManager.h"
+#include "managers/InputManager.h"
+
+#include "components/CameraComponent.h"
+#include "components/InputComponent.h"
 
 #include <cstdio>
 #include <ctime>
@@ -96,13 +99,14 @@ bool Game::setup() {
 
     new managers::TransformManager(mSceneManager);
     new managers::CameraManager(mSceneManager);
+    mInputManager = new managers::InputManager();
 
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
 
     Actor* actor = new Actor(Ogre::Vector3(0, 0, 3000.0f));
     actor->addComponent(new components::CameraComponent(mWindow));
-    //actor->addComponent(new components::InputComponent());
+    actor->addComponent(new components::InputComponent());
   }
 
 
@@ -122,6 +126,7 @@ bool Game::setup() {
   {
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
 
+    // TODO: This should be an Actor + LightComponent
     Ogre::Light* l = mSceneManager->createLight("MainLight");
     l->setPosition(mCamera->getPosition());
   }
@@ -155,9 +160,6 @@ bool Game::setup() {
 
     //Register as a Window listener
     Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-    // Set up our input manager and hook up a few keys for ourselves
-    mInputManager = new InputManager();
 
     // Get our dispatcher up and running
     mInputDispatcher = new InputDispatcher();

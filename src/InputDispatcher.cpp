@@ -26,7 +26,7 @@ InputDispatcher::InputDispatcher()
   MAP_KEY(Key::P, Event::ToggleWireframe);
 }
 
-void InputDispatcher::setCurrentInputManager(InputManager* im) {
+void InputDispatcher::setCurrentInputManager(managers::InputManager* im) {
   mCurrentInputManager = im;
 }
 

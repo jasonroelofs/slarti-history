@@ -6,12 +6,13 @@
 #include <OISMouse.h>
 
 #include "Event.h"
-#include "InputManager.h"
+#include "managers/InputManager.h"
 
 /**
  * This class handles dispatching of all input events.
- * It's given a 'current' input manager which receives
- * all input events at the time. This class handles the Key -> Event
+ * It's sends all input events according to key mapping to the InputManager.
+ *
+ * This class handles the Key -> Event
  * mapping as well, letting all InputManagers and every class
  * mapping events to only have to worry about Events.
  *
@@ -28,7 +29,7 @@ class InputDispatcher :
     /**
      * Set the current input manager
      */
-    void setCurrentInputManager(InputManager* im);
+    void setCurrentInputManager(managers::InputManager* im);
 
     // OIS::KeyListener
     virtual bool keyPressed( const OIS::KeyEvent &arg );
@@ -52,7 +53,7 @@ class InputDispatcher :
     InputEvent setEventFor(InputEvent evt);
 
   private:
-    InputManager* mCurrentInputManager;
+    managers::InputManager* mCurrentInputManager;
 
     // Map Keys to Event Types
     // Types are supposed to map to:
