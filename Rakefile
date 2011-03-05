@@ -38,8 +38,10 @@ end
 desc "Build slartibartfast"
 task :build do
   mkdir_p "build"
-  cd PATH_TO_BIN do
-    rm_f "slartibartfast"
+  if File.directory?(PATH_TO_BIN)
+    cd PATH_TO_BIN do
+      rm_f "slartibartfast"
+    end
   end
 
   cd "build" do
