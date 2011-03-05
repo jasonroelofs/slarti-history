@@ -2,6 +2,7 @@
 #define __CAMERA_COMPONENT_H__
 
 #include "components/Component.h"
+#include "managers/CameraManager.h"
 
 #include <OgreVector3.h>
 #include <OgreColourValue.h>

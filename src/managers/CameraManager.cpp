@@ -32,6 +32,9 @@ namespace managers {
     component->_camera = camera;
   }
 
+  void CameraManager::remove(CameraComponent* component) {
+  }
+
   void CameraManager::update() {
   }
 

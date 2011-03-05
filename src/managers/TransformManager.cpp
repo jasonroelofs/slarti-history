@@ -16,6 +16,9 @@ namespace managers {
     // otherwise it's pulled off of the root scene node
   }
 
+  void TransformManager::remove(TransformComponent* component) {
+  }
+
   void TransformManager::update() {
     // Update all Actors, copy their current position, rotation, and scale
     // into their scene node

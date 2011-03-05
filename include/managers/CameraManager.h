@@ -35,6 +35,12 @@ namespace managers {
       void initialize(CameraComponent* camera);
 
       /**
+       * When a component is removed from the system, 
+       * allow the manager to clean up before destruction
+       */
+      void remove(CameraComponent* component);
+
+      /**
        * Update all known Cameras
        */
       void update();

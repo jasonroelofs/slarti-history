@@ -6,7 +6,7 @@
 #include <OISInputManager.h>
 
 #include "InputDispatcher.h"
-#include "InputManager.h"
+#include "managers/InputManager.h"
 #include "managers/CameraManager.h"
 #include "Event.h"
 #include "Level.h"
@@ -77,7 +77,7 @@ class Game :
 
     Ogre::RenderWindow* mWindow;
 
-    InputManager* mInputManager;
+    managers::InputManager* mInputManager;
 
     InputDispatcher* mInputDispatcher;
 
