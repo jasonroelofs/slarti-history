@@ -31,11 +31,6 @@ namespace components {
           clearColor(Ogre::ColourValue::Black),
           renderTarget(target)
       {
-        REGISTER_WITH(CameraManager)
-      }
-
-      ~CameraComponent() {
-        UNREGISTER_WITH(CameraManager)
       }
 
       /**
@@ -67,6 +62,8 @@ namespace components {
        */
       Ogre::Camera* _camera;
 
+
+      REGISTRATION_WITH(CameraManager)
   };
 
 }
