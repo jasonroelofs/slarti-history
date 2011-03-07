@@ -1,5 +1,7 @@
 #include "managers/CameraManager.h"
 #include "components/CameraComponent.h"
+#include "components/TransformComponent.h"
+#include "Actor.h"
 
 #include <OgreSceneManager.h>
 #include <OgreViewport.h>
@@ -21,6 +23,9 @@ namespace managers {
     camera->lookAt(component->lookAt);
     camera->setNearClipDistance(component->nearClipDistance);
     camera->setFarClipDistance(component->farClipDistance);
+    
+    // hmm, maybe cleaner way of doing this? (accessing other component information)
+    camera->setPosition(component->_actor->transform->position);
 
     // Viewport Setup
     Ogre::Viewport* vp = component->renderTarget->addViewport(camera);

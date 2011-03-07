@@ -104,7 +104,7 @@ bool Game::setup() {
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
 
-    Actor* actor = new Actor(Ogre::Vector3(0, 0, 300.0f));
+    Actor* actor = new Actor(Ogre::Vector3(0, 0, 50.0f));
     actor->addComponent(new components::CameraComponent(mWindow));
     actor->addComponent(new components::MovementComponent());
   }
@@ -131,8 +131,8 @@ bool Game::setup() {
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
 
     // TODO: This should be an Actor + LightComponent
-    Ogre::Light* l = mSceneManager->createLight("MainLight");
-    l->setPosition(mCamera->getPosition());
+    //Ogre::Light* l = mSceneManager->createLight("MainLight");
+    //l->setPosition(Ogre::Vector3(20, 80, 50.0f)); //mCamera->getPosition());
   }
 
   //----------------------
