@@ -3,6 +3,7 @@
 
 #include "managers/InputManager.h"
 #include "components/InputComponent.h"
+#include "components/TransformComponent.h"
 #include "Event.h"
 
 #include <iostream>
@@ -27,18 +28,22 @@ namespace components {
 
       void moveLeft(InputEvent e) {
         cout << "moving left!" << endl;
+        _actor->transform->movingLeft = e.isDown;
       }
 
       void moveRight(InputEvent e) {
         cout << "moving right!" << endl;
+        _actor->transform->movingRight = e.isDown;
       }
 
       void moveForward(InputEvent e) {
         cout << "moving forward!" << endl;
+        _actor->transform->movingForward = e.isDown;
       }
 
       void moveBack(InputEvent e) {
         cout << "moving back!" << endl;
+        _actor->transform->movingBack = e.isDown;
       }
 
   };
