@@ -36,21 +36,44 @@ namespace managers {
       Ogre::Vector3 pos = component->position;
       int speed = 1;
 
-      if (component->movingForward) {
-        pos.z -= speed;
-      }
-      if (component->movingBack) {
-        pos.z += speed;
-      }
-      if (component->movingRight) {
-        pos.x += speed;
-      }
-      if (component->movingLeft) {
-        pos.x -= speed;
+      if(component->moveRelativeToRotation) {
+        Ogre::Vector3 direction = component->rotation * -Ogre::Vector3::UNIT_Z;
+        Ogre::Vector3 right = component->rotation * Ogre::Vector3::UNIT_X;
+        Ogre::Vector3 moveDir = Ogre::Vector3::ZERO;
+
+        if(component->movingForward) {
+          moveDir += direction;
+        }
+        if(component->movingBack) {
+          moveDir -= direction;
+        }
+        if(component->movingRight) {
+          moveDir += right;
+        }
+        if(component->movingLeft) {
+          moveDir -= right;
+        }
+
+        pos += moveDir * speed;
+      } else {
+        if(component->movingForward) {
+          pos.z -= speed;
+        }
+        if(component->movingBack) {
+          pos.z += speed;
+        }
+        if(component->movingRight) {
+          pos.x += speed;
+        }
+        if(component->movingLeft) {
+          pos.x -= speed;
+        }
       }
 
       component->position = pos;
+
       component->_sceneNode->setPosition(component->position);
+      component->_sceneNode->setOrientation(component->rotation);
     }
   }
 

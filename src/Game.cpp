@@ -8,6 +8,7 @@
 
 #include "components/CameraComponent.h"
 #include "components/MovementComponent.h"
+#include "components/MouseLookComponent.h"
 
 #include <cstdio>
 #include <ctime>
@@ -107,6 +108,7 @@ bool Game::setup() {
     Actor* actor = new Actor(Ogre::Vector3(0, 0, 50.0f));
     actor->addComponent(new components::CameraComponent(mWindow));
     actor->addComponent(new components::MovementComponent());
+    actor->addComponent(new components::MouseLookComponent());
   }
 
 
@@ -174,13 +176,10 @@ bool Game::setup() {
     // Hook up our input manager as the current
     mInputDispatcher->setCurrentInputManager(mInputManager);
 
-    // Get our camera situated
-    //mCameraManager = new CameraManager(mCamera, mInputManager);
-
     // Hook up some top level events
     mInputManager->map(Event::Quit, this, &Game::stop);
 
-    // Polygon rendering
+    // Polygon rendering : Move to another Input component, add to Camera
     mInputManager->map(Event::ToggleWireframe, this, &Game::toggleWireframe);
   }
 

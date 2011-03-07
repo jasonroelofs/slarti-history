@@ -5,6 +5,7 @@
 #include "managers/TransformManager.h"
 
 #include <OgreVector3.h>
+#include <OgreMath.h>
 #include <OgreQuaternion.h>
 
 namespace Ogre {
@@ -30,7 +31,8 @@ namespace components {
           movingForward(false),
           movingBack(false),
           movingLeft(false),
-          movingRight(false)
+          movingRight(false),
+          moveRelativeToRotation(false)
       {
         rotation = Ogre::Quaternion::ZERO;
         scale = Ogre::Vector3::UNIT_SCALE;
@@ -59,6 +61,40 @@ namespace components {
        * State change flags
        */
       bool movingForward, movingBack, movingLeft, movingRight;
+
+      /**
+       * Should the next update move this transform relative to
+       * any set orientation or should it just move directly with
+       * axes?
+       */
+      bool moveRelativeToRotation;
+
+      /**
+       * Rotating with euler methods.
+       * Ripped from how Ogre::Camera works.
+       */
+      void yaw(const Ogre::Degree& angle) {
+        Ogre::Vector3 yAxis = rotation * Ogre::Vector3::UNIT_Y;
+        rotate(yAxis, angle);
+      }
+
+      void pitch(const Ogre::Degree& angle) {
+        Ogre::Vector3 xAxis = rotation * Ogre::Vector3::UNIT_X;
+        rotate(xAxis, angle);
+      }
+
+      void rotate(const Ogre::Vector3& axis, const Ogre::Radian& angle)
+      {
+        Ogre::Quaternion q;
+        q.FromAngleAxis(angle,axis);
+        rotate(q);
+      }
+
+      void rotate(const Ogre::Quaternion& quat) {
+        Ogre::Quaternion qnorm = quat;
+        qnorm.normalise();
+        rotation = qnorm * rotation;
+      }
 
       REGISTRATION_WITH(TransformManager)
   };
