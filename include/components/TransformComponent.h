@@ -30,12 +30,6 @@ namespace components {
       {
         rotation = Ogre::Quaternion::ZERO;
         scale = Ogre::Vector3::UNIT_SCALE;
-
-        REGISTER_WITH(TransformManager)
-      }
-
-      ~TransformComponent() {
-        UNREGISTER_WITH(TransformManager)
       }
 
       /**
@@ -56,6 +50,9 @@ namespace components {
       /** Internal **/
 
       Ogre::SceneNode* _sceneNode;
+
+
+      REGISTRATION_WITH(TransformManager)
   };
 }
 #endif // __TRANSFORM_COMPONENT_H__
