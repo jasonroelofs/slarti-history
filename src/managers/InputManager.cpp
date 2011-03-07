@@ -1,4 +1,5 @@
 #include "managers/InputManager.h"
+#include "components/InputComponent.h"
 
 namespace managers {
 
@@ -8,9 +9,15 @@ namespace managers {
   }
 
   void InputManager::initialize(InputComponent* component) {
+    component->mapEvents(this);
   }
 
   void InputManager::remove(InputComponent* component) {
+    // Something along the lines of looping over event mappings, looking
+    // for those mappings that are hooked to this component, and removing
+    // only those mappings, leaving the rest.
+    //
+    // The question is, will this happen often, or at all?
 
     /*
     EventMapping_T::iterator it;

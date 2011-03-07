@@ -8,6 +8,8 @@ namespace components {
   /**
    * Any actor with this component will immediately start
    * receiving input events.
+   *
+   * Abstract base class of all input handler components
    */
   class InputComponent : public Component {
 
@@ -15,14 +17,16 @@ namespace components {
       /**
        * Initialize a new Input component
        */
-      InputComponent() 
-      {
-        REGISTER_WITH(InputManager)
-      }
+      InputComponent() {}
 
-      ~InputComponent() {
-        UNREGISTER_WITH(InputManager)
-      }
+      /**
+       * Callback to let this component hook up the events
+       * it wants to process.
+       */
+      virtual void mapEvents(managers::InputManager* manager) = 0;
+
+      
+      REGISTRATION_WITH(InputManager)
   };
 }
 #endif // __INPUT_COMPONENT_H__
