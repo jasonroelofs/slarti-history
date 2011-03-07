@@ -77,6 +77,7 @@
   ComponentType* component; \
   ComponentIterator it = mComponents.begin(); \
   ComponentIterator end = mComponents.end(); \
-  for(; it < end; it++, component = *it)
+  for(; it < end; it++) { \
+     component = *it;
 
 #endif // __COMPONENT_MANAGER_H__

@@ -23,7 +23,7 @@ namespace managers {
     camera->lookAt(component->lookAt);
     camera->setNearClipDistance(component->nearClipDistance);
     camera->setFarClipDistance(component->farClipDistance);
-    
+
     // hmm, maybe cleaner way of doing this? (accessing other component information)
     // Need to set camera position according to actor this component is added to
     camera->setPosition(component->_actor->transform->position);
@@ -45,10 +45,13 @@ namespace managers {
     CameraComponent* component;
     ComponentIterator it = mComponents.begin();
     ComponentIterator end = mComponents.end();
+    Ogre::Vector3 pos;
 
     for(; it < end; it++) {
       component = *it;
-      component->_camera->setPosition(component->_actor->transform->position);
+      pos = component->_actor->transform->position;
+
+      component->_camera->setPosition(pos);
     }
   }
 
