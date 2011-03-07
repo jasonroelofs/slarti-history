@@ -3,6 +3,7 @@
 #include "components/TransformComponent.h"
 #include "Actor.h"
 
+#include <OgreQuaternion.h>
 #include <OgreSceneManager.h>
 #include <OgreViewport.h>
 
@@ -24,10 +25,6 @@ namespace managers {
     camera->setNearClipDistance(component->nearClipDistance);
     camera->setFarClipDistance(component->farClipDistance);
 
-    // hmm, maybe cleaner way of doing this? (accessing other component information)
-    // Need to set camera position according to actor this component is added to
-    camera->setPosition(component->_actor->transform->position);
-
     // Viewport Setup
     Ogre::Viewport* vp = component->renderTarget->addViewport(camera);
     vp->setBackgroundColour(component->clearColor);
@@ -35,6 +32,7 @@ namespace managers {
     camera->setAspectRatio(
         Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
+    component->_actor->transform->_sceneNode->attachObject(camera);
     component->_camera = camera;
   }
 
@@ -42,17 +40,24 @@ namespace managers {
   }
 
   void CameraManager::update() {
+    /*
     CameraComponent* component;
     ComponentIterator it = mComponents.begin();
     ComponentIterator end = mComponents.end();
     Ogre::Vector3 pos;
+    Ogre::Quaternion rotation;
 
     for(; it < end; it++) {
       component = *it;
       pos = component->_actor->transform->position;
+      rotation = component->_actor->transform->rotation;
 
-      component->_camera->setPosition(pos);
+      if(component->_camera->getPosition() != pos) {
+        component->_camera->setPosition(pos);
+        //component->_camera->setOrientation(rotation);
+      }
     }
+    */
   }
 
 
