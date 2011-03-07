@@ -124,6 +124,10 @@ bool Game::setup() {
   // Creating the scene
   //----------------------
   {
+    Ogre::Entity* ogreHead = mSceneManager->createEntity("Head", "ogrehead.mesh");
+    mOgreHeadNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
+    mOgreHeadNode->attachObject(ogreHead);
+
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
 
     // TODO: This should be an Actor + LightComponent
