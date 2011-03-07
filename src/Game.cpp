@@ -278,6 +278,9 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   // New update goes here
   //mCameraManager->update(evt.timeSinceLastFrame);
 
+  managers::TransformManager::getInstance()->update();
+  managers::CameraManager::getInstance()->update();
+
   return true;
 }
 

@@ -25,6 +25,7 @@ namespace managers {
     camera->setFarClipDistance(component->farClipDistance);
     
     // hmm, maybe cleaner way of doing this? (accessing other component information)
+    // Need to set camera position according to actor this component is added to
     camera->setPosition(component->_actor->transform->position);
 
     // Viewport Setup
@@ -41,6 +42,14 @@ namespace managers {
   }
 
   void CameraManager::update() {
+    CameraComponent* component;
+    ComponentIterator it = mComponents.begin();
+    ComponentIterator end = mComponents.end();
+
+    for(; it < end; it++) {
+      component = *it;
+      component->_camera->setPosition(component->_actor->transform->position);
+    }
   }
 
 
