@@ -7,7 +7,7 @@
 #include "managers/InputManager.h"
 
 #include "components/CameraComponent.h"
-#include "components/InputComponent.h"
+#include "components/MovementComponent.h"
 
 #include <cstdio>
 #include <ctime>
@@ -106,7 +106,7 @@ bool Game::setup() {
 
     Actor* actor = new Actor(Ogre::Vector3(0, 0, 3000.0f));
     actor->addComponent(new components::CameraComponent(mWindow));
-    actor->addComponent(new components::InputComponent());
+    actor->addComponent(new components::MovementComponent());
   }
 
 

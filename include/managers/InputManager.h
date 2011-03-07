@@ -43,8 +43,6 @@ namespace managers {
        */
       void update();
 
-      /** Input Event Handling */
-
       /**
        * Map an Event to an object and a method to call on that object.
        */
