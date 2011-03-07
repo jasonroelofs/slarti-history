@@ -275,9 +275,7 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   mKeyboard->capture();
   mMouse->capture();
 
-  // New update goes here
-  //mCameraManager->update(evt.timeSinceLastFrame);
-
+  // Update our managers in order
   managers::TransformManager::getInstance()->update();
   managers::CameraManager::getInstance()->update();
 

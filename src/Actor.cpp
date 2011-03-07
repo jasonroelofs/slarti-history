@@ -3,6 +3,7 @@
 
 Actor::Actor(Ogre::Vector3 position) {
   transform = new components::TransformComponent(position);
+  addComponent(transform);
 }
 
 void Actor::addComponent(components::Component* comp) {
