@@ -25,8 +25,12 @@ namespace components {
       /**
        * Initialize a new Transform component at a given world position
        */
-      TransformComponent(Ogre::Vector3 position = Ogre::Vector3::ZERO) 
-        : position(position)
+      TransformComponent(Ogre::Vector3 position = Ogre::Vector3::ZERO)
+        : position(position),
+          movingForward(false),
+          movingBack(false),
+          movingLeft(false),
+          movingRight(false)
       {
         rotation = Ogre::Quaternion::ZERO;
         scale = Ogre::Vector3::UNIT_SCALE;
@@ -51,6 +55,10 @@ namespace components {
 
       Ogre::SceneNode* _sceneNode;
 
+      /**
+       * State change flags
+       */
+      bool movingForward, movingBack, movingLeft, movingRight;
 
       REGISTRATION_WITH(TransformManager)
   };
