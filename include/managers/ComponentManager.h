@@ -68,4 +68,15 @@
     return msInstance; \
   }
 
+/**
+ * Helpful macro for iterating all components in a manager.
+ * The block you give to this macro will contain the variable
+ * 'component'
+ */
+#define EACH_COMPONENT(ComponentType) \
+  ComponentType* component; \
+  ComponentIterator it = mComponents.begin(); \
+  ComponentIterator end = mComponents.end(); \
+  for(; it < end; it++, component = *it)
+
 #endif // __COMPONENT_MANAGER_H__
