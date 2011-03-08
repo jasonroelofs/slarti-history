@@ -28,6 +28,7 @@ namespace components {
        */
       TransformComponent(Ogre::Vector3 position = Ogre::Vector3::ZERO)
         : position(position),
+          maxSpeed(100),
           movingForward(false),
           movingBack(false),
           movingLeft(false),
@@ -53,9 +54,10 @@ namespace components {
        */
       Ogre::Vector3 scale;
 
-      /** Internal **/
-
-      Ogre::SceneNode* _sceneNode;
+      /**
+       * Max speed this actor should move, in units per second
+       */
+      int maxSpeed;
 
       /**
        * State change flags
@@ -95,6 +97,11 @@ namespace components {
         qnorm.normalise();
         rotation = qnorm * rotation;
       }
+
+      /** Internal **/
+
+      Ogre::SceneNode* _sceneNode;
+
 
       REGISTRATION_WITH(TransformManager)
   };

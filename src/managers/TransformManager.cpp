@@ -34,7 +34,7 @@ namespace managers {
 
       Ogre::SceneNode* node = component->_sceneNode;
       Ogre::Vector3 pos = component->position;
-      int speed = 1;
+      int speed = component->maxSpeed * timeSinceLastFrame * 10;
 
       if(component->moveRelativeToRotation) {
         Ogre::Vector3 direction = component->rotation * -Ogre::Vector3::UNIT_Z;
