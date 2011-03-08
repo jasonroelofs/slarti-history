@@ -32,7 +32,14 @@ namespace managers {
     camera->setAspectRatio(
         Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
-    component->_actor->transform->_sceneNode->attachObject(camera);
+    // As the camera is getting attached to this actor's scene node,
+    // we need to set the scene node to the initial orientation
+    // of this camera, otherwise things don't work.
+    components::TransformComponent* transform = component->_actor->transform;
+    transform->rotation = camera->getOrientation();
+    transform->_sceneNode->setOrientation(camera->getOrientation());
+    transform->_sceneNode->attachObject(camera);
+
     component->_camera = camera;
   }
 
@@ -40,24 +47,6 @@ namespace managers {
   }
 
   void CameraManager::update(float timeSinceLastFrame) {
-    /*
-    CameraComponent* component;
-    ComponentIterator it = mComponents.begin();
-    ComponentIterator end = mComponents.end();
-    Ogre::Vector3 pos;
-    Ogre::Quaternion rotation;
-
-    for(; it < end; it++) {
-      component = *it;
-      pos = component->_actor->transform->position;
-      rotation = component->_actor->transform->rotation;
-
-      if(component->_camera->getPosition() != pos) {
-        component->_camera->setPosition(pos);
-        //component->_camera->setOrientation(rotation);
-      }
-    }
-    */
   }
 
 
