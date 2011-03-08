@@ -39,7 +39,7 @@ namespace managers {
   void CameraManager::remove(CameraComponent* component) {
   }
 
-  void CameraManager::update() {
+  void CameraManager::update(float timeSinceLastFrame) {
     /*
     CameraComponent* component;
     ComponentIterator it = mComponents.begin();
