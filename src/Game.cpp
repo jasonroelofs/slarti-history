@@ -5,6 +5,7 @@
 #include "managers/TransformManager.h"
 #include "managers/CameraManager.h"
 #include "managers/InputManager.h"
+#include "managers/MeshManager.h"
 
 #include "components/CameraComponent.h"
 #include "components/MovementComponent.h"
@@ -100,6 +101,8 @@ bool Game::setup() {
 
     new managers::TransformManager(mSceneManager);
     new managers::CameraManager(mSceneManager);
+    new managers::MeshManager(mSceneManager);
+
     mInputManager = new managers::InputManager();
 
     // Prototype for setting up an actor with components.
@@ -196,7 +199,7 @@ bool Game::setup() {
 
   // Planet rendering
   {
-    mSolarSystem = new SolarSystem(mSceneManager);
+    mSolarSystem = new SolarSystem();
     mSolarSystem->generate();
 
     // Hook up an event to allow us to rebuild with a simple keystroke
@@ -276,6 +279,7 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 
   // Update our managers in order
   managers::TransformManager::getInstance()->update(evt.timeSinceLastFrame);
+  managers::MeshManager::getInstance()->update(evt.timeSinceLastFrame);
   managers::CameraManager::getInstance()->update(evt.timeSinceLastFrame);
 
   return true;

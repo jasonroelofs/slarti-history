@@ -1,11 +1,7 @@
 #ifndef __SOLAR_SYSTEM_H__
 #define __SOLAR_SYSTEM_H__
 
-#include "Planet.h"
-#include "Star.h"
-
-#include <OgreSceneManager.h>
-#include <OgreSceneNode.h>
+#include "Actor.h"
 
 /**
  * Model a solar system.
@@ -18,7 +14,7 @@ class SolarSystem {
      * Build a new solar system, given the scene manager to 
      * add things to the world
      */
-    SolarSystem(Ogre::SceneManager* manager);
+    SolarSystem();
 
     /**
      * Generate a new set of planets for this solar system
@@ -46,20 +42,13 @@ class SolarSystem {
 
 
   protected:
-    Ogre::SceneManager* mSceneManager;
-
-    // Base node that we use as a parent to our level
-    Ogre::SceneNode* mBaseSceneNode;
-
-    // Simple solar "system" we have one planet right now
-    Planet* mPlanet;
-
-    // Our center star
-    Star* mStar;
+    /**
+     * Parent actor for this system
+     */
+    Actor* mActor;
 
     // Random number generator seed for this system
     unsigned int mSeed;
-
 };
 
 #endif // __SOLAR_SYSTEM_H__

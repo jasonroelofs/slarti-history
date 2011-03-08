@@ -1,14 +1,12 @@
 #ifndef __ACTOR_H__
 #define __ACTOR_H__
 
+#include "components/TransformComponent.h"
+
 #include <vector>
 
 #include <OgreVector3.h>
 
-namespace components {
-  class Component;
-  class TransformComponent;
-}
 
 /**
  * Base class of all objects that go into the scene.
@@ -37,12 +35,28 @@ class Actor {
      */
     void addComponent(components::Component* comp);
 
+    /**
+     * Create an Actor that's a child to this Actor
+     */
+    Actor* createChild(Ogre::Vector3 position = Ogre::Vector3::ZERO);
+
+    /**
+     * Parent actor of this actor
+     */
+    Actor* parent;
+
   protected:
     /**
      * Actors are composed of Components, which add
      * data to the Actor and flag this Actor for added functionality.
      */
     std::vector<components::Component*> mComponents;
+
+    /**
+     * Actors can have children actors that will inherit properties
+     * of the parent actor
+     */
+    std::vector<Actor*> mChildren;
 
 };
 
