@@ -16,7 +16,7 @@
  *   void remove(ComponentType* component);
  *
  *   // Called every frame to update all known components
- *   void update();
+ *   void update(const Ogre::Real& timeSinceLastFrame);
  *
  * Using these macros defines the following on the manager:
  *

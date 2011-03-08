@@ -44,7 +44,7 @@ namespace managers {
       /**
        * Update all actors
        */
-      void update();
+      void update(float timeSinceLastFrame);
 
     protected:
 

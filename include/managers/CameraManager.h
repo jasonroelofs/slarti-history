@@ -43,7 +43,7 @@ namespace managers {
       /**
        * Update all known Cameras
        */
-      void update();
+      void update(float timeSinceLastFrame);
 
     protected:
 

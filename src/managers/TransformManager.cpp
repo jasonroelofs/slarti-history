@@ -24,7 +24,7 @@ namespace managers {
   void TransformManager::remove(TransformComponent* component) {
   }
 
-  void TransformManager::update() {
+  void TransformManager::update(float timeSinceLastFrame) {
     TransformComponent* component; 
     ComponentIterator it = mComponents.begin(); 
     ComponentIterator end = mComponents.end(); 
