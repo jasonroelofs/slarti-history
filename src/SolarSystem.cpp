@@ -1,33 +1,20 @@
 #include "SolarSystem.h"
-#include "PlanetGenerator.h"
-#include "StarGenerator.h"
 
-SolarSystem::SolarSystem(Ogre::SceneManager* manager)
-  : mSceneManager(manager)
-{
-  mBaseSceneNode = mSceneManager->getRootSceneNode()->createChildSceneNode("SolarSystem");
+#include "components/MeshComponent.h"
+
+SolarSystem::SolarSystem() {
+  mActor = new Actor();
 }
 
 void SolarSystem::generate() {
-
-  if(mPlanet) {
-    // Do some cleanup here
-    mPlanet = NULL;
-  }
-
   chooseSunType();
-  generatePlanets();
+  //generatePlanets();
 }
 
 void SolarSystem::chooseSunType() {
-  mStar = StarGenerator::generateStar();
-
-  Ogre::SceneNode* sunNode = mBaseSceneNode->createChildSceneNode();
-  mStar->attachTo(sunNode);
-
-  // OMG BIG and right in the center
-  sunNode->setPosition(0.0f, 0.0f, 0.0f);
-  sunNode->setScale(1000, 1000, 1000);
+  Actor* sun = mActor->createChild(Ogre::Vector3(0, 0, 0));
+  sun->transform->scale = Ogre::Vector3(1000, 1000, 1000);
+  sun->addComponent(new components::MeshComponent("sphere.mesh"));
 }
 
 void SolarSystem::generatePlanets() {
@@ -35,6 +22,7 @@ void SolarSystem::generatePlanets() {
 }
 
 void SolarSystem::generatePlanet() {
+  /*
   mPlanet = PlanetGenerator::generatePlanet();
 
   Ogre::SceneNode* planetNode = mBaseSceneNode->createChildSceneNode();
@@ -42,4 +30,5 @@ void SolarSystem::generatePlanet() {
 
   planetNode->setPosition(0.0f, 0.0f, 2000.0f);
   planetNode->setScale(200, 200, 200);
+  */
 }

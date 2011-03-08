@@ -72,6 +72,7 @@ namespace managers {
 
       component->position = pos;
 
+      component->_sceneNode->setScale(component->scale);
       component->_sceneNode->setPosition(component->position);
       component->_sceneNode->setOrientation(component->rotation);
     }
