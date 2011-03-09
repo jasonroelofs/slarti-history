@@ -10,6 +10,7 @@
 #include "components/CameraComponent.h"
 #include "components/MovementComponent.h"
 #include "components/MouseLookComponent.h"
+#include "components/MeshComponent.h"
 
 #include <cstdio>
 #include <ctime>
@@ -129,9 +130,12 @@ bool Game::setup() {
   // Creating the scene
   //----------------------
   {
-    Ogre::Entity* ogreHead = mSceneManager->createEntity("Head", "ogrehead.mesh");
-    mOgreHeadNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
-    mOgreHeadNode->attachObject(ogreHead);
+    Actor* ogreHead = new Actor();
+    ogreHead->addComponent(new components::MeshComponent("ogrehead.mesh"));
+
+    //Ogre::Entity* ogreHead = mSceneManager->createEntity("Head", "ogrehead.mesh");
+    //mOgreHeadNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
+    //mOgreHeadNode->attachObject(ogreHead);
 
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
 

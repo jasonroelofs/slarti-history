@@ -12,7 +12,7 @@ void SolarSystem::generate() {
 }
 
 void SolarSystem::chooseSunType() {
-  Actor* sun = mActor->createChild(Ogre::Vector3(0, 0, 0));
+  Actor* sun = new Actor(Ogre::Vector3(0, 0, 0)); //mActor->createChild(Ogre::Vector3(0, 0, 0));
   sun->transform->scale = Ogre::Vector3(1000, 1000, 1000);
   sun->addComponent(new components::MeshComponent("sphere.mesh"));
 }
