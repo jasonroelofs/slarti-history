@@ -19,8 +19,8 @@ namespace managers {
     mComponents.push_back(component);
 
     Ogre::Entity* entity = mSceneManager->createEntity(component->_meshName);
-    component->_actor->transform->_sceneNode->attachObject(entity);
 
+    component->_actor->transform->_sceneNode->attachObject(entity);
     component->_entity = entity;
   }
 

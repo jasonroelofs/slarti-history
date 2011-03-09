@@ -35,7 +35,7 @@ namespace components {
           movingRight(false),
           moveRelativeToRotation(false)
       {
-        rotation = Ogre::Quaternion::ZERO;
+        rotation = Ogre::Quaternion::IDENTITY;
         scale = Ogre::Vector3::UNIT_SCALE;
       }
 
