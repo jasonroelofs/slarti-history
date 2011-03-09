@@ -23,8 +23,9 @@ namespace components {
        * Initialize a new Mesh with the name of the mesh
        * we want to load.
        */
-      MeshComponent(std::string meshName) 
-        : _meshName(meshName)
+      MeshComponent(std::string meshName, std::string materialName = "") 
+        : _meshName(meshName),
+          _materialName(materialName)
       {
       }
 
@@ -34,6 +35,11 @@ namespace components {
        * Name of the mesh we need to load and display
        */
       std::string _meshName;
+
+      /**
+       * What material to use on this mesh
+       */
+      std::string _materialName;
 
       /**
        * Entity instance of this mesh

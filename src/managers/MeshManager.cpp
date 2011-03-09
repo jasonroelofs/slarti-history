@@ -20,6 +20,10 @@ namespace managers {
 
     Ogre::Entity* entity = mSceneManager->createEntity(component->_meshName);
 
+    if(component->_materialName != "") {
+      entity->setMaterialName(component->_materialName);
+    }
+
     component->_actor->transform->_sceneNode->attachObject(entity);
     component->_entity = entity;
   }
