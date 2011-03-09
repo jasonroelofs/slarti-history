@@ -1,7 +1,7 @@
 #ifndef __PLANET_GENERATOR_H__
 #define __PLANET_GENERATOR_H__
 
-#include "Planet.h"
+//#include "Planet.h"
 
 /**
  * Factory for building random planets.
@@ -15,7 +15,7 @@ class PlanetGenerator {
     PlanetGenerator() { }
 
   public:
-    static Planet* generatePlanet();
+ //   static Planet* generatePlanet();
 
 };
 

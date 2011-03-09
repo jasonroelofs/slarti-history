@@ -8,7 +8,7 @@ SolarSystem::SolarSystem() {
 
 void SolarSystem::generate() {
   chooseSunType();
-  //generatePlanets();
+  generatePlanets();
 }
 
 void SolarSystem::chooseSunType() {
@@ -22,13 +22,7 @@ void SolarSystem::generatePlanets() {
 }
 
 void SolarSystem::generatePlanet() {
-  /*
-  mPlanet = PlanetGenerator::generatePlanet();
-
-  Ogre::SceneNode* planetNode = mBaseSceneNode->createChildSceneNode();
-  mPlanet->attachTo(planetNode);
-
-  planetNode->setPosition(0.0f, 0.0f, 2000.0f);
-  planetNode->setScale(200, 200, 200);
-  */
+  Actor* planet = new Actor(Ogre::Vector3(0, 0, 2000));
+  planet->transform->scale = Ogre::Vector3(200, 200, 200);
+  planet->addComponent(new components::MeshComponent("sphere.mesh", "dirt"));
 }
