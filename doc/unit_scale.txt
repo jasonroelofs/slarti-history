@@ -1,0 +1,23 @@
+Scale Units
+-----------
+
+Space is big. Really big. You can't believe how mind bogglingly big it is. You may think it's a long walk to the pub but that's just peanuts compared to space...
+
+Couple of notes on what the scale of this is in this game. Because we're in outer space, you have to make a decision on if this is going to be realistic or not, there really is no in-between. With 93 million miles between us and the Sun, the Sun being hundreds of times bigger than the Earth, and the existence of stars that would engulf our entire solar system and not notice, scale in space is, frankly, whack.
+
+Oh and that's all peanuts compared to the complete and ajbect emptiness that is Outer Space. It literally cannot be fathomed how much nothing there is out there in this vast Universe.
+
+But I digress. This isn't a game for a super realistic rendition of the galaxy, I will leave that to Infinity: The Quest for Earth (which, btw, has garnered some serious respect for even what it has so far). No what I want is something that's more realistic than Freelancer, maybe something more of EVE's caliber, though maybe more than the X-series (I do want planet landing). The thing is there has to be something in a sector that the player will want to check out, and there should be plenty in each sector for players to explore. This goes completely counter to real space, so we can just throw that idea out the window (and do make sure it actually hits the ground this time!).
+
+Of course, the player needs to really feel that he's actually in outer space.
+
+So these numbers will be tweaked over time, and I'll try to keep this document up to date as to what the scales are, but here are my ideas:
+
+Stars:
+ 1 Ogre unit = 100 kilometers
+
+Planets, Space Movement
+ 1 Ogre unit = 10 kilometers
+
+Ships
+ 1 Ogre unit = 1 meter
