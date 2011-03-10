@@ -21,3 +21,21 @@ Planets, Space Movement
 
 Ships
  1 Ogre unit = 1 meter
+
+
+Experiment reports
+------------------
+
+120 million units from the origin -- too far (using floats)
+1.2 million units works
+5 million is also good
+7.5 million (must be when we hit 10 million that things start falling apart)
+
+
+5 million is probably a good "min extreme" for the size of systems, with 8 or 9 million being
+the absolute max before I need to resort to floating origins. May even drop this down an
+order of magnitude depending on how it feels once I get actual ships in place along with
+engine speed and booster drives.
+
+100k units is a good starter size for a star. Planets shouldn't be much smaller than 5k otherwise
+they should probably be moons or asteroids.
