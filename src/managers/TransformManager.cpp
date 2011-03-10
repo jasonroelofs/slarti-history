@@ -2,6 +2,7 @@
 #include "components/TransformComponent.h"
 
 #include <OgreSceneManager.h>
+#include <OgreMath.h>
 
 namespace managers {
 
@@ -34,7 +35,7 @@ namespace managers {
 
       Ogre::SceneNode* node = component->_sceneNode;
       Ogre::Vector3 pos = component->position;
-      int speed = component->maxSpeed * timeSinceLastFrame * 10;
+      float speed = component->maxSpeed * timeSinceLastFrame;
 
       if(component->moveRelativeToRotation) {
         Ogre::Vector3 direction = component->rotation * -Ogre::Vector3::UNIT_Z;
@@ -68,6 +69,13 @@ namespace managers {
         if(component->movingLeft) {
           pos.x -= speed;
         }
+      }
+
+      if(component->rollingLeft) {
+        component->roll(Ogre::Degree(-30 * timeSinceLastFrame));
+      }
+      if(component->rollingRight) {
+        component->roll(Ogre::Degree(30 * timeSinceLastFrame));
       }
 
       component->position = pos;

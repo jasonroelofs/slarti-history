@@ -6,9 +6,6 @@
 #include "components/TransformComponent.h"
 #include "Event.h"
 
-#include <iostream>
-using namespace std;
-
 namespace components {
 
   /**
@@ -24,26 +21,33 @@ namespace components {
         manager->map(Event::MoveRight, this, &MovementComponent::moveRight);
         manager->map(Event::MoveForward, this, &MovementComponent::moveForward);
         manager->map(Event::MoveBack, this, &MovementComponent::moveBack);
+
+        manager->map(Event::RotateLeft, this, &MovementComponent::rotateLeft);
+        manager->map(Event::RotateRight, this, &MovementComponent::rotateRight);
       }
 
       void moveLeft(InputEvent e) {
-        cout << "moving left!" << endl;
         _actor->transform->movingLeft = e.isDown;
       }
 
       void moveRight(InputEvent e) {
-        cout << "moving right!" << endl;
         _actor->transform->movingRight = e.isDown;
       }
 
       void moveForward(InputEvent e) {
-        cout << "moving forward!" << endl;
         _actor->transform->movingForward = e.isDown;
       }
 
       void moveBack(InputEvent e) {
-        cout << "moving back!" << endl;
         _actor->transform->movingBack = e.isDown;
+      }
+
+      void rotateLeft(InputEvent e) {
+        _actor->transform->rollingLeft = e.isDown;        
+      }
+
+      void rotateRight(InputEvent e) {
+        _actor->transform->rollingRight = e.isDown;        
       }
 
   };
