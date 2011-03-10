@@ -24,6 +24,9 @@ namespace Event {
     MoveLeft,
     MoveRight,
 
+    RotateRight,
+    RotateLeft,
+
     MouseMoved,
 
     RebuildLevel,
@@ -54,14 +57,32 @@ namespace Key {
     Right = OIS::KC_RIGHT,
     Up = OIS::KC_UP,
 
+    A = OIS::KC_A,
+    B = OIS::KC_B,
+    C = OIS::KC_C,
     D = OIS::KC_D,
     E = OIS::KC_E,
     F = OIS::KC_F,
-    R = OIS::KC_R,
-    S = OIS::KC_S,
-
+    G = OIS::KC_G,
+    H = OIS::KC_H,
+    I = OIS::KC_I,
+    J = OIS::KC_J,
+    K = OIS::KC_K,
+    L = OIS::KC_L,
+    M = OIS::KC_M,
+    N = OIS::KC_N,
+    O = OIS::KC_O,
     P = OIS::KC_P,
     Q = OIS::KC_Q,
+    R = OIS::KC_R,
+    S = OIS::KC_S,
+    T = OIS::KC_T,
+    U = OIS::KC_U,
+    V = OIS::KC_V,
+    W = OIS::KC_W,
+    X = OIS::KC_X,
+    Y = OIS::KC_Y,
+    Z = OIS::KC_Z
   };
 
   /**

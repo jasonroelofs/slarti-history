@@ -28,11 +28,13 @@ namespace components {
        */
       TransformComponent(Ogre::Vector3 position = Ogre::Vector3::ZERO)
         : position(position),
-          maxSpeed(100),
+          maxSpeed(1000),
           movingForward(false),
           movingBack(false),
           movingLeft(false),
           movingRight(false),
+          rollingLeft(false),
+          rollingRight(false),
           moveRelativeToRotation(false)
       {
         rotation = Ogre::Quaternion::IDENTITY;
@@ -64,6 +66,8 @@ namespace components {
        */
       bool movingForward, movingBack, movingLeft, movingRight;
 
+      bool rollingLeft, rollingRight;
+
       /**
        * Should the next update move this transform relative to
        * any set orientation or should it just move directly with
@@ -85,8 +89,12 @@ namespace components {
         rotate(xAxis, angle);
       }
 
-      void rotate(const Ogre::Vector3& axis, const Ogre::Radian& angle)
-      {
+      void roll(const Ogre::Degree& angle) {
+        Ogre::Vector3 zAxis = rotation * Ogre::Vector3::UNIT_Z;
+        rotate(zAxis, angle);
+      }
+
+      void rotate(const Ogre::Vector3& axis, const Ogre::Radian& angle) {
         Ogre::Quaternion q;
         q.FromAngleAxis(angle,axis);
         rotate(q);
