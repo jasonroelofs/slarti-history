@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Event.h"
 #include "Actor.h"
+#include "Utils.h"
 
 #include "managers/TransformManager.h"
 #include "managers/CameraManager.h"
@@ -109,7 +110,7 @@ bool Game::setup() {
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
 
-    Actor* actor = new Actor(Ogre::Vector3(0, 0, 7504000.0f));
+    Actor* actor = new Actor(utils::calculatePosition(Ogre::Vector3(4, 4, 4)));
     actor->addComponent(new components::CameraComponent(mWindow));
     actor->addComponent(new components::MovementComponent());
     actor->addComponent(new components::MouseLookComponent());
