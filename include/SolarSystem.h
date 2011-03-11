@@ -3,6 +3,8 @@
 
 #include "Actor.h"
 
+#include <vector>
+
 /**
  * Model a solar system.
  * Every solar system has at least one star and can have
@@ -27,7 +29,7 @@ class SolarSystem {
      * Figure out what kind of star system we have with this 
      * system, single star, double star, dwarf, neutron star, etc
      */
-    void chooseSunType();
+    void generateStars();
 
     /**
      * Generate a random number of planets (can choose to generate none) 
@@ -35,20 +37,25 @@ class SolarSystem {
      */
     void generatePlanets();
 
-    /**
-     * Build and place an individual planet
-     */
-    void generatePlanet();
-
 
   protected:
     /**
      * Parent actor for this system
      */
-    Actor* mActor;
+    //Actor* mActor;
 
     // Random number generator seed for this system
     unsigned int mSeed;
+
+    /**
+     * List of stars this system has
+     */
+    std::vector<Actor*> mStars;
+
+    /**
+     * List of Planets in this system
+     */
+    std::vector<Actor*> mPlanets;
 };
 
 #endif // __SOLAR_SYSTEM_H__

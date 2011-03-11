@@ -1,7 +1,9 @@
 #ifndef __PLANET_GENERATOR_H__
 #define __PLANET_GENERATOR_H__
 
-//#include "Planet.h"
+#include "Actor.h"
+
+#include <OgreVector3.h>
 
 /**
  * Factory for building random planets.
@@ -14,8 +16,10 @@ class PlanetGenerator {
      */
     PlanetGenerator() { }
 
+    static const int MIN_PLANET_SIZE, MAX_PLANET_SIZE;
+
   public:
- //   static Planet* generatePlanet();
+    static Actor* generatePlanet();
 
 };
 

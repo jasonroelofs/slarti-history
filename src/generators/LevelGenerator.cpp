@@ -85,9 +85,9 @@ void LevelGenerator::buildRoomsInLevel() {
             // In block
             x, y, z,
             // Position
-            Utils::random(5, 95), Utils::random(5, 95), Utils::random(5, 95),
+            utils::random(5, 95), utils::random(5, 95), utils::random(5, 95),
             // Size
-            Utils::random(20, 80), Utils::random(5, 50), Utils::random(20, 80),
+            utils::random(20, 80), utils::random(5, 50), utils::random(20, 80),
             // Connected to
             -1
           };
