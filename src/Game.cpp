@@ -16,6 +16,9 @@
 #include <cstdio>
 #include <ctime>
 
+#include <iostream>
+using namespace std;
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <macUtils.h>
 #endif
@@ -133,10 +136,6 @@ bool Game::setup() {
   {
     Actor* ogreHead = new Actor();
     ogreHead->addComponent(new components::MeshComponent("ogrehead.mesh"));
-
-    //Ogre::Entity* ogreHead = mSceneManager->createEntity("Head", "ogrehead.mesh");
-    //mOgreHeadNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
-    //mOgreHeadNode->attachObject(ogreHead);
 
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
 
