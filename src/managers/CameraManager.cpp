@@ -21,7 +21,6 @@ namespace managers {
     Ogre::Camera* camera = mSceneManager->createCamera("PlayerCam");
 
     // View configuration
-    camera->lookAt(component->lookAt);
     camera->setNearClipDistance(component->nearClipDistance);
     camera->setFarClipDistance(component->farClipDistance);
 
@@ -36,8 +35,9 @@ namespace managers {
     // we need to set the scene node to the initial orientation
     // of this camera, otherwise things don't work.
     components::TransformComponent* transform = component->_actor->transform;
-    transform->rotation = camera->getOrientation();
-    transform->_sceneNode->setOrientation(camera->getOrientation());
+    transform->_sceneNode->lookAt(component->lookAt, Ogre::Node::TS_WORLD);
+    transform->rotation = transform->_sceneNode->getOrientation(); 
+
     transform->_sceneNode->attachObject(camera);
 
     component->_camera = camera;
