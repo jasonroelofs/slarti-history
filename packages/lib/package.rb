@@ -49,12 +49,16 @@ class Opts
   end
 
   def build
-    if Platform.mac?
-      @mac_build.call
-    elsif Platform.windows?
-      @windows_build.call
+    if @all_build
+      @all_build.call
     else
-      @linux_build.call
+      if Platform.mac?
+        @mac_build.call
+      elsif Platform.windows?
+        @windows_build.call
+      else
+        @linux_build.call
+      end
     end
   end
 
@@ -93,6 +97,10 @@ class Opts
 
   def windows(&block)
     @windows_build = block
+  end
+
+  def all(&block)
+    @all_build = block
   end
 end
 
@@ -140,7 +148,7 @@ def package(lib)
         # Download
         cd "downloads" do
           unless File.exists?(package.download_to)
-            sh "wget #{package.download}"
+            sh "wget #{package.download} -O #{package.download_to}"
           end
         end
 
