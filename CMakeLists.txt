@@ -33,6 +33,17 @@ SET(SLARTI_INCLUDES
   ${CMAKE_CURRENT_SOURCE_DIR}/include/generators/voxel
 )
 
+SET(EXT_INCLUDES
+  ${CMAKE_CURRENT_SOURCE_DIR}/ext/include
+)
+
+SET(EXT_LIB_DIRS
+  ${CMAKE_CURRENT_SOURCE_DIR}/ext/lib
+)
+
+SET(EXT_LIBS
+  "-lRocketCore"
+)
 
 include_directories(
   ${OGRE_HOME}/boost_1_42
@@ -40,6 +51,7 @@ include_directories(
   ${OGRE_HOME}/include/OGRE
   ${OGRE_HOME}/include/OGRE/OSX
   ${OGRE_HOME}/include/OIS
+  ${EXT_INCLUDES}
   ${SLARTI_INCLUDES}
 )
 
@@ -47,6 +59,7 @@ link_directories(
   ${OGRE_HOME}/boost_1_42/lib
   ${OGRE_HOME}/lib
   ${OGRE_HOME}/lib/release
+  ${EXT_LIB_DIRS}
 )
 
 if(APPLE)
@@ -77,6 +90,6 @@ else()
   add_executable(${PROJECT_NAME} ${SRCS})
 endif(APPLE)
 
-target_link_libraries(${PROJECT_NAME} OIS ${EXTRA_LIBS})
+target_link_libraries(${PROJECT_NAME} OIS ${EXTRA_LIBS} ${EXT_LIBS})
 
 
