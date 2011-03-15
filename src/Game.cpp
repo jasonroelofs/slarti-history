@@ -113,7 +113,7 @@ bool Game::setup() {
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
 
-    Actor* actor = new Actor(utils::calculatePosition(Ogre::Vector3(4, 4, 4)));
+    Actor* actor = new Actor(utils::calculatePosition(Ogre::Vector3(4, 5, 4)));
     actor->addComponent(new components::CameraComponent(mWindow));
     actor->addComponent(new components::MovementComponent());
     actor->addComponent(new components::MouseLookComponent());

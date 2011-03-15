@@ -11,12 +11,8 @@
 #endif
 
 namespace utils {
-  // A sector is a 100k unit cube
-  const int SECTOR_SIZE = 100000;
-
-  // Sector grid is 10 x 10 x 10
-  // Note: Ogre's origin is actually in the center of the sector grid, so we need to offset
-  const int MAX_SECTORS = 10;
+  const int SECTOR_SIZE = 200000;
+  const int MAX_SECTORS = 10; // cubed
 
   /**
    * Pick a random number between two numbers.
