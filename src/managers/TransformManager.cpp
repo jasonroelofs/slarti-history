@@ -72,10 +72,10 @@ namespace managers {
       }
 
       if(component->rollingLeft) {
-        component->roll(Ogre::Degree(-30 * timeSinceLastFrame));
+        component->roll(Ogre::Degree(30 * timeSinceLastFrame));
       }
       if(component->rollingRight) {
-        component->roll(Ogre::Degree(30 * timeSinceLastFrame));
+        component->roll(Ogre::Degree(-30 * timeSinceLastFrame));
       }
 
       component->position = pos;
