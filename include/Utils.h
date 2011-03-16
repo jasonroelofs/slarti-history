@@ -2,13 +2,12 @@
 #define __UTILS_H__
 
 #include <OgreVector3.h>
+#include <OgreLogManager.h>
 
 #include <cstdlib>
 
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
+#define OGRE_LOG(msg) \
+  { Ogre::LogManager::getSingleton().logMessage(msg); }
 
 namespace utils {
   const int SECTOR_SIZE = 200000;
