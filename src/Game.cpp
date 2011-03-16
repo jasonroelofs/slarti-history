@@ -190,6 +190,15 @@ bool Game::setup() {
     mInputManager->map(Event::ToggleWireframe, this, &Game::toggleWireframe);
   }
 
+  //---------------------------
+  // Initialize the Interface
+  //---------------------------
+  {
+    mUIManager = new ui::UIManager(mWindow);
+
+    mSceneManager->addRenderQueueListener(mUIManager);
+  }
+
   // Initialize a Level, generate, and render
   /*
   {
