@@ -12,6 +12,8 @@
 #include "Level.h"
 #include "SolarSystem.h"
 
+#include "ui/UIManager.h"
+
 /**
  * The starting point for the entire game.
  * This class sets up Ogre, initializes input routines
@@ -82,7 +84,7 @@ class Game :
 
     InputDispatcher* mInputDispatcher;
 
-    // CameraManager* mCameraManager;
+    ui::UIManager* mUIManager;
 
     // Our current 'level'
     Level* mLevel;
