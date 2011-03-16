@@ -2,6 +2,7 @@
 
 #include "Utils.h"
 
+#include <algorithm>
 #include <iostream>
 using namespace std;
 
@@ -195,13 +196,15 @@ void LevelGenerator::carveOutVolume(VoxelVolume* volume) {
     bottomRight.z = topLeft.z + (blockSize * (room.depth / 100.0f));
 
     // Fix positions to always be inside the grid
-    topLeft.x = max(topLeft.x, 2);
-    topLeft.y = max(topLeft.y, 2);
-    topLeft.z = max(topLeft.z, 2);
+    /*
+    topLeft.x = std::max(topLeft.x, 2.0);
+    topLeft.y = std::max(topLeft.y, 2.0);
+    topLeft.z = std::max(topLeft.z, 2.0);
 
-    bottomRight.x = min(bottomRight.x, regionWidth - 2);
-    bottomRight.y = min(bottomRight.y, regionHeight - 2);
-    bottomRight.z = min(bottomRight.z, regionDepth - 2);
+    bottomRight.x = std::min(bottomRight.x, regionWidth - 2);
+    bottomRight.y = std::min(bottomRight.y, regionHeight - 2);
+    bottomRight.z = std::min(bottomRight.z, regionDepth - 2);
+    */
 
     cout << "Carving with " << topLeft << " to " << bottomRight << " with the center being " << room.centerBlock() << endl;
 
