@@ -1,0 +1,8 @@
+<rml>
+  <head>
+    <link type="text/rcss" href="../styles/debug.rcss"/>
+  </head>
+  <body>
+    <div id="myPosition"></div>
+  </body>
+</rml>
