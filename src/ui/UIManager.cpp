@@ -6,6 +6,7 @@
 #include <OgreRenderTarget.h>
 #include <OgreRenderSystem.h>
 #include <OgreTextureUnitState.h>
+#include <OgreArchive.h>
 
 namespace ui {
   UIManager::UIManager(Ogre::RenderTarget* rt) 
@@ -22,7 +23,16 @@ namespace ui {
     Rocket::Core::Initialise();
     Rocket::Controls::Initialise();
 
-    // Load fonts
+    // Load up all fonts in media/ui/fonts
+    Ogre::FileInfoListPtr fonts = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo("Font", "*.otf");
+
+    Ogre::FileInfoList::iterator start = fonts->begin();
+    for(; start < fonts->end(); start++) {
+      Ogre::String path = (*start).archive->getName(),
+        filename = (*start).filename;
+
+      Rocket::Core::FontDatabase::LoadFontFace((path + "/" + filename).c_str());
+    }
 
     mRocketContext = Rocket::Core::CreateContext("main", 
         Rocket::Core::Vector2i(mTarget->getWidth(), mTarget->getHeight()));
