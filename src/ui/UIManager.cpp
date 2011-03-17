@@ -2,6 +2,7 @@
 
 #include <Rocket/Core.h>
 #include <Rocket/Controls.h>
+#include <Rocket/Debugger.h>
 
 #include <OgreRenderTarget.h>
 #include <OgreRenderSystem.h>
@@ -25,19 +26,33 @@ namespace ui {
 
     // Load up all fonts in media/ui/fonts
     Ogre::FileInfoListPtr fonts = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo("Font", "*.otf");
+    Ogre::String archive, filename;
 
     Ogre::FileInfoList::iterator start = fonts->begin();
     for(; start < fonts->end(); start++) {
-      Ogre::String path = (*start).archive->getName(),
-        filename = (*start).filename;
+      archive = (*start).archive->getName();
+      filename = (*start).filename;
 
-      Rocket::Core::FontDatabase::LoadFontFace((path + "/" + filename).c_str());
+      Rocket::Core::FontDatabase::LoadFontFace((archive + "/" + filename).c_str());
     }
 
     mRocketContext = Rocket::Core::CreateContext("main", 
         Rocket::Core::Vector2i(mTarget->getWidth(), mTarget->getHeight()));
 
-    // Load cursor
+    Rocket::Debugger::Initialise(mRocketContext);
+
+    // Load our debugger page
+    Ogre::FileInfoListPtr templ = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo("UI", "debug.rml");
+    archive = (*(templ->begin())).archive->getName();
+    filename = (*(templ->begin())).filename;
+
+    Rocket::Core::ElementDocument* document = mRocketContext->LoadDocument((archive + "/" + filename).c_str());
+
+    if (document)
+    {
+      document->Show();
+      document->RemoveReference();
+    }
   }
 
   UIManager::~UIManager() {

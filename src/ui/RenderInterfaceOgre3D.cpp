@@ -214,7 +214,7 @@ namespace ui {
     if (ogre_texture.isNull())
     {
       ogre_texture = texture_manager->load(Ogre::String(source.CString()),
-                         "Rocket",
+                         "UI",
                          Ogre::TEX_TYPE_2D,
                          0);
     }
@@ -237,7 +237,7 @@ namespace ui {
 
     Ogre::TexturePtr ogre_texture = Ogre::TextureManager::getSingleton().loadRawData(
        Rocket::Core::String(16, "%d", texture_id++).CString(),
-       "Rocket",
+       "UI",
        data_stream,
        source_dimensions.x,
        source_dimensions.y,

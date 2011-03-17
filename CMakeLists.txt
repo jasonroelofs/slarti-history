@@ -44,6 +44,7 @@ SET(EXT_LIB_DIRS
 SET(EXT_LIBS
   "-lRocketCore"
   "-lRocketControls"
+  "-lRocketDebugger"
 )
 
 include_directories(
