@@ -113,10 +113,10 @@ bool Game::setup() {
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
 
-    Actor* actor = new Actor(utils::calculatePosition(Ogre::Vector3(4, 5, 4)));
-    actor->addComponent(new components::CameraComponent(mWindow));
-    actor->addComponent(new components::MovementComponent());
-    actor->addComponent(new components::MouseLookComponent());
+    mActor = new Actor(utils::calculatePosition(Ogre::Vector3(4, 5, 4)));
+    mActor->addComponent(new components::CameraComponent(mWindow));
+    mActor->addComponent(new components::MovementComponent());
+    mActor->addComponent(new components::MouseLookComponent());
   }
 
 
@@ -294,6 +294,10 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   managers::TransformManager::getInstance()->update(evt.timeSinceLastFrame);
   managers::MeshManager::getInstance()->update(evt.timeSinceLastFrame);
   managers::CameraManager::getInstance()->update(evt.timeSinceLastFrame);
+
+  mUIManager->update();
+
+  mUIManager->updatePosition(mActor->transform->position);
 
   return true;
 }

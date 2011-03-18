@@ -6,6 +6,7 @@
 #include "RenderInterfaceOgre3D.h"
 #include "SystemInterfaceOgre3D.h"
 
+#include <OgreVector3.h>
 #include <OgreMatrix4.h>
 #include <OgreRenderQueueListener.h>
 
@@ -19,6 +20,9 @@ namespace ui {
       UIManager(Ogre::RenderTarget* rt);
 
       ~UIManager();
+
+      void update();
+      void updatePosition(const Ogre::Vector3& newPos);
 
       /// Called from Ogre before a queue group is rendered.
       virtual void renderQueueStarted(uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
