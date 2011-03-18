@@ -8,6 +8,7 @@
 #include "InputDispatcher.h"
 #include "managers/InputManager.h"
 #include "managers/CameraManager.h"
+#include "Actor.h"
 #include "Event.h"
 #include "Level.h"
 #include "SolarSystem.h"
@@ -85,6 +86,8 @@ class Game :
     InputDispatcher* mInputDispatcher;
 
     ui::UIManager* mUIManager;
+
+    Actor* mActor;
 
     // Our current 'level'
     Level* mLevel;

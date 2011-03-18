@@ -65,6 +65,17 @@ namespace ui {
     delete mSystemInterface;
   }
 
+  void UIManager::update() {
+
+  }
+
+  void UIManager::updatePosition(const Ogre::Vector3& newPos) {
+    Rocket::Core::Element* e = mRocketContext->GetDocument("game_window")->GetElementById("position");
+    if(e) {
+      e->SetInnerRML(Rocket::Core::String(128, "Position: %0.2f, %0.2f, %0.2f", newPos.x, newPos.y, newPos.z).CString());
+    }
+  }
+
   void UIManager::renderQueueStarted(uint8 queueGroupId, const Ogre::String& invocation, bool&)
   {
     if (queueGroupId == Ogre::RENDER_QUEUE_OVERLAY)
