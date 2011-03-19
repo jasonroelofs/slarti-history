@@ -1,0 +1,43 @@
+Notes on hooking up the UI
+==========================
+
+To start, libRocket, so far, has been awesome. You just can't beat using a well known HTML / CSS standard for displaying content in a game. Simple and without a recompilation step, UI tweaking will be quick and realtively painless.
+
+The hard problem though is hooking up actual in-game values to UI elements in a way that isn't gawd-ugly, hard coded, and fickle or fragile.
+
+Want to make the templates as data driven as possible, no logic (the Mustache idea).
+
+Via Attributes
+--------------
+
+Like HTML elements in RML can be given random attributes, accessible via getAttribute. Potential ideas from this:
+
+Showing the player's current position:
+
+    <div id="position" from="player transform position">
+    </div>
+
+Update all Actors to have names. Make sure our Actor has the name "player". Set up names of components, so "transform" will get the Actor's TransformComponent, then set up names to pull the "position" attribute from that TransformComponent.
+
+Then I'll need to set up calls to figure out how to convert from types, in this case Ogre::Vector3 to Rocket::Core::String. Something like:
+
+    template<typename From_T, typename To_T>
+    To_T convert(const From_T& from);
+
+    Rocket::Core::String convert<Ogre::Vector3, Rocket::Core::String>(const Ogre::Vector3& from) {
+      ...
+    }
+    
+One of these converts will need to exist for every type conversion we would want for the UI. This would be simple to put into a macro to make it less ugly.
+
+Maybe there's something in Boost that can help (boost::bind?).
+
+Via Interpolation
+-----------------
+
+  <div id="position">
+    ${player.transform.position}
+  </div>
+
+Set up handlers in Rocket to find these interpolation requests and use the logic above to figure out where and what to put here.
+

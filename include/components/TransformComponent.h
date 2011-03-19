@@ -28,7 +28,7 @@ namespace components {
        */
       TransformComponent(Ogre::Vector3 position = Ogre::Vector3::ZERO)
         : position(position),
-          maxSpeed(10000),
+          maxSpeed(1000),
           movingForward(false),
           movingBack(false),
           movingLeft(false),
@@ -41,29 +41,14 @@ namespace components {
         scale = Ogre::Vector3::UNIT_SCALE;
       }
 
-      /**
-       * Position in the world
-       */
       Ogre::Vector3 position;
 
-      /**
-       * Rotation
-       */
       Ogre::Quaternion rotation;
 
-      /**
-       * Scale of object, in 3 dimensions
-       */
       Ogre::Vector3 scale;
 
-      /**
-       * Max speed this actor should move, in units per second
-       */
       int maxSpeed;
 
-      /**
-       * State change flags
-       */
       bool movingForward, movingBack, movingLeft, movingRight;
 
       bool rollingLeft, rollingRight;
@@ -71,7 +56,7 @@ namespace components {
       /**
        * Should the next update move this transform relative to
        * any set orientation or should it just move directly with
-       * axes?
+       * it's world-space axes?
        */
       bool moveRelativeToRotation;
 

@@ -3,8 +3,15 @@
     <link type="text/rcss" href="../styles/debug.rcss" />
   </head>
   <body id="game_window">
-    <div id="position">
-      Position goes Here!
+    <div class="bottom left">
+      <div id="overdrive" class="text">
+      </div>
+      <div id="acceleration" class="text">
+      </div>
+      <div id="velocity" class="text">
+      </div>
+      <div id="position" class="text">
+      </div>
     </div>
   </body>
 </rml>

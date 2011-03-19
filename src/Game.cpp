@@ -7,9 +7,11 @@
 #include "managers/CameraManager.h"
 #include "managers/InputManager.h"
 #include "managers/MeshManager.h"
+#include "managers/ThrustManager.h"
 
 #include "components/CameraComponent.h"
-#include "components/MovementComponent.h"
+#include "components/ThrustComponent.h"
+#include "components/ThrusterInputComponent.h"
 #include "components/MouseLookComponent.h"
 #include "components/MeshComponent.h"
 
@@ -107,6 +109,7 @@ bool Game::setup() {
     new managers::TransformManager(mSceneManager);
     new managers::CameraManager(mSceneManager);
     new managers::MeshManager(mSceneManager);
+    new managers::ThrustManager();
 
     mInputManager = new managers::InputManager();
 
@@ -115,7 +118,11 @@ bool Game::setup() {
 
     mActor = new Actor(utils::calculatePosition(Ogre::Vector3(4, 5, 4)));
     mActor->addComponent(new components::CameraComponent(mWindow));
-    mActor->addComponent(new components::MovementComponent());
+
+    mThrust = new components::ThrustComponent();
+    mActor->addComponent(mThrust);
+    mActor->addComponent(new components::ThrusterInputComponent(mThrust));
+
     mActor->addComponent(new components::MouseLookComponent());
   }
 
@@ -291,13 +298,18 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   mMouse->capture();
 
   // Update our managers in order
-  managers::TransformManager::getInstance()->update(evt.timeSinceLastFrame);
+  managers::ThrustManager::getInstance()->update(evt.timeSinceLastFrame);
   managers::MeshManager::getInstance()->update(evt.timeSinceLastFrame);
+
+  managers::TransformManager::getInstance()->update(evt.timeSinceLastFrame);
   managers::CameraManager::getInstance()->update(evt.timeSinceLastFrame);
 
-  mUIManager->update();
+  // Potentially look at updating the UI at a slower rate than raw FPS
+  //mUIManager->update(evt.timeSinceLastFrame);
 
   mUIManager->updatePosition(mActor->transform->position);
+  mUIManager->updateVelocity(mThrust->velocity);
+  mUIManager->updateAcceleration(mThrust->acceleration);
 
   return true;
 }

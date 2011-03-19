@@ -17,6 +17,9 @@ namespace Event {
    * Event::Quit
    */
   enum Events {
+    Accelerate,
+    Decelerate,
+
     None,
 
     MoveBack,

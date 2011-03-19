@@ -16,11 +16,17 @@ div {
   display: block;
 }
 
-#position {
+.bottom {
   position: absolute;
   bottom: 0;
-  left: 0;
+}
 
+.left {
+  position: absolute;
+  left: 0;
+}
+
+.text {
   padding: 5px;
 
   header-font-effect: outline;
