@@ -12,6 +12,7 @@
 #include "Event.h"
 #include "Level.h"
 #include "SolarSystem.h"
+#include "components/ThrustComponent.h"
 
 #include "ui/UIManager.h"
 
@@ -86,6 +87,8 @@ class Game :
     InputDispatcher* mInputDispatcher;
 
     ui::UIManager* mUIManager;
+
+    components::ThrustComponent* mThrust;
 
     Actor* mActor;
 

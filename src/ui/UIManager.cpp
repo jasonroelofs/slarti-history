@@ -76,6 +76,27 @@ namespace ui {
     }
   }
 
+  void UIManager::updateVelocity(const Ogre::Real& newV) {
+    Rocket::Core::Element* e = mRocketContext->GetDocument("game_window")->GetElementById("velocity");
+    if(e) {
+      e->SetInnerRML(Rocket::Core::String(128, "Speed: %0.2f", newV).CString());
+    }
+  }
+
+  void UIManager::updateAcceleration(const Ogre::Real& newA) {
+    Rocket::Core::Element* e = mRocketContext->GetDocument("game_window")->GetElementById("acceleration");
+    if(e) {
+      e->SetInnerRML(Rocket::Core::String(128, "Accel: %0.2f", newA).CString());
+    }
+  }
+
+  void UIManager::updateOverdrive(const Ogre::Real& newOD) {
+    Rocket::Core::Element* e = mRocketContext->GetDocument("game_window")->GetElementById("overdrive");
+    if(e) {
+      e->SetInnerRML(Rocket::Core::String(128, "Overdrive: %0.2f", newOD).CString());
+    }
+  }
+
   void UIManager::renderQueueStarted(uint8 queueGroupId, const Ogre::String& invocation, bool&)
   {
     if (queueGroupId == Ogre::RENDER_QUEUE_OVERLAY)
