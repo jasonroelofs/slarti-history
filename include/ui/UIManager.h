@@ -25,7 +25,7 @@ namespace ui {
       void updatePosition(const Ogre::Vector3& newPos);
       void updateVelocity(const Ogre::Real& newV);
       void updateAcceleration(const Ogre::Real& newA);
-      void updateOverdrive(const Ogre::Real& newOD);
+      void updateOverdrive(int newOD);
 
       /// Called from Ogre before a queue group is rendered.
       virtual void renderQueueStarted(uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
