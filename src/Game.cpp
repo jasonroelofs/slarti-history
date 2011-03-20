@@ -7,11 +7,11 @@
 #include "managers/CameraManager.h"
 #include "managers/InputManager.h"
 #include "managers/MeshManager.h"
-#include "managers/ThrustManager.h"
+#include "managers/ShipManager.h"
 
 #include "components/CameraComponent.h"
-#include "components/ThrustComponent.h"
-#include "components/ThrusterInputComponent.h"
+#include "components/ShipComponent.h"
+#include "components/ShipInputComponent.h"
 #include "components/MouseLookComponent.h"
 #include "components/MeshComponent.h"
 
@@ -109,7 +109,7 @@ bool Game::setup() {
     new managers::TransformManager(mSceneManager);
     new managers::CameraManager(mSceneManager);
     new managers::MeshManager(mSceneManager);
-    new managers::ThrustManager();
+    new managers::ShipManager();
 
     mInputManager = new managers::InputManager();
 
@@ -119,9 +119,9 @@ bool Game::setup() {
     mActor = new Actor(utils::calculatePosition(Ogre::Vector3(4, 5, 4)));
     mActor->addComponent(new components::CameraComponent(mWindow));
 
-    mThrust = new components::ThrustComponent();
-    mActor->addComponent(mThrust);
-    mActor->addComponent(new components::ThrusterInputComponent(mThrust));
+    mShip = new components::ShipComponent();
+    mActor->addComponent(mShip);
+    mActor->addComponent(new components::ShipInputComponent(mShip));
 
     mActor->addComponent(new components::MouseLookComponent());
   }
@@ -298,7 +298,7 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   mMouse->capture();
 
   // Update our managers in order
-  managers::ThrustManager::getInstance()->update(evt.timeSinceLastFrame);
+  managers::ShipManager::getInstance()->update(evt.timeSinceLastFrame);
   managers::MeshManager::getInstance()->update(evt.timeSinceLastFrame);
 
   managers::TransformManager::getInstance()->update(evt.timeSinceLastFrame);
@@ -308,9 +308,9 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   //mUIManager->update(evt.timeSinceLastFrame);
 
   mUIManager->updatePosition(mActor->transform->position);
-  mUIManager->updateVelocity(mThrust->velocity);
-  mUIManager->updateAcceleration(mThrust->acceleration);
-  mUIManager->updateOverdrive(mThrust->_overdriveTimer);
+  mUIManager->updateVelocity(mShip->velocity);
+  mUIManager->updateAcceleration(mShip->acceleration);
+  mUIManager->updateOverdrive(mShip->_overdriveTimer);
 
   return true;
 }
