@@ -15,7 +15,7 @@ namespace components {
   class ThrustComponent : public Component {
     public:
       ThrustComponent() 
-        : maxVelocity(100),
+        : maxVelocity(10),
           velocity(0),
           acceleration(0)
       { }
@@ -27,11 +27,11 @@ namespace components {
       float acceleration;
 
       void accelerate(bool state) {
-        acceleration = state ? 10 : 0;
+        acceleration = state ? 1 : 0;
       }
 
       void decelerate(bool state) {
-        acceleration = state ? -10 : 0;
+        acceleration = state ? -1 : 0;
       }
 
       REGISTRATION_WITH(ThrustManager)

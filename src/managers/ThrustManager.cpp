@@ -34,7 +34,7 @@ namespace managers {
 
       component->velocity += component->acceleration * timeSinceLastFrame;
 
-      if(component->velocity < 0.1) {
+      if(component->velocity < 0.001) {
         component->velocity = 0.0;
       }
 
