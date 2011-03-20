@@ -310,6 +310,7 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   mUIManager->updatePosition(mActor->transform->position);
   mUIManager->updateVelocity(mThrust->velocity);
   mUIManager->updateAcceleration(mThrust->acceleration);
+  mUIManager->updateOverdrive(mThrust->_overdriveTimer);
 
   return true;
 }

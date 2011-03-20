@@ -19,6 +19,7 @@ namespace Event {
   enum Events {
     Accelerate,
     Decelerate,
+    Overdrive,
 
     None,
 

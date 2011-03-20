@@ -30,6 +30,8 @@ namespace components {
 
         manager->map(Event::RotateLeft, this, &ThrusterInputComponent::rotateLeft);
         manager->map(Event::RotateRight, this, &ThrusterInputComponent::rotateRight);
+
+        manager->map(Event::Overdrive, this, &ThrusterInputComponent::overdrive);
       }
 
       void accelerate(InputEvent e) {
@@ -38,6 +40,12 @@ namespace components {
 
       void decelerate(InputEvent e) {
         _thruster->decelerate(e.isDown);
+      }
+
+      void overdrive(InputEvent e) {
+        if(e.isDown) {
+          _thruster->toggleOverdrive();
+        }
       }
 
       void moveLeft(InputEvent e) {
