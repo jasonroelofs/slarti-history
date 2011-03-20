@@ -32,14 +32,28 @@ namespace managers {
       component = *it;
       transform = component->_actor->transform;
 
+      if(component->overdrive) {
+        if(component->_overdriveTimer >= component->_overdriveTime) {
+          component->acceleration = component->_overdriveAccel;
+        } else {
+          component->_overdriveTimer += timeSinceLastFrame;
+        }
+      }
+
       component->velocity += component->acceleration * timeSinceLastFrame;
 
       if(component->velocity < 0.001) {
         component->velocity = 0.0;
       }
 
-      if(component->velocity > component->maxVelocity) {
-        component->velocity = component->maxVelocity;
+      if(component->overdrive) {
+        if(component->velocity > component->_maxOverdrive) {
+          component->velocity = component->_maxOverdrive;
+        }
+      } else {
+        if(component->velocity > component->maxVelocity) {
+          component->velocity = component->maxVelocity;
+        }
       }
 
       direction = transform->rotation * -Ogre::Vector3::UNIT_Z;

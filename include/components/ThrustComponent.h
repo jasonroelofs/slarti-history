@@ -17,7 +17,12 @@ namespace components {
       ThrustComponent() 
         : maxVelocity(10),
           velocity(0),
-          acceleration(0)
+          acceleration(0),
+          overdrive(false),
+          _maxOverdrive(1000),
+          _overdriveAccel(500),
+          _overdriveTime(5),
+          _overdriveTimer(0)
       { }
 
       int maxVelocity;
@@ -26,12 +31,34 @@ namespace components {
 
       float acceleration;
 
+      bool overdrive;
+
+      int _maxOverdrive;
+      int _overdriveAccel;
+      int _overdriveTime;
+      float _overdriveTimer;
+
       void accelerate(bool state) {
         acceleration = state ? 1 : 0;
       }
 
       void decelerate(bool state) {
+        endOverdrive();
         acceleration = state ? -1 : 0;
+      }
+
+      void toggleOverdrive() {
+        if(!overdrive) {
+          overdrive = true;
+          _overdriveTimer = 0;
+        } else {
+          endOverdrive();
+        }
+      }
+
+      void endOverdrive() {
+        overdrive = false;
+        acceleration = 0;
       }
 
       REGISTRATION_WITH(ThrustManager)
