@@ -15,12 +15,12 @@ namespace components {
   class ThrustComponent : public Component {
     public:
       ThrustComponent() 
-        : maxSpeed(1000),
+        : maxVelocity(100),
           velocity(0),
           acceleration(0)
       { }
 
-      int maxSpeed;
+      int maxVelocity;
 
       float velocity;
 
