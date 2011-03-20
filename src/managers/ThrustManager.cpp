@@ -38,6 +38,10 @@ namespace managers {
         component->velocity = 0.0;
       }
 
+      if(component->velocity > component->maxVelocity) {
+        component->velocity = component->maxVelocity;
+      }
+
       direction = transform->rotation * -Ogre::Vector3::UNIT_Z;
       right = transform->rotation * Ogre::Vector3::UNIT_X;
       velocityDir = direction * component->velocity;
