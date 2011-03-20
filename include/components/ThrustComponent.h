@@ -43,8 +43,11 @@ namespace components {
       }
 
       void decelerate(bool state) {
-        endOverdrive();
-        acceleration = state ? -1 : 0;
+        if(overdrive) {
+          endOverdrive();
+        } else {
+          acceleration = state ? -1 : 0;
+        }
       }
 
       void toggleOverdrive() {
@@ -58,7 +61,7 @@ namespace components {
 
       void endOverdrive() {
         overdrive = false;
-        acceleration = 0;
+        acceleration = _maxOverdrive * -0.5;
       }
 
       REGISTRATION_WITH(ThrustManager)
