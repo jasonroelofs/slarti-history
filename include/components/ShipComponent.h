@@ -61,7 +61,12 @@ namespace components {
 
       void endOverdrive() {
         overdrive = false;
+        _overdriveTimer = 0;
         acceleration = _maxOverdrive * -0.5;
+      }
+
+      int overdriveCharge() {
+        return (_overdriveTimer / _overdriveTime) * 100;
       }
 
       REGISTRATION_WITH(ShipManager)
