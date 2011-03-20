@@ -44,15 +44,12 @@ namespace managers {
 
       if(component->velocity < 0.001) {
         component->velocity = 0.0;
+        component->acceleration = 0.0;
       }
 
       if(component->overdrive) {
         if(component->velocity > component->_maxOverdrive) {
           component->velocity = component->_maxOverdrive;
-        }
-      } else {
-        if(component->velocity > component->maxVelocity) {
-          component->velocity = component->maxVelocity;
         }
       }
 
