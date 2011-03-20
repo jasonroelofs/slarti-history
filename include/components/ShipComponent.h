@@ -1,8 +1,8 @@
-#ifndef __THRUST_COMPONENT_H__
-#define __THRUST_COMPONENT_H__
+#ifndef __SHIP_COMPONENT_H__
+#define __SHIP_COMPONENT_H__
 
 #include "Component.h"
-#include "managers/ThrustManager.h"
+#include "managers/ShipManager.h"
 
 namespace components {
 
@@ -12,9 +12,9 @@ namespace components {
    * to that actor's current rotation. Also this is purely forward
    * and backward acceleration.
    */
-  class ThrustComponent : public Component {
+  class ShipComponent : public Component {
     public:
-      ThrustComponent() 
+      ShipComponent() 
         : maxVelocity(10),
           velocity(0),
           acceleration(0),
@@ -64,9 +64,9 @@ namespace components {
         acceleration = _maxOverdrive * -0.5;
       }
 
-      REGISTRATION_WITH(ThrustManager)
+      REGISTRATION_WITH(ShipManager)
   };
 
 }
 
-#endif // __THRUST_COMPONENT_H__
+#endif // __SHIP_COMPONENT_H__

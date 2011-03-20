@@ -12,7 +12,7 @@
 #include "Event.h"
 #include "Level.h"
 #include "SolarSystem.h"
-#include "components/ThrustComponent.h"
+#include "components/ShipComponent.h"
 
 #include "ui/UIManager.h"
 
@@ -88,7 +88,7 @@ class Game :
 
     ui::UIManager* mUIManager;
 
-    components::ThrustComponent* mThrust;
+    components::ShipComponent* mShip;
 
     Actor* mActor;
 

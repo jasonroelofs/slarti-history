@@ -1,5 +1,5 @@
-#include "managers/ThrustManager.h"
-#include "components/ThrustComponent.h"
+#include "managers/ShipManager.h"
+#include "components/ShipComponent.h"
 #include "components/TransformComponent.h"
 #include "Actor.h"
 
@@ -8,20 +8,20 @@
 
 namespace managers {
 
-  ThrustManager::ThrustManager()
+  ShipManager::ShipManager()
   {
     msInstance = this;
   }
 
-  void ThrustManager::initialize(ThrustComponent* component) {
+  void ShipManager::initialize(ShipComponent* component) {
     mComponents.push_back(component);
   }
 
-  void ThrustManager::remove(ThrustComponent* component) {
+  void ShipManager::remove(ShipComponent* component) {
   }
 
-  void ThrustManager::update(float timeSinceLastFrame) {
-    ThrustComponent* component; 
+  void ShipManager::update(float timeSinceLastFrame) {
+    ShipComponent* component; 
     TransformComponent* transform;
     ComponentIterator it = mComponents.begin(); 
     ComponentIterator end = mComponents.end(); 
@@ -61,5 +61,5 @@ namespace managers {
     }
   }
 
-  MANAGER_IMPLEMENTATION(Thrust)
+  MANAGER_IMPLEMENTATION(Ship)
 }
