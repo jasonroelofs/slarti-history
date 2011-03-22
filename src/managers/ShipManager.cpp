@@ -32,24 +32,25 @@ namespace managers {
       component = *it;
       transform = component->_actor->transform;
 
-      if(component->overdrive) {
-        if(component->_overdriveTimer >= component->_overdriveTime) {
-          component->acceleration = component->_overdriveAccel;
-        } else {
-          component->_overdriveTimer += timeSinceLastFrame;
+      if(component->currentState == ShipComponent::Cruising && 
+          (component->_cruiseTimer <= component->_cruiseTime)) {
+        component->_cruiseTimer += timeSinceLastFrame;
+      } else {
+        component->velocity += component->acceleration * timeSinceLastFrame;
+
+        if(component->velocity < 0.001) {
+          component->velocity = 0.0;
+          component->acceleration = 0.0;
         }
-      }
 
-      component->velocity += component->acceleration * timeSinceLastFrame;
-
-      if(component->velocity < 0.001) {
-        component->velocity = 0.0;
-        component->acceleration = 0.0;
-      }
-
-      if(component->overdrive) {
-        if(component->velocity > component->_maxOverdrive) {
-          component->velocity = component->_maxOverdrive;
+        if(component->currentState == ShipComponent::Cruising && component->acceleration < 0) {
+          if(component->velocity < component->_accelerateTo) {
+            component->velocityMet();
+          }
+        } else {
+          if(component->velocity > component->_accelerateTo) {
+            component->velocityMet();
+          }
         }
       }
 

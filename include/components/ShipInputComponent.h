@@ -31,7 +31,7 @@ namespace components {
         manager->map(Event::RotateLeft, this, &ShipInputComponent::rotateLeft);
         manager->map(Event::RotateRight, this, &ShipInputComponent::rotateRight);
 
-        manager->map(Event::Overdrive, this, &ShipInputComponent::overdrive);
+        manager->map(Event::Cruise, this, &ShipInputComponent::cruise);
       }
 
       void accelerate(InputEvent e) {
@@ -42,9 +42,9 @@ namespace components {
         _ship->decelerate(e.isDown);
       }
 
-      void overdrive(InputEvent e) {
+      void cruise(InputEvent e) {
         if(e.isDown) {
-          _ship->toggleOverdrive();
+          _ship->toggleCruise();
         }
       }
 

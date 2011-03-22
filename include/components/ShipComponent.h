@@ -10,63 +10,94 @@ namespace components {
    * This component adds Velocity and Acceleration handling
    * to it's actor. This will always move it's actor according
    * to that actor's current rotation. Also this is purely forward
-   * and backward acceleration.
+   * and reverse acceleration.
    */
   class ShipComponent : public Component {
+    public: 
+      enum States {
+        Flying = 0,
+        Cruising = 1
+      };
+
+      // Indicies here relate to the states above
+      const static int accelRates[2];
+      const static int accelTo[2];
+
     public:
       ShipComponent() 
-        : maxVelocity(10),
-          velocity(0),
+        : velocity(0),
           acceleration(0),
-          overdrive(false),
-          _maxOverdrive(1000),
-          _overdriveAccel(500),
-          _overdriveTime(5),
-          _overdriveTimer(0)
-      { }
+          _cruiseTime(5),
+          _cruiseTimer(0)
+      { 
+        flying();
+      }
 
-      int maxVelocity;
+      States currentState;
 
       float velocity;
 
       float acceleration;
+      float _accelerateTo;
 
-      bool overdrive;
-
-      int _maxOverdrive;
-      int _overdriveAccel;
-      int _overdriveTime;
-      float _overdriveTimer;
+      // Timer variables for the cruise charge period
+      float _cruiseTime;
+      float _cruiseTimer;
 
       void accelerate(bool state) {
-        acceleration = state ? 1 : 0;
+        if(currentState == Flying) {
+          acceleration = state ? accelRates[Flying] : 0;
+        }
       }
 
       void decelerate(bool state) {
-        if(overdrive) {
-          endOverdrive();
+        if(currentState == Cruising) {
+          endCruise();
         } else {
-          acceleration = state ? -1 : 0;
+          acceleration = state ? -accelRates[Flying] : 0;
         }
       }
 
-      void toggleOverdrive() {
-        if(!overdrive) {
-          overdrive = true;
-          _overdriveTimer = 0;
+      void toggleCruise() {
+        if(currentState == Flying) {
+          startCruise();
         } else {
-          endOverdrive();
+          endCruise();
         }
       }
 
-      void endOverdrive() {
-        overdrive = false;
-        _overdriveTimer = 0;
-        acceleration = _maxOverdrive * -0.5;
+      void startCruise() {
+        _cruiseTimer = 0;
+        acceleration = accelRates[Cruising];
+        cruising();
       }
 
-      int overdriveCharge() {
-        return (_overdriveTimer / _overdriveTime) * 100;
+      void endCruise() {
+        acceleration = -accelRates[Cruising];
+        _accelerateTo = accelTo[Flying];
+      }
+
+      void flying() {
+        currentState = Flying;
+        _accelerateTo = accelTo[Flying];
+      }
+
+      void cruising() {
+        currentState = Cruising;
+        _accelerateTo = accelTo[Cruising];
+      }
+
+      void velocityMet() {
+        if(currentState == Cruising && acceleration < 0) {
+          flying();
+        }
+
+        velocity = _accelerateTo;
+        acceleration = 0;
+      }
+
+      int cruiseCharge() {
+        return (_cruiseTimer / _cruiseTime) * 100;
       }
 
       REGISTRATION_WITH(ShipManager)

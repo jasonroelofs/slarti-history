@@ -37,6 +37,10 @@ SET(EXT_INCLUDES
   ${CMAKE_CURRENT_SOURCE_DIR}/ext/include
 )
 
+SET(LIB_INCLUDES
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib
+)
+
 SET(EXT_LIB_DIRS
   ${CMAKE_CURRENT_SOURCE_DIR}/ext/lib
 )
@@ -53,6 +57,7 @@ include_directories(
   ${OGRE_HOME}/include/OGRE
   ${OGRE_HOME}/include/OGRE/OSX
   ${OGRE_HOME}/include/OIS
+  ${LIB_INCLUDES}
   ${EXT_INCLUDES}
   ${SLARTI_INCLUDES}
 )
