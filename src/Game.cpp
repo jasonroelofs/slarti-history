@@ -310,7 +310,7 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   mUIManager->updatePosition(mActor->transform->position);
   mUIManager->updateVelocity(mShip->velocity);
   mUIManager->updateAcceleration(mShip->acceleration);
-  mUIManager->updateOverdrive(mShip->overdriveCharge());
+  mUIManager->updateCruise(mShip->cruiseCharge());
 
   return true;
 }

@@ -90,10 +90,10 @@ namespace ui {
     }
   }
 
-  void UIManager::updateOverdrive(int newOD) {
+  void UIManager::updateCruise(int newCruise) {
     Rocket::Core::Element* e = mRocketContext->GetDocument("game_window")->GetElementById("overdrive");
     if(e) {
-      e->SetInnerRML(Rocket::Core::String(128, "Overdrive: %d%%", newOD).CString());
+      e->SetInnerRML(Rocket::Core::String(128, "Cruise: %d%%", newCruise).CString());
     }
   }
 

@@ -16,7 +16,7 @@ InputDispatcher::InputDispatcher()
   MAP_KEY(Key::Up, Event::Accelerate);
   MAP_KEY(Key::Down, Event::Decelerate);
 
-  MAP_KEY(Key::T, Event::Overdrive);
+  MAP_KEY(Key::T, Event::Cruise);
 
   MAP_KEY(Key::W, Event::RotateLeft);
   MAP_KEY(Key::R, Event::RotateRight);
