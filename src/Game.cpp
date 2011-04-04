@@ -17,6 +17,7 @@
 #include "components/MeshComponent.h"
 
 #include "procedural/ProceduralRoot.h"
+#include "procedural/ProceduralBoxGenerator.h"
 
 #include <cstdio>
 #include <ctime>
@@ -121,7 +122,7 @@ bool Game::setup() {
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
 
-    mActor = new Actor(Ogre::Vector3(0, 0, 0));
+    mActor = new Actor(Ogre::Vector3(0, -1, 0));
     mActor->addComponent(new components::CameraComponent(mWindow));
 
     /*
@@ -232,6 +233,14 @@ bool Game::setup() {
 
     // Hook up an event to allow us to rebuild with a simple keystroke
     //mInputManager->map(Event::RebuildLevel, this, &Game::newLevel);
+  }
+
+  // Station building
+  {
+    Procedural::BoxGenerator().setSizeX(10.0f).setSizeY(0.5f).setSizeZ(10.0f).realizeMesh("panel");
+    Ogre::Entity* floor = mSceneManager->createEntity("panel");
+    Ogre::SceneNode* station = mSceneManager->getRootSceneNode()->createChildSceneNode();
+    station->attachObject(floor);
   }
 
   // Build our Galaxy
