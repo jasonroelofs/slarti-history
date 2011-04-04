@@ -13,7 +13,10 @@
 #include "components/ShipComponent.h"
 #include "components/ShipInputComponent.h"
 #include "components/MouseLookComponent.h"
+#include "components/MovementComponent.h"
 #include "components/MeshComponent.h"
+
+#include "procedural/ProceduralRoot.h"
 
 #include <cstdio>
 #include <ctime>
@@ -111,19 +114,24 @@ bool Game::setup() {
     new managers::MeshManager(mSceneManager);
     new managers::ShipManager();
 
+    Procedural::Root::getInstance()->sceneManager = mSceneManager;
+
     mInputManager = new managers::InputManager();
 
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
 
-    mActor = new Actor(utils::calculatePosition(Ogre::Vector3(4, 5, 4)));
+    mActor = new Actor(Ogre::Vector3(0, 0, 0));
     mActor->addComponent(new components::CameraComponent(mWindow));
 
+    /*
     mShip = new components::ShipComponent();
     mActor->addComponent(mShip);
     mActor->addComponent(new components::ShipInputComponent(mShip));
+    */
 
     mActor->addComponent(new components::MouseLookComponent());
+    mActor->addComponent(new components::MovementComponent());
   }
 
 
@@ -219,11 +227,11 @@ bool Game::setup() {
 
   // Planet rendering
   {
-    mSolarSystem = new SolarSystem();
-    mSolarSystem->generate();
+    //mSolarSystem = new SolarSystem();
+    //mSolarSystem->generate();
 
     // Hook up an event to allow us to rebuild with a simple keystroke
-    mInputManager->map(Event::RebuildLevel, this, &Game::newLevel);
+    //mInputManager->map(Event::RebuildLevel, this, &Game::newLevel);
   }
 
   // Build our Galaxy
@@ -308,9 +316,9 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   //mUIManager->update(evt.timeSinceLastFrame);
 
   mUIManager->updatePosition(mActor->transform->position);
-  mUIManager->updateVelocity(mShip->velocity);
-  mUIManager->updateAcceleration(mShip->acceleration);
-  mUIManager->updateCruise(mShip->cruiseCharge());
+  //mUIManager->updateVelocity(mShip->velocity);
+  //mUIManager->updateAcceleration(mShip->acceleration);
+  //mUIManager->updateCruise(mShip->cruiseCharge());
 
   return true;
 }

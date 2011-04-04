@@ -28,7 +28,7 @@ namespace components {
        */
       TransformComponent(Ogre::Vector3 position = Ogre::Vector3::ZERO)
         : position(position),
-          maxSpeed(1000),
+          maxSpeed(10),
           movingForward(false),
           movingBack(false),
           movingLeft(false),
