@@ -122,7 +122,7 @@ bool Game::setup() {
     // Prototype for setting up an actor with components.
     // Want to move this stuff into managers more, or factories
 
-    mActor = new Actor(Ogre::Vector3(0, -1, 0));
+    mActor = new Actor(Ogre::Vector3(10, 2, 0));
     mActor->addComponent(new components::CameraComponent(mWindow));
 
     /*
@@ -237,8 +237,11 @@ bool Game::setup() {
 
   // Station building
   {
-    Procedural::BoxGenerator().setSizeX(10.0f).setSizeY(0.5f).setSizeZ(10.0f).realizeMesh("panel");
+    Procedural::BoxGenerator().setSizeX(50.0f).setSizeY(0.5f).setSizeZ(50.0f).realizeMesh("panel");
+
     Ogre::Entity* floor = mSceneManager->createEntity("panel");
+    floor->setMaterialName("Station/Metal");
+
     Ogre::SceneNode* station = mSceneManager->getRootSceneNode()->createChildSceneNode();
     station->attachObject(floor);
   }

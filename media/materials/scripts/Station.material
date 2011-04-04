@@ -1,0 +1,15 @@
+import SimpleTexture from "SimpleTexture.material"
+
+material Station/Metal : SimpleTexture 
+{
+  technique
+  {
+    pass 
+    { 
+      texture_unit 
+      {
+        texture RustedMetal.jpg
+      }
+    }
+  }
+}

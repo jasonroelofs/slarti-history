@@ -70,7 +70,7 @@ namespace components {
       void yaw(const Ogre::Degree& angle) {
         Ogre::Vector3 yAxis;
         if(fixedYaw) {
-          yAxis = -Ogre::Vector3::UNIT_Y;
+          yAxis = Ogre::Vector3::UNIT_Y;
         } else {
           yAxis = rotation * Ogre::Vector3::UNIT_Y;
         }
