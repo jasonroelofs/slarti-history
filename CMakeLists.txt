@@ -31,6 +31,7 @@ SET(SLARTI_INCLUDES
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/include/generators
   ${CMAKE_CURRENT_SOURCE_DIR}/include/generators/voxel
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/procedural
 )
 
 SET(EXT_INCLUDES
