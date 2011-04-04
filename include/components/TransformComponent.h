@@ -28,14 +28,15 @@ namespace components {
        */
       TransformComponent(Ogre::Vector3 position = Ogre::Vector3::ZERO)
         : position(position),
-          maxSpeed(10),
+          maxSpeed(1),
           movingForward(false),
           movingBack(false),
           movingLeft(false),
           movingRight(false),
           rollingLeft(false),
           rollingRight(false),
-          moveRelativeToRotation(false)
+          moveRelativeToRotation(false),
+          fixedYaw(true)
       {
         rotation = Ogre::Quaternion::IDENTITY;
         scale = Ogre::Vector3::UNIT_SCALE;
@@ -60,12 +61,20 @@ namespace components {
        */
       bool moveRelativeToRotation;
 
+      bool fixedYaw;
+
       /**
        * Rotating with euler methods.
        * Ripped from how Ogre::Camera works.
        */
       void yaw(const Ogre::Degree& angle) {
-        Ogre::Vector3 yAxis = rotation * Ogre::Vector3::UNIT_Y;
+        Ogre::Vector3 yAxis;
+        if(fixedYaw) {
+          yAxis = -Ogre::Vector3::UNIT_Y;
+        } else {
+          yAxis = rotation * Ogre::Vector3::UNIT_Y;
+        }
+
         rotate(yAxis, angle);
       }
 
