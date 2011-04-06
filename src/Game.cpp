@@ -237,7 +237,13 @@ bool Game::setup() {
 
   // Station building
   {
-    Procedural::BoxGenerator().setSizeX(50.0f).setSizeY(0.5f).setSizeZ(50.0f).realizeMesh("panel");
+    Procedural::BoxGenerator().
+      setSizeX(50.0f).
+      setSizeY(0.5f).
+      setSizeZ(50.0f).
+      setNumSegX(50).
+      setNumSegZ(50).
+      realizeMesh("panel");
     Ogre::SceneNode* station = mSceneManager->getRootSceneNode()->createChildSceneNode();
 
     // Floor
@@ -311,6 +317,8 @@ void Game::newLevel(InputEvent event) {
 void Game::toggleWireframe(InputEvent event) {
   if(event.isDown) {
     Ogre::PolygonMode pm;
+
+    mCamera = mSceneManager->getCamera("PlayerCam");
 
     switch (mCamera->getPolygonMode())
     {
