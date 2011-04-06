@@ -35,6 +35,7 @@ namespace managers {
     // we need to set the scene node to the initial orientation
     // of this camera, otherwise things don't work.
     components::TransformComponent* transform = component->_actor->transform;
+    transform->_sceneNode->setFixedYawAxis(transform->fixedYaw);
     transform->_sceneNode->lookAt(component->lookAt, Ogre::Node::TS_WORLD);
     transform->rotation = transform->_sceneNode->getOrientation(); 
 
