@@ -150,8 +150,8 @@ bool Game::setup() {
   // Creating the scene
   //----------------------
   {
-    Actor* ogreHead = new Actor();
-    ogreHead->addComponent(new components::MeshComponent("ogrehead.mesh"));
+    //Actor* ogreHead = new Actor();
+    //ogreHead->addComponent(new components::MeshComponent("ogrehead.mesh"));
 
     mSceneManager->setSkyBox(true, "SpaceSkyBox", 5000);
 
@@ -238,12 +238,40 @@ bool Game::setup() {
   // Station building
   {
     Procedural::BoxGenerator().setSizeX(50.0f).setSizeY(0.5f).setSizeZ(50.0f).realizeMesh("panel");
+    Ogre::SceneNode* station = mSceneManager->getRootSceneNode()->createChildSceneNode();
 
+    // Floor
     Ogre::Entity* floor = mSceneManager->createEntity("panel");
     floor->setMaterialName("Station/Metal");
 
-    Ogre::SceneNode* station = mSceneManager->getRootSceneNode()->createChildSceneNode();
-    station->attachObject(floor);
+    Ogre::SceneNode* floorNode = station->createChildSceneNode();
+    floorNode->attachObject(floor);
+
+    // Ceiling
+    Ogre::Entity* ceiling = mSceneManager->createEntity("panel");
+    ceiling->setMaterialName("Station/Metal");
+
+    Ogre::SceneNode* ceilingNode = station->createChildSceneNode();
+    ceilingNode->setPosition(0, 10, 0);
+    ceilingNode->attachObject(ceiling);
+
+    // East Wall
+    Ogre::Entity* eastWall = mSceneManager->createEntity("panel");
+    eastWall->setMaterialName("Station/Metal");
+
+    Ogre::SceneNode* eastWallNode = station->createChildSceneNode();
+    eastWallNode->setPosition(-25, 0, 0);
+    eastWallNode->roll(Ogre::Degree(90));
+    eastWallNode->attachObject(eastWall);
+
+    // West Wall
+    Ogre::Entity* westWall = mSceneManager->createEntity("panel");
+    westWall->setMaterialName("Station/Metal");
+
+    Ogre::SceneNode* westWallNode = station->createChildSceneNode();
+    westWallNode->setPosition(25, 0, 0);
+    westWallNode->roll(Ogre::Degree(90));
+    westWallNode->attachObject(westWall);
   }
 
   // Build our Galaxy
