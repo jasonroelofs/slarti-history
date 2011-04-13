@@ -8,3 +8,4 @@ logs
 ext
 .DS_Store
 *.log
+proto
