@@ -50,6 +50,7 @@ SET(EXT_LIBS
   "-lRocketCore"
   "-lRocketControls"
   "-lRocketDebugger"
+  "-lyaml-cpp"
 )
 
 include_directories(

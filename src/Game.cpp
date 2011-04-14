@@ -19,6 +19,8 @@
 #include "procedural/ProceduralRoot.h"
 #include "procedural/ProceduralBoxGenerator.h"
 
+#include "PrefabManager.h"
+
 #include <cstdio>
 #include <ctime>
 
@@ -215,6 +217,14 @@ bool Game::setup() {
     mSceneManager->addRenderQueueListener(mUIManager);
   }
 
+  //--------------------------
+  // Load up custom resources
+  //--------------------------
+  {
+    new PrefabManager();
+    PrefabManager::getInstance()->loadAllPrefabs(); 
+  }
+
   // Initialize a Level, generate, and render
   /*
   {
@@ -244,6 +254,15 @@ bool Game::setup() {
       setNumSegX(50).
       setNumSegZ(50).
       realizeMesh("panel");
+
+    Procedural::BoxGenerator().
+      setSizeX(1.0f).
+      setSizeY(0.5f).
+      setSizeZ(1.0f).
+      setNumSegX(1).
+      setNumSegZ(1).
+      realizeMesh("singlepanel");
+
     Ogre::SceneNode* station = mSceneManager->getRootSceneNode()->createChildSceneNode();
 
     // Floor
