@@ -9,7 +9,7 @@ package :yaml_cpp do |yaml|
     opts.all do
       mkdir "Build"
       cd "Build" do
-        sh "cmake -DBUILD_SHARED_LIBS=FALSE -DCMAKE_INSTALL_PREFIX=#{opts.prefix} ../"
+        sh "cmake -DBUILD_SHARED_LIBS=FALSE -DAPPLE_UNIVERSAL_BIN=TRUE -DCMAKE_INSTALL_PREFIX=#{opts.prefix} ../"
         sh "make -j 3"
         sh "make install"
       end
