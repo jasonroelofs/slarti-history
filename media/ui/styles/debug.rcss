@@ -26,10 +26,19 @@ div {
   left: 0;
 }
 
+.right {
+  position: absolute;
+  right: 0;
+}
+
 .text {
   padding: 5px;
 
   header-font-effect: outline;
   header-width: 2px;
   header-color: rgb(0, 0, 255);
+}
+
+.ogre_stats {
+  width: 20%;
 }

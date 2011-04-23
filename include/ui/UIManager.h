@@ -27,6 +27,8 @@ namespace ui {
       void updateAcceleration(const Ogre::Real& newA);
       void updateCruise(int newCruise);
 
+      void updateElement(const std::string& id, const std::string& key, int value);
+
       /// Called from Ogre before a queue group is rendered.
       virtual void renderQueueStarted(uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
       /// Called from Ogre after a queue group is rendered.
