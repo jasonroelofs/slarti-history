@@ -13,5 +13,14 @@
       <div id="position" class="text">
       </div>
     </div>
+
+    <div class="bottom right ogre_stats">
+      <div id="fps">
+      </div>
+      <div id="batch_count">
+      </div>
+      <div id="triangles">
+      </div>
+    </div>
   </body>
 </rml>

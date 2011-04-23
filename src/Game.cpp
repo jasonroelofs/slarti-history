@@ -392,6 +392,11 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt) {
   //mUIManager->updateAcceleration(mShip->acceleration);
   //mUIManager->updateCruise(mShip->cruiseCharge());
 
+  const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
+  mUIManager->updateElement("fps", "FPS", (int)stats.lastFPS);
+  mUIManager->updateElement("batch_count", "Batches", stats.batchCount);
+  mUIManager->updateElement("triangles", "Triangles", stats.triangleCount);
+
   return true;
 }
 

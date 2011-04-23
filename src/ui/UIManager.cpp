@@ -97,6 +97,14 @@ namespace ui {
     }
   }
 
+  void UIManager::updateElement(const std::string& id, const std::string& key, int value)
+  {
+    Rocket::Core::Element* e = mRocketContext->GetDocument("game_window")->GetElementById(id.c_str());
+    if(e) {
+      e->SetInnerRML(Rocket::Core::String(128, "%s %d", key.c_str(), value).CString());
+    }
+  }
+
   void UIManager::renderQueueStarted(uint8 queueGroupId, const Ogre::String& invocation, bool&)
   {
     if (queueGroupId == Ogre::RENDER_QUEUE_OVERLAY)
