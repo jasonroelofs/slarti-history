@@ -30,7 +30,8 @@ namespace components {
         : position(Ogre::Vector3::ZERO),
           rotation(Ogre::Quaternion::IDENTITY), 
           _meshName(meshName),
-          _materialName(materialName)
+          _materialName(materialName),
+          _entity(0)
       {
       }
 

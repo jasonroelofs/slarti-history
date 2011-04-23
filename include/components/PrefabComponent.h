@@ -7,9 +7,6 @@
 #include "PrefabManager.h"
 #include "Prefab.h"
 
-#include <iostream>
-using namespace std;
-
 namespace components {
 
   /**
@@ -23,13 +20,11 @@ namespace components {
       PrefabComponent(std::string prefabName)
         : prefabName(prefabName)
       { 
-        cout << "Using prefab name " << prefabName << endl;
         isFactory = true;
       }
 
       void initialize() {
         Prefab* prefab = PrefabManager::getInstance()->getPrefab(prefabName);
-        cout << "Found prefab! " << prefab << endl;
         for(unsigned i = 0; i < prefab->panels.size(); i++) {
           _actor->addComponent(new PanelComponent(prefab->panels[i]));
         }

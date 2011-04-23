@@ -19,12 +19,11 @@ namespace components {
   {
     public:
       PanelComponent(Panel* panel)
-        : MeshComponent(""),
+        : MeshComponent(panel->meshName, panel->materialName),
           _panel(panel)
       {
         position = panel->position;
         rotation = panel->rotation;
-        _entity = panel->_entity;
       }
 
       Panel* _panel;
