@@ -18,6 +18,11 @@ class Actor;
       managers::Manager::getInstance()->_unregisterComponent(this); \
     }
 
+#define FACTORY_COMPONENT \
+  public: \
+    void _register() { } \
+    void _unregister() { }
+
 namespace components {
   /**
    * Base class of all components.
@@ -25,6 +30,7 @@ namespace components {
   class Component {
 
     public:
+      Component() : isFactory(false) { }
       virtual ~Component() { }
 
       /**
@@ -33,6 +39,12 @@ namespace components {
        * specific manager
        */
       Actor* _actor;
+
+      /**
+       * Called by addComponent, use this to run any initialization
+       * that requires knowing the parent actor.
+       */
+      virtual void initialize() { }
 
       /**
        * Self register with the perspective manager.
@@ -47,6 +59,12 @@ namespace components {
        * directly
        */
       virtual void _unregister() = 0;
+
+      /**
+       * Is this component a factory? In that, does it build
+       * other components and should be discarded instead of kept around?
+       */
+      bool isFactory;
   };
 }
 

@@ -15,6 +15,7 @@
 #include "components/MouseLookComponent.h"
 #include "components/MovementComponent.h"
 #include "components/MeshComponent.h"
+#include "components/PrefabComponent.h"
 
 #include "procedural/ProceduralRoot.h"
 #include "procedural/ProceduralBoxGenerator.h"
@@ -221,8 +222,16 @@ bool Game::setup() {
   // Load up custom resources
   //--------------------------
   {
-    new PrefabManager();
+    new PrefabManager(mSceneManager);
     PrefabManager::getInstance()->loadAllPrefabs(); 
+  }
+
+  //--------------------------
+  // Display current prefabs
+  //-------------------------
+  {
+    Actor* station = new Actor();
+    station->addComponent(new components::PrefabComponent("hallway"));
   }
 
   // Initialize a Level, generate, and render
@@ -253,27 +262,20 @@ bool Game::setup() {
       setSizeZ(50.0f).
       setNumSegX(50).
       setNumSegZ(50).
-      realizeMesh("panel");
-
-    Procedural::BoxGenerator().
-      setSizeX(1.0f).
-      setSizeY(0.5f).
-      setSizeZ(1.0f).
-      setNumSegX(1).
-      setNumSegZ(1).
-      realizeMesh("singlepanel");
+      realizeMesh("bigpanel");
 
     Ogre::SceneNode* station = mSceneManager->getRootSceneNode()->createChildSceneNode();
 
     // Floor
-    Ogre::Entity* floor = mSceneManager->createEntity("panel");
+    Ogre::Entity* floor = mSceneManager->createEntity("bigpanel");
     floor->setMaterialName("Station/Metal");
 
     Ogre::SceneNode* floorNode = station->createChildSceneNode();
     floorNode->attachObject(floor);
+    floorNode->setPosition(0, -10, 0);
 
     // Ceiling
-    Ogre::Entity* ceiling = mSceneManager->createEntity("panel");
+    Ogre::Entity* ceiling = mSceneManager->createEntity("bigpanel");
     ceiling->setMaterialName("Station/Metal");
 
     Ogre::SceneNode* ceilingNode = station->createChildSceneNode();
@@ -281,7 +283,7 @@ bool Game::setup() {
     ceilingNode->attachObject(ceiling);
 
     // East Wall
-    Ogre::Entity* eastWall = mSceneManager->createEntity("panel");
+    Ogre::Entity* eastWall = mSceneManager->createEntity("bigpanel");
     eastWall->setMaterialName("Station/Metal");
 
     Ogre::SceneNode* eastWallNode = station->createChildSceneNode();
@@ -290,7 +292,7 @@ bool Game::setup() {
     eastWallNode->attachObject(eastWall);
 
     // West Wall
-    Ogre::Entity* westWall = mSceneManager->createEntity("panel");
+    Ogre::Entity* westWall = mSceneManager->createEntity("bigpanel");
     westWall->setMaterialName("Station/Metal");
 
     Ogre::SceneNode* westWallNode = station->createChildSceneNode();

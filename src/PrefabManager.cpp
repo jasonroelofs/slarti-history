@@ -2,15 +2,29 @@
 #include "Prefab.h"
 #include "Panel.h"
 
+#include <OgreSceneManager.h>
 #include <OgreResourceGroupManager.h>
 #include <OgreLogManager.h>
 #include <OgreArchive.h>
 
-#include <fstream>
+#include "procedural/ProceduralBoxGenerator.h"
 
-PrefabManager::PrefabManager() 
+#include <fstream>
+#include <iostream>
+using namespace std;
+
+PrefabManager::PrefabManager(Ogre::SceneManager* manager) 
+  : mSceneManager(manager)
 {
   msInstance = this;
+
+  Procedural::BoxGenerator().
+    setSizeX(1.0f).
+    setSizeY(0.5f).
+    setSizeZ(1.0f).
+    setNumSegX(1).
+    setNumSegZ(1).
+    realizeMesh("panel");
 }
 
 void PrefabManager::loadAllPrefabs() 
@@ -27,6 +41,16 @@ void PrefabManager::loadAllPrefabs()
   }
 }
 
+Prefab* PrefabManager::getPrefab(const std::string& prefabName)
+{
+  PrefabMap::iterator it = mLoadedPrefabs.find(prefabName); 
+  if(it != mLoadedPrefabs.end()) {
+    return it->second;
+  } else {
+    return NULL;
+  }
+}
+
 void PrefabManager::parsePrefabsIn(const std::string& filename) 
 {
   Ogre::LogManager::getSingleton().logMessage("Loading prefabs in " + filename);
@@ -38,11 +62,14 @@ void PrefabManager::parsePrefabsIn(const std::string& filename)
   YAML::Node doc;
   parser.GetNextDocument(doc);
   std::string name;
+  Prefab* prefab;
 
   try {
     for(YAML::Iterator it = doc.begin(); it != doc.end(); it++) {
       it.first() >> name;
-      mLoadedPrefabs.insert(std::pair<std::string, Prefab*>(name, parsePrefab(name, it.second())));
+      prefab = parsePrefab(name, it.second());
+      cout << "Parsed prefab named " << name << " it's at " << prefab << endl;
+      mLoadedPrefabs.insert(std::pair<std::string, Prefab*>(name, prefab));
     }
   } catch(YAML::Exception& ex) {
     Ogre::LogManager::getSingleton().stream() << "Error parsing prefabs: " << ex.what();
@@ -75,11 +102,11 @@ Prefab* PrefabManager::parsePrefab(const std::string& name, const YAML::Node& no
 Panel* PrefabManager::parsePanel(const YAML::Node& node)
 {
   Panel* panel = new Panel();
-  Ogre::Vector3 location, rotation;
+  Ogre::Vector3 position, rotation;
 
-  node["location"]["x"] >> location.x;
-  node["location"]["y"] >> location.y;
-  node["location"]["z"] >> location.z;
+  node["position"]["x"] >> position.x;
+  node["position"]["y"] >> position.y;
+  node["position"]["z"] >> position.z;
 
   node["rotation"]["pitch"] >> rotation.x;
   node["rotation"]["yaw"] >> rotation.y;
@@ -87,10 +114,16 @@ Panel* PrefabManager::parsePanel(const YAML::Node& node)
 
   node["type"] >> panel->type;
 
-  panel->rotation = rotation;
-  panel->location = location;
+  panel->position = position;
+  panel->rotation = 
+    Ogre::Quaternion(Ogre::Degree(rotation.y), Ogre::Vector3::UNIT_Y) *
+    Ogre::Quaternion(Ogre::Degree(rotation.z), Ogre::Vector3::UNIT_Z) *
+    Ogre::Quaternion(Ogre::Degree(rotation.x), Ogre::Vector3::UNIT_X);
 
-  Ogre::LogManager::getSingleton().stream() << "New panel build: " << panel->location << " - " << panel->rotation << " - " << panel->type;
+  panel->_entity = mSceneManager->createEntity("panel");
+  panel->_entity->setMaterialName(panel->type);
+
+  Ogre::LogManager::getSingleton().stream() << "New panel build: " << panel->position << " - " << panel->rotation << " - " << panel->type;
 
   return panel;
 }

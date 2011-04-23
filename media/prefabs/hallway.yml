@@ -5,39 +5,39 @@ hallway:
 
   panels:
     # Floor
-    - location: {x: -1, y: -1, z: 0}
+    - position: {x: -1, y: -1, z: 0}
       rotation: {roll: 45, pitch: 0, yaw: 90}
-      type: "Steel"
-    - location: {x: 0, y: -1, z: 0}
+      type: "Station/Metal"
+    - position: {x: 0, y: -1, z: 0}
       rotation: {roll: 0, pitch: 90, yaw: 0}
-      type: "Steel"
-    - location: {x: 1, y: -1, z: 0}
+      type: "Station/Metal"
+    - position: {x: 1, y: -1, z: 0}
       rotation: {roll: -45, pitch: 0, yaw: 90}
-      type: "Steel"
+      type: "Station/Metal"
 
     # Left Wall
-    - location: {x: -1, y: 0, z: 0}
+    - position: {x: -1, y: 0, z: 0}
       rotation: {roll: 0, pitch: 0, yaw: 90}
-      type: "Glass"
-    - location: {x: -1, y: 1, z: 0}
+      type: "Station/Glass"
+    - position: {x: -1, y: 1, z: 0}
       rotation: {roll: 0, pitch: 0, yaw: 90}
-      type: "Glass"
+      type: "Station/Glass"
 
     # Right Wall
-    - location: {x: 1, y: 0, z: 0}
+    - position: {x: 1, y: 0, z: 0}
       rotation: {roll: 0, pitch: 0, yaw: 90}
-      type: "Glass"
-    - location: {x: 1, y: 1, z: 0}
+      type: "Station/Glass"
+    - position: {x: 1, y: 1, z: 0}
       rotation: {roll: 0, pitch: 0, yaw: 90}
-      type: "Glass"
+      type: "Station/Glass"
 
     # Ceiling
-    - location: {x: -1, y: 2, z: 0}
+    - position: {x: -1, y: 2, z: 0}
       rotation: {roll: -45, pitch: 0, yaw: 90}
-      type: "Steel"
-    - location: {x: 0, y: 2, z: 0}
+      type: "Station/Metal"
+    - position: {x: 0, y: 2, z: 0}
       rotation: {roll: 0, pitch: 90, yaw: 0}
-      type: "Steel"
-    - location: {x: 1, y: 2, z: 0}
+      type: "Station/Metal"
+    - position: {x: 1, y: 2, z: 0}
       rotation: {roll: 45, pitch: 0, yaw: 90}
-      type: "Steel"
+      type: "Station/Metal"
