@@ -18,14 +18,20 @@ namespace managers {
   void MeshManager::initialize(MeshComponent* component) {
     mComponents.push_back(component);
 
-    Ogre::Entity* entity = mSceneManager->createEntity(component->_meshName);
-
-    if(component->_materialName != "") {
-      entity->setMaterialName(component->_materialName);
+    if(!component->_entity) {
+      Ogre::Entity* entity = mSceneManager->createEntity(component->_meshName);
+      component->_entity = entity;
     }
 
-    component->_actor->transform->_sceneNode->attachObject(entity);
-    component->_entity = entity;
+    if(component->_materialName != "") {
+      component->_entity->setMaterialName(component->_materialName);
+    }
+
+    Ogre::SceneNode* childNode = component->_actor->transform->_sceneNode->createChildSceneNode();
+
+    childNode->setPosition(component->position);
+    childNode->setOrientation(component->rotation);
+    childNode->attachObject(component->_entity);
   }
 
   void MeshManager::remove(MeshComponent* component) {

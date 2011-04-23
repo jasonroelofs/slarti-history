@@ -4,6 +4,9 @@
 #include "components/Component.h"
 #include "managers/MeshManager.h"
 
+#include <OgreVector3.h>
+#include <OgreQuaternion.h>
+
 #include <string>
 
 namespace Ogre {
@@ -24,10 +27,18 @@ namespace components {
        * we want to load.
        */
       MeshComponent(std::string meshName, std::string materialName = "") 
-        : _meshName(meshName),
+        : position(Ogre::Vector3::ZERO),
+          rotation(Ogre::Quaternion::IDENTITY), 
+          _meshName(meshName),
           _materialName(materialName)
       {
       }
+
+      /**
+       * Local offsets for this mesh
+       */
+      Ogre::Vector3 position;
+      Ogre::Quaternion rotation;
 
       /** Internal */
 
