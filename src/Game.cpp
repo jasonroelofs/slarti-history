@@ -230,8 +230,11 @@ bool Game::setup() {
   // Display current prefabs
   //-------------------------
   {
-    Actor* station = new Actor();
-    station->addComponent(new components::PrefabComponent("hallway"));
+    Actor* section;
+    for(int i = 0; i < 10; i++) {
+      section = new Actor(Ogre::Vector3(0, 0, i));
+      section->addComponent(new components::PrefabComponent("hallway"));
+    }
   }
 
   // Initialize a Level, generate, and render

@@ -6,10 +6,6 @@
 
 #include <string>
 
-namespace Ogre {
-  class Entity;
-}
-
 /**
  * A panel is a 1x1x0.5 wall.
  * It knows where it is relative to whatever local context owns
@@ -27,8 +23,8 @@ class Panel
     // More of a material name than anything
     std::string type;
 
-    // Visual representation of this Panel
-    Ogre::Entity* _entity;
+    std::string meshName, materialName;
+
 };
 
 #endif // __PANEL_H__

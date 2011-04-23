@@ -120,8 +120,8 @@ Panel* PrefabManager::parsePanel(const YAML::Node& node)
     Ogre::Quaternion(Ogre::Degree(rotation.z), Ogre::Vector3::UNIT_Z) *
     Ogre::Quaternion(Ogre::Degree(rotation.x), Ogre::Vector3::UNIT_X);
 
-  panel->_entity = mSceneManager->createEntity("panel");
-  panel->_entity->setMaterialName(panel->type);
+  panel->meshName = "panel";
+  panel->materialName = panel->type;
 
   Ogre::LogManager::getSingleton().stream() << "New panel build: " << panel->position << " - " << panel->rotation << " - " << panel->type;
 
