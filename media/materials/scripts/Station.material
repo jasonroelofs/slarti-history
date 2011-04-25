@@ -13,3 +13,37 @@ material Station/Metal : SimpleTexture
     }
   }
 }
+
+material Station/Glass : SimpleTexture 
+{
+  technique
+  {
+    pass 
+    { 
+      scene_blend alpha_blend
+      depth_write off
+
+      texture_unit 
+      {
+        texture Glass.png
+      }
+    }
+  }
+}
+
+material DebugGrid : SimpleTexture 
+{
+  technique
+  {
+    pass 
+    { 
+      scene_blend alpha_blend
+      depth_write off
+
+      texture_unit 
+      {
+        texture Grid.png
+      }
+    }
+  }
+}
