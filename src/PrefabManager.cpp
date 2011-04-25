@@ -20,7 +20,7 @@ PrefabManager::PrefabManager(Ogre::SceneManager* manager)
 
   Procedural::BoxGenerator().
     setSizeX(1.0f).
-    setSizeY(0.5f).
+    setSizeY(0.1f).
     setSizeZ(1.0f).
     setNumSegX(1).
     setNumSegZ(1).
