@@ -235,6 +235,23 @@ bool Game::setup() {
       section = new Actor(Ogre::Vector3(0, 0, i));
       section->addComponent(new components::PrefabComponent("hallway"));
     }
+
+    for(int i = 0; i < 10; i++) {
+      section = new Actor(Ogre::Vector3(i + 2, 0, 11));
+      section->transform->yaw(Ogre::Degree(90));
+      section->addComponent(new components::PrefabComponent("hallway"));
+    }
+
+    for(int i = 0; i < 10; i++) {
+      section = new Actor(Ogre::Vector3(13, 0, 9 - i));
+      section->addComponent(new components::PrefabComponent("hallway"));
+    }
+
+    for(int i = 0; i < 10; i++) {
+      section = new Actor(Ogre::Vector3(11 - i, 0, -2));
+      section->transform->yaw(Ogre::Degree(90));
+      section->addComponent(new components::PrefabComponent("hallway"));
+    }
   }
 
   // Initialize a Level, generate, and render
