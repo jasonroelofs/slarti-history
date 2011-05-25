@@ -1,11 +1,9 @@
 build
 tmp
-Ogre.log
-bin/slartibartfast
-bin/ogre.cfg
 .*.swp
 logs
 ext
 .DS_Store
 *.log
 proto
+*.class
