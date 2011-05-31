@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/mirah/mirah.git
-  revision: 7c76776733122527768517471481dd6a91d878ac
+  revision: 8cb8e411acebbe6a8dd1e04691c95a0ab21f0ad0
   specs:
     mirah (0.0.8.dev-java)
       bitescript (>= 0.0.8)
