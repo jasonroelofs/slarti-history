@@ -1,0 +1,30 @@
+<project name="slartibartfast" default="compile">
+
+  <property name="src.dir" location="src"/>
+  <property name="build.dir" location="build"/>
+
+  <taskdef name="mirahc" classname="org.mirah.ant.Compile"
+    classpath="lib/mirah-complete.jar" />
+
+  <path id="project.class.path">
+    <fileset dir="lib">
+      <include name="**/*.jar" />
+      <exclude name="mirah-complete.jar" />
+    </fileset>
+  </path>
+
+  <target name="clean">
+    <delete quiet="true" dir="build"/>
+  </target>
+
+  <target name="compile" description="Compiles project's .mirah files into .class files">
+    <mkdir dir="build"/>
+    <mirahc dir="${src.dir}" destdir="${build.dir}">
+      <classpath refid="project.class.path"/>
+    </mirahc>
+    <copy todir="${build.dir}">
+      <fileset dir="${src.dir}" excludes="**/*.java,**/*.mirah"/>
+    </copy>
+  </target>
+
+</project>
