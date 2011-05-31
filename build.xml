@@ -17,7 +17,7 @@
     <delete quiet="true" dir="build"/>
   </target>
 
-  <target name="compile" depends="build-java,build-java" description="Compiles project's .mirah files into .class files" />
+  <target name="compile" depends="build-java,build-mirah" description="Compiles project's .mirah and .java files into .class files" />
 
   <target name="build-mirah">
     <mkdir dir="build"/>
