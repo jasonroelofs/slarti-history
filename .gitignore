@@ -7,3 +7,6 @@ ext
 *.log
 proto
 *.class
+liblwjgl.jnilib
+manifest.mf
+nbproject/private/*

@@ -1,3 +1,6 @@
+=begin
+  Mirah stuff
+
 task :default => :run
 
 MAIN_CLASS_FILE = "build/SimpleApp.class"
@@ -19,3 +22,4 @@ task :run => [MAIN_CLASS_FILE] do
   end
 end
 
+=end
