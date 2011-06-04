@@ -1,4 +1,4 @@
-package org.slartibartfast.assets;
+package org.slartibartfast.prefabs;
 
 import com.jme3.math.Vector3f;
 
