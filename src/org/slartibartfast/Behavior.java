@@ -8,6 +8,6 @@ package org.slartibartfast;
  *
  * @author roelofs
  */
-interface Behavior {
+public interface Behavior {
   public void perform(float delta);
 }
