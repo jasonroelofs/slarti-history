@@ -8,6 +8,8 @@ import java.util.Map;
  * be given any number of Behaviors who will be used to determine how the
  * Actor behaves in the game.
  * 
+ * Do not instantiate this class directly. Use ActorFactory instead.
+ * 
  * @author roelofs
  */
 public class Actor {
