@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * An Actor is anything that can / will be put into the game world. Actors can
+ * be given any number of Behaviors who will be used to determine how the
+ * Actor behaves in the game.
+ * 
  * @author roelofs
  */
 public class Actor {
