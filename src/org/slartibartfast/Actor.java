@@ -55,4 +55,4 @@ public class Actor {
   public <T> T getBehavior(Class<T> klass) {
     return (T) behaviors.get(klass);
   }
-}  
+}
