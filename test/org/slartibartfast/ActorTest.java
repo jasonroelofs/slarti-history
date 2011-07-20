@@ -27,7 +27,7 @@ public class ActorTest {
   }
 
   @Test
-  public void testCanBeGivenANewBehavior() {
+  public void canBeGivenANewBehavior() {
     Actor a = new Actor();
     TestBehavior b = new TestBehavior();
     a.useBehavior(b);
@@ -36,7 +36,7 @@ public class ActorTest {
   }
 
   @Test
-  public void testCanBeToldToDropBehavior() {
+  public void canBeToldToDropBehavior() {
     Actor a = new Actor();
     TestBehavior b = new TestBehavior();
     a.useBehavior(b);
@@ -44,5 +44,21 @@ public class ActorTest {
     a.removeBehavior(TestBehavior.class);
 
     assertFalse(a.hasBehavior(TestBehavior.class));
+  }
+
+  @Test
+  public void canBeAskedForAnExistingBehavior() {
+    Actor a = new Actor();
+    TestBehavior b = new TestBehavior();
+    a.useBehavior(b);
+
+    assertEquals(b, a.getBehavior(TestBehavior.class));
+  }
+
+  @Test
+  public void askingForUnknownBehaviorReturnsNull() {
+    Actor a = new Actor();
+
+    assertNull(a.getBehavior(TestBehavior.class));
   }
 }

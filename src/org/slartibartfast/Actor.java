@@ -7,9 +7,9 @@ import java.util.Map;
  * An Actor is anything that can / will be put into the game world. Actors can
  * be given any number of Behaviors who will be used to determine how the
  * Actor behaves in the game.
- * 
+ *
  * Do not instantiate this class directly. Use ActorFactory instead.
- * 
+ *
  * @author roelofs
  */
 public class Actor {
@@ -47,4 +47,12 @@ public class Actor {
     behaviors.remove(klass);
   }
 
-}
+  /**
+   * Get a pointer to an existing behavior on an Actor.
+   * Will return null if a behavior of the requested type
+   * doesn't exist.
+   */
+  public <T> T getBehavior(Class<T> klass) {
+    return (T) behaviors.get(klass);
+  }
+}  
