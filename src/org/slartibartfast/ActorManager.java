@@ -21,7 +21,7 @@ public class ActorManager implements InputReceiver {
   }
 
   @Override
-  public void receiveInput() {
+  public void receiveInput(InputEvent[] events) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 

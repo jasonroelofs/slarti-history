@@ -12,15 +12,21 @@ import org.slartibartfast.behaviors.PhysicalBehavior;
  */
 public class App extends Application {
 
-  private Actor player;
+  private ActorManager actorManager;
+  private InputSystem inputSystem;
 
   @Override
   public void initialize() {
     super.initialize();
+
+    actorManager = new ActorManager();
+    inputSystem = new InputSystem(getInputManager());
+    inputSystem.setInputReceiver(actorManager);
+
     // Init world / resources
     // Init Camera
     // Camera cam = new Camera(getCamera());
-    //Actor camera = ActorFactory.create();
+    //Actor camera = ActorManager.create();
     //camera.useBehavior(Camera);
 
     /**
@@ -30,7 +36,7 @@ public class App extends Application {
      * - Something ensures orientation is sync'd to camera
      * - Set starting location and orientation
      */
-    player = ActorFactory.create();
+    Actor player = ActorManager.create();
 
     initInput();
   }
@@ -41,34 +47,10 @@ public class App extends Application {
   }
 
   private void initInput() {
-    inputManager.addMapping("Forward", new KeyTrigger(KeyInput.KEY_E));
-    inputManager.addMapping("Backward", new KeyTrigger(KeyInput.KEY_D));
-    inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_S));
-    inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_F));
 
-    inputManager.addListener(actionListener, new String[]{"Forward", "Backward"});
 
   }
 
-  private ActionListener actionListener = new ActionListener() {
-
-    @Override
-    public void onAction(String name, boolean isPressed, float tpf) {
-      if(name.equals("Forward")) {
-        //player.getBehavior(PhysicalBehavior.class).moveForward();
-      }
-      else if(name.equals("Backward")) {
-
-      }
-      else if(name.equals("Left")) {
-
-      }
-      else if(name.equals("Right")) {
-
-      }
-    }
-
-  };
 
 
   public static void main(String[] args) {
