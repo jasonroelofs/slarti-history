@@ -1,10 +1,6 @@
 package org.slartibartfast;
 
 import com.jme3.app.Application;
-import com.jme3.input.KeyInput;
-import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.KeyTrigger;
-import org.slartibartfast.behaviors.PhysicalBehavior;
 
 /**
  *

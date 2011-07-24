@@ -42,7 +42,8 @@ public class InputSystem {
   }
 
   /**
-   * Per-frame update call.
+   * Per-frame update call. Take all queued events and
+   * pass them down to each of the receivers we know about.
    */
   public void update(float delta) {
     InputEvent[] eventList = currentEvents.toArray(
@@ -54,6 +55,11 @@ public class InputSystem {
     currentEvents.clear();
   }
 
+  // Plan on this:
+  //  some sort of UserKeyMappings class that has the
+  //  full list of mappings to key codes, and then run through
+  //  that list to set up the actual mappings.
+  //  Allow rebuilding of these mappings at any time.
   protected void initializeEvents() {
     inputManager.addMapping("Forward",
             new KeyTrigger(KeyInput.KEY_E));
