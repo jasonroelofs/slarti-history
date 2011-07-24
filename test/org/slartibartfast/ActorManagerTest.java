@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.slartibartfast;
 
 import org.slartibartfast.behaviors.PhysicalBehavior;
@@ -12,20 +8,20 @@ import static org.junit.Assert.*;
  *
  * @author roelofs
  */
-public class ActorFactoryTest {
+public class ActorManagerTest {
 
-  public ActorFactoryTest() {
+  public ActorManagerTest() {
   }
 
   @Test
   public void createReturnsAnActor() {
-    Actor a = ActorFactory.create();
+    Actor a = ActorManager.create();
     assertNotNull(a);
   }
 
   @Test
   public void createAddsPhysicalToActor() {
-    Actor a = ActorFactory.create();
+    Actor a = ActorManager.create();
     assertTrue(a.hasBehavior(PhysicalBehavior.class));
   }
 }

@@ -7,7 +7,7 @@ import org.slartibartfast.behaviors.PhysicalBehavior;
  *
  * @author roelofs
  */
-public class ActorFactory {
+public class ActorManager implements InputReceiver {
 
   /**
    * Build and return a new Actor, ready for use.
@@ -18,6 +18,11 @@ public class ActorFactory {
     Actor a = new Actor();
     a.useBehavior(new PhysicalBehavior());
     return a;
+  }
+
+  @Override
+  public void receiveInput() {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
 }
