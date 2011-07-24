@@ -2,8 +2,11 @@ package org.slartibartfast;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseAxisTrigger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,24 +55,55 @@ public class InputSystem {
   }
 
   protected void initializeEvents() {
-    inputManager.addMapping("Forward", new KeyTrigger(KeyInput.KEY_E));
-    inputManager.addMapping("Backward", new KeyTrigger(KeyInput.KEY_D));
-    inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_S));
-    inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_F));
+    inputManager.addMapping("Forward",
+            new KeyTrigger(KeyInput.KEY_E));
+    inputManager.addMapping("Backward",
+            new KeyTrigger(KeyInput.KEY_D));
+    inputManager.addMapping("Left",
+            new KeyTrigger(KeyInput.KEY_S));
+    inputManager.addMapping("Right",
+            new KeyTrigger(KeyInput.KEY_F));
+
+    inputManager.addMapping("TurnLeft",
+            new KeyTrigger(KeyInput.KEY_LEFT),
+            new MouseAxisTrigger(MouseInput.AXIS_X, false));
+    inputManager.addMapping("TurnRight",
+            new KeyTrigger(KeyInput.KEY_RIGHT),
+            new MouseAxisTrigger(MouseInput.AXIS_X, true));
 
     inputManager.addListener(actionListener, new String[]{
+      "TurnLeft",
+      "TurnRight",
       "Forward",
       "Backward",
       "Left",
       "Right"});
+
+    inputManager.addListener(analogListener, new String[]{
+      "TurnLeft",
+      "TurnRight"
+    });
   }
 
+  /**
+   * Input event listener for all events that are on/off,
+   * like mouse and keyboard button presses.
+   */
   private ActionListener actionListener = new ActionListener() {
-
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
       currentEvents.add(new InputEvent(name, isPressed));
     }
+  };
 
+  /**
+   * Input event listener for all inputs that return a range
+   * of values, like joystick and mouse axis.
+   */
+  private AnalogListener analogListener = new AnalogListener() {
+    @Override
+    public void onAnalog(String name, float value, float tpf) {
+      currentEvents.add(new InputEvent(name, value));
+    }
   };
 }
