@@ -1,6 +1,7 @@
 package org.slartibartfast;
 
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Node;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 
 /**
@@ -10,6 +11,8 @@ import org.slartibartfast.behaviors.PhysicalBehavior;
  */
 public class ActorManager implements InputReceiver {
 
+  private Node rootNode;
+
   /**
    * Build and return a new Actor, ready for use.
    *
@@ -17,7 +20,12 @@ public class ActorManager implements InputReceiver {
    */
   public Actor create() {
     Actor a = new Actor();
-    a.useBehavior(new PhysicalBehavior());
+    PhysicalBehavior b = new PhysicalBehavior();
+    Node actorNode = new Node();
+    rootNode.attachChild(actorNode);
+
+    b.setNode(actorNode);
+    a.useBehavior(b);
     return a;
   }
 
@@ -37,4 +45,11 @@ public class ActorManager implements InputReceiver {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
+  public Node getRootNode() {
+    return rootNode;
+  }
+
+  public void setRootNode(Node node) {
+    rootNode = node;
+  }
 }

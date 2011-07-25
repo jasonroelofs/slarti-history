@@ -1,5 +1,7 @@
 package org.slartibartfast;
 
+import com.jme3.scene.Node;
+import org.junit.Before;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.junit.Test;
@@ -13,9 +15,25 @@ public class ActorManagerTest {
 
   ActorManager manager;
 
-  public ActorManagerTest() {
+  @Before
+  public void before() {
     manager = new ActorManager();
+    manager.setRootNode(new Node("root"));
   }
+
+  /**
+   * .setRootNode
+   */
+  @Test
+  public void canBeGivenARootSceneNode() {
+    Node node = new Node("root");
+    manager.setRootNode(node);
+    assertEquals(node, manager.getRootNode());
+  }
+
+  /**
+   * .create
+   */
 
   @Test
   public void createReturnsAnActor() {
@@ -30,6 +48,18 @@ public class ActorManagerTest {
     PhysicalBehavior b = a.getBehavior(PhysicalBehavior.class);
 
     assertEquals(location, b.getLocation());
+  }
+
+  @Test
+  public void createAddsNodeToSceneGraph() {
+    Node root = new Node("root");
+    manager.setRootNode(root);
+
+    Actor a = manager.create();
+    PhysicalBehavior b = a.getBehavior(PhysicalBehavior.class);
+    Node actorNode = b.getNode();
+
+    assertEquals(root, actorNode.getParent());
   }
 
   @Test
