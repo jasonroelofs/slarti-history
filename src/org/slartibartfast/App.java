@@ -32,22 +32,13 @@ public class App extends Application {
      * - Something ensures orientation is sync'd to camera
      * - Set starting location and orientation
      */
-    Actor player = ActorManager.create();
-
-    initInput();
+    Actor player = actorManager.create();
   }
 
   @Override
   public void update() {
     super.update();
   }
-
-  private void initInput() {
-
-
-  }
-
-
 
   public static void main(String[] args) {
     App app = new App();

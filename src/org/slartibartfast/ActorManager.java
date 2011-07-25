@@ -14,7 +14,7 @@ public class ActorManager implements InputReceiver {
    *
    * @return Actor
    */
-  public static Actor create() {
+  public Actor create() {
     Actor a = new Actor();
     a.useBehavior(new PhysicalBehavior());
     return a;

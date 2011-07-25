@@ -10,18 +10,21 @@ import static org.junit.Assert.*;
  */
 public class ActorManagerTest {
 
+  ActorManager manager;
+
   public ActorManagerTest() {
+    manager = new ActorManager();
   }
 
   @Test
   public void createReturnsAnActor() {
-    Actor a = ActorManager.create();
+    Actor a = manager.create();
     assertNotNull(a);
   }
 
   @Test
   public void createAddsPhysicalToActor() {
-    Actor a = ActorManager.create();
+    Actor a = manager.create();
     assertTrue(a.hasBehavior(PhysicalBehavior.class));
   }
 }
