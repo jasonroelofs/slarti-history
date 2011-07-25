@@ -1,5 +1,6 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.math.Vector3f;
 import org.slartibartfast.Behavior;
 
 /**
@@ -9,6 +10,16 @@ import org.slartibartfast.Behavior;
  * @author roelofs
  */
 public class PhysicalBehavior implements Behavior {
+
+  private Vector3f location;
+
+  public void setLocation(Vector3f location) {
+    this.location = location;
+  }
+
+  public Vector3f getLocation() {
+    return this.location;
+  }
 
   @Override
   public void perform(float delta) {
