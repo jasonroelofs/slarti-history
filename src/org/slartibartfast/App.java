@@ -22,7 +22,7 @@ public class App extends SimpleApplication {
   public void simpleInitApp() {
     actorManager = new ActorManager();
     actorManager.setRootNode(getRootNode());
-    
+
     inputSystem = new InputSystem(getInputManager());
     inputSystem.setInputReceiver(actorManager);
 
@@ -42,7 +42,9 @@ public class App extends SimpleApplication {
     //camera.useBehavior(cam);
 
     Actor teapot1 = actorManager.create(new Vector3f(0.0f, 0.0f, -1.0f));
-    teapot1.useBehavior(new VisualBehavior("Models/Teapot/Teapot.obj", "Common/MatDefs/Misc/ShowNormals.j3md"));
+    teapot1.useBehavior(new VisualBehavior(
+            "Models/Teapot/Teapot.obj",
+            "Common/MatDefs/Misc/ShowNormals.j3md"));
 
     /**
      * Use JME tutorial to give us something to look at
