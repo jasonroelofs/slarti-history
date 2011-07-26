@@ -15,13 +15,12 @@ import org.slartibartfast.behaviors.PhysicalBehavior;
  */
 public class App extends SimpleApplication {
 
-  private ActorManager actorManager;
+  private SceneGraph actorManager;
   private InputSystem inputSystem;
 
   @Override
   public void simpleInitApp() {
-    actorManager = new ActorManager();
-    actorManager.setRootNode(getRootNode());
+    actorManager = new SceneGraph(getRootNode());
 
     inputSystem = new InputSystem(getInputManager());
     inputSystem.setInputReceiver(actorManager);
@@ -33,15 +32,15 @@ public class App extends SimpleApplication {
      * - Something ensures orientation is sync'd to camera
      * - Set starting location and orientation
      */
-    //Actor player = actorManager.create();
+    //Actor player = actorManager.createActor();
 
-    //Actor camera = actorManager.create();
+    //Actor camera = actorManager.createActor();
 
     //CameraBehavior cam = new CameraBehavior(getCamera());
     //cam.follow(player);
     //camera.useBehavior(cam);
 
-    Actor teapot1 = actorManager.create(new Vector3f(0.0f, 0.0f, -1.0f));
+    Actor teapot1 = actorManager.createActor(new Vector3f(0.0f, 0.0f, -1.0f));
     teapot1.useBehavior(new VisualBehavior(
             "Models/Teapot/Teapot.obj",
             "Common/MatDefs/Misc/ShowNormals.j3md"));
