@@ -15,6 +15,8 @@ public class SceneGraph implements InputReceiver {
 
   private Node rootNode;
 
+  private long nextActorId = 0;
+
   /**
    * Construct a new SceneGraph rooted on the passed in node.
    */
@@ -29,6 +31,7 @@ public class SceneGraph implements InputReceiver {
    */
   public Actor createActor() {
     Actor a = new Actor();
+    a.setId(getNextId());
 
     Node actorNode = new Node();
     rootNode.attachChild(actorNode);
@@ -60,5 +63,17 @@ public class SceneGraph implements InputReceiver {
 
   public void setRootNode(Node node) {
     rootNode = node;
+  }
+
+  /**
+   * Per-frame update
+   * @param delta
+   */
+  public void update(float delta) {
+    throw new UnsupportedOperationException("Not yet implemented");
+  }
+
+  private long getNextId() {
+    return nextActorId++;
   }
 }

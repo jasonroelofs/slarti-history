@@ -39,6 +39,17 @@ public class SceneGraphTest {
   }
 
   @Test
+  public void createGivesActorUniqueId() {
+    Actor a1 = graph.createActor();
+    Actor a2 = graph.createActor();
+    Actor a3 = graph.createActor();
+
+    assertTrue(a1.getId() != a2.getId());
+    assertTrue(a2.getId() != a3.getId());
+    assertTrue(a3.getId() != a1.getId());
+  }
+
+  @Test
   public void canCreateActorAndGiveInitialLocation() {
     Vector3f location = new Vector3f(2.0f, 3.0f, 4.0f);
     Actor a = graph.createActor(location);

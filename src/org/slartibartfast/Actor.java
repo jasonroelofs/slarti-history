@@ -19,6 +19,11 @@ public class Actor {
 
   Map<String, Object> data;
 
+  /**
+   * All actors have a unique id in the system
+   */
+  private long id;
+
   public Actor() {
     behaviors = new HashMap<Class, Behavior>();
     data = new HashMap<String, Object>();
@@ -79,5 +84,19 @@ public class Actor {
    */
   public <T> void set(String key, T dataObj) {
     data.put(key, dataObj);
+  }
+
+  /**
+   * @return the id
+   */
+  public long getId() {
+    return id;
+  }
+
+  /**
+   * @param id the id to set
+   */
+  public void setId(long id) {
+    this.id = id;
   }
 }
