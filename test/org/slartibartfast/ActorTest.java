@@ -1,5 +1,7 @@
 package org.slartibartfast;
 
+import java.util.HashMap;
+import java.lang.Integer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,5 +62,25 @@ public class ActorTest {
     Actor a = new Actor();
 
     assertNull(a.getBehavior(TestBehavior.class));
+  }
+
+  @Test
+  public void canGetAndSetDataSavedOnActor() {
+    Actor a = new Actor();
+    assertNull(a.get(String.class, "someStringValue"));
+
+    a.set("someStringValue", "This is a string thing");
+
+    assertEquals("This is a string thing", a.get(String.class, "someStringValue"));
+  }
+
+  @Test
+  public void handlesMultipleDifferentTypesInBlob() {
+    Actor a = new Actor();
+    a.set("integer", new Integer(14));
+    a.set("string", "Some string here");
+
+    assertEquals(14, a.get(Integer.class, "integer").intValue());
+    assertEquals("Some string here", a.get(String.class, "string"));
   }
 }
