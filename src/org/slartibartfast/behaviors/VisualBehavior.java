@@ -1,5 +1,10 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.asset.AssetManager;
+import com.jme3.material.Material;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import org.slartibartfast.Actor;
 import org.slartibartfast.Behavior;
 
 /**
@@ -20,4 +25,11 @@ public class VisualBehavior implements Behavior {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
+  public void initialize(Actor actor, AssetManager assetManager) {
+    Spatial newSpatial = assetManager.loadModel(modelPath);
+    Material mat = new Material(assetManager, materialPath);
+    newSpatial.setMaterial(mat);
+
+    actor.get(Node.class, "node").attachChild(newSpatial);
+  }
 }
