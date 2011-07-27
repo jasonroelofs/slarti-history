@@ -41,9 +41,14 @@ public class App extends SimpleApplication {
     //camera.useBehavior(cam);
 
     Actor teapot1 = actorManager.createActor(new Vector3f(0.0f, 0.0f, -1.0f));
-    teapot1.useBehavior(new VisualBehavior(
+    VisualBehavior visual = new VisualBehavior(
             "Models/Teapot/Teapot.obj",
-            "Common/MatDefs/Misc/ShowNormals.j3md"));
+            "Common/MatDefs/Misc/ShowNormals.j3md");
+
+    teapot1.useBehavior(visual);
+
+    // Hack initialization as we don't have the guy in place to do this automatically
+    visual.initialize(teapot1, assetManager);
 
     /**
      * Use JME tutorial to give us something to look at
