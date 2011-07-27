@@ -19,12 +19,4 @@ public class PhysicalBehaviorTest {
     assertEquals(location, b.getLocation());
   }
 
-  @Test
-  public void hasSceneNode() {
-    PhysicalBehavior b = new PhysicalBehavior();
-    Node node = new Node("root");
-    b.setNode(node);
-
-    assertEquals(node, b.getNode());
-  }
 }
