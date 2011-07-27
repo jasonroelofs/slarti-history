@@ -29,12 +29,12 @@ public class SceneGraph implements InputReceiver {
    */
   public Actor createActor() {
     Actor a = new Actor();
-    PhysicalBehavior b = new PhysicalBehavior();
+
     Node actorNode = new Node();
     rootNode.attachChild(actorNode);
+    a.set("node", actorNode);
 
-    b.setNode(actorNode);
-    a.useBehavior(b);
+    a.useBehavior(new PhysicalBehavior());
     return a;
   }
 

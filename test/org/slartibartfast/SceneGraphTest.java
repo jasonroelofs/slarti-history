@@ -53,10 +53,9 @@ public class SceneGraphTest {
     graph.setRootNode(root);
 
     Actor a = graph.createActor();
-    PhysicalBehavior b = a.getBehavior(PhysicalBehavior.class);
-    Node actorNode = b.getNode();
 
-    assertEquals(root, actorNode.getParent());
+    assertNotNull(a.get(Node.class, "node"));
+    assertEquals(root, a.get(Node.class, "node").getParent());
   }
 
   @Test
