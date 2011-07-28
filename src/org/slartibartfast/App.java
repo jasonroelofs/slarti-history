@@ -3,10 +3,7 @@ package org.slartibartfast;
 import org.slartibartfast.behaviors.VisualBehavior;
 import com.jme3.app.SimpleApplication;
 import com.jme3.light.DirectionalLight;
-import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 
 /**
@@ -15,15 +12,16 @@ import org.slartibartfast.behaviors.PhysicalBehavior;
  */
 public class App extends SimpleApplication {
 
-  private SceneGraph actorManager;
+  private SceneGraph sceneManager;
   private InputSystem inputSystem;
 
   @Override
   public void simpleInitApp() {
-    actorManager = new SceneGraph(getRootNode());
+    sceneManager = new SceneGraph(getRootNode());
+    sceneManager.setAssetManager(getAssetManager());
 
     inputSystem = new InputSystem(getInputManager());
-    inputSystem.setInputReceiver(actorManager);
+    inputSystem.setInputReceiver(sceneManager);
 
     /**
      *  Init the player.
@@ -32,23 +30,18 @@ public class App extends SimpleApplication {
      * - Something ensures orientation is sync'd to camera
      * - Set starting location and orientation
      */
-    //Actor player = actorManager.createActor();
+    //Actor player = sceneManager.createActor();
 
-    //Actor camera = actorManager.createActor();
+    //Actor camera = sceneManager.createActor();
 
     //CameraBehavior cam = new CameraBehavior(getCamera());
     //cam.follow(player);
     //camera.useBehavior(cam);
 
-    Actor teapot1 = actorManager.createActor(new Vector3f(0.0f, 0.0f, -1.0f));
-    VisualBehavior visual = new VisualBehavior(
+    Actor teapot1 = sceneManager.createActor(new Vector3f(0.0f, 0.0f, -1.0f));
+    teapot1.useBehavior(new VisualBehavior(
             "Models/Teapot/Teapot.obj",
-            "Common/MatDefs/Misc/ShowNormals.j3md");
-
-    teapot1.useBehavior(visual);
-
-    // Hack initialization as we don't have the guy in place to do this automatically
-    visual.initialize(teapot1, assetManager);
+            "Common/MatDefs/Misc/ShowNormals.j3md"));
 
     /**
      * Use JME tutorial to give us something to look at
@@ -72,6 +65,12 @@ public class App extends SimpleApplication {
             getCamera().getDirection());
     System.out.println("And the teapot is currently at " +
             teapot1.getBehavior(PhysicalBehavior.class).getLocation());
+  }
+
+  @Override
+  public void simpleUpdate(float delta) {
+    inputSystem.update(delta);
+    sceneManager.update(delta);
   }
 
   public static void main(String[] args) {

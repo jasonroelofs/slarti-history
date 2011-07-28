@@ -23,7 +23,7 @@ public class PhysicalBehavior implements Behavior {
 
   @Override
   public void perform(float delta) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    //throw new UnsupportedOperationException("Not supported yet.");
   }
 
 }
