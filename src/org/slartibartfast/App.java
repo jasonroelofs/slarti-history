@@ -38,10 +38,12 @@ public class App extends SimpleApplication {
     //cam.follow(player);
     //camera.useBehavior(cam);
 
-    Actor teapot1 = sceneManager.createActor(new Vector3f(0.0f, 0.0f, -1.0f));
-    teapot1.useBehavior(new VisualBehavior(
-            "Models/Teapot/Teapot.obj",
-            "Common/MatDefs/Misc/ShowNormals.j3md"));
+    createTeapot(new Vector3f(0.0f, 0.0f, -1.0f));
+    createTeapot(new Vector3f(-1.0f, 0.0f, -1.0f));
+    createTeapot(new Vector3f(1.0f, 0.0f, -1.0f));
+    createTeapot(new Vector3f(0.0f, -1.0f, -1.0f));
+    createTeapot(new Vector3f(0.0f, 1.0f, -1.0f));
+
 
     /**
      * Use JME tutorial to give us something to look at
@@ -63,8 +65,16 @@ public class App extends SimpleApplication {
             getCamera().getLocation());
     System.out.println("Camera is pointing at " +
             getCamera().getDirection());
-    System.out.println("And the teapot is currently at " +
-            teapot1.getBehavior(PhysicalBehavior.class).getLocation());
+//    System.out.println("And the teapot is currently at " +
+//            teapot1.getBehavior(PhysicalBehavior.class).getLocation());
+  }
+
+  private void createTeapot(Vector3f position) {
+    Actor teapot1 = sceneManager.createActor(position);
+    teapot1.useBehavior(new VisualBehavior(
+            "Models/Teapot/Teapot.obj",
+            "Common/MatDefs/Misc/ShowNormals.j3md"));
+
   }
 
   @Override
