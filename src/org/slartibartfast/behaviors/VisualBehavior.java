@@ -15,14 +15,18 @@ public class VisualBehavior implements Behavior {
   private String modelPath;
   private String materialPath;
 
+  private boolean initialized;
+
   public VisualBehavior(String modelPath, String materialPath) {
     this.modelPath = modelPath;
     this.materialPath = materialPath;
+
+    initialized = false;
   }
 
   @Override
   public void perform(float delta) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    //throw new UnsupportedOperationException("Not supported yet.");
   }
 
   public void initialize(Actor actor, AssetManager assetManager) {
@@ -31,5 +35,11 @@ public class VisualBehavior implements Behavior {
     newSpatial.setMaterial(mat);
 
     actor.get(Node.class, "node").attachChild(newSpatial);
+
+    initialized = true;
+  }
+
+  public boolean isInitialized() {
+    return initialized;
   }
 }
