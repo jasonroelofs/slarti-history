@@ -1,13 +1,13 @@
 package org.slartibartfast.behaviors;
 
-import org.slartibartfast.Actor;
-import com.jme3.material.MaterialDef;
-import com.jme3.asset.AssetKey;
-import com.jme3.scene.Node;
-import com.jme3.asset.AssetManager;
+//import org.slartibartfast.Actor;
+//import com.jme3.material.MaterialDef;
+//import com.jme3.asset.AssetKey;
+//import com.jme3.scene.Node;
+//import com.jme3.asset.AssetManager;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+//import static org.junit.Assert.*;
+//import static org.mockito.Mockito.*;
 
 /**
  *

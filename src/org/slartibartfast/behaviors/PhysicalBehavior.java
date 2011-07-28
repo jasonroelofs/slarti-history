@@ -1,6 +1,8 @@
 package org.slartibartfast.behaviors;
 
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Node;
+import org.slartibartfast.Actor;
 import org.slartibartfast.Behavior;
 
 /**
@@ -23,6 +25,12 @@ public class PhysicalBehavior extends Behavior {
 
   public Vector3f getLocation() {
     return this.location;
+  }
+
+  @Override
+  public void perform(Actor actor, float delta) {
+    Node node = actor.get(Node.class, "node");
+    node.move(this.location.add(node.getWorldTranslation().negate()));
   }
 
 }
