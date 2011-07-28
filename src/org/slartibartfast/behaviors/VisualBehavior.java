@@ -20,11 +20,6 @@ public class VisualBehavior extends Behavior {
     this.materialPath = materialPath;
   }
 
-  @Override
-  public void perform(float delta) {
-    //throw new UnsupportedOperationException("Not supported yet.");
-  }
-
   public void initialize(Actor actor, AssetManager assetManager) {
     Spatial newSpatial = assetManager.loadModel(modelPath);
     Material mat = new Material(assetManager, materialPath);

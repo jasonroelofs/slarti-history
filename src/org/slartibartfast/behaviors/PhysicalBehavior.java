@@ -25,9 +25,4 @@ public class PhysicalBehavior extends Behavior {
     return this.location;
   }
 
-  @Override
-  public void perform(float delta) {
-    //throw new UnsupportedOperationException("Not supported yet.");
-  }
-
 }

@@ -14,10 +14,13 @@ public abstract class Behavior {
 
   /**
    * Per-frame call on every Behavior in the system.
-   * This method is where all update logic should be put
-   * @param delta
+   * This method is where all update logic should be put.
+   *
+   * By default this method does nothing
+   * 
+   * @param delta Time since the last frame
    */
-  public abstract void perform(float delta);
+  public void perform(float delta) { }
 
   /**
    * Check to see if this Behavior has been initialized.
