@@ -9,9 +9,13 @@ import org.slartibartfast.Behavior;
  *
  * @author roelofs
  */
-public class PhysicalBehavior implements Behavior {
+public class PhysicalBehavior extends Behavior {
 
   private Vector3f location;
+
+  public PhysicalBehavior() {
+    initialized = true;
+  }
 
   public void setLocation(Vector3f location) {
     this.location = location;

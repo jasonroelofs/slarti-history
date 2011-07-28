@@ -11,17 +11,13 @@ import org.slartibartfast.Behavior;
  * This behavior deals with the visual representation of the Actor. Use
  * this behavior to add a modelPath and material.
  */
-public class VisualBehavior implements Behavior {
+public class VisualBehavior extends Behavior {
   private String modelPath;
   private String materialPath;
-
-  private boolean initialized;
 
   public VisualBehavior(String modelPath, String materialPath) {
     this.modelPath = modelPath;
     this.materialPath = materialPath;
-
-    initialized = false;
   }
 
   @Override
@@ -37,9 +33,5 @@ public class VisualBehavior implements Behavior {
     actor.get(Node.class, "node").attachChild(newSpatial);
 
     initialized = true;
-  }
-
-  public boolean isInitialized() {
-    return initialized;
   }
 }

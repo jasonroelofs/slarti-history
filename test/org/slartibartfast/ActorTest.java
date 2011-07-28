@@ -1,8 +1,6 @@
 package org.slartibartfast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.lang.Integer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class ActorTest {
 
-  class TestBehavior implements Behavior {
+  class TestBehavior extends Behavior {
     @Override
     public void perform(float delta) {
 
