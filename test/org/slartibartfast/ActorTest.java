@@ -1,10 +1,12 @@
 package org.slartibartfast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.Integer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slartibartfast.behaviors.PhysicalBehavior;
 import static org.junit.Assert.*;
 
 /**
@@ -62,6 +64,17 @@ public class ActorTest {
     Actor a = new Actor();
 
     assertNull(a.getBehavior(TestBehavior.class));
+  }
+
+  @Test
+  public void canGetAllBehaviors() {
+    Actor a = new Actor();
+    a.useBehavior(new PhysicalBehavior());
+    a.useBehavior(new TestBehavior());
+
+    ArrayList<Behavior> list = a.getBehaviors();
+
+    assertEquals(2, list.size());
   }
 
   @Test

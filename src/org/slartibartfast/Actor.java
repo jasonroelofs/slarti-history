@@ -1,7 +1,9 @@
 package org.slartibartfast;
 
 import com.jme3.scene.Node;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -98,5 +100,13 @@ public class Actor {
    */
   public void setId(long id) {
     this.id = id;
+  }
+
+  public ArrayList<Behavior> getBehaviors() {
+    ArrayList<Behavior> list = new ArrayList(behaviors.size());
+    for(Map.Entry<Class, Behavior> e : behaviors.entrySet()) {
+      list.add(e.getValue());
+    }
+    return list;
   }
 }
