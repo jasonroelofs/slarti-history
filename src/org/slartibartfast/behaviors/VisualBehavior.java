@@ -20,7 +20,10 @@ public class VisualBehavior extends Behavior {
     this.materialPath = materialPath;
   }
 
-  public void initialize(Actor actor, AssetManager assetManager) {
+  @Override
+  public void initialize(Actor actor, Object ... params) {
+    AssetManager assetManager = (AssetManager)params[0];
+    
     Spatial newSpatial = assetManager.loadModel(modelPath);
     Material mat = new Material(assetManager, materialPath);
     newSpatial.setMaterial(mat);

@@ -15,7 +15,7 @@ public class ActorTest {
 
   class TestBehavior extends Behavior {
     @Override
-    public void perform(float delta) {
+    public void perform(Actor actor, float delta) {
 
     }
   }

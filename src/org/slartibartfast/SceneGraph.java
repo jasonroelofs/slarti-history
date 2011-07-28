@@ -92,7 +92,7 @@ public class SceneGraph implements InputReceiver {
           ((VisualBehavior)b).initialize(a, getAssetManager());
         }
 
-        b.perform(delta);
+        b.perform(a, delta);
       }
     }
 

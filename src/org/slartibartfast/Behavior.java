@@ -17,15 +17,26 @@ public abstract class Behavior {
    * This method is where all update logic should be put.
    *
    * By default this method does nothing
-   * 
+   *
    * @param delta Time since the last frame
    */
-  public void perform(float delta) { }
+  public void perform(Actor actor, float delta) { }
 
   /**
    * Check to see if this Behavior has been initialized.
    */
   public boolean isInitialized() {
     return initialized;
+  }
+
+  /**
+   * Initialize this Behavior. The implementation of this
+   * method is responsible for setting initialize = true
+   *
+   * @param actor The actor this behavior is acting on
+   * @param params A list of any needed params to pass in.
+   */
+  public void initialize(Actor actor, Object ... params) {
+
   }
 }
