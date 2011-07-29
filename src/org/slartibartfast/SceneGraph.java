@@ -80,7 +80,8 @@ public class SceneGraph implements InputReceiver {
   /**
    * Per-frame update
    *
-   * TODO: Refactoring this logic out to separate behavior management steps.
+   * TODO: Refactoring this logic out to separate behavior management
+   * steps.
    * The scene graph shouldn't care about what type of behavior, nor
    * behavior initialization.
    *
@@ -91,7 +92,7 @@ public class SceneGraph implements InputReceiver {
       for(Behavior b: a.getBehaviors()) {
         if(!b.isInitialized()) {
           if(b instanceof VisualBehavior) {
-            b.initialize(a, getAssetManager());
+            b.initialize(a, assetManager);
           } else if (b instanceof DirectionalLightBehavior) {
             b.initialize(a);
           }
@@ -104,7 +105,8 @@ public class SceneGraph implements InputReceiver {
 
     // Current thinking:
     // - Pull all behaviors into lists of like behavior types
-    // - Send each list to a handler which knows how to update that type of behavior
+    // - Send each list to a handler which knows how to update that
+    //   type of behavior
     // - Do these lists get build every frame or do we cache them?
     //   ( build every frame and change if we need better performance )
   }
@@ -113,16 +115,6 @@ public class SceneGraph implements InputReceiver {
     return nextActorId++;
   }
 
-  /**
-   * @return the assetManager
-   */
-  public AssetManager getAssetManager() {
-    return assetManager;
-  }
-
-  /**
-   * @param assetManager the assetManager to set
-   */
   public void setAssetManager(AssetManager assetManager) {
     this.assetManager = assetManager;
   }
