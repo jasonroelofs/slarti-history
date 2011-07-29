@@ -88,8 +88,8 @@ public class SceneGraph implements InputReceiver {
   public void update(float delta) {
     for(Actor a : actors) {
       for(Behavior b: a.getBehaviors()) {
-        if(b instanceof VisualBehavior && !((VisualBehavior)b).isInitialized() ) {
-          ((VisualBehavior)b).initialize(a, getAssetManager());
+        if(b instanceof VisualBehavior && !b.isInitialized()) {
+          b.initialize(a, getAssetManager());
         }
 
         b.perform(a, delta);
