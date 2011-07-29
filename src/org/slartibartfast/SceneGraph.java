@@ -5,6 +5,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
 import java.util.List;
+import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 
@@ -88,9 +89,14 @@ public class SceneGraph implements InputReceiver {
   public void update(float delta) {
     for(Actor a : actors) {
       for(Behavior b: a.getBehaviors()) {
-        if(b instanceof VisualBehavior && !b.isInitialized()) {
-          b.initialize(a, getAssetManager());
+        if(!b.isInitialized()) {
+          if(b instanceof VisualBehavior) {
+            b.initialize(a, getAssetManager());
+          } else if (b instanceof DirectionalLightBehavior) {
+            b.initialize(a);
+          }
         }
+
 
         b.perform(a, delta);
       }
