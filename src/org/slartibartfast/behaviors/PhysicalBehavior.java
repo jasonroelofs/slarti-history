@@ -17,6 +17,7 @@ public class PhysicalBehavior extends Behavior {
 
   public PhysicalBehavior() {
     initialized = true;
+    location = Vector3f.ZERO;
   }
 
   public void setLocation(Vector3f location) {

@@ -21,6 +21,12 @@ public class PhysicalBehaviorTest {
   }
 
   @Test
+  public void startsAtOrigin() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    assertEquals(Vector3f.ZERO, b.getLocation());
+  }
+
+  @Test
   public void performUpdatesNodeLocation() {
     PhysicalBehavior b = new PhysicalBehavior();
     Vector3f location = new Vector3f(1.0f, 3.0f, 10.0f);
@@ -38,7 +44,7 @@ public class PhysicalBehaviorTest {
     // Multiple frames don't send it careening off.
     b.perform(a, 0.1f);
     b.perform(a, 0.1f);
-    
+
     assertEquals(location, a.get(Node.class, "node").getWorldTranslation());
   }
 }
