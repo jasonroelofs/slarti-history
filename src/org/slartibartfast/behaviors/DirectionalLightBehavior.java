@@ -13,7 +13,7 @@ import org.slartibartfast.Behavior;
  * Commonly used as a Sun, parallel rays with no obvious source,
  * or a source that is very far away.
  */
-public class DirectionalLightBehavior extends Behavior {
+public class DirectionalLightBehavior extends LightBehavior {
 
   /**
    * The direction the light is traveling
@@ -28,7 +28,7 @@ public class DirectionalLightBehavior extends Behavior {
   public void initialize(Actor actor, Object ... params) {
     DirectionalLight light = new DirectionalLight();
     light.setDirection(direction);
-    actor.get(Node.class, "node").addLight(light);
+    actor.get(Node.class, "node").getParent().addLight(light);
 
     initialized = true;
   }
