@@ -2,8 +2,10 @@ package org.slartibartfast.behaviors;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.util.TangentBinormalGenerator;
 import org.slartibartfast.Actor;
 import org.slartibartfast.Behavior;
 
@@ -23,9 +25,11 @@ public class VisualBehavior extends Behavior {
   @Override
   public void initialize(Actor actor, Object ... params) {
     AssetManager assetManager = (AssetManager)params[0];
-    
-    Spatial newSpatial = assetManager.loadModel(modelPath);
-    Material mat = new Material(assetManager, materialPath);
+
+    Geometry newSpatial = (Geometry) assetManager.loadModel(modelPath);
+    TangentBinormalGenerator.generate(newSpatial.getMesh(), true);
+
+    Material mat = (Material) assetManager.loadAsset(materialPath);
     newSpatial.setMaterial(mat);
 
     actor.get(Node.class, "node").attachChild(newSpatial);
