@@ -1,0 +1,15 @@
+Material Rocky Teapot : Common/MatDefs/Light/Lighting.j3md {
+  MaterialParamters {
+
+    DiffuseMap: Textures/Terrain/Pond/Pond.png
+    NormalMap:  pTextures/Terrain/Pond/Pond_normal.png
+
+ThisisBroken
+
+    UseMaterialColors: true
+    Ambient:  0 0 0 1
+    Diffuse:  1 1 1 1
+    Specular: 0 0 0 1
+    Shininess: 5
+  }
+}

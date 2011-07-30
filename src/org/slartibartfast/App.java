@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.behaviors.PointLightBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 import com.jme3.app.SimpleApplication;
 import com.jme3.light.DirectionalLight;
@@ -45,9 +46,14 @@ public class App extends SimpleApplication {
     createTeapot(new Vector3f(0.0f, -1.0f, -1.0f));
     createTeapot(new Vector3f(0.0f, 1.0f, -1.0f));
 
-    Actor sun = sceneManager.createActor();
+    Actor sun = sceneManager.createActor(new Vector3f(0.0f, 0.0f, 2.0f));
     sun.useBehavior(new DirectionalLightBehavior(
-            new Vector3f(-0.1f, -0.7f, -1.0f)));
+           new Vector3f(-0.1f, -0.7f, -1.0f)));
+    //sun.useBehavior(new PointLightBehavior(3.0f));
+
+    //DirectionalLight light = new DirectionalLight();
+    //light.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
+    //getRootNode().addLight(light);
 
     System.out.println("Camera is currently at " +
             getCamera().getLocation());
@@ -59,7 +65,7 @@ public class App extends SimpleApplication {
     Actor teapot1 = sceneManager.createActor(position);
     teapot1.useBehavior(new VisualBehavior(
             "Models/Teapot/Teapot.obj",
-            "Common/MatDefs/Misc/ShowNormals.j3md"));
+            "Materials/RockyTeapot.j3m"));
 
   }
 
