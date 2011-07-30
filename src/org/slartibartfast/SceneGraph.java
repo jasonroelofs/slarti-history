@@ -6,6 +6,7 @@ import com.jme3.scene.Node;
 import java.util.ArrayList;
 import java.util.List;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
+import org.slartibartfast.behaviors.LightBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 
@@ -93,7 +94,7 @@ public class SceneGraph implements InputReceiver {
         if(!b.isInitialized()) {
           if(b instanceof VisualBehavior) {
             b.initialize(a, assetManager);
-          } else if (b instanceof DirectionalLightBehavior) {
+          } else if (b instanceof LightBehavior) {
             b.initialize(a);
           }
         }
