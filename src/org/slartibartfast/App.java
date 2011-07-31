@@ -4,6 +4,7 @@ import org.slartibartfast.behaviors.PointLightBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 import com.jme3.app.SimpleApplication;
 import com.jme3.light.DirectionalLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
@@ -46,16 +47,18 @@ public class App extends SimpleApplication {
     createTeapot(new Vector3f(0.0f, -1.0f, -1.0f));
     createTeapot(new Vector3f(0.0f, 1.0f, -1.0f));
 
-    Actor sun = sceneManager.createActor();
-    sun.useBehavior(new DirectionalLightBehavior(
-           new Vector3f(-0.1f, -0.7f, -1.0f)));
-    
-    //new Vector3f(0.0f, 0.0f, 2.0f));
-    //sun.useBehavior(new PointLightBehavior(3.0f));
+//    Actor sun = sceneManager.createActor();
+//    sun.useBehavior(new DirectionalLightBehavior(
+//           new Vector3f(-0.1f, -0.7f, -1.0f)));
 
-    //DirectionalLight light = new DirectionalLight();
-    //light.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
-    //getRootNode().addLight(light);
+    Actor green = sceneManager.createActor(new Vector3f(3.0f, 0.0f, 2.0f));
+    green.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Green));
+
+    Actor blue = sceneManager.createActor(new Vector3f(0.0f, 0.0f, 2.0f));
+    blue.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Blue));
+
+    Actor red = sceneManager.createActor(new Vector3f(-3.0f, 0.0f, 2.0f));
+    red.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Red));
 
     System.out.println("Camera is currently at " +
             getCamera().getLocation());
