@@ -29,7 +29,7 @@ public class VisualBehavior extends Behavior {
     Geometry newSpatial = (Geometry) assetManager.loadModel(modelPath);
     TangentBinormalGenerator.generate(newSpatial.getMesh(), true);
 
-    Material mat = (Material) assetManager.loadAsset(materialPath);
+    Material mat = assetManager.loadMaterial(materialPath);
     newSpatial.setMaterial(mat);
 
     actor.get(Node.class, "node").attachChild(newSpatial);
