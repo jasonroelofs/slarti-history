@@ -1,10 +1,8 @@
 package org.slartibartfast.behaviors;
 
 import com.jme3.light.PointLight;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import org.slartibartfast.Actor;
-import org.slartibartfast.Behavior;
 
 /**
  * Makes the actor act as a point light.
@@ -36,5 +34,9 @@ public class PointLightBehavior extends LightBehavior {
     actor.get(Node.class, "node").getParent().addLight(light);
 
     initialized = true;
+  }
+
+  public PointLight getLight() {
+    return light;
   }
 }

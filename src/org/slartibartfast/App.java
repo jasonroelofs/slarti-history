@@ -46,9 +46,11 @@ public class App extends SimpleApplication {
     createTeapot(new Vector3f(0.0f, -1.0f, -1.0f));
     createTeapot(new Vector3f(0.0f, 1.0f, -1.0f));
 
-    Actor sun = sceneManager.createActor(new Vector3f(0.0f, 0.0f, 2.0f));
+    Actor sun = sceneManager.createActor();
     sun.useBehavior(new DirectionalLightBehavior(
            new Vector3f(-0.1f, -0.7f, -1.0f)));
+    
+    //new Vector3f(0.0f, 0.0f, 2.0f));
     //sun.useBehavior(new PointLightBehavior(3.0f));
 
     //DirectionalLight light = new DirectionalLight();

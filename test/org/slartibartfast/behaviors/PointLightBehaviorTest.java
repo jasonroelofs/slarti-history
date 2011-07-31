@@ -1,10 +1,14 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.math.Vector3f;
+import org.slartibartfast.Factories;
+
 import com.jme3.light.PointLight;
 import com.jme3.light.Light;
 import com.jme3.scene.Node;
 import org.slartibartfast.Actor;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class PointLightBehaviorTest {
@@ -19,7 +23,19 @@ public class PointLightBehaviorTest {
 
   @Test
   public void updatesLightPositionWithActorPosition() {
-    fail("not implemented");
+    Actor a = Factories.createActor(new Vector3f(1.0f, 2.0f, 3.0f));
+
+    PointLightBehavior lightB = new PointLightBehavior(1.0f);
+    a.useBehavior(lightB);
+
+    lightB.initialize(a);
+
+    assertEquals(Vector3f.ZERO, lightB.getLight().getPosition());
+
+    lightB.perform(a, 1.0f);
+
+    assertEquals(new Vector3f(1.0f, 2.0f, 3.0f),
+            lightB.getLight().getPosition());
   }
 
   @Test
