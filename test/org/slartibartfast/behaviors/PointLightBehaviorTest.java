@@ -5,6 +5,7 @@ import org.slartibartfast.Factories;
 
 import com.jme3.light.PointLight;
 import com.jme3.light.Light;
+import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Node;
 import org.slartibartfast.Actor;
 import org.junit.Test;
@@ -19,6 +20,18 @@ public class PointLightBehaviorTest {
   @Test
   public void isConstructedWithARadius() {
     PointLightBehavior b = new PointLightBehavior(1.5f);
+    b.initialize(Factories.createActor());
+
+    assertEquals(1.5f, b.getLight().getRadius(), 0.01f);
+  }
+
+  @Test
+  public void canBeGivenAColor() {
+    PointLightBehavior b = new PointLightBehavior(3.5f, ColorRGBA.Blue);
+    b.initialize(Factories.createActor());
+
+    assertEquals(3.5f, b.getLight().getRadius(), 0.01f);
+    assertEquals(ColorRGBA.Blue, b.getLight().getColor());
   }
 
   @Test

@@ -1,6 +1,7 @@
 package org.slartibartfast.behaviors;
 
 import com.jme3.light.PointLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Node;
 import org.slartibartfast.Actor;
 
@@ -9,7 +10,8 @@ import org.slartibartfast.Actor;
  */
 public class PointLightBehavior extends LightBehavior {
 
-  private final float radius;
+  private float radius;
+  private ColorRGBA color = ColorRGBA.White;
 
   private PointLight light;
 
@@ -19,6 +21,11 @@ public class PointLightBehavior extends LightBehavior {
    */
   public PointLightBehavior(float radius) {
     this.radius = radius;
+  }
+
+  public PointLightBehavior(float radius, ColorRGBA color) {
+    this(radius);
+    this.color = color;
   }
 
   @Override
@@ -31,6 +38,7 @@ public class PointLightBehavior extends LightBehavior {
   public void initialize(Actor actor, Object ... params) {
     light = new PointLight();
     light.setRadius(radius);
+    light.setColor(color);
     actor.get(Node.class, "node").getParent().addLight(light);
 
     initialized = true;
