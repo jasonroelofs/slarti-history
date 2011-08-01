@@ -1,13 +1,12 @@
 package org.slartibartfast;
 
+import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.PointLightBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
+
 import com.jme3.app.SimpleApplication;
-import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import org.slartibartfast.behaviors.DirectionalLightBehavior;
-import org.slartibartfast.behaviors.PhysicalBehavior;
 
 /**
  *
@@ -56,6 +55,7 @@ public class App extends SimpleApplication {
 
     Actor blue = sceneManager.createActor(new Vector3f(0.0f, 0.0f, 2.0f));
     blue.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Blue));
+    blue.useBehavior(new InputBehavior("lightMover"));
 
     Actor red = sceneManager.createActor(new Vector3f(-3.0f, 0.0f, 2.0f));
     red.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Red));

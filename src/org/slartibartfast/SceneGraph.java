@@ -5,7 +5,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
 import java.util.List;
-import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import org.slartibartfast.behaviors.LightBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;

@@ -3,7 +3,6 @@ package org.slartibartfast;
 import com.jme3.input.controls.AnalogListener;
 import java.lang.reflect.Field;
 import com.jme3.input.controls.ActionListener;
-import com.jme3.input.event.KeyInputEvent;
 import java.util.ArrayList;
 import java.util.List;
 import com.jme3.input.InputManager;

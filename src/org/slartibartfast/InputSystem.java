@@ -27,8 +27,6 @@ public class InputSystem {
     inputManager = manager;
     receivers = new ArrayList<InputReceiver>();
     currentEvents = new ArrayList<InputEvent>();
-
-    initializeEvents();
   }
 
   /**
@@ -55,40 +53,49 @@ public class InputSystem {
     currentEvents.clear();
   }
 
+  /**
+   * Given a UserKeyMapping, set up all required key mappings
+   * for inputs to be properly forwarded.
+   * @param mapping
+   */
+  public void useMapping(UserKeyMapping mapping) {
+    throw new UnsupportedOperationException("Not yet implemented");
+  }
+
   // Plan on this:
   //  some sort of UserKeyMappings class that has the
   //  full list of mappings to key codes, and then run through
   //  that list to set up the actual mappings.
   //  Allow rebuilding of these mappings at any time.
   protected void initializeEvents() {
-    inputManager.addMapping("Forward",
-            new KeyTrigger(KeyInput.KEY_E));
-    inputManager.addMapping("Backward",
-            new KeyTrigger(KeyInput.KEY_D));
-    inputManager.addMapping("Left",
-            new KeyTrigger(KeyInput.KEY_S));
-    inputManager.addMapping("Right",
-            new KeyTrigger(KeyInput.KEY_F));
-
-    inputManager.addMapping("TurnLeft",
-            new KeyTrigger(KeyInput.KEY_LEFT),
-            new MouseAxisTrigger(MouseInput.AXIS_X, false));
-    inputManager.addMapping("TurnRight",
-            new KeyTrigger(KeyInput.KEY_RIGHT),
-            new MouseAxisTrigger(MouseInput.AXIS_X, true));
-
-    inputManager.addListener(actionListener, new String[]{
-      "TurnLeft",
-      "TurnRight",
-      "Forward",
-      "Backward",
-      "Left",
-      "Right"});
-
-    inputManager.addListener(analogListener, new String[]{
-      "TurnLeft",
-      "TurnRight"
-    });
+//    inputManager.addMapping("Forward",
+//            new KeyTrigger(KeyInput.KEY_E));
+//    inputManager.addMapping("Backward",
+//            new KeyTrigger(KeyInput.KEY_D));
+//    inputManager.addMapping("Left",
+//            new KeyTrigger(KeyInput.KEY_S));
+//    inputManager.addMapping("Right",
+//            new KeyTrigger(KeyInput.KEY_F));
+//
+//    inputManager.addMapping("TurnLeft",
+//            new KeyTrigger(KeyInput.KEY_LEFT),
+//            new MouseAxisTrigger(MouseInput.AXIS_X, false));
+//    inputManager.addMapping("TurnRight",
+//            new KeyTrigger(KeyInput.KEY_RIGHT),
+//            new MouseAxisTrigger(MouseInput.AXIS_X, true));
+//
+//    inputManager.addListener(actionListener, new String[]{
+//      "TurnLeft",
+//      "TurnRight",
+//      "Forward",
+//      "Backward",
+//      "Left",
+//      "Right"});
+//
+//    inputManager.addListener(analogListener, new String[]{
+//      "TurnLeft",
+//      "TurnRight"
+//    });
   }
 
   /**
@@ -112,4 +119,5 @@ public class InputSystem {
       currentEvents.add(new InputEvent(name, value));
     }
   };
+
 }
