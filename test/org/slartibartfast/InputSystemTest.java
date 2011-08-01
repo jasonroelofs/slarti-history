@@ -1,7 +1,5 @@
 package org.slartibartfast;
 
-import java.util.Arrays;
-import org.mockito.InOrder;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.AnalogListener;
@@ -126,23 +124,6 @@ public class InputSystemTest {
 
     ArgumentCaptor<String[]> listCapture =
             ArgumentCaptor.forClass(String[].class);
-
-    // Verify we set up the action listener
-    //
-    // TODO: Figure out how to test this. The fact that it uses
-    //       String[] instead of a Collection class is making it
-    //       hard to deal with
-    //
-//    verify(manager).addListener(any(ActionListener.class),
-//            listCapture.capture());
-//
-//    assertEquals(2, listCapture.getValue().length);
-//
-//    List<String> theList = Arrays.asList(listCapture.getValue());
-//    assertTrue(theList.contains("MoveUp"));
-//    assertTrue(theList.contains("MoveDown"));
-//
-//    verifyNoMoreInteractions(manager);
   }
 
 }

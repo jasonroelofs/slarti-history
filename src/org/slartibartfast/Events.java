@@ -1,7 +1,9 @@
 package org.slartibartfast;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,13 +25,26 @@ public enum Events {
   private static final Map<String, Events> lookup =
           new HashMap<String, Events>();
 
+  private static final String[] allNames;
+
+
   static {
+    List<String> names = new ArrayList<String>();
     for(Events e : EnumSet.allOf(Events.class)) {
       lookup.put(e.name(), e);
+      names.add(e.name());
     }
+
+    allNames = names.toArray(new String[names.size()]);
   }
+
 
   public static Events get(String eventName) {
     return lookup.get(eventName);
   }
+
+  public static String[] all() {
+    return allNames;
+  }
+
 }

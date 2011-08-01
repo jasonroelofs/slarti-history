@@ -29,6 +29,10 @@ public class InputSystem {
     inputManager = manager;
     receivers = new ArrayList<InputReceiver>();
     currentEvents = new ArrayList<InputEvent>();
+
+
+    inputManager.addListener(actionListener, Events.all());
+    inputManager.addListener(analogListener, Events.all());
   }
 
   /**
@@ -72,9 +76,6 @@ public class InputSystem {
       events.add(eventName);
       inputManager.addMapping(eventName, new KeyTrigger(keyCode));
     }
-
-    inputManager.addListener(actionListener,
-            events.toArray(new String[events.size()]));
   }
 
   // Plan on this:
