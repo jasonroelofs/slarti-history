@@ -9,6 +9,8 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * This class abstracts the usage of JME's input management
@@ -59,7 +61,20 @@ public class InputSystem {
    * @param mapping
    */
   public void useMapping(UserKeyMapping mapping) {
-    throw new UnsupportedOperationException("Not yet implemented");
+    List<String> events = new ArrayList<String>(mapping.size());
+    String eventName;
+    int keyCode;
+
+    for(Entry<Events, String> entry : mapping.entrySet()) {
+      eventName = entry.getKey().name();
+      keyCode = Keys.get(entry.getValue());
+
+      events.add(eventName);
+      inputManager.addMapping(eventName, new KeyTrigger(keyCode));
+    }
+
+    inputManager.addListener(actionListener,
+            events.toArray(new String[events.size()]));
   }
 
   // Plan on this:

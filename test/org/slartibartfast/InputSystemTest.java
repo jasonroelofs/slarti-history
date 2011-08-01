@@ -1,5 +1,9 @@
 package org.slartibartfast;
 
+import java.util.Arrays;
+import org.mockito.InOrder;
+import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.KeyInput;
 import com.jme3.input.controls.AnalogListener;
 import java.lang.reflect.Field;
 import com.jme3.input.controls.ActionListener;
@@ -9,6 +13,7 @@ import com.jme3.input.InputManager;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import static org.junit.Assert.*;
 
 /**
@@ -33,7 +38,13 @@ public class InputSystemTest {
         this.events.add(evt);
       }
     }
+  }
 
+  ActionListener getActionListener(InputSystem system) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    // Pretend JME sent us an action event
+    Field listenerField = InputSystem.class.getDeclaredField("actionListener");
+    listenerField.setAccessible(true);
+    return (ActionListener) listenerField.get(system);
   }
 
   @Test
@@ -44,10 +55,7 @@ public class InputSystemTest {
 
     system.setInputReceiver(receiver);
 
-    // Pretend JME sent us an action event
-    Field listenerField = InputSystem.class.getDeclaredField("actionListener");
-    listenerField.setAccessible(true);
-    ActionListener listener = (ActionListener) listenerField.get(system);
+    ActionListener listener = getActionListener(system);
 
     listener.onAction("Forward", true, 0.1f);
 
@@ -84,6 +92,57 @@ public class InputSystemTest {
 
     InputEvent evt = receiver.events.get(0);
     assertEquals(12.7f, evt.value, 0.01f);
+  }
+
+//  @Test
+//  public void useMappingUpdatesAnalogMappings() {
+//    fail("Not yet implemented");
+//  }
+
+  @Test
+  public void useMappingUpdatesActionMappings() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    UserKeyMapping mapping = new UserKeyMapping();
+    mapping.put(Events.MoveUp, "UP");
+    mapping.put(Events.MoveDown, "DOWN");
+
+    InputManager manager = mock(InputManager.class);
+    InputSystem system = new InputSystem(manager);
+
+    // Call to set up the mapping
+    system.useMapping(mapping);
+
+    ArgumentCaptor<KeyTrigger> triggerUp =
+            ArgumentCaptor.forClass(KeyTrigger.class);
+    ArgumentCaptor<KeyTrigger> triggerDown =
+            ArgumentCaptor.forClass(KeyTrigger.class);
+
+    // Verify we added the MoveDown event
+    verify(manager).addMapping(eq("MoveDown"), triggerDown.capture());
+    assertEquals(KeyInput.KEY_DOWN, triggerDown.getValue().getKeyCode());
+
+    // Verify we added the MoveUp event
+    verify(manager).addMapping(eq("MoveUp"), triggerUp.capture());
+    assertEquals(KeyInput.KEY_UP, triggerUp.getValue().getKeyCode());
+
+    ArgumentCaptor<String[]> listCapture =
+            ArgumentCaptor.forClass(String[].class);
+
+    // Verify we set up the action listener
+    //
+    // TODO: Figure out how to test this. The fact that it uses
+    //       String[] instead of a Collection class is making it
+    //       hard to deal with
+    //
+//    verify(manager).addListener(any(ActionListener.class),
+//            listCapture.capture());
+//
+//    assertEquals(2, listCapture.getValue().length);
+//
+//    List<String> theList = Arrays.asList(listCapture.getValue());
+//    assertTrue(theList.contains("MoveUp"));
+//    assertTrue(theList.contains("MoveDown"));
+//
+//    verifyNoMoreInteractions(manager);
   }
 
 }
