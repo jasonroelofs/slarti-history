@@ -50,20 +50,26 @@ public class InputSystemTest {
     InputManager manager = mock(InputManager.class);
     InputSystem system = new InputSystem(manager);
     TestReceiver receiver = new TestReceiver();
+    Actor actor = new Actor();
+
+    UserKeyMapping mapping = new UserKeyMapping();
+    mapping.put(Events.MoveUp, "UP");
 
     system.setInputReceiver(receiver);
+    system.mapInputToActor(mapping, actor);
 
     ActionListener listener = getActionListener(system);
 
-    listener.onAction("Forward", true, 0.1f);
+    listener.onAction("MoveUp", true, 0.1f);
 
     system.update(0.1f);
 
     assertEquals(1, receiver.events.size());
 
     InputEvent evt = receiver.events.get(0);
-    assertEquals("Forward", evt.event);
+    assertEquals("MoveUp", evt.event);
     assertTrue(evt.pressed);
+    assertEquals(actor, evt.actor);
 
     // See that the events get cleared out and not resent the next frame
     system.update(0.1f);
@@ -76,29 +82,35 @@ public class InputSystemTest {
     InputManager manager = mock(InputManager.class);
     InputSystem system = new InputSystem(manager);
     TestReceiver receiver = new TestReceiver();
+    Actor actor = new Actor();
+
+    UserKeyMapping mapping = new UserKeyMapping();
+    mapping.put(Events.MoveUp, "UP");
 
     system.setInputReceiver(receiver);
+    system.mapInputToActor(mapping, actor);
 
     // Pretend JME sent us an action event
     Field listenerField = InputSystem.class.getDeclaredField("analogListener");
     listenerField.setAccessible(true);
     AnalogListener listener = (AnalogListener) listenerField.get(system);
 
-    listener.onAnalog("TurnLeft", 12.7f, 0.1f);
+    listener.onAnalog("MoveUp", 12.7f, 0.1f);
 
     system.update(0.1f);
 
     InputEvent evt = receiver.events.get(0);
     assertEquals(12.7f, evt.value, 0.01f);
+    assertEquals(actor, evt.actor);
   }
 
 //  @Test
-//  public void useMappingUpdatesAnalogMappings() {
+//  public void canMapInputToActor_MouseMappings() {
 //    fail("Not yet implemented");
 //  }
 
   @Test
-  public void useMappingUpdatesActionMappings() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+  public void canMapInputToActor_KeyMappings() {
     UserKeyMapping mapping = new UserKeyMapping();
     mapping.put(Events.MoveUp, "UP");
     mapping.put(Events.MoveDown, "DOWN");
@@ -106,8 +118,10 @@ public class InputSystemTest {
     InputManager manager = mock(InputManager.class);
     InputSystem system = new InputSystem(manager);
 
+    Actor a = new Actor();
+
     // Call to set up the mapping
-    system.useMapping(mapping);
+    system.mapInputToActor(mapping, a);
 
     ArgumentCaptor<KeyTrigger> triggerUp =
             ArgumentCaptor.forClass(KeyTrigger.class);

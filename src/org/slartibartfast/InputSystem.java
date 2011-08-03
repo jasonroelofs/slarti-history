@@ -1,20 +1,36 @@
 package org.slartibartfast;
 
 import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
-import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseAxisTrigger;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * This class abstracts the usage of JME's input management
  * into an event queue system.
+ *
+ * Here's how input is currently handled:
+ *
+ * Start by giving an Actor an InputBehavior with a scope.
+ * Input mapping (keys to events) is defined by the scope.
+ * On initialization of the behavior, the appropriate set of key
+ *   mapping is sent to mapInputToActor
+ *
+ * When an input event comes in we:
+ *
+ * Find all actors waiting for that event
+ * Build InputEvent with the appropriate information
+ *
+ * On Update (per frame):
+ *
+ * InputEvents are sent to all registered InputReceivers to handle
+ *   as they see fit
  *
  * @author roelofs
  */
@@ -25,11 +41,17 @@ public class InputSystem {
 
   private List<InputEvent> currentEvents;
 
+  /**
+   * Map which keeps track of which actor is supposed to
+   * receive which input event.
+   */
+  private Map<String, List<Actor>> actorMapping;
+
   public InputSystem(InputManager manager) {
     inputManager = manager;
     receivers = new ArrayList<InputReceiver>();
     currentEvents = new ArrayList<InputEvent>();
-
+    actorMapping = new HashMap<String, List<Actor>>();
 
     inputManager.addListener(actionListener, Events.all());
     inputManager.addListener(analogListener, Events.all());
@@ -64,7 +86,7 @@ public class InputSystem {
    * for inputs to be properly forwarded.
    * @param mapping
    */
-  public void useMapping(UserKeyMapping mapping) {
+  public void mapInputToActor(UserKeyMapping mapping, Actor actor) {
     List<String> events = new ArrayList<String>(mapping.size());
     String eventName;
     int keyCode;
@@ -74,44 +96,21 @@ public class InputSystem {
       keyCode = Keys.get(entry.getValue());
 
       events.add(eventName);
+      addActorToEvent(eventName, actor);
       inputManager.addMapping(eventName, new KeyTrigger(keyCode));
     }
   }
 
-  // Plan on this:
-  //  some sort of UserKeyMappings class that has the
-  //  full list of mappings to key codes, and then run through
-  //  that list to set up the actual mappings.
-  //  Allow rebuilding of these mappings at any time.
-  protected void initializeEvents() {
-//    inputManager.addMapping("Forward",
-//            new KeyTrigger(KeyInput.KEY_E));
-//    inputManager.addMapping("Backward",
-//            new KeyTrigger(KeyInput.KEY_D));
-//    inputManager.addMapping("Left",
-//            new KeyTrigger(KeyInput.KEY_S));
-//    inputManager.addMapping("Right",
-//            new KeyTrigger(KeyInput.KEY_F));
-//
-//    inputManager.addMapping("TurnLeft",
-//            new KeyTrigger(KeyInput.KEY_LEFT),
-//            new MouseAxisTrigger(MouseInput.AXIS_X, false));
-//    inputManager.addMapping("TurnRight",
-//            new KeyTrigger(KeyInput.KEY_RIGHT),
-//            new MouseAxisTrigger(MouseInput.AXIS_X, true));
-//
-//    inputManager.addListener(actionListener, new String[]{
-//      "TurnLeft",
-//      "TurnRight",
-//      "Forward",
-//      "Backward",
-//      "Left",
-//      "Right"});
-//
-//    inputManager.addListener(analogListener, new String[]{
-//      "TurnLeft",
-//      "TurnRight"
-//    });
+  private void addActorToEvent(String eventName, Actor actor) {
+    if(actorMapping.get(eventName) == null) {
+      actorMapping.put(eventName, new LinkedList<Actor>());
+    }
+
+    actorMapping.get(eventName).add(actor);
+  }
+
+  private List<Actor> getActors(String eventName) {
+    return actorMapping.get(eventName);
   }
 
   /**
@@ -121,7 +120,12 @@ public class InputSystem {
   private ActionListener actionListener = new ActionListener() {
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-      currentEvents.add(new InputEvent(name, isPressed));
+      List<Actor> actors = getActors(name);
+      if(actors != null) {
+        for(Actor a : actors) {
+          currentEvents.add(new InputEvent(a, name, isPressed));
+        }
+      }
     }
   };
 
@@ -132,7 +136,12 @@ public class InputSystem {
   private AnalogListener analogListener = new AnalogListener() {
     @Override
     public void onAnalog(String name, float value, float tpf) {
-      currentEvents.add(new InputEvent(name, value));
+      List<Actor> actors = getActors(name);
+      if(actors != null) {
+        for(Actor a : actors) {
+          currentEvents.add(new InputEvent(a, name, value));
+        }
+      }
     }
   };
 

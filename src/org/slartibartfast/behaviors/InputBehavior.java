@@ -33,7 +33,7 @@ public class InputBehavior extends Behavior {
     UserSettings settings = (UserSettings) params[1];
     mapping = settings.getKeyMap(scope);
 
-    input.useMapping(mapping);
+    input.mapInputToActor(mapping, actor);
   }
 
   public String getScope() {

@@ -30,9 +30,10 @@ public class InputBehaviorTest {
     settings.setKeyMap("scope", mapping);
 
     InputSystem system = mock(InputSystem.class);
+    Actor a = new Actor();
 
-    b.initialize(new Actor(), system, settings);
+    b.initialize(a, system, settings);
 
-    verify(system).useMapping(mapping);
+    verify(system).mapInputToActor(mapping, a);
   }
 }

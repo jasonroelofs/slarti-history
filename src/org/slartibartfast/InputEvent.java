@@ -6,6 +6,9 @@ package org.slartibartfast;
  */
 public class InputEvent {
 
+  // Actor that should be given this input event
+  public Actor actor;
+
   // Name of the event sent
   public String event;
 
@@ -15,13 +18,15 @@ public class InputEvent {
   // Analog: the distance travelled, [0,1]
   public float value;
 
-  public InputEvent(String name, boolean pressed) {
+  public InputEvent(Actor actor, String name, boolean pressed) {
+    this.actor = actor;
     this.event = name;
     this.pressed = pressed;
     this.value = 0.0f;
   }
 
-  public InputEvent(String name, float value) {
+  public InputEvent(Actor actor, String name, float value) {
+    this.actor = actor;
     this.event = name;
     this.value = value;
     this.pressed = false;
