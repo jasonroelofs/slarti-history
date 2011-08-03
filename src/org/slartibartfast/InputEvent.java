@@ -32,4 +32,8 @@ public class InputEvent {
     this.pressed = false;
   }
 
+  void process(float delta) {
+    Events.processEvent(this, delta);
+  }
+
 }

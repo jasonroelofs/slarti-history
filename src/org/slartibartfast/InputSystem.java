@@ -29,14 +29,12 @@ import java.util.Map.Entry;
  *
  * On Update (per frame):
  *
- * InputEvents are sent to all registered InputReceivers to handle
- *   as they see fit
+ * Process all InputEvents in the Current list
  *
  * @author roelofs
  */
 public class InputSystem {
 
-  private List<InputReceiver> receivers;
   private final InputManager inputManager;
 
   private List<InputEvent> currentEvents;
@@ -49,7 +47,6 @@ public class InputSystem {
 
   public InputSystem(InputManager manager) {
     inputManager = manager;
-    receivers = new ArrayList<InputReceiver>();
     currentEvents = new ArrayList<InputEvent>();
     actorMapping = new HashMap<String, List<Actor>>();
 
@@ -58,29 +55,16 @@ public class InputSystem {
   }
 
   /**
-   * Tell the InputSystem to send input events to the
-   * given Receiver. This class will start receiving
-   * InputEvents.
-   * @param receiver
-   */
-  public void addInputReceiver(InputReceiver receiver) {
-    receivers.add(receiver);
-  }
-
-  /**
    * Per-frame update call. Take all queued events and
-   * pass them down to each of the receivers we know about.
+   * execute them for the current frame.
    */
   public void update(float delta) {
     if(currentEvents.isEmpty()) {
       return;
     }
 
-    InputEvent[] eventList = currentEvents.toArray(
-            new InputEvent[currentEvents.size()]);
-
-    for(InputReceiver ir : receivers) {
-      ir.receiveInput(eventList);
+    for(InputEvent e : currentEvents) {
+      e.process(delta);
     }
 
     currentEvents.clear();
@@ -150,4 +134,15 @@ public class InputSystem {
     }
   };
 
+  public List<InputEvent> getCurrentEvents() {
+    return currentEvents;
+  }
+
+  public ActionListener getActionListener() {
+    return actionListener;
+  }
+
+  public AnalogListener getAnalogListener() {
+    return analogListener;
+  }
 }

@@ -17,7 +17,7 @@ import org.slartibartfast.behaviors.VisualBehavior;
  *
  * @author roelofs
  */
-public class SceneGraph implements InputReceiver {
+public class SceneGraph {
 
   private Node rootNode;
   private AssetManager assetManager;
@@ -63,16 +63,6 @@ public class SceneGraph implements InputReceiver {
     b.setLocation(startingLocation);
 
     return a;
-  }
-
-  @Override
-  public void receiveInput(InputEvent[] events) {
-    InputEvent e;
-
-    for(int i = 0; i < events.length; i++) {
-      e = events[i];
-      Events.processEvent(e);
-    }
   }
 
   public Node getRootNode() {

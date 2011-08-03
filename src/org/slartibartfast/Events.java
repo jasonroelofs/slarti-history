@@ -15,34 +15,34 @@ import org.slartibartfast.behaviors.PhysicalBehavior;
 public enum Events {
   MoveLeft  ("Move Left") {
     @Override
-    protected void execute(InputEvent e) {
+    protected void execute(InputEvent e, float delta) {
       PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
-      b.move(new Vector3f(-0.1f, 0.0f, 0.0f));
+      b.move(delta, new Vector3f(-1f, 0.0f, 0.0f));
     }
   },
   MoveRight ("Move Right") {
     @Override
-    protected void execute(InputEvent e) {
+    protected void execute(InputEvent e, float delta) {
       PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
-      b.move(new Vector3f(0.1f, 0.0f, 0.0f));
+      b.move(delta, new Vector3f(1f, 0.0f, 0.0f));
     }
   },
   MoveUp    ("Move Up") {
     @Override
-    protected void execute(InputEvent e) {
+    protected void execute(InputEvent e, float delta) {
       PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
-      b.move(new Vector3f(0.0f, 0.1f, 0.0f));
+      b.move(delta, new Vector3f(0.0f, 1f, 0.0f));
     }
   },
   MoveDown  ("Move Down") {
     @Override
-    protected void execute(InputEvent e) {
+    protected void execute(InputEvent e, float delta) {
       PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
-      b.move(new Vector3f(0.0f, -0.1f, 0.0f));
+      b.move(delta, new Vector3f(0.0f, -1f, 0.0f));
     }
   };
 
-  protected abstract void execute(InputEvent e);
+  protected abstract void execute(InputEvent e, float delta);
 
   public String humanName;
 
@@ -83,8 +83,8 @@ public enum Events {
     return allNames;
   }
 
-  public static void processEvent(InputEvent e) {
-    Events.get(e.event).execute(e);
+  public static void processEvent(InputEvent e, float delta) {
+    Events.get(e.event).execute(e, delta);
   }
 
 }

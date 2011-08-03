@@ -23,7 +23,6 @@ public class App extends SimpleApplication {
     sceneManager.setAssetManager(getAssetManager());
 
     inputSystem = new InputSystem(getInputManager());
-    inputSystem.addInputReceiver(sceneManager);
 
     UserSettings userSettings = new UserSettings();
 

@@ -34,8 +34,8 @@ public class PhysicalBehavior extends Behavior {
     node.move(this.location.add(node.getWorldTranslation().negate()));
   }
 
-  public void move(Vector3f delta) {
-    this.location = this.location.add(delta);
+  public void move(float deltaTime, Vector3f delta) {
+    this.location = this.location.add(delta.mult(deltaTime));
   }
 
 }

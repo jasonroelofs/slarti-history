@@ -31,7 +31,7 @@ public class EventsTest {
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Vector3f oldLoc = b.getLocation();
 
-    Events.processEvent(event);
+    Events.processEvent(event, 1.0f);
 
     assertTrue(b.getLocation().x < oldLoc.x);
   }
@@ -42,7 +42,7 @@ public class EventsTest {
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Vector3f oldLoc = b.getLocation();
 
-    Events.processEvent(event);
+    Events.processEvent(event, 1.0f);
 
     assertTrue(b.getLocation().x > oldLoc.x);
   }
@@ -53,7 +53,7 @@ public class EventsTest {
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Vector3f oldLoc = b.getLocation();
 
-    Events.processEvent(event);
+    Events.processEvent(event, 1.0f);
 
     assertTrue(b.getLocation().y > oldLoc.y);
   }
@@ -64,7 +64,7 @@ public class EventsTest {
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Vector3f oldLoc = b.getLocation();
 
-    Events.processEvent(event);
+    Events.processEvent(event, 1.0f);
 
     assertTrue(b.getLocation().y < oldLoc.y);
   }
