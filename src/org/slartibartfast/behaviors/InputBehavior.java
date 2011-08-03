@@ -34,6 +34,8 @@ public class InputBehavior extends Behavior {
     mapping = settings.getKeyMap(scope);
 
     input.mapInputToActor(mapping, actor);
+
+    initialized = true;
   }
 
   public String getScope() {

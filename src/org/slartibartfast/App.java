@@ -23,7 +23,9 @@ public class App extends SimpleApplication {
     sceneManager.setAssetManager(getAssetManager());
 
     inputSystem = new InputSystem(getInputManager());
-    inputSystem.setInputReceiver(sceneManager);
+    inputSystem.addInputReceiver(sceneManager);
+
+    UserSettings userSettings = new UserSettings();
 
     /**
      *  Init the player.
@@ -40,7 +42,7 @@ public class App extends SimpleApplication {
     //cam.follow(player);
     //camera.useBehavior(cam);
 
-    createTeapot(new Vector3f(0.0f, 0.0f, -1.0f));
+    Actor teapot = createTeapot(new Vector3f(0.0f, 0.0f, -1.0f));
     createTeapot(new Vector3f(-1.0f, 0.0f, -1.0f));
     createTeapot(new Vector3f(1.0f, 0.0f, -1.0f));
     createTeapot(new Vector3f(0.0f, -1.0f, -1.0f));
@@ -55,7 +57,12 @@ public class App extends SimpleApplication {
 
     Actor blue = sceneManager.createActor(new Vector3f(0.0f, 0.0f, 2.0f));
     blue.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Blue));
-    blue.useBehavior(new InputBehavior("lightMover"));
+
+    InputBehavior b = new InputBehavior("lightMover");
+    teapot.useBehavior(b);
+
+    // Hack initialize
+    b.initialize(teapot, inputSystem, userSettings);
 
     Actor red = sceneManager.createActor(new Vector3f(-3.0f, 0.0f, 2.0f));
     red.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Red));
@@ -66,12 +73,13 @@ public class App extends SimpleApplication {
             getCamera().getDirection());
   }
 
-  private void createTeapot(Vector3f position) {
-    Actor teapot1 = sceneManager.createActor(position);
-    teapot1.useBehavior(new VisualBehavior(
+  private Actor createTeapot(Vector3f position) {
+    Actor teapot = sceneManager.createActor(position);
+    teapot.useBehavior(new VisualBehavior(
             "Models/Teapot/Teapot.obj",
             "Materials/RockyTeapot.j3m"));
 
+    return teapot;
   }
 
   @Override
@@ -84,5 +92,6 @@ public class App extends SimpleApplication {
     App app = new App();
     app.start();
   }
+
 
 }

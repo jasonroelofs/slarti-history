@@ -5,6 +5,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
 import java.util.List;
+import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.LightBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
@@ -66,7 +67,12 @@ public class SceneGraph implements InputReceiver {
 
   @Override
   public void receiveInput(InputEvent[] events) {
-    //throw new UnsupportedOperationException("Not supported yet.");
+    InputEvent e;
+
+    for(int i = 0; i < events.length; i++) {
+      e = events[i];
+      Events.processEvent(e);
+    }
   }
 
   public Node getRootNode() {

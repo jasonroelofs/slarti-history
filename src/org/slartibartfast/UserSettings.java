@@ -16,10 +16,10 @@ public class UserSettings {
 
     // TODO Make this read in from user files, sqlite?
     UserKeyMapping lightMover = new UserKeyMapping();
-    lightMover.put(Events.MoveLeft,   "LEFT");
-    lightMover.put(Events.MoveRight,  "RIGHT");
-    lightMover.put(Events.MoveUp,     "UP");
-    lightMover.put(Events.MoveDown,   "DOWN");
+    lightMover.put(Events.MoveLeft,   "H");
+    lightMover.put(Events.MoveRight,  "L");
+    lightMover.put(Events.MoveUp,     "K");
+    lightMover.put(Events.MoveDown,   "J");
 
     keyMappingsByScope.put("lightMover", lightMover);
   }
