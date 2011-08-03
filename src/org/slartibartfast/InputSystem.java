@@ -63,7 +63,7 @@ public class InputSystem {
    * InputEvents.
    * @param receiver
    */
-  public void setInputReceiver(InputReceiver receiver) {
+  public void addInputReceiver(InputReceiver receiver) {
     receivers.add(receiver);
   }
 
@@ -72,8 +72,13 @@ public class InputSystem {
    * pass them down to each of the receivers we know about.
    */
   public void update(float delta) {
+    if(currentEvents.isEmpty()) {
+      return;
+    }
+
     InputEvent[] eventList = currentEvents.toArray(
             new InputEvent[currentEvents.size()]);
+
     for(InputReceiver ir : receivers) {
       ir.receiveInput(eventList);
     }

@@ -55,7 +55,7 @@ public class InputSystemTest {
     UserKeyMapping mapping = new UserKeyMapping();
     mapping.put(Events.MoveUp, "UP");
 
-    system.setInputReceiver(receiver);
+    system.addInputReceiver(receiver);
     system.mapInputToActor(mapping, actor);
 
     ActionListener listener = getActionListener(system);
@@ -87,7 +87,7 @@ public class InputSystemTest {
     UserKeyMapping mapping = new UserKeyMapping();
     mapping.put(Events.MoveUp, "UP");
 
-    system.setInputReceiver(receiver);
+    system.addInputReceiver(receiver);
     system.mapInputToActor(mapping, actor);
 
     // Pretend JME sent us an action event
