@@ -20,7 +20,8 @@ public class PointLightBehaviorTest {
   @Test
   public void isConstructedWithARadius() {
     PointLightBehavior b = new PointLightBehavior(1.5f);
-    b.initialize(Factories.createActor());
+    b.setActor(Factories.createActor());
+    b.initialize();
 
     assertEquals(1.5f, b.getLight().getRadius(), 0.01f);
   }
@@ -28,7 +29,8 @@ public class PointLightBehaviorTest {
   @Test
   public void canBeGivenAColor() {
     PointLightBehavior b = new PointLightBehavior(3.5f, ColorRGBA.Blue);
-    b.initialize(Factories.createActor());
+    b.setActor(Factories.createActor());
+    b.initialize();
 
     assertEquals(3.5f, b.getLight().getRadius(), 0.01f);
     assertEquals(ColorRGBA.Blue, b.getLight().getColor());
@@ -41,11 +43,11 @@ public class PointLightBehaviorTest {
     PointLightBehavior lightB = new PointLightBehavior(1.0f);
     a.useBehavior(lightB);
 
-    lightB.initialize(a);
+    lightB.initialize();
 
     assertEquals(Vector3f.ZERO, lightB.getLight().getPosition());
 
-    lightB.perform(a, 1.0f);
+    lightB.perform(1.0f);
 
     assertEquals(new Vector3f(1.0f, 2.0f, 3.0f),
             lightB.getLight().getPosition());
@@ -61,7 +63,8 @@ public class PointLightBehaviorTest {
     node.attachChild(child);
     a.set("node", child);
 
-    b.initialize(a);
+    b.setActor(a);
+    b.initialize();
 
     assertEquals(1, node.getLocalLightList().size());
 

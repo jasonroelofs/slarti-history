@@ -21,6 +21,7 @@ public class App extends SimpleApplication {
   public void simpleInitApp() {
     sceneManager = new SceneGraph(getRootNode());
     sceneManager.setAssetManager(getAssetManager());
+    sceneManager.setBehaviorController(new BehaviorController());
 
     inputSystem = new InputSystem(getInputManager());
 
@@ -61,7 +62,7 @@ public class App extends SimpleApplication {
     teapot.useBehavior(b);
 
     // Hack initialize
-    b.initialize(teapot, inputSystem, userSettings);
+    b.initialize(inputSystem, userSettings);
 
     Actor red = sceneManager.createActor(new Vector3f(-3.0f, 0.0f, 2.0f));
     red.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Red));

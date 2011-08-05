@@ -28,7 +28,8 @@ public class DirectionalLightBehaviorTest {
     node.attachChild(child);
     a.set("node", child);
 
-    b.initialize(a);
+    b.setActor(a);
+    b.initialize();
 
     assertEquals(1, node.getLocalLightList().size());
 

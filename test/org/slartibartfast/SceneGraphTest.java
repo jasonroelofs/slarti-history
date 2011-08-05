@@ -6,6 +6,7 @@ import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -14,10 +15,13 @@ import static org.junit.Assert.*;
 public class SceneGraphTest {
 
   SceneGraph graph;
+  BehaviorController behaviorController;
 
   @Before
   public void before() {
+    behaviorController = mock(BehaviorController.class);
     graph = new SceneGraph(new Node("root"));
+    graph.setBehaviorController(behaviorController);
   }
 
   /**
@@ -50,6 +54,13 @@ public class SceneGraphTest {
   }
 
   @Test
+  public void createGivesActorLinkToBehaviorController() {
+    Actor a = graph.createActor();
+
+    assertEquals(a.getBehaviorController(), behaviorController);
+  }
+
+  @Test
   public void canCreateActorAndGiveInitialLocation() {
     Vector3f location = new Vector3f(2.0f, 3.0f, 4.0f);
     Actor a = graph.createActor(location);
@@ -73,5 +84,12 @@ public class SceneGraphTest {
   public void createAddsPhysicalToActor() {
     Actor a = graph.createActor();
     assertTrue(a.hasBehavior(PhysicalBehavior.class));
+  }
+
+  @Test
+  public void updateTriggersControllerUpdate() {
+    graph.update(1.0f);
+
+    verify(behaviorController).update(1.0f);
   }
 }

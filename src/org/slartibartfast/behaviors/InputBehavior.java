@@ -28,7 +28,7 @@ public class InputBehavior extends Behavior {
   }
 
   @Override
-  public void initialize(Actor actor, Object ... params) {
+  public void initialize(Object ... params) {
     InputSystem input = (InputSystem) params[0];
     UserSettings settings = (UserSettings) params[1];
     mapping = settings.getKeyMap(scope);

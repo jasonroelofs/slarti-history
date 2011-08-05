@@ -35,15 +35,16 @@ public class PhysicalBehaviorTest {
     Node node = new Node("My node");
     Actor a = new Actor();
     a.set("node", node);
+    
+    b.setActor(a);
 
-
-    b.perform(a, 0.1f);
+    b.perform(0.1f);
 
     assertEquals(location, a.get(Node.class, "node").getWorldTranslation());
 
     // Multiple frames don't send it careening off.
-    b.perform(a, 0.1f);
-    b.perform(a, 0.1f);
+    b.perform(0.1f);
+    b.perform(0.1f);
 
     assertEquals(location, a.get(Node.class, "node").getWorldTranslation());
   }

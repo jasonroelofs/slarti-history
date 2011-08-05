@@ -32,7 +32,8 @@ public class InputBehaviorTest {
     InputSystem system = mock(InputSystem.class);
     Actor a = new Actor();
 
-    b.initialize(a, system, settings);
+    b.setActor(a);
+    b.initialize(system, settings);
 
     verify(system).mapInputToActor(mapping, a);
   }

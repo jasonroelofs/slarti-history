@@ -12,6 +12,8 @@ public abstract class Behavior {
 
   protected boolean initialized = false;
 
+  protected Actor actor;
+
   /**
    * Per-frame call on every Behavior in the system.
    * This method is where all update logic should be put.
@@ -20,7 +22,7 @@ public abstract class Behavior {
    *
    * @param delta Time since the last frame
    */
-  public void perform(Actor actor, float delta) { }
+  public void perform(float delta) { }
 
   /**
    * Check to see if this Behavior has been initialized.
@@ -33,10 +35,17 @@ public abstract class Behavior {
    * Initialize this Behavior. The implementation of this
    * method is responsible for setting initialize = true
    *
-   * @param actor The actor this behavior is acting on
    * @param params A list of any needed params to pass in.
    */
-  public void initialize(Actor actor, Object ... params) {
+  public void initialize(Object ... params) {
 
+  }
+
+  public Actor getActor() {
+    return actor;
+  }
+
+  public void setActor(Actor a) {
+    actor = a;
   }
 }

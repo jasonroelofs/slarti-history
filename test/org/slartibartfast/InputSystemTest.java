@@ -4,7 +4,6 @@ import org.junit.Before;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.AnalogListener;
-import java.lang.reflect.Field;
 import com.jme3.input.controls.ActionListener;
 import java.util.List;
 import com.jme3.input.InputManager;

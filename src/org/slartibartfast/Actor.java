@@ -17,16 +17,33 @@ import java.util.Map;
  */
 public class Actor {
 
-  Map<Class, Behavior> behaviors;
+  private Map<Class, Behavior> behaviors;
 
-  Map<String, Object> data;
+  private Map<String, Object> data;
 
   /**
    * All actors have a unique id in the system
    */
   private long id;
 
+  private final BehaviorController behaviorController;
+
+  /**
+   * Build a skeleton Actor. In most cases you'll want
+   * the next constructor taking a BehaviorController.
+   */
   public Actor() {
+    this(null);
+  }
+
+  /**
+   * Create a new Actor with a link to the current scene's
+   * behavior controller, allowing registration with the
+   * update loop.
+   * @param controller
+   */
+  public Actor(BehaviorController controller) {
+    behaviorController = controller;
     behaviors = new HashMap<Class, Behavior>();
     data = new HashMap<String, Object>();
   }
@@ -37,6 +54,12 @@ public class Actor {
    */
   public void useBehavior(Behavior b) {
     behaviors.put(b.getClass(), b);
+    
+    b.setActor(this);
+
+    if(behaviorController != null) {
+      behaviorController.registerBehavior(b);
+    }
   }
 
   /**
@@ -55,7 +78,11 @@ public class Actor {
    *               have the requested Behavior this request is ignored.
    */
   public void removeBehavior(Class klass) {
-    behaviors.remove(klass);
+    Behavior b = behaviors.remove(klass);
+
+    if(behaviorController != null) {
+      behaviorController.unregisterBehavior(b);
+    }
   }
 
   /**
@@ -108,5 +135,9 @@ public class Actor {
       list.add(e.getValue());
     }
     return list;
+  }
+
+  public BehaviorController getBehaviorController() {
+    return behaviorController;
   }
 }

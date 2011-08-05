@@ -23,7 +23,7 @@ public class VisualBehavior extends Behavior {
   }
 
   @Override
-  public void initialize(Actor actor, Object ... params) {
+  public void initialize(Object ... params) {
     AssetManager assetManager = (AssetManager)params[0];
 
     Geometry newSpatial = (Geometry) assetManager.loadModel(modelPath);

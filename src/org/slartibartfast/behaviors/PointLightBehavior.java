@@ -29,13 +29,13 @@ public class PointLightBehavior extends LightBehavior {
   }
 
   @Override
-  public void perform(Actor actor, float delta) {
+  public void perform(float delta) {
     PhysicalBehavior b = actor.getBehavior(PhysicalBehavior.class);
     light.setPosition(b.getLocation());
   }
 
   @Override
-  public void initialize(Actor actor, Object ... params) {
+  public void initialize(Object ... params) {
     light = new PointLight();
     light.setRadius(radius);
     light.setColor(color);

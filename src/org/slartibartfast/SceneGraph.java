@@ -5,10 +5,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
 import java.util.List;
-import org.slartibartfast.behaviors.InputBehavior;
-import org.slartibartfast.behaviors.LightBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
-import org.slartibartfast.behaviors.VisualBehavior;
 
 /**
  * A SceneGraph handles a localized set of Actors in a given
@@ -26,6 +23,8 @@ public class SceneGraph {
 
   private List<Actor> actors;
 
+  private BehaviorController behaviorController;
+
   /**
    * Construct a new SceneGraph rooted on the passed in node.
    */
@@ -41,7 +40,7 @@ public class SceneGraph {
    * @return Actor
    */
   public Actor createActor() {
-    Actor a = new Actor();
+    Actor a = new Actor(behaviorController);
     a.setId(getNextId());
 
     Node actorNode = new Node();
@@ -76,35 +75,10 @@ public class SceneGraph {
   /**
    * Per-frame update
    *
-   * TODO: Refactoring this logic out to separate behavior management
-   * steps.
-   * The scene graph shouldn't care about what type of behavior, nor
-   * behavior initialization.
-   *
-   * @param delta
+   * @param delta Time since last frame
    */
   public void update(float delta) {
-    for(Actor a : actors) {
-      for(Behavior b: a.getBehaviors()) {
-        if(!b.isInitialized()) {
-          if(b instanceof VisualBehavior) {
-            b.initialize(a, assetManager);
-          } else if (b instanceof LightBehavior) {
-            b.initialize(a);
-          }
-        }
-
-
-        b.perform(a, delta);
-      }
-    }
-
-    // Current thinking:
-    // - Pull all behaviors into lists of like behavior types
-    // - Send each list to a handler which knows how to update that
-    //   type of behavior
-    // - Do these lists get build every frame or do we cache them?
-    //   ( build every frame and change if we need better performance )
+    behaviorController.update(delta);
   }
 
   private long getNextId() {
@@ -113,5 +87,9 @@ public class SceneGraph {
 
   public void setAssetManager(AssetManager assetManager) {
     this.assetManager = assetManager;
+  }
+
+  public void setBehaviorController(BehaviorController behaviorController) {
+    this.behaviorController = behaviorController;
   }
 }
