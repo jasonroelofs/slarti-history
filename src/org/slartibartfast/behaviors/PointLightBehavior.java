@@ -3,7 +3,6 @@ package org.slartibartfast.behaviors;
 import com.jme3.light.PointLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Node;
-import org.slartibartfast.Actor;
 
 /**
  * Makes the actor act as a point light.

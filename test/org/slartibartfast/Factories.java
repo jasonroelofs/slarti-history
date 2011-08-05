@@ -1,7 +1,10 @@
 package org.slartibartfast;
 
+import com.jme3.input.InputManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
+
+import static org.mockito.Mockito.*;
 
 public class Factories {
 
@@ -15,6 +18,10 @@ public class Factories {
 
   public static Actor createActor(Vector3f position) {
     return createSceneGraph().createActor(position);
+  }
+
+  static InputSystem createInputSystem() {
+    return new InputSystem(mock(InputManager.class));
   }
 
 }

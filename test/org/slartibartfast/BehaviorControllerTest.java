@@ -1,11 +1,24 @@
 package org.slartibartfast;
 
+import org.slartibartfast.behaviors.PointLightBehavior;
+import com.jme3.math.Vector3f;
+import org.slartibartfast.behaviors.InputBehavior;
 import org.junit.Before;
 import org.junit.Test;
+import org.slartibartfast.behaviors.DirectionalLightBehavior;
+import org.slartibartfast.behaviors.PhysicalBehavior;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class BehaviorControllerTest {
+
+  class TestBehavior extends Behavior {
+    public float delta = 0.0f;
+
+    @Override
+    public void perform(float delta) {
+      this.delta = delta;
+    }
+  }
 
   BehaviorController controller;
 
@@ -15,27 +28,132 @@ public class BehaviorControllerTest {
   }
 
   @Test
-  public void canRegisterAndUnregisterBehaviorForInitAndUpdate() {
-    Behavior b1 = mock(Behavior.class);
-    Behavior b2 = mock(Behavior.class);
+  public void initializesBehaviorsItReceives() {
+    PhysicalBehavior b1 = new PhysicalBehavior();
+    PhysicalBehavior b2 = new PhysicalBehavior();
 
     controller.registerBehavior(b1);
     controller.registerBehavior(b2);
 
-    verify(b1).initialize(anyVararg());
-    verify(b2).initialize(anyVararg());
+    assertTrue(b1.isInitialized());
+    assertTrue(b2.isInitialized());
+  }
+
+  @Test
+  public void registeredBehaviorsGetUpdated() {
+    TestBehavior b = new TestBehavior();
+    controller.registerBehavior(b);
 
     controller.update(1.0f);
 
-    // Remove b2
-    controller.unregisterBehavior(b2);
+    assertEquals(1.0f, b.delta, 0.01f);
+  }
 
-    // Run update again, see that b2 doesn't get another update
+  @Test
+  public void unregisteredBehaviorsStopUpdating() {
+    TestBehavior b1 = new TestBehavior();
+    TestBehavior b2 = new TestBehavior();
+
+    controller.registerBehavior(b1);
+    controller.registerBehavior(b2);
+
     controller.update(1.0f);
 
-    verify(b1, atMost(2)).perform(eq(1.0f));
-    verify(b2, atMost(1)).perform(eq(1.0f));
+    controller.unregisterBehavior(b1);
 
+    controller.update(2.0f);
+
+    assertEquals(1.0f, b1.delta, 0.01f);
+    assertEquals(2.0f, b2.delta, 0.01f);
+  }
+
+  /**
+   * Specific Behavior Initialization
+   *
+   * For any behavior that needs special initialization
+   * add a test and appropriate handler
+   */
+
+  /**
+   * Input
+   */
+
+  class TestInputBehavior extends InputBehavior {
+    public InputSystem system;
+    public UserSettings settings;
+
+    public TestInputBehavior(String scope) {
+      super(scope);
+    }
+
+    @Override
+    public void initialize(Object ... params) {
+      this.system = (InputSystem)params[0];
+      this.settings = (UserSettings)params[1];
+    }
+  }
+
+  @Test
+  public void handlesInputBehaviors() {
+    TestInputBehavior b = new TestInputBehavior("scope");
+    InputSystem input = Factories.createInputSystem();
+    UserSettings settings = new UserSettings();
+
+    controller.setInputSystem(input);
+    controller.setUserSettings(settings);
+
+    controller.registerBehavior(b);
+
+    assertEquals(input, b.system);
+    assertEquals(settings, b.settings);
+  }
+
+  /**
+   * Directional Light
+   */
+
+  class TestDirLightBehavior extends DirectionalLightBehavior {
+    public TestDirLightBehavior(Vector3f dir) {
+      super(dir);
+    }
+
+    @Override
+    public void initialize(Object ... params) {
+      initialized = true;
+    }
+  }
+
+  @Test
+  public void handlesDirectionalLightBehaviors() {
+    TestDirLightBehavior b = new TestDirLightBehavior(Vector3f.ZERO);
+
+    controller.registerBehavior(b);
+
+    assertTrue(b.isInitialized());
+  }
+
+  /**
+   * Point Light
+   */
+
+  class TestPointLightBehavior extends PointLightBehavior {
+    public TestPointLightBehavior(float radius) {
+      super(radius);
+    }
+
+    @Override
+    public void initialize(Object ... params) {
+      initialized = true;
+    }
+  }
+
+  @Test
+  public void handlesPointLightBehaviors() {
+    TestPointLightBehavior b = new TestPointLightBehavior(1.0f);
+
+    controller.registerBehavior(b);
+
+    assertTrue(b.isInitialized());
   }
 
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.slartibartfast.behaviors.InputBehavior;
 
 /**
  * This class takes care of managing all Behaviors in a system.
@@ -13,8 +14,19 @@ public class BehaviorController {
 
   private Map<Class, List<Behavior>> behaviors;
 
+  private InputSystem inputSystem;
+  private UserSettings userSettings;
+
   public BehaviorController() {
     behaviors = new HashMap<Class, List<Behavior>>();
+  }
+
+  public void setInputSystem(InputSystem system) {
+    this.inputSystem = system;
+  }
+
+  public void setUserSettings(UserSettings settings) {
+    this.userSettings = settings;
   }
 
   /**
@@ -62,6 +74,11 @@ public class BehaviorController {
 
   // Generic catch-all initializer
   private void initializeBehavior(Behavior b) {
-    b.initialize();
+    if(b instanceof InputBehavior) {
+      b.initialize(inputSystem, userSettings);
+    } else {
+      b.initialize();
+    }
   }
+
 }

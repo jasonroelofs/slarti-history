@@ -4,7 +4,6 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
-import org.slartibartfast.Actor;
 
 /**
  * Any actor given this behavior gives off a uniform directional
