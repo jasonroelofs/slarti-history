@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import com.jme3.asset.AssetManager;
 import org.slartibartfast.behaviors.PointLightBehavior;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.InputBehavior;
@@ -7,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
+import org.slartibartfast.behaviors.VisualBehavior;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class BehaviorControllerTest {
 
@@ -87,9 +90,9 @@ public class BehaviorControllerTest {
     }
 
     @Override
-    public void initialize(Object ... params) {
-      this.system = (InputSystem)params[0];
-      this.settings = (UserSettings)params[1];
+    public void initialize(InputSystem system, UserSettings settings) {
+      this.system = system;
+      this.settings = settings;
     }
   }
 
@@ -118,7 +121,7 @@ public class BehaviorControllerTest {
     }
 
     @Override
-    public void initialize(Object ... params) {
+    public void initialize() {
       initialized = true;
     }
   }
@@ -142,7 +145,7 @@ public class BehaviorControllerTest {
     }
 
     @Override
-    public void initialize(Object ... params) {
+    public void initialize() {
       initialized = true;
     }
   }
@@ -156,4 +159,30 @@ public class BehaviorControllerTest {
     assertTrue(b.isInitialized());
   }
 
+  /**
+   * Visual
+   */
+  class TestVisualBehavior extends VisualBehavior {
+    public AssetManager manager;
+
+    public TestVisualBehavior(String a, String b) {
+      super(a, b);
+    }
+
+    public void initialize(AssetManager manager) {
+      this.manager = manager;
+    }
+  }
+
+  @Test
+  public void handlesVisualBehaviors() {
+    TestVisualBehavior b = new TestVisualBehavior("a", "b");
+    AssetManager manager = mock(AssetManager.class);
+
+    controller.setAssetManager(manager);
+
+    controller.registerBehavior(b);
+
+    assertEquals(manager, b.manager);
+  }
 }

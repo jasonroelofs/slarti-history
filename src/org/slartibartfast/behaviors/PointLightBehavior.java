@@ -34,13 +34,13 @@ public class PointLightBehavior extends LightBehavior {
   }
 
   @Override
-  public void initialize(Object ... params) {
+  public void initialize() {
     light = new PointLight();
     light.setRadius(radius);
     light.setColor(color);
     actor.get(Node.class, "node").getParent().addLight(light);
 
-    initialized = true;
+    super.initialize();
   }
 
   public PointLight getLight() {

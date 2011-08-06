@@ -22,10 +22,7 @@ public class VisualBehavior extends Behavior {
     this.materialPath = materialPath;
   }
 
-  @Override
-  public void initialize(Object ... params) {
-    AssetManager assetManager = (AssetManager)params[0];
-
+  public void initialize(AssetManager assetManager) {
     Geometry newSpatial = (Geometry) assetManager.loadModel(modelPath);
     TangentBinormalGenerator.generate(newSpatial.getMesh(), true);
 
@@ -34,6 +31,6 @@ public class VisualBehavior extends Behavior {
 
     actor.get(Node.class, "node").attachChild(newSpatial);
 
-    initialized = true;
+    initialize();
   }
 }

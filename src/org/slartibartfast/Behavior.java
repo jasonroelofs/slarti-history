@@ -37,7 +37,7 @@ public abstract class Behavior {
    *
    * @param params A list of any needed params to pass in.
    */
-  public void initialize(Object ... params) {
+  public void initialize() {
     initialized = true;
   }
 

@@ -24,12 +24,12 @@ public class DirectionalLightBehavior extends LightBehavior {
   }
 
   @Override
-  public void initialize(Object ... params) {
+  public void initialize() {
     DirectionalLight light = new DirectionalLight();
     light.setDirection(direction);
     light.setColor(ColorRGBA.White);
     actor.get(Node.class, "node").getParent().addLight(light);
 
-    initialized = true;
+    super.initialize();
   }
 }

@@ -1,10 +1,12 @@
 package org.slartibartfast;
 
+import com.jme3.asset.AssetManager;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.slartibartfast.behaviors.InputBehavior;
+import org.slartibartfast.behaviors.VisualBehavior;
 
 /**
  * This class takes care of managing all Behaviors in a system.
@@ -16,6 +18,7 @@ public class BehaviorController {
 
   private InputSystem inputSystem;
   private UserSettings userSettings;
+  private AssetManager assetManager;
 
   public BehaviorController() {
     behaviors = new HashMap<Class, List<Behavior>>();
@@ -27,6 +30,10 @@ public class BehaviorController {
 
   public void setUserSettings(UserSettings settings) {
     this.userSettings = settings;
+  }
+
+  public void setAssetManager(AssetManager manager) {
+    this.assetManager = manager;
   }
 
   /**
@@ -75,10 +82,13 @@ public class BehaviorController {
   // Generic catch-all initializer
   private void initializeBehavior(Behavior b) {
     if(b instanceof InputBehavior) {
-      b.initialize(inputSystem, userSettings);
+      ((InputBehavior)b).initialize(inputSystem, userSettings);
+    } else if(b instanceof VisualBehavior) {
+      ((VisualBehavior)b).initialize(assetManager);
     } else {
       b.initialize();
     }
   }
+
 
 }
