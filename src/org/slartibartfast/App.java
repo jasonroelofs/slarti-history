@@ -16,16 +16,23 @@ public class App extends SimpleApplication {
 
   private SceneGraph sceneManager;
   private InputSystem inputSystem;
+  private BehaviorController behaviorController;
 
   @Override
   public void simpleInitApp() {
     sceneManager = new SceneGraph(getRootNode());
     sceneManager.setAssetManager(getAssetManager());
-    sceneManager.setBehaviorController(new BehaviorController());
 
     inputSystem = new InputSystem(getInputManager());
 
     UserSettings userSettings = new UserSettings();
+
+    behaviorController = new BehaviorController();
+    behaviorController.setAssetManager(assetManager);
+    behaviorController.setInputSystem(inputSystem);
+    behaviorController.setUserSettings(userSettings);
+
+    sceneManager.setBehaviorController(behaviorController);
 
     /**
      *  Init the player.
@@ -46,7 +53,11 @@ public class App extends SimpleApplication {
     createTeapot(new Vector3f(-1.0f, 0.0f, -1.0f));
     createTeapot(new Vector3f(1.0f, 0.0f, -1.0f));
     createTeapot(new Vector3f(0.0f, -1.0f, -1.0f));
-    createTeapot(new Vector3f(0.0f, 1.0f, -1.0f));
+    Actor teapot2 = createTeapot(new Vector3f(0.0f, 1.0f, -1.0f));
+
+    teapot.useBehavior(new InputBehavior("lightMover"));
+    teapot2.useBehavior(new InputBehavior("lightMover"));
+
 
 //    Actor sun = sceneManager.createActor();
 //    sun.useBehavior(new DirectionalLightBehavior(
@@ -57,12 +68,6 @@ public class App extends SimpleApplication {
 
     Actor blue = sceneManager.createActor(new Vector3f(0.0f, 0.0f, 2.0f));
     blue.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Blue));
-
-    InputBehavior b = new InputBehavior("lightMover");
-    teapot.useBehavior(b);
-
-    // Hack initialize
-    b.initialize(inputSystem, userSettings);
 
     Actor red = sceneManager.createActor(new Vector3f(-3.0f, 0.0f, 2.0f));
     red.useBehavior(new PointLightBehavior(6.0f, ColorRGBA.Red));
