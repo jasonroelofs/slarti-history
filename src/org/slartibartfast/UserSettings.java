@@ -2,6 +2,8 @@ package org.slartibartfast;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.slartibartfast.dataProviders.DataResults;
 import org.slartibartfast.dataProviders.IDataProvider;
 
@@ -10,6 +12,7 @@ import org.slartibartfast.dataProviders.IDataProvider;
  * all key mappings.
  */
 public class UserSettings {
+  private static final Logger logger = Logger.getLogger(UserSettings.class.getName());
 
   private Map<String, UserKeyMapping> keyMappingsByScope;
   private IDataProvider provider;
@@ -39,6 +42,13 @@ public class UserSettings {
       mapping.put(Events.get(
               (String)map.get("event")),
               (String)map.get("key"));
+
+      logger.log(Level.INFO, "Found kep mapping: {0} / {1} => {2}",
+              new Object[]{
+                map.get("scope"),
+                map.get("key"),
+                map.get("event")
+              });
     }
   }
 

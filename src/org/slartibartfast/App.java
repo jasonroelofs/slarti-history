@@ -98,6 +98,12 @@ public class App extends SimpleApplication {
     sceneManager.update(delta);
   }
 
+  @Override
+  public void stop(boolean waitFor) {
+    dataProvider.shutdown();
+    super.stop(waitFor);
+  }
+
   public static void main(String[] args) {
     App app = new App();
     app.start();

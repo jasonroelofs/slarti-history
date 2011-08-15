@@ -22,4 +22,6 @@ public interface IDataProvider {
    */
   public DataResults getAll(String collectionName);
 
+  public void shutdown();
+
 }
