@@ -26,8 +26,8 @@ public class InputBehaviorTest {
     UserKeyMapping mapping = new UserKeyMapping();
     mapping.put(Events.MoveUp, "Key");
 
-    UserSettings settings = new UserSettings();
-    settings.setKeyMap("scope", mapping);
+    UserSettings settings = mock(UserSettings.class);
+    when(settings.getKeyMap("scope")).thenReturn(mapping);
 
     InputSystem system = mock(InputSystem.class);
     Actor a = new Actor();

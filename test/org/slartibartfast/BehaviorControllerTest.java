@@ -100,7 +100,7 @@ public class BehaviorControllerTest {
   public void handlesInputBehaviors() {
     TestInputBehavior b = new TestInputBehavior("scope");
     InputSystem input = Factories.createInputSystem();
-    UserSettings settings = new UserSettings();
+    UserSettings settings = mock(UserSettings.class);
 
     controller.setInputSystem(input);
     controller.setUserSettings(settings);
