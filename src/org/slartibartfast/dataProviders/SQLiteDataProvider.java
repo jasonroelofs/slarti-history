@@ -80,6 +80,9 @@ public class SQLiteDataProvider implements IDataProvider {
 
 
   private File getDbFile(String dbName) throws IOException {
+    // TODO Make this work on Windows. user.home is horri-bad broke there
+    // Possible solution is System.getEnv("APPDATA"), but that's
+    // only on Vista and 7 and doesn't always exist anyway
     String userHome = System.getProperty("user.home");
     File savePath = new File(userHome, ".slartibartfast");
     if(!savePath.exists()) {
