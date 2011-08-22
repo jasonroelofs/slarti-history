@@ -26,7 +26,7 @@ public class DirectionalLightBehaviorTest {
     Node node = new Node("Parent Node");
     Node child = new Node("childNode");
     node.attachChild(child);
-    a.set("node", child);
+    a.setNode(child);
 
     b.setActor(a);
     b.initialize();

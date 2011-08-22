@@ -38,7 +38,7 @@ public class PointLightBehavior extends LightBehavior {
     light = new PointLight();
     light.setRadius(radius);
     light.setColor(color);
-    actor.get(Node.class, "node").getParent().addLight(light);
+    actor.getNode().getParent().addLight(light);
 
     super.initialize();
   }

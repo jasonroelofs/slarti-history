@@ -19,8 +19,6 @@ public class Actor {
 
   private Map<Class, Behavior> behaviors;
 
-  private Map<String, Object> data;
-
   /**
    * All actors have a unique id in the system
    */
@@ -95,27 +93,6 @@ public class Actor {
    */
   public <T> T getBehavior(Class<T> klass) {
     return (T) behaviors.get(klass);
-  }
-
-  /**
-   * Get a piece of data out of the Actor's blob storage
-   *
-   * @param dataClass - The class of the data you're trying to get
-   * @param dataKey - The key in which the data is stored
-   * @return
-   */
-  public <T> T get(Class<T> dataClass, String dataKey) {
-    return (T)data.get(dataKey);
-  }
-
-  /**
-   * Set data of a random type into the Actor's blob
-   *
-   * @param key The key to save the data in
-   * @param dataObj The object to be saved
-   */
-  public <T> void set(String key, T dataObj) {
-    data.put(key, dataObj);
   }
 
   public Node getNode() {

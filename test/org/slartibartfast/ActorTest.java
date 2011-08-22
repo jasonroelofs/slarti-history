@@ -97,21 +97,4 @@ public class ActorTest {
     assertEquals(2, list.size());
   }
 
-  @Test
-  public void canGetAndSetDataSavedOnActor() {
-    assertNull(actor.get(String.class, "someStringValue"));
-
-    actor.set("someStringValue", "This is a string thing");
-
-    assertEquals("This is a string thing", actor.get(String.class, "someStringValue"));
-  }
-
-  @Test
-  public void handlesMultipleDifferentTypesInBlob() {
-    actor.set("integer", new Integer(14));
-    actor.set("string", "Some string here");
-
-    assertEquals(14, actor.get(Integer.class, "integer").intValue());
-    assertEquals("Some string here", actor.get(String.class, "string"));
-  }
 }

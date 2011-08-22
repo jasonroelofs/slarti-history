@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 
 public class SQLiteDataProvider implements IDataProvider {
   private static final Logger logger = Logger.getLogger(SQLiteDataProvider.class.getName());
+
   private SQLiteQueue queue;
 
   @Override

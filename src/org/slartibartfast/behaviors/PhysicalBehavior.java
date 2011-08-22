@@ -29,7 +29,7 @@ public class PhysicalBehavior extends Behavior {
 
   @Override
   public void perform(float delta) {
-    Node node = actor.get(Node.class, "node");
+    Node node = actor.getNode();
     node.move(this.location.add(node.getWorldTranslation().negate()));
   }
 

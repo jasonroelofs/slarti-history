@@ -28,7 +28,7 @@ public class DirectionalLightBehavior extends LightBehavior {
     DirectionalLight light = new DirectionalLight();
     light.setDirection(direction);
     light.setColor(ColorRGBA.White);
-    actor.get(Node.class, "node").getParent().addLight(light);
+    actor.getNode().getParent().addLight(light);
 
     super.initialize();
   }

@@ -4,6 +4,7 @@ import org.slartibartfast.Actor;
 import com.jme3.scene.Node;
 import com.jme3.math.Vector3f;
 import org.junit.Test;
+import org.slartibartfast.Factories;
 import static org.junit.Assert.*;
 
 public class PhysicalBehaviorTest {
@@ -32,20 +33,17 @@ public class PhysicalBehaviorTest {
     Vector3f location = new Vector3f(1.0f, 3.0f, 10.0f);
     b.setLocation(location);
 
-    Node node = new Node("My node");
-    Actor a = new Actor();
-    a.set("node", node);
-    
+    Actor a = Factories.createActor();
     b.setActor(a);
 
     b.perform(0.1f);
 
-    assertEquals(location, a.get(Node.class, "node").getWorldTranslation());
+    assertEquals(location, a.getNode().getWorldTranslation());
 
     // Multiple frames don't send it careening off.
     b.perform(0.1f);
     b.perform(0.1f);
 
-    assertEquals(location, a.get(Node.class, "node").getWorldTranslation());
+    assertEquals(location, a.getNode().getWorldTranslation());
   }
 }

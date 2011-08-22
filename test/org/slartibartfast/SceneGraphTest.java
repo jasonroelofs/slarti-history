@@ -76,8 +76,8 @@ public class SceneGraphTest {
 
     Actor a = graph.createActor();
 
-    assertNotNull(a.get(Node.class, "node"));
-    assertEquals(root, a.get(Node.class, "node").getParent());
+    assertNotNull(a.getNode());
+    assertEquals(root, a.getNode().getParent());
   }
 
   @Test
