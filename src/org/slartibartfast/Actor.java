@@ -46,7 +46,6 @@ public class Actor {
   public Actor(BehaviorController controller) {
     behaviorController = controller;
     behaviors = new HashMap<Class, Behavior>();
-    data = new HashMap<String, Object>();
   }
 
   /**
