@@ -1,7 +1,9 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.scene.Geometry;
 import org.slartibartfast.Behavior;
-import org.slartibartfast.dataProviders.IDataProvider;
+import org.slartibartfast.Construct;
+import org.slartibartfast.ConstructFactory;
 
 /**
  * Adding this behavior to an Actor will cause the system
@@ -17,7 +19,11 @@ public class ConstructBehavior extends Behavior {
     this.constructName = constructName;
   }
 
-  public void initialize(IDataProvider dataProvider) {
+  public void initialize(ConstructFactory factory) {
+    Construct construct = factory.getConstruct(constructName);
+    Geometry geo = construct.getGeometry();
+
+    actor.getNode().attachChild(geo);
 
     initialize();
   }

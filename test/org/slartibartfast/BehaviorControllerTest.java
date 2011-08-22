@@ -192,26 +192,26 @@ public class BehaviorControllerTest {
    * Constructs
    */
   class TestConstructBehavior extends ConstructBehavior {
-    public IDataProvider data;
+    public ConstructFactory factory;
 
     public TestConstructBehavior(String constructName) {
       super(constructName);
     }
 
-    public void initialize(IDataProvider data) {
-      this.data = data;
+    public void initialize(ConstructFactory f) {
+      this.factory = f;
     }
   }
 
   @Test
   public void handlesConstructBehaviors() {
     TestConstructBehavior b = new TestConstructBehavior("conName");
-    IDataProvider data = mock(IDataProvider.class);
+    ConstructFactory factory = mock(ConstructFactory.class);
 
-    controller.setConstructProvider(data);
+    controller.setConstructFactory(factory);
 
     controller.registerBehavior(b);
 
-    assertEquals(data, b.data);
+    assertEquals(factory, b.factory);
   }
 }

@@ -22,7 +22,6 @@ public class App extends SimpleApplication {
   private InputSystem inputSystem;
   private BehaviorController behaviorController;
   private IDataProvider dataProvider;
-  private IDataProvider constructProvider;
 
   @Override
   public void simpleInitApp() {
@@ -34,13 +33,13 @@ public class App extends SimpleApplication {
     dataProvider = new SQLiteDataProvider();
     UserSettings userSettings = new UserSettings(dataProvider);
 
-    constructProvider = new SQLiteDataProvider();
-
+    // TODO This is starting to feel verbose
     behaviorController = new BehaviorController();
     behaviorController.setAssetManager(assetManager);
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);
-    behaviorController.setConstructProvider(constructProvider);
+    behaviorController.setDataProvider(dataProvider);
+    behaviorController.setConstructFactory(new ConstructFactory());
 
     sceneManager.setBehaviorController(behaviorController);
 

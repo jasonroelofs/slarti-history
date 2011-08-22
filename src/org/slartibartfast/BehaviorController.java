@@ -21,7 +21,8 @@ public class BehaviorController {
   private InputSystem inputSystem;
   private UserSettings userSettings;
   private AssetManager assetManager;
-  private IDataProvider constructProvider;
+  private IDataProvider dataProvider;
+  private ConstructFactory constructFactory;
 
   public BehaviorController() {
     behaviors = new HashMap<Class, List<Behavior>>();
@@ -39,8 +40,12 @@ public class BehaviorController {
     this.assetManager = manager;
   }
 
-  public void setConstructProvider(IDataProvider data) {
-    this.constructProvider = data;
+  public void setDataProvider(IDataProvider data) {
+    this.dataProvider = data;
+  }
+
+  public void setConstructFactory(ConstructFactory factory) {
+    this.constructFactory = factory;
   }
 
   /**
@@ -91,11 +96,12 @@ public class BehaviorController {
     } else if(b instanceof VisualBehavior) {
       ((VisualBehavior)b).initialize(assetManager);
     } else if(b instanceof ConstructBehavior) {
-      ((ConstructBehavior)b).initialize(constructProvider);
+      ((ConstructBehavior)b).initialize(constructFactory);
     } else {
       b.initialize();
     }
   }
+
 
 
 }
