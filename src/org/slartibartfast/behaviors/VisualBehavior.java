@@ -29,7 +29,7 @@ public class VisualBehavior extends Behavior {
     Material mat = assetManager.loadMaterial(materialPath);
     newSpatial.setMaterial(mat);
 
-    actor.get(Node.class, "node").attachChild(newSpatial);
+    actor.getNode().attachChild(newSpatial);
 
     initialize();
   }

@@ -28,6 +28,9 @@ public class Actor {
 
   private final BehaviorController behaviorController;
 
+  /** All actors have a node that hooks them into the scene */
+  private Node node;
+
   /**
    * Build a skeleton Actor. In most cases you'll want
    * the next constructor taking a BehaviorController.
@@ -54,7 +57,7 @@ public class Actor {
    */
   public void useBehavior(Behavior b) {
     behaviors.put(b.getClass(), b);
-    
+
     b.setActor(this);
 
     if(behaviorController != null) {
@@ -113,6 +116,14 @@ public class Actor {
    */
   public <T> void set(String key, T dataObj) {
     data.put(key, dataObj);
+  }
+
+  public Node getNode() {
+    return this.node;
+  }
+
+  public void setNode(Node node) {
+    this.node = node;
   }
 
   /**

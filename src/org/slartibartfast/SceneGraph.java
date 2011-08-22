@@ -45,7 +45,7 @@ public class SceneGraph {
 
     Node actorNode = new Node();
     rootNode.attachChild(actorNode);
-    a.set("node", actorNode);
+    a.setNode(actorNode);
 
     actors.add(a);
 
