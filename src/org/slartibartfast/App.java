@@ -8,6 +8,7 @@ import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import com.jme3.app.SimpleApplication;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 import org.slartibartfast.dataProviders.SQLiteDataProvider;
 
@@ -21,6 +22,7 @@ public class App extends SimpleApplication {
   private InputSystem inputSystem;
   private BehaviorController behaviorController;
   private IDataProvider dataProvider;
+  private IDataProvider constructProvider;
 
   @Override
   public void simpleInitApp() {
@@ -32,12 +34,21 @@ public class App extends SimpleApplication {
     dataProvider = new SQLiteDataProvider();
     UserSettings userSettings = new UserSettings(dataProvider);
 
+    constructProvider = new SQLiteDataProvider();
+
     behaviorController = new BehaviorController();
     behaviorController.setAssetManager(assetManager);
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);
+    behaviorController.setConstructProvider(constructProvider);
 
     sceneManager.setBehaviorController(behaviorController);
+
+    /**
+     * Load up station definition from sqlite
+     */
+    Actor station = sceneManager.createActor();
+    station.useBehavior(new ConstructBehavior("defaultStation"));
 
     /**
      *  Init the player.

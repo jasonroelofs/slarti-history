@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.behaviors.ConstructBehavior;
 import com.jme3.asset.AssetManager;
 import org.slartibartfast.behaviors.PointLightBehavior;
 import com.jme3.math.Vector3f;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
+import org.slartibartfast.dataProviders.IDataProvider;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -184,5 +186,32 @@ public class BehaviorControllerTest {
     controller.registerBehavior(b);
 
     assertEquals(manager, b.manager);
+  }
+
+  /**
+   * Constructs
+   */
+  class TestConstructBehavior extends ConstructBehavior {
+    public IDataProvider data;
+
+    public TestConstructBehavior(String constructName) {
+      super(constructName);
+    }
+
+    public void initialize(IDataProvider data) {
+      this.data = data;
+    }
+  }
+
+  @Test
+  public void handlesConstructBehaviors() {
+    TestConstructBehavior b = new TestConstructBehavior("conName");
+    IDataProvider data = mock(IDataProvider.class);
+
+    controller.setConstructProvider(data);
+
+    controller.registerBehavior(b);
+
+    assertEquals(data, b.data);
   }
 }
