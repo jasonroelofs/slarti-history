@@ -21,9 +21,7 @@ public class ConstructBehavior extends Behavior {
 
   public void initialize(ConstructFactory factory) {
     Construct construct = factory.getConstruct(constructName);
-    Geometry geo = construct.getGeometry();
-
-    actor.getNode().attachChild(geo);
+    construct.attachTo(actor.getNode());
 
     initialize();
   }

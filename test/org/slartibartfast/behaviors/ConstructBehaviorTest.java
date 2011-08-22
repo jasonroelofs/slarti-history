@@ -1,6 +1,5 @@
 package org.slartibartfast.behaviors;
 
-import org.slartibartfast.Actor;
 import com.jme3.scene.Node;
 import org.slartibartfast.Construct;
 import org.junit.Test;
@@ -23,11 +22,20 @@ public class ConstructBehaviorTest {
     ConstructBehavior b = new ConstructBehavior("constructName");
   }
 
+  class TestConstruct extends Construct {
+    public Node node;
+
+    @Override
+    public void attachTo(Node node) {
+      this.node = node;
+    }
+  }
+
   @Test
   public void initializesItselfWithFactory() {
     ConstructFactory factory = mock(ConstructFactory.class);
     ConstructBehavior b = new ConstructBehavior("constructName");
-    Construct con = new Construct();
+    TestConstruct con = new TestConstruct();
 
     b.setActor(Factories.createActor());
 
@@ -35,6 +43,6 @@ public class ConstructBehaviorTest {
 
     b.initialize(factory);
 
-    assertEquals(1, b.getActor().getNode().getChildren().size());
+    assertEquals(b.getActor().getNode(), con.node);
   }
 }
