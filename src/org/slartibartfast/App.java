@@ -39,7 +39,7 @@ public class App extends SimpleApplication {
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);
     behaviorController.setDataProvider(dataProvider);
-    behaviorController.setConstructFactory(new ConstructFactory());
+    behaviorController.setConstructFactory(new ConstructFactory(new ConstructDataProvider()));
 
     sceneManager.setBehaviorController(behaviorController);
 
