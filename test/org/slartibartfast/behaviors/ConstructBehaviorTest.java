@@ -25,6 +25,10 @@ public class ConstructBehaviorTest {
   class TestConstruct extends Construct {
     public Node node;
 
+    public TestConstruct(String name, Node root) {
+      super(name, root);
+    }
+
     @Override
     public void attachTo(Node node) {
       this.node = node;
@@ -35,7 +39,7 @@ public class ConstructBehaviorTest {
   public void initializesItselfWithFactory() {
     ConstructFactory factory = mock(ConstructFactory.class);
     ConstructBehavior b = new ConstructBehavior("constructName");
-    TestConstruct con = new TestConstruct();
+    TestConstruct con = new TestConstruct("", new Node());
 
     b.setActor(Factories.createActor());
 
