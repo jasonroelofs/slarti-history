@@ -1,7 +1,10 @@
 package org.slartibartfast;
 
+import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.shape.Box;
 import java.util.HashMap;
 import org.slartibartfast.dataProviders.DataResults;
 
@@ -11,9 +14,11 @@ import org.slartibartfast.dataProviders.DataResults;
  */
 public class ConstructFactory {
 
-  private final ConstructDataProvider dataProvider;
+  private ConstructDataProvider dataProvider;
+  private AssetManager assetManager;
 
-  public ConstructFactory(ConstructDataProvider dataProvider) {
+  public ConstructFactory(ConstructDataProvider dataProvider, AssetManager manager) {
+    this.assetManager = manager;
     this.dataProvider = dataProvider;
   }
 
@@ -35,6 +40,7 @@ public class ConstructFactory {
     int sectionNum = 0;
     Vector3f startPoint, endPoint;
     String material;
+    Geometry geo;
 
     for(HashMap<String, Object> map : data.parts) {
       current = new Node(constructNode.getName() + "_section_" + sectionNum);
@@ -42,6 +48,10 @@ public class ConstructFactory {
       startPoint = DataResults.parseVector(map.get("start_point"));
       endPoint = DataResults.parseVector(map.get("end_point"));
       material = (String)map.get("material");
+
+      geo = new Geometry("box_" + sectionNum, new Box(startPoint, 0.5f, 0.5f, 0.5f));
+      geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
+      current.attachChild(geo);
 
       current.setLocalTranslation(startPoint);
       current.setLocalScale(endPoint.subtract(startPoint));

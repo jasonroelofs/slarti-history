@@ -22,7 +22,7 @@ public class SQLiteDataProvider implements IDataProvider {
   @Override
   public void open(String dbName) {
     try {
-      queue = new SQLiteQueue(getDbFile(dbName));
+      queue = new SQLiteQueue(SQLiteDataProvider.getDbFile(dbName));
     } catch (IOException ex) {
       logger.log(Level.SEVERE, "Unable to open database " + dbName, ex);
     }
@@ -76,7 +76,7 @@ public class SQLiteDataProvider implements IDataProvider {
   }
 
 
-  private File getDbFile(String dbName) throws IOException {
+  public static File getDbFile(String dbName) throws IOException {
     // TODO Make this work on Windows. user.home is horri-bad broke there
     // Possible solution is System.getEnv("APPDATA"), but that's
     // only on Vista and 7 and doesn't always exist anyway

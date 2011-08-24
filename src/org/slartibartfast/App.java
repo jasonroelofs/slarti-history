@@ -22,6 +22,7 @@ public class App extends SimpleApplication {
   private InputSystem inputSystem;
   private BehaviorController behaviorController;
   private IDataProvider dataProvider;
+  private ConstructDataProvider constructDataProvider;
 
   @Override
   public void simpleInitApp() {
@@ -33,13 +34,15 @@ public class App extends SimpleApplication {
     dataProvider = new SQLiteDataProvider();
     UserSettings userSettings = new UserSettings(dataProvider);
 
+    constructDataProvider = new ConstructDataProvider();
+
     // TODO This is starting to feel verbose
     behaviorController = new BehaviorController();
     behaviorController.setAssetManager(assetManager);
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);
     behaviorController.setDataProvider(dataProvider);
-    behaviorController.setConstructFactory(new ConstructFactory(new ConstructDataProvider()));
+    behaviorController.setConstructFactory(new ConstructFactory(constructDataProvider, assetManager));
 
     sceneManager.setBehaviorController(behaviorController);
 
@@ -47,7 +50,7 @@ public class App extends SimpleApplication {
      * Load up station definition from sqlite
      */
     Actor station = sceneManager.createActor();
-    station.useBehavior(new ConstructBehavior("defaultStation"));
+    station.useBehavior(new ConstructBehavior("default"));
 
     /**
      *  Init the player.
@@ -111,6 +114,7 @@ public class App extends SimpleApplication {
   @Override
   public void stop(boolean waitFor) {
     dataProvider.shutdown();
+    constructDataProvider.shutdown();
     super.stop(waitFor);
   }
 
