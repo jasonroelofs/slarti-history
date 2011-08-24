@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 import java.util.HashMap;
 import com.jme3.scene.Node;
@@ -26,7 +27,7 @@ public class ConstructFactoryTest {
     ConstructDataProvider data = mock(ConstructDataProvider.class);
     Node node = new Node("root");
 
-    ConstructFactory factory = new ConstructFactory(data);
+    ConstructFactory factory = new ConstructFactory(data, mock(AssetManager.class));
 
     ConstructData constructData = new ConstructData();
     constructData.name = "construct";
