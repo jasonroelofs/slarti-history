@@ -12,6 +12,8 @@ import org.slartibartfast.dataProviders.DataResults;
 /**
  * This factory handles loading of all constructs needed for
  * the scope and area in which it's created.
+ *
+ * @see Construct
  */
 public class ConstructFactory {
 
@@ -46,18 +48,28 @@ public class ConstructFactory {
     for(HashMap<String, Object> map : data.parts) {
       current = new Node(constructNode.getName() + "_section_" + sectionNum);
 
-      startPoint = DataResults.parseVector(map.get("start_point"));
-      endPoint = DataResults.parseVector(map.get("end_point"));
+      startPoint = Construct.gridToLocal(
+              DataResults.parseVector(map.get("start_point"))
+      );
+      endPoint = Construct.gridToLocal(
+              DataResults.parseVector(map.get("end_point"))
+      );
       material = (String)map.get("material");
 
-      geo = new Geometry("box_" + sectionNum, new Box(startPoint, 0.5f, 0.5f, 0.5f));
+      geo = new Geometry("box_" + sectionNum, new Box(Vector3f.ZERO, 0.0625f, 0.0625f, 0.0625f));
+
       Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
       geo.setMaterial(mat);
       //geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
+
       current.attachChild(geo);
 
       current.setLocalTranslation(startPoint);
       current.setLocalScale(endPoint.subtract(startPoint));
+
+      System.out.println("New node loaded with name " + geo.getName());
+      System.out.println("Node is at location " + current.getLocalTranslation());
+      System.out.println("Node has the scale: " + current.getLocalScale());
 
       // TODO Material usage here
 

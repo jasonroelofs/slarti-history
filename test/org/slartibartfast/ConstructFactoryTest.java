@@ -33,9 +33,8 @@ public class ConstructFactoryTest {
     constructData.name = "construct";
 
     DataResults sections = new DataResults();
-    sections.add(buildSection("v3:0,0,0", "v3:1,1,1", "Steel"));
-    sections.add(buildSection("v3:2,2,2", "v3:3,3,3", "Rock"));
-    sections.add(buildSection("v3:1,1,1", "v3:4,4,4", "Wool"));
+    sections.add(buildSection("v3:0,0,0", "v3:4,4,4", "Steel"));
+    sections.add(buildSection("v3:0,0,0", "v3:8,8,8", "Rock"));
 
     constructData.parts = sections;
 
@@ -47,18 +46,14 @@ public class ConstructFactoryTest {
     // Check that we have the right tree of nodes
     assertNotNull(node.getChild("construct_construct"));
     assertEquals(1, node.getChildren().size());
-    assertEquals(3, ((Node)node.getChild(0)).getChildren().size());
+    assertEquals(2, ((Node)node.getChild(0)).getChildren().size());
 
     Node testNode = (Node) node.getChild(0);
 
     assertEquals(new Vector3f(0,0,0), testNode.getChild(0).getLocalTranslation());
     assertEquals(new Vector3f(1,1,1), testNode.getChild(0).getLocalScale());
 
-    assertEquals(new Vector3f(2,2,2), testNode.getChild(1).getLocalTranslation());
-    assertEquals(new Vector3f(1,1,1), testNode.getChild(1).getLocalScale());
-
-    assertEquals(new Vector3f(1,1,1), testNode.getChild(2).getLocalTranslation());
-    assertEquals(new Vector3f(3,3,3), testNode.getChild(2).getLocalScale());
-
+    assertEquals(new Vector3f(0,0,0), testNode.getChild(1).getLocalTranslation());
+    assertEquals(new Vector3f(2,2,2), testNode.getChild(1).getLocalScale());
   }
 }
