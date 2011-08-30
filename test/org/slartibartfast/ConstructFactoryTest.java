@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import com.jme3.material.Material;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 import java.util.HashMap;
@@ -26,8 +27,9 @@ public class ConstructFactoryTest {
   public void buildsAndReturnsConstructOnName() {
     ConstructDataProvider data = mock(ConstructDataProvider.class);
     Node node = new Node("root");
+    AssetManager manager = mock(AssetManager.class);
 
-    ConstructFactory factory = new ConstructFactory(data, mock(AssetManager.class));
+    ConstructFactory factory = new ConstructFactory(data, manager);
 
     ConstructData constructData = new ConstructData();
     constructData.name = "construct";
@@ -38,6 +40,7 @@ public class ConstructFactoryTest {
 
     constructData.parts = sections;
 
+    when(manager.loadMaterial(anyString())).thenReturn(new Material());
     when(data.getConstructDataFor("construct")).thenReturn(constructData);
 
     Construct c = factory.getConstruct("construct");
@@ -52,5 +55,7 @@ public class ConstructFactoryTest {
 
     assertEquals(new Vector3f(0,0,0), testNode.getChild(0).getLocalTranslation());
     assertEquals(new Vector3f(0,0,0), testNode.getChild(1).getLocalTranslation());
+
+    // TODO Test the size of the box?
   }
 }

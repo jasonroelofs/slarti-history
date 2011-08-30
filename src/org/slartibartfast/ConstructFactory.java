@@ -58,27 +58,10 @@ public class ConstructFactory {
       material = (String)map.get("material");
 
       geo = new Geometry("box_" + sectionNum, new Box(startPoint, endPoint));
-
-      //Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-      //geo.setMaterial(mat);
-
-      //mat.getAdditionalRenderState().setWireframe(true);
-
-      // TODO Material usage here
       TangentBinormalGenerator.generate(geo.getMesh(), true);
       geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
 
       current.attachChild(geo);
-
-      System.out.println("New node loaded with name " + geo.getName());
-
-      System.out.println("Node start point: " + startPoint);
-      System.out.println("Node end point: " + endPoint);
-
-      System.out.println("RAW Node start point: " + DataResults.parseVector(map.get("start_point")));
-      System.out.println("RAW Node end point: " + DataResults.parseVector(map.get("end_point")));
-
-
       constructNode.attachChild(current);
 
       sectionNum++;
