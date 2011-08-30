@@ -38,9 +38,23 @@ class Vector < Struct.new(:x, :y, :z)
   def to_query
     "v3:#{self.x},#{self.y},#{self.z}"
   end
+
+  def *(val)
+    Vector.new(
+      self.x * val,
+      self.y * val,
+      self.z * val
+    )
+  end
 end
 
 $station_id = ARGV.pop
+
+##
+# These define the INNER available area of the
+# constructs. The script will put walls around
+# this area, 2 grid blocks thick
+##
 
 control_room = {
   :width => 6,
@@ -63,32 +77,52 @@ hangar = {
   :center => Vector.new(15, 0, 0)
 }
 
-def build_panel(from_point, to_point)
-  query = %|insert into panels (station_id, from_point, to_point, material) values (#{$station_id}, "#{from_point.to_query}", "#{to_point.to_query}");|
-  puts query
+$panel_id = 0
+
+print "delete from parts; "
+def build_part(from_point, to_point)
+  query = %|insert into parts (id, construct_id, start_point, end_point, material) values (#{$panel_id}, #{$station_id}, "#{from_point.to_query}", "#{to_point.to_query}", "Steel"); |
+  print query
+  $panel_id += 1
 end
 
 [hallway].each do |section|
-  center = section[:center]
-  height = section[:height]
-  width = section[:width]
-  depth = section[:depth]
+  # Get the parts, and bump them up by 4. Grid is actually 1/4 units, but for simplicity sake
+  # the defs above are in full units
+  center = section[:center] * 4
 
-  h_h = height / 2
-  h_w = width / 2
-  h_d = depth / 2
+  height = section[:height] * 4
+  width = section[:width] * 4
+  depth = section[:depth] * 4
+
+  half_h = height / 2
+  half_w = width / 2
+  half_d = depth / 2
+
+  h_wall_size = 1
 
   # Floor (-y)
-  build_panel Vector.new(center.x - width, center.y - h_h, center.z - depth),
-    Vector.new(center.x + width, center.y - h_h, center.z + depth)
+  build_part  Vector.new(center.x - half_w, center.y - half_h - 1 - h_wall_size, center.z - half_d),
+              Vector.new(center.x + half_w, center.y - half_h - 1 + h_wall_size, center.z + half_d)
 
   # Ceiling (+y)
-  build_panel Vector.new(center.x - width, center.y + h_h, center.z - depth),
-    Vector.new(center.x + width, center.y + h_h, center.z + depth)
+  build_part  Vector.new(center.x - half_w, center.y + half_h + 1 - h_wall_size, center.z - half_d),
+              Vector.new(center.x + half_w, center.y + half_h + 1 + h_wall_size, center.z + half_d)
 
   # -x Wall
+  build_part  Vector.new(center.x - half_w - 1 - h_wall_size, center.y - half_h, center.z - half_d),
+              Vector.new(center.x - half_w - 1 + h_wall_size, center.y + half_h, center.z + half_d)
+
   # +x Wall
+  build_part  Vector.new(center.x + half_w + 1 - h_wall_size, center.y - half_h, center.z - half_d),
+              Vector.new(center.x + half_w + 1 + h_wall_size, center.y + half_h, center.z + half_d)
+
   # +z Wall
+  build_part  Vector.new(center.x - half_w, center.y - half_h, center.z - half_d - 1 - h_wall_size),
+              Vector.new(center.x + half_w, center.y + half_h, center.z - half_d - 1 + h_wall_size)
+
   # -z Wall
+  build_part  Vector.new(center.x - half_w, center.y - half_h, center.z + half_d + 1 - h_wall_size),
+              Vector.new(center.x + half_w, center.y + half_h, center.z + half_d + 1 + h_wall_size)
 
 end
