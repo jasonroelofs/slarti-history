@@ -60,21 +60,22 @@ control_room = {
   :width => 6,
   :depth => 6,
   :height => 4,
-  :center => Vector.new(-8, 0, 0)
+  :center => Vector.new(-34, 0, 0)
 }
 
 hallway = {
   :width => 10,
-  :depth => 3,
-  :height => 4,
-  :center => Vector.new(0, 0, 0)
+  :depth => 2,
+  :height => 3,
+  :center => Vector.new(0, -2, 0),
+  :with => [:y, :z]
 }
 
 hangar = {
   :width => 20,
   :depth => 30,
   :height => 6,
-  :center => Vector.new(15, 0, 0)
+  :center => Vector.new(62, 0, 0)
 }
 
 $panel_id = 0
@@ -86,10 +87,11 @@ def build_part(from_point, to_point)
   $panel_id += 1
 end
 
-[hallway].each do |section|
+[control_room, hallway, hangar].each do |section|
+  sections = section[:with] ||= [:x, :y, :z]
   # Get the parts, and bump them up by 4. Grid is actually 1/4 units, but for simplicity sake
   # the defs above are in full units
-  center = section[:center] * 4
+  center = section[:center]
 
   height = section[:height] * 4
   width = section[:width] * 4
@@ -101,28 +103,34 @@ end
 
   h_wall_size = 1
 
-  # Floor (-y)
-  build_part  Vector.new(center.x - half_w, center.y - half_h - 1 - h_wall_size, center.z - half_d),
-              Vector.new(center.x + half_w, center.y - half_h - 1 + h_wall_size, center.z + half_d)
+  if sections.include?(:y)
+    # Floor (-y)
+    build_part  Vector.new(center.x - half_w, center.y - half_h - 1 - h_wall_size, center.z - half_d),
+                Vector.new(center.x + half_w, center.y - half_h - 1 + h_wall_size, center.z + half_d)
 
-  # Ceiling (+y)
-  build_part  Vector.new(center.x - half_w, center.y + half_h + 1 - h_wall_size, center.z - half_d),
-              Vector.new(center.x + half_w, center.y + half_h + 1 + h_wall_size, center.z + half_d)
+    # Ceiling (+y)
+    build_part  Vector.new(center.x - half_w, center.y + half_h + 1 - h_wall_size, center.z - half_d),
+                Vector.new(center.x + half_w, center.y + half_h + 1 + h_wall_size, center.z + half_d)
+  end
 
-  # -x Wall
-  build_part  Vector.new(center.x - half_w - 1 - h_wall_size, center.y - half_h, center.z - half_d),
-              Vector.new(center.x - half_w - 1 + h_wall_size, center.y + half_h, center.z + half_d)
+  if sections.include?(:x)
+    # -x Wall
+    build_part  Vector.new(center.x - half_w - 1 - h_wall_size, center.y - half_h, center.z - half_d),
+                Vector.new(center.x - half_w - 1 + h_wall_size, center.y + half_h, center.z + half_d)
 
-  # +x Wall
-  build_part  Vector.new(center.x + half_w + 1 - h_wall_size, center.y - half_h, center.z - half_d),
-              Vector.new(center.x + half_w + 1 + h_wall_size, center.y + half_h, center.z + half_d)
+    # +x Wall
+    build_part  Vector.new(center.x + half_w + 1 - h_wall_size, center.y - half_h, center.z - half_d),
+                Vector.new(center.x + half_w + 1 + h_wall_size, center.y + half_h, center.z + half_d)
+  end
 
-  # +z Wall
-  build_part  Vector.new(center.x - half_w, center.y - half_h, center.z - half_d - 1 - h_wall_size),
-              Vector.new(center.x + half_w, center.y + half_h, center.z - half_d - 1 + h_wall_size)
+  if sections.include?(:z)
+    # +z Wall
+    build_part  Vector.new(center.x - half_w, center.y - half_h, center.z - half_d - 1 - h_wall_size),
+                Vector.new(center.x + half_w, center.y + half_h, center.z - half_d - 1 + h_wall_size)
 
-  # -z Wall
-  build_part  Vector.new(center.x - half_w, center.y - half_h, center.z + half_d + 1 - h_wall_size),
-              Vector.new(center.x + half_w, center.y + half_h, center.z + half_d + 1 + h_wall_size)
+    # -z Wall
+    build_part  Vector.new(center.x - half_w, center.y - half_h, center.z + half_d + 1 - h_wall_size),
+                Vector.new(center.x + half_w, center.y + half_h, center.z + half_d + 1 + h_wall_size)
+  end
 
 end
