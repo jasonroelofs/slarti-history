@@ -6,8 +6,11 @@ import org.slartibartfast.behaviors.VisualBehavior;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.shape.Box;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 import org.slartibartfast.dataProviders.SQLiteDataProvider;
@@ -52,6 +55,8 @@ public class App extends SimpleApplication {
     Actor station = sceneManager.createActor();
     station.useBehavior(new ConstructBehavior("default"));
 
+    System.out.println("Station is located at: " + station.getNode().getWorldTranslation());
+
     /**
      *  Init the player.
      * - Hook up to the camera
@@ -67,11 +72,11 @@ public class App extends SimpleApplication {
     //cam.follow(player);
     //camera.useBehavior(cam);
 
-    Actor teapot = createTeapot(new Vector3f(0.0f, 0.0f, -1.0f));
-    createTeapot(new Vector3f(-1.0f, 0.0f, -1.0f));
-    createTeapot(new Vector3f(1.0f, 0.0f, -1.0f));
-    createTeapot(new Vector3f(0.0f, -1.0f, -1.0f));
-    Actor teapot2 = createTeapot(new Vector3f(0.0f, 1.0f, -1.0f));
+    Actor teapot = createTeapot(new Vector3f(0.0f, 0.0f, 0.0f));
+    createTeapot(new Vector3f(-1.0f, 0.0f, 0.0f));
+    createTeapot(new Vector3f(1.0f, 0.0f, 0.0f));
+    createTeapot(new Vector3f(0.0f, -1.0f, 0.0f));
+    Actor teapot2 = createTeapot(new Vector3f(0.0f, 1.0f, 0.0f));
 
     teapot.useBehavior(new InputBehavior("lightMover"));
     teapot2.useBehavior(new InputBehavior("lightMover"));
@@ -94,6 +99,19 @@ public class App extends SimpleApplication {
             getCamera().getLocation());
     System.out.println("Camera is pointing at " +
             getCamera().getDirection());
+
+    // Testing Box(from, to)
+//    Vector3f startPoint = new Vector3f(-5, -1, -1.5f);
+//    Vector3f endPoint = new Vector3f(5, 1, 1.5f);
+//
+//    Geometry geo = new Geometry("box_test", new Box(startPoint, endPoint));
+//    Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+//    geo.setMaterial(mat);
+//
+//    getRootNode().attachChild(geo);
+//
+//    System.out.println("Test box is at (local): " + geo.getLocalTranslation());
+//    System.out.println("Test box is at (world): " + geo.getWorldTranslation());
   }
 
   private Actor createTeapot(Vector3f position) {

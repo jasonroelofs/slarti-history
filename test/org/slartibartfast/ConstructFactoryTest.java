@@ -51,9 +51,6 @@ public class ConstructFactoryTest {
     Node testNode = (Node) node.getChild(0);
 
     assertEquals(new Vector3f(0,0,0), testNode.getChild(0).getLocalTranslation());
-    assertEquals(new Vector3f(1,1,1), testNode.getChild(0).getLocalScale());
-
     assertEquals(new Vector3f(0,0,0), testNode.getChild(1).getLocalTranslation());
-    assertEquals(new Vector3f(2,2,2), testNode.getChild(1).getLocalScale());
   }
 }

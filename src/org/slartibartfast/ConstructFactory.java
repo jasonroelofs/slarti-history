@@ -56,27 +56,33 @@ public class ConstructFactory {
       );
       material = (String)map.get("material");
 
-      geo = new Geometry("box_" + sectionNum, new Box(Vector3f.ZERO, 0.0625f, 0.0625f, 0.0625f));
+      geo = new Geometry("box_" + sectionNum, new Box(startPoint, endPoint));
 
       Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
       geo.setMaterial(mat);
-      //geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
+
+      mat.getAdditionalRenderState().setWireframe(true);
+
+      // TODO Material usage here
+//       geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
 
       current.attachChild(geo);
 
-      current.setLocalTranslation(startPoint);
-      current.setLocalScale(endPoint.subtract(startPoint));
-
       System.out.println("New node loaded with name " + geo.getName());
-      System.out.println("Node is at location " + current.getLocalTranslation());
-      System.out.println("Node has the scale: " + current.getLocalScale());
 
-      // TODO Material usage here
+      System.out.println("Node start point: " + startPoint);
+      System.out.println("Node end point: " + endPoint);
+
+      System.out.println("RAW Node start point: " + DataResults.parseVector(map.get("start_point")));
+      System.out.println("RAW Node end point: " + DataResults.parseVector(map.get("end_point")));
+
 
       constructNode.attachChild(current);
 
       sectionNum++;
     }
+
+    System.out.println("Base node is at " + constructNode.getWorldTranslation());
 
     return construct;
   }
