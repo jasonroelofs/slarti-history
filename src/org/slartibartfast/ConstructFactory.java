@@ -6,6 +6,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
+import com.jme3.util.TangentBinormalGenerator;
 import java.util.HashMap;
 import org.slartibartfast.dataProviders.DataResults;
 
@@ -58,13 +59,14 @@ public class ConstructFactory {
 
       geo = new Geometry("box_" + sectionNum, new Box(startPoint, endPoint));
 
-      Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-      geo.setMaterial(mat);
+      //Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+      //geo.setMaterial(mat);
 
-      mat.getAdditionalRenderState().setWireframe(true);
+      //mat.getAdditionalRenderState().setWireframe(true);
 
       // TODO Material usage here
-//       geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
+      TangentBinormalGenerator.generate(geo.getMesh(), true);
+      geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
 
       current.attachChild(geo);
 
