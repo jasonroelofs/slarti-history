@@ -1,7 +1,6 @@
 package org.slartibartfast.behaviors;
 
 import org.slartibartfast.Actor;
-import com.jme3.scene.Node;
 import com.jme3.math.Vector3f;
 import org.junit.Test;
 import org.slartibartfast.Factories;
@@ -28,6 +27,75 @@ public class PhysicalBehaviorTest {
   }
 
   @Test
+  public void hasSpeed_DefaultsToOne() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    assertEquals(1.0f, b.getSpeed(), 0.001);
+
+    b.setSpeed(3.0f);
+    assertEquals(3.0f, b.getSpeed(), 0.001);
+  }
+
+  @Test
+  public void queueMoveLeftEventAtCurrentSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+
+    b.moveLeft();
+
+    assertEquals(Vector3f.ZERO, b.getLocation());
+
+    b.perform(1.0f);
+
+    assertEquals(new Vector3f(-2, 0, 0), b.getLocation());
+
+    // Ensure the delta gets cleared
+    b.perform(1.0f);
+
+    assertEquals(new Vector3f(-2, 0, 0), b.getLocation());
+  }
+
+  @Test
+  public void queueMoveRightAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+
+    b.moveRight();
+    b.perform(1.0f);
+
+    assertEquals(new Vector3f(2, 0, 0), b.getLocation());
+  }
+
+  @Test
+  public void queueMoveUpAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+
+    b.moveUp();
+    b.perform(1.0f);
+
+    assertEquals(new Vector3f(0, 2, 0), b.getLocation());
+  }
+
+  @Test
+  public void queueMoveDownAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+
+    b.moveDown();
+    b.perform(1.0f);
+
+    assertEquals(new Vector3f(0, -2, 0), b.getLocation());
+  }
+
+  @Test
   public void performUpdatesNodeLocation() {
     PhysicalBehavior b = new PhysicalBehavior();
     Vector3f location = new Vector3f(1.0f, 3.0f, 10.0f);
@@ -46,4 +114,5 @@ public class PhysicalBehaviorTest {
 
     assertEquals(location, a.getNode().getWorldTranslation());
   }
+
 }

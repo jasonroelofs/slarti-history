@@ -29,9 +29,10 @@ public class EventsTest {
   public void moveLeftEvent() {
     event.event = "MoveLeft";
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
-    Vector3f oldLoc = b.getLocation();
+    Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event, 1.0f);
+    b.perform(1.0f);
 
     assertTrue(b.getLocation().x < oldLoc.x);
   }
@@ -40,9 +41,10 @@ public class EventsTest {
   public void moveRightEvent() {
     event.event = "MoveRight";
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
-    Vector3f oldLoc = b.getLocation();
+    Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event, 1.0f);
+    b.perform(1.0f);
 
     assertTrue(b.getLocation().x > oldLoc.x);
   }
@@ -51,9 +53,10 @@ public class EventsTest {
   public void moveUpEvent() {
     event.event = "MoveUp";
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
-    Vector3f oldLoc = b.getLocation();
+    Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event, 1.0f);
+    b.perform(1.0f);
 
     assertTrue(b.getLocation().y > oldLoc.y);
   }
@@ -62,9 +65,10 @@ public class EventsTest {
   public void moveDownEvent() {
     event.event = "MoveDown";
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
-    Vector3f oldLoc = b.getLocation();
+    Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event, 1.0f);
+    b.perform(1.0f);
 
     assertTrue(b.getLocation().y < oldLoc.y);
   }

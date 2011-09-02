@@ -12,6 +12,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import org.slartibartfast.behaviors.ConstructBehavior;
+import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 import org.slartibartfast.dataProviders.SQLiteDataProvider;
 
@@ -57,6 +58,8 @@ public class App extends SimpleApplication {
 
     System.out.println("Station is located at: " + station.getNode().getWorldTranslation());
 
+    getFlyByCamera().setMoveSpeed(5.0f);
+
     /**
      *  Init the player.
      * - Hook up to the camera
@@ -79,6 +82,8 @@ public class App extends SimpleApplication {
     Actor teapot2 = createTeapot(new Vector3f(0.0f, 1.0f, 0.0f));
 
     teapot.useBehavior(new InputBehavior("lightMover"));
+    teapot.getBehavior(PhysicalBehavior.class).setSpeed(2.0f);
+    
     teapot2.useBehavior(new InputBehavior("lightMover"));
 
 

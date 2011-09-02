@@ -2,7 +2,6 @@ package org.slartibartfast.behaviors;
 
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
-import org.slartibartfast.Actor;
 import org.slartibartfast.Behavior;
 
 /**
@@ -13,10 +12,28 @@ import org.slartibartfast.Behavior;
  */
 public class PhysicalBehavior extends Behavior {
 
+  /**
+   * World location of the current Actor
+   */
   private Vector3f location;
 
+  /**
+   * This keeps a running tally of all move requests
+   * made to this Actor for the given frame
+   */
+  private Vector3f moveDelta;
+
+  /**
+   * Speed in units per second that this Actor should
+   * move in the world.
+   */
+  private float speed;
+
   public PhysicalBehavior() {
-    location = Vector3f.ZERO;
+    location = Vector3f.ZERO.clone();
+    moveDelta = Vector3f.ZERO.clone();
+
+    speed = 1.0f;
   }
 
   public void setLocation(Vector3f location) {
@@ -24,17 +41,51 @@ public class PhysicalBehavior extends Behavior {
   }
 
   public Vector3f getLocation() {
-    return this.location;
+    return location;
   }
 
+  public void setSpeed(float speed) {
+    this.speed = speed;
+  }
+
+  public float getSpeed() {
+    return speed;
+  }
+
+  /**
+   * @see Behavior.perform
+   * @param delta
+   */
   @Override
   public void perform(float delta) {
+    location.addLocal(moveDelta.mult(delta));
+
     Node node = actor.getNode();
-    node.move(this.location.add(node.getWorldTranslation().negate()));
+    node.move(location.add(node.getWorldTranslation().negate()));
+
+    moveDelta = Vector3f.ZERO.clone();
   }
 
-  public void move(float deltaTime, Vector3f delta) {
-    this.location = this.location.add(delta.mult(deltaTime));
+  /**
+   * Movement requests.
+   * The following requests queue up a move to be applied
+   * at the next update
+   */
+
+  public void moveLeft() {
+    moveDelta.x -= speed;
+  }
+
+  public void moveRight() {
+    moveDelta.x += speed;
+  }
+
+  public void moveUp() {
+    moveDelta.y += speed;
+  }
+
+  public void moveDown() {
+    moveDelta.y -= speed;
   }
 
 }
