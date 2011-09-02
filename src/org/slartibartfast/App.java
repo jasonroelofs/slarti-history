@@ -6,11 +6,8 @@ import org.slartibartfast.behaviors.VisualBehavior;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Box;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
@@ -60,6 +57,9 @@ public class App extends SimpleApplication {
 
     getFlyByCamera().setMoveSpeed(5.0f);
 
+    // Increase FOV from default of 45 degrees
+    getCamera().setFrustumPerspective(70, settings.getWidth() / settings.getHeight(), 1.0f, 10000.0f);
+
     /**
      *  Init the player.
      * - Hook up to the camera
@@ -83,7 +83,7 @@ public class App extends SimpleApplication {
 
     teapot.useBehavior(new InputBehavior("lightMover"));
     teapot.getBehavior(PhysicalBehavior.class).setSpeed(2.0f);
-    
+
     teapot2.useBehavior(new InputBehavior("lightMover"));
 
 

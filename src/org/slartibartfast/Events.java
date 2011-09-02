@@ -1,6 +1,5 @@
 package org.slartibartfast;
 
-import com.jme3.math.Vector3f;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
