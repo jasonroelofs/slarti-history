@@ -32,8 +32,12 @@ public class InputEvent {
     this.pressed = false;
   }
 
-  void process(float delta) {
-    Events.processEvent(this, delta);
+  /**
+   * TODO: Find a better way of sending InputEvents
+   * to the Event system.
+   */
+  public void process() {
+    Events.processEvent(this);
   }
 
 }

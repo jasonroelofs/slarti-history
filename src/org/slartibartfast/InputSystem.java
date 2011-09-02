@@ -63,8 +63,11 @@ public class InputSystem {
       return;
     }
 
+    // Should events get pulled inside, or at least
+    // pulled out of the Enum system it's currently in?
+    // This feels cludgy
     for(InputEvent e : currentEvents) {
-      e.process(delta);
+      e.process();
     }
 
     currentEvents.clear();

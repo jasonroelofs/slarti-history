@@ -83,7 +83,7 @@ public enum Events {
     return allNames;
   }
 
-  public static void processEvent(InputEvent e, float delta) {
+  public static void processEvent(InputEvent e) {
     Events.get(e.event).execute(e);
   }
 

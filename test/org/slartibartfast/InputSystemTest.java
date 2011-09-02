@@ -42,8 +42,8 @@ public class InputSystemTest {
 
     system.update(1.0f);
 
-    verify(e1, atMost(1)).process(1.0f);
-    verify(e2, atMost(1)).process(1.0f);
+    verify(e1, atMost(1)).process();
+    verify(e2, atMost(1)).process();
 
     verifyNoMoreInteractions(e1, e2);
 
