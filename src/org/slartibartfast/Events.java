@@ -71,8 +71,13 @@ public enum Events {
    * @param eventName The name of the event
    * @return an Events object
    */
-  public static Events get(String eventName) {
-    return lookup.get(eventName);
+  public static Events get(String eventName) throws UnknownEventException {
+    Events ret = lookup.get(eventName);
+    if(ret != null) {
+      return ret;
+    } else {
+      throw new UnknownEventException(eventName);
+    }
   }
 
   /**
@@ -82,7 +87,8 @@ public enum Events {
     return allNames;
   }
 
-  public static void processEvent(InputEvent e) {
+  public static void processEvent(InputEvent e) throws
+          UnknownEventException {
     Events.get(e.event).execute(e);
   }
 
