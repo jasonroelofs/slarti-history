@@ -34,14 +34,4 @@ public class CameraBehaviorTest {
 
     verify(cameraMock).setFrustumPerspective(70, 1024 / 768, 1.0f, 10000.0f);
   }
-
-//  @Test
-//  public void testPerform() {
-//    fail("The test case is a prototype.");
-//  }
-//
-//  @Test
-//  public void testInitialize() {
-//    fail("The test case is a prototype.");
-//  }
 }
