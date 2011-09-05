@@ -10,3 +10,4 @@ proto
 liblwjgl.jnilib
 manifest.mf
 nbproject/private/*
+dist
