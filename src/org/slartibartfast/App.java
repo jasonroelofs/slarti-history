@@ -76,7 +76,7 @@ public class App extends SimpleApplication {
     CameraBehavior cam = new CameraBehavior(getCamera());
     camera.useBehavior(new InputBehavior("fpsMovement"));
     //cam.follow(player);
-    //cam.setFOV(70);
+    cam.setFOV(70);
     camera.useBehavior(cam);
 
     camera.getBehavior(PhysicalBehavior.class).setSpeed(5);

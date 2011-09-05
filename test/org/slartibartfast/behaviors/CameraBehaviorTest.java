@@ -27,8 +27,8 @@ public class CameraBehaviorTest {
 
   @Test
   public void canSetCameraFOV() {
-    when(cameraMock.getHeight()).thenReturn(new Integer(1024));
-    when(cameraMock.getWidth()).thenReturn(new Integer(768));
+    when(cameraMock.getHeight()).thenReturn(new Integer(768));
+    when(cameraMock.getWidth()).thenReturn(new Integer(1024));
 
     behavior.setFOV(70);
 
