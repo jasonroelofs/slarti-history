@@ -39,7 +39,23 @@ public enum Events {
       PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
       b.moveDown();
     }
-  };
+  },
+  MoveForward ("Move Forward") {
+    @Override
+    protected void execute(InputEvent e) {
+      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      b.moveForward();
+
+    }
+  },
+  MoveBackward ("Move Backward") {
+    @Override
+    protected void execute(InputEvent e) {
+      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      b.moveBackward();
+    }
+  }
+  ;
 
   protected abstract void execute(InputEvent e);
 
@@ -71,12 +87,12 @@ public enum Events {
    * @param eventName The name of the event
    * @return an Events object
    */
-  public static Events get(String eventName) throws UnknownEventException {
+  public static Events get(String eventName) throws UnknownEventError {
     Events ret = lookup.get(eventName);
     if(ret != null) {
       return ret;
     } else {
-      throw new UnknownEventException(eventName);
+      throw new UnknownEventError(eventName);
     }
   }
 
@@ -87,9 +103,14 @@ public enum Events {
     return allNames;
   }
 
-  public static void processEvent(InputEvent e) throws
-          UnknownEventException {
-    Events.get(e.event).execute(e);
+  public static void processEvent(InputEvent e) {
+    try {
+      Events.get(e.event).execute(e);
+    } catch (UnknownEventError error) {
+      // TODO get the logger and let people know what's up
+      // For now STDERR it goes!
+      System.err.println("Error executing event: " + error.getMessage());
+    }
   }
 
 }

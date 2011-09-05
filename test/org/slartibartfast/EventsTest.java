@@ -21,7 +21,7 @@ public class EventsTest {
   }
 
   @Test
-  public void canReverseLookupAnEvent() throws UnknownEventException {
+  public void canReverseLookupAnEvent() throws UnknownEventError {
     assertEquals(Events.MoveUp, Events.get("MoveUp"));
   }
 
@@ -30,7 +30,7 @@ public class EventsTest {
     try {
       assertEquals(Events.MoveUp, Events.get("BadError_Test_Something"));
       fail("Expected processEvent to throw error, did not");
-    } catch(UnknownEventException e) {
+    } catch(UnknownEventError e) {
       // Good!
       assertEquals("Unknown event with name of BadError_Test_Something",
               e.getMessage());
@@ -38,7 +38,7 @@ public class EventsTest {
   }
 
   @Test
-  public void moveLeftEvent() throws UnknownEventException {
+  public void moveLeftEvent() throws UnknownEventError {
     event.event = "MoveLeft";
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
@@ -50,7 +50,7 @@ public class EventsTest {
   }
 
   @Test
-  public void moveRightEvent() throws UnknownEventException {
+  public void moveRightEvent() throws UnknownEventError {
     event.event = "MoveRight";
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
@@ -62,7 +62,7 @@ public class EventsTest {
   }
 
   @Test
-  public void moveUpEvent() throws UnknownEventException {
+  public void moveUpEvent() throws UnknownEventError {
     event.event = "MoveUp";
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
@@ -74,7 +74,7 @@ public class EventsTest {
   }
 
   @Test
-  public void moveDownEvent() throws UnknownEventException {
+  public void moveDownEvent() throws UnknownEventError {
     event.event = "MoveDown";
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
@@ -83,5 +83,29 @@ public class EventsTest {
     b.perform(1.0f);
 
     assertTrue(b.getLocation().y < oldLoc.y);
+  }
+
+  @Test
+  public void moveForwardEvent() throws UnknownEventError {
+    event.event = "MoveForward";
+    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    Vector3f oldLoc = b.getLocation().clone();
+
+    Events.processEvent(event);
+    b.perform(1.0f);
+
+    assertTrue(b.getLocation().z > oldLoc.z);
+  }
+
+  @Test
+  public void moveBackwardEvent() throws UnknownEventError {
+    event.event = "MoveBackward";
+    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    Vector3f oldLoc = b.getLocation().clone();
+
+    Events.processEvent(event);
+    b.perform(1.0f);
+
+    assertTrue(b.getLocation().z < oldLoc.z);
   }
 }

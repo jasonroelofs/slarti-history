@@ -1,7 +1,6 @@
 package org.slartibartfast.behaviors;
 
 import org.slartibartfast.UserSettings;
-import org.slartibartfast.Actor;
 import org.slartibartfast.Behavior;
 import org.slartibartfast.InputSystem;
 import org.slartibartfast.UserKeyMapping;

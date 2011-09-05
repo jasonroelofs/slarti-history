@@ -96,6 +96,32 @@ public class PhysicalBehaviorTest {
   }
 
   @Test
+  public void queueMoveForwardAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+
+    b.moveForward();
+    b.perform(1.0f);
+
+    assertEquals(new Vector3f(0, 0, 2), b.getLocation());
+  }
+
+  @Test
+  public void queueMoveBackwardAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+
+    b.moveBackward();
+    b.perform(1.0f);
+
+    assertEquals(new Vector3f(0, 0, -2), b.getLocation());
+  }
+
+  @Test
   public void performUpdatesNodeLocation() {
     PhysicalBehavior b = new PhysicalBehavior();
     Vector3f location = new Vector3f(1.0f, 3.0f, 10.0f);

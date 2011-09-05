@@ -8,6 +8,7 @@ import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import com.jme3.app.SimpleApplication;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import org.slartibartfast.behaviors.CameraBehavior;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
@@ -27,6 +28,8 @@ public class App extends SimpleApplication {
 
   @Override
   public void simpleInitApp() {
+    getFlyByCamera().setEnabled(false);
+
     sceneManager = new SceneGraph(getRootNode());
     sceneManager.setAssetManager(getAssetManager());
 
@@ -53,12 +56,10 @@ public class App extends SimpleApplication {
     Actor station = sceneManager.createActor();
     station.useBehavior(new ConstructBehavior("default"));
 
-    System.out.println("Station is located at: " + station.getNode().getWorldTranslation());
-
-    getFlyByCamera().setMoveSpeed(5.0f);
+    //getFlyByCamera().setMoveSpeed(5.0f);
 
     // Increase FOV from default of 45 degrees
-    getCamera().setFrustumPerspective(70, settings.getWidth() / settings.getHeight(), 1.0f, 10000.0f);
+    //getCamera().setFrustumPerspective(70, settings.getWidth() / settings.getHeight(), 1.0f, 10000.0f);
 
     /**
      *  Init the player.
@@ -68,12 +69,17 @@ public class App extends SimpleApplication {
      * - Set starting location and orientation
      */
     //Actor player = sceneManager.createActor();
+    //player.useBehavior(new PlayerBehavior());
 
-    //Actor camera = sceneManager.createActor();
+    Actor camera = sceneManager.createActor();
 
-    //CameraBehavior cam = new CameraBehavior(getCamera());
+    CameraBehavior cam = new CameraBehavior(getCamera());
+    camera.useBehavior(new InputBehavior("fpsMovement"));
     //cam.follow(player);
-    //camera.useBehavior(cam);
+    //cam.setFOV(70);
+    camera.useBehavior(cam);
+
+    camera.getBehavior(PhysicalBehavior.class).setSpeed(5);
 
     Actor teapot = createTeapot(new Vector3f(0.0f, 0.0f, 0.0f));
     createTeapot(new Vector3f(-1.0f, 0.0f, 0.0f));
