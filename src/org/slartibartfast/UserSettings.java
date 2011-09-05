@@ -25,8 +25,7 @@ public class UserSettings {
     this.provider.open("user_settings");
   }
 
-  public UserKeyMapping getKeyMap(String scope) throws
-          UnknownEventError {
+  public UserKeyMapping getKeyMap(String scope) {
     if(keyMappingsByScope.get(scope) == null) {
       loadKeyMappings();
     }
@@ -55,7 +54,7 @@ public class UserSettings {
 
   private UserKeyMapping getKeyMappingForScope(String scope) {
     if(keyMappingsByScope.get(scope) == null) {
-      keyMappingsByScope.put(scope, new UserKeyMapping());
+      keyMappingsByScope.put(scope, new UserKeyMapping(scope));
     }
 
     return keyMappingsByScope.get(scope);

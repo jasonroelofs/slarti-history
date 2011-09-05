@@ -23,7 +23,7 @@ public class InputBehaviorTest {
   @Test
   public void initializesTheKeyset() {
     InputBehavior b = new InputBehavior("scope");
-    UserKeyMapping mapping = new UserKeyMapping();
+    UserKeyMapping mapping = new UserKeyMapping("testScope");
     mapping.put(Events.MoveUp, "Key");
 
     UserSettings settings = mock(UserSettings.class);

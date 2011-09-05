@@ -10,4 +10,19 @@ import java.util.HashMap;
  */
 public class UserKeyMapping extends HashMap<Events, String> {
 
+  private String scope;
+
+  public UserKeyMapping(String scope) {
+    super();
+    this.scope = scope;
+  }
+
+  public String getScope() {
+    return scope;
+  }
+
+  public void setScope(String scope) {
+    this.scope = scope;
+  }
+
 }

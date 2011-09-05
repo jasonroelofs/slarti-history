@@ -55,15 +55,47 @@ public class InputSystemTest {
   }
 
   @Test
+  public void mapsEventsToActorsByScope() {
+    Actor a1 = new Actor();
+    Actor a2 = new Actor();
+
+    UserKeyMapping mapping1 = new UserKeyMapping("testScope1");
+    mapping1.put(Events.MoveUp, "UP");
+
+    UserKeyMapping mapping2 = new UserKeyMapping("testScope2");
+    mapping2.put(Events.MoveUp, "DOWN");
+
+    system.mapInputToActor(mapping1, a1);
+    system.mapInputToActor(mapping2, a2);
+
+    verify(manager).addMapping(eq("testScope1:MoveUp"),
+            any(KeyTrigger.class));
+    verify(manager).addMapping(eq("testScope2:MoveUp"),
+            any(KeyTrigger.class));
+
+    verify(manager, atLeastOnce()).addListener(any(ActionListener.class),
+        eq("testScope1:MoveUp"));
+    verify(manager, atLeastOnce()).addListener(any(AnalogListener.class),
+        eq("testScope1:MoveUp"));
+
+    verify(manager, atLeastOnce()).addListener(any(ActionListener.class),
+        eq("testScope2:MoveUp"));
+    verify(manager, atLeastOnce()).addListener(any(AnalogListener.class),
+        eq("testScope2:MoveUp"));
+    
+    verifyNoMoreInteractions(manager);
+  }
+
+  @Test
   public void sendsActionEventsToMappedActors() {
-    UserKeyMapping mapping = new UserKeyMapping();
+    UserKeyMapping mapping = new UserKeyMapping("testScope");
     mapping.put(Events.MoveUp, "UP");
 
     system.mapInputToActor(mapping, actor);
 
     ActionListener listener = system.getActionListener();
 
-    listener.onAction("MoveUp", true, 0.1f);
+    listener.onAction("testScope:MoveUp", true, 0.1f);
 
     List<InputEvent> events = system.getCurrentEvents();
 
@@ -77,20 +109,49 @@ public class InputSystemTest {
 
   @Test
   public void sendsAnalogEventsToMappedActors() {
-    UserKeyMapping mapping = new UserKeyMapping();
+    UserKeyMapping mapping = new UserKeyMapping("testScope");
     mapping.put(Events.MoveUp, "UP");
 
     system.mapInputToActor(mapping, actor);
 
     AnalogListener listener = system.getAnalogListener();
 
-    listener.onAnalog("MoveUp", 12.7f, 0.1f);
+    listener.onAnalog("testScope:MoveUp", 12.7f, 0.1f);
 
     List<InputEvent> events = system.getCurrentEvents();
 
     InputEvent evt = events.get(0);
     assertEquals(12.7f, evt.value, 0.01f);
     assertEquals(actor, evt.actor);
+  }
+
+  @Test
+  public void properlyDelegatesAccordingToScope() {
+    Actor a1 = new Actor();
+    Actor a2 = new Actor();
+
+    UserKeyMapping mapping1 = new UserKeyMapping("testScope1");
+    mapping1.put(Events.MoveUp, "UP");
+
+    UserKeyMapping mapping2 = new UserKeyMapping("testScope2");
+    mapping2.put(Events.MoveUp, "DOWN");
+
+    system.mapInputToActor(mapping1, a1);
+    system.mapInputToActor(mapping2, a2);
+
+    AnalogListener listener = system.getAnalogListener();
+
+    listener.onAnalog("testScope1:MoveUp", 12.7f, 0.1f);
+    listener.onAnalog("testScope2:MoveUp", 2.3f, 0f);
+
+    List<InputEvent> events = system.getCurrentEvents();
+    assertEquals(2, events.size());
+
+    InputEvent evt = events.get(0);
+    assertEquals(a1, evt.actor);
+
+    evt = events.get(1);
+    assertEquals(a2, evt.actor);
   }
 
 //  @Test
@@ -100,7 +161,7 @@ public class InputSystemTest {
 
   @Test
   public void canMapInputToActor_KeyMappings() {
-    UserKeyMapping mapping = new UserKeyMapping();
+    UserKeyMapping mapping = new UserKeyMapping("testScope");
     mapping.put(Events.MoveUp, "UP");
     mapping.put(Events.MoveDown, "DOWN");
 
@@ -113,11 +174,13 @@ public class InputSystemTest {
             ArgumentCaptor.forClass(KeyTrigger.class);
 
     // Verify we added the MoveDown event
-    verify(manager).addMapping(eq("MoveDown"), triggerDown.capture());
+    verify(manager).addMapping(eq("testScope:MoveDown"),
+            triggerDown.capture());
     assertEquals(KeyInput.KEY_DOWN, triggerDown.getValue().getKeyCode());
 
     // Verify we added the MoveUp event
-    verify(manager).addMapping(eq("MoveUp"), triggerUp.capture());
+    verify(manager).addMapping(eq("testScope:MoveUp"),
+            triggerUp.capture());
     assertEquals(KeyInput.KEY_UP, triggerUp.getValue().getKeyCode());
 
     ArgumentCaptor<String[]> listCapture =

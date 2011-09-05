@@ -45,11 +45,11 @@ public class UserSettingsTest {
     results.add(buildKeyMap("car", "MoveUp", "U"));
     results.add(buildKeyMap("car", "MoveDown", "P"));
 
-    UserKeyMapping scopeMap = new UserKeyMapping();
+    UserKeyMapping scopeMap = new UserKeyMapping("testScope");
     scopeMap.put(Events.MoveLeft, "K");
     scopeMap.put(Events.MoveRight, "J");
 
-    UserKeyMapping carMap = new UserKeyMapping();
+    UserKeyMapping carMap = new UserKeyMapping("testScope");
     carMap.put(Events.MoveUp, "U");
     carMap.put(Events.MoveDown, "P");
 
