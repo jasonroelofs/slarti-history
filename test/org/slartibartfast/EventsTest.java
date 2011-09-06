@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import org.junit.Before;
 import org.junit.Test;
@@ -107,5 +108,29 @@ public class EventsTest {
     b.perform(1.0f);
 
     assertTrue(b.getLocation().z > oldLoc.z);
+  }
+
+  @Test
+  public void turnLeftEvent() throws UnknownEventError {
+    event.event = "TurnLeft";
+    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    Quaternion oldQuat = b.getRotation().clone();
+
+    Events.processEvent(event);
+    b.perform(1.0f);
+
+    assertNotSame(oldQuat, b.getRotation());
+  }
+
+  @Test
+  public void turnRightEvent() throws UnknownEventError {
+    event.event = "TurnRight";
+    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    Quaternion oldQuat = b.getRotation().clone();
+
+    Events.processEvent(event);
+    b.perform(1.0f);
+
+    assertNotSame(oldQuat, b.getRotation());
   }
 }

@@ -1,5 +1,6 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
@@ -30,10 +31,27 @@ public class PhysicalBehavior extends Behavior {
   private Vector3f moveDelta;
 
   /**
+   * Like moveDelta, keep track of the rotation requests
+   * received so far. Kept in a vector to make it much
+   * easier to use than a Quaternion:
+   *
+   *  x = yaw
+   *  y = roll
+   *  z = pitch
+   *
+   */
+  private Vector3f rotateDelta;
+
+  /**
    * Speed in units per second that this Actor should
    * move in the world.
    */
   private float speed;
+
+  /**
+   * Rotational speed in degrees per second
+   */
+  private int turnSpeed;
 
   /**
    * Does this Actor move forward according to its rotation or
@@ -41,15 +59,18 @@ public class PhysicalBehavior extends Behavior {
    */
   private boolean movesRelativeToRotation;
 
+
   public PhysicalBehavior() {
     location = Vector3f.ZERO.clone();
     moveDelta = Vector3f.ZERO.clone();
 
     rotation = Quaternion.IDENTITY.clone();
+    rotateDelta = Vector3f.ZERO.clone();
 
     movesRelativeToRotation = false;
 
     speed = 1.0f;
+    turnSpeed = 180;
   }
 
   public void setLocation(Vector3f location) {
@@ -76,6 +97,14 @@ public class PhysicalBehavior extends Behavior {
     return speed;
   }
 
+  public void setTurnSpeed(int speed) {
+    turnSpeed = speed;
+  }
+
+  public int getTurnSpeed() {
+    return turnSpeed;
+  }
+
   /**
    * Change how this behavior reacts to move commands
    * @param flag
@@ -98,12 +127,28 @@ public class PhysicalBehavior extends Behavior {
    */
   @Override
   public void perform(float delta) {
+    //
+    // Set our local knowledge
+    //
     location.addLocal(moveDelta.mult(delta));
 
+    rotateDelta.multLocal(delta);
+    Quaternion rotQuat = new Quaternion();
+    rotQuat.fromAngles(rotateDelta.x, rotateDelta.y, rotateDelta.z);
+    rotation.multLocal(rotQuat);
+
+    //
+    // Sync node's spatial information to JME
+    //
     Node node = actor.getNode();
     node.move(location.add(node.getWorldTranslation().negate()));
+    node.rotate(rotateDelta.x, rotateDelta.y, rotateDelta.z);
 
+    //
+    // Reset deltas for next frame
+    //
     moveDelta = Vector3f.ZERO.clone();
+    rotateDelta = Vector3f.ZERO.clone();
   }
 
   /**
@@ -136,5 +181,12 @@ public class PhysicalBehavior extends Behavior {
     moveDelta.z += speed;
   }
 
+  public void turnLeft() {
+    rotateDelta.y += FastMath.DEG_TO_RAD * turnSpeed;
+  }
+
+  public void turnRight() {
+    rotateDelta.y -= FastMath.DEG_TO_RAD * turnSpeed;
+  }
 
 }

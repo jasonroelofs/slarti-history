@@ -1,5 +1,6 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import org.slartibartfast.Actor;
 import com.jme3.math.Vector3f;
@@ -43,6 +44,15 @@ public class PhysicalBehaviorTest {
 
     b.setSpeed(3.0f);
     assertEquals(3.0f, b.getSpeed(), 0.001);
+  }
+
+  @Test
+  public void hasTurnSpeed_DefaultsToOneEighty() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    assertEquals(180, b.getTurnSpeed());
+
+    b.setTurnSpeed(90);
+    assertEquals(90, b.getTurnSpeed());
   }
 
   @Test
@@ -138,6 +148,45 @@ public class PhysicalBehaviorTest {
     b.perform(1.0f);
 
     assertEquals(new Vector3f(0, 0, 2), b.getLocation());
+  }
+
+  @Test
+  public void queueTurnLeftAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setTurnSpeed(90);
+    Quaternion fromQuat = b.getRotation().clone();
+
+    b.turnLeft();
+    b.perform(1.0f);
+
+    Quaternion delta = new Quaternion();
+    delta.fromAngles(0, FastMath.DEG_TO_RAD * 90, 0);
+    Quaternion expected = fromQuat.mult(delta);
+
+    assertEquals(expected, b.getRotation());
+    assertEquals(expected, a.getNode().getLocalRotation());
+  }
+
+  @Test
+  public void queueTurnRightAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setTurnSpeed(90);
+    Quaternion fromQuat = b.getRotation().clone();
+
+    b.turnRight();
+    b.perform(1.0f);
+
+    Quaternion delta = new Quaternion();
+    delta.fromAngles(0, FastMath.DEG_TO_RAD * -90, 0);
+    Quaternion expected = fromQuat.mult(delta);
+
+    assertEquals(expected, b.getRotation());
+    assertEquals(expected, a.getNode().getLocalRotation());
+
   }
 
   @Test

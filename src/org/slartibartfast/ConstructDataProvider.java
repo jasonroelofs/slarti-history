@@ -36,7 +36,9 @@ public class ConstructDataProvider implements IDataProvider {
 
   @Override
   public void shutdown() {
-    queue.stop(true);
+    if(queue != null) {
+      queue.stop(true);
+    }
   }
 
   public ConstructData getConstructDataFor(final String constructName) {

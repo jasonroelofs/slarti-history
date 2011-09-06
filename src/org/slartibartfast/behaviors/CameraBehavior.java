@@ -1,9 +1,7 @@
 package org.slartibartfast.behaviors;
 
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.control.CameraControl;
 import org.slartibartfast.Behavior;
 
 public class CameraBehavior extends Behavior {
