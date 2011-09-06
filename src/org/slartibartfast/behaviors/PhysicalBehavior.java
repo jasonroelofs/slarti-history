@@ -105,11 +105,11 @@ public class PhysicalBehavior extends Behavior {
   }
 
   public void moveForward() {
-    moveDelta.z += speed;
+    moveDelta.z -= speed;
   }
 
   public void moveBackward() {
-    moveDelta.z -= speed;
+    moveDelta.z += speed;
   }
 
 

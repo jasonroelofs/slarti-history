@@ -94,7 +94,7 @@ public class EventsTest {
     Events.processEvent(event);
     b.perform(1.0f);
 
-    assertTrue(b.getLocation().z > oldLoc.z);
+    assertTrue(b.getLocation().z < oldLoc.z);
   }
 
   @Test
@@ -106,6 +106,6 @@ public class EventsTest {
     Events.processEvent(event);
     b.perform(1.0f);
 
-    assertTrue(b.getLocation().z < oldLoc.z);
+    assertTrue(b.getLocation().z > oldLoc.z);
   }
 }

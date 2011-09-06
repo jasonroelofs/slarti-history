@@ -115,7 +115,7 @@ public class PhysicalBehaviorTest {
     b.moveForward();
     b.perform(1.0f);
 
-    assertEquals(new Vector3f(0, 0, 2), b.getLocation());
+    assertEquals(new Vector3f(0, 0, -2), b.getLocation());
   }
 
   @Test
@@ -128,7 +128,7 @@ public class PhysicalBehaviorTest {
     b.moveBackward();
     b.perform(1.0f);
 
-    assertEquals(new Vector3f(0, 0, -2), b.getLocation());
+    assertEquals(new Vector3f(0, 0, 2), b.getLocation());
   }
 
   @Test
