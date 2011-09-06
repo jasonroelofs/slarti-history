@@ -6,7 +6,7 @@ import com.jme3.scene.Node;
 import org.slartibartfast.Behavior;
 
 /**
- * This Behavior keeps track of the actual location, orientation, and
+ * This Behavior keeps track of the actual location, rotation, and
  * scale of the Actor it's added to.
  *
  * @author roelofs
@@ -21,7 +21,7 @@ public class PhysicalBehavior extends Behavior {
   /**
    * Orientation of the current Actor
    */
-  private Quaternion orientation;
+  private Quaternion rotation;
 
   /**
    * This keeps a running tally of all move requests
@@ -35,11 +35,19 @@ public class PhysicalBehavior extends Behavior {
    */
   private float speed;
 
+  /**
+   * Does this Actor move forward according to its rotation or
+   * does it follow the world axes?
+   */
+  private boolean movesRelativeToRotation;
+
   public PhysicalBehavior() {
     location = Vector3f.ZERO.clone();
     moveDelta = Vector3f.ZERO.clone();
 
-    orientation = Quaternion.IDENTITY.clone();
+    rotation = Quaternion.IDENTITY.clone();
+
+    movesRelativeToRotation = false;
 
     speed = 1.0f;
   }
@@ -52,12 +60,12 @@ public class PhysicalBehavior extends Behavior {
     return location;
   }
 
-  public Quaternion getOrientation() {
-    return orientation;
+  public Quaternion getRotation() {
+    return rotation;
   }
 
-  public void setOrientation(Quaternion orientation) {
-    this.orientation = orientation;
+  public void setRotation(Quaternion orientation) {
+    this.rotation = orientation;
   }
 
   public void setSpeed(float speed) {
@@ -66,6 +74,22 @@ public class PhysicalBehavior extends Behavior {
 
   public float getSpeed() {
     return speed;
+  }
+
+  /**
+   * Change how this behavior reacts to move commands
+   * @param flag
+   */
+  public void moveRelativeToRotation(boolean flag) {
+    movesRelativeToRotation = flag;
+  }
+
+  /**
+   * How does this behavior react to move commands?
+   * @return
+   */
+  public boolean movesRelativeToRotation() {
+    return movesRelativeToRotation;
   }
 
   /**

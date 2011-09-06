@@ -66,13 +66,22 @@ public class App extends SimpleApplication {
      * Set FOV to 70 degrees
      * Hook up to FPS keybindings (flying)
      */
-    Actor camera = sceneManager.createActor();
-    camera.getBehavior(PhysicalBehavior.class).setSpeed(5);
+    Actor camera = sceneManager.createActor(new Vector3f(0, 0, 10f));
+    camera.useBehavior(new InputBehavior("fpsMovement"));
+
+    PhysicalBehavior physB = camera.getBehavior(PhysicalBehavior.class);
+    physB.setSpeed(5);
+    //physB.moveRelativeToRotation(true);
+
 
     CameraBehavior camB = new CameraBehavior(getCamera());
-    camera.useBehavior(new InputBehavior("fpsMovement"));
-    camB.setFOV(70);
+    // TODO Figure out how we can do lookAt before useBehavior is
+    // called. If this line is put after lookAt() then this crashes
+    // with an NPE as actor isn't set yet
     camera.useBehavior(camB);
+    camB.setFOV(70);
+    camB.lookAt(Vector3f.ZERO);
+
 
 
     Actor teapot = createTeapot(new Vector3f(0.0f, 0.0f, 0.0f));

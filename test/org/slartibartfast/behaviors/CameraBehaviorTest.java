@@ -1,8 +1,12 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
+import com.jme3.scene.control.CameraControl;
 import com.jme3.renderer.Camera;
 import org.junit.Before;
 import org.junit.Test;
+import org.slartibartfast.Factories;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -18,6 +22,7 @@ public class CameraBehaviorTest {
   public void setupCamera() {
     cameraMock = mock(Camera.class);
     behavior = new CameraBehavior(cameraMock);
+    behavior.setActor(Factories.createActor());
   }
 
   @Test
@@ -34,4 +39,15 @@ public class CameraBehaviorTest {
 
     verify(cameraMock).setFrustumPerspective(70, 1024 / 768, 1.0f, 10000.0f);
   }
+
+  @Test
+  public void canLookAtALocation() {
+    PhysicalBehavior physB =
+            behavior.getActor().getBehavior(PhysicalBehavior.class);
+    physB.setLocation(new Vector3f(0, 0, -10f));
+    behavior.lookAt(Vector3f.ZERO);
+
+    assertEquals(physB.getRotation(), behavior.getCamera().getRotation());
+  }
+
 }

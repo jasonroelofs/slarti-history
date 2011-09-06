@@ -25,9 +25,9 @@ public class PhysicalBehaviorTest {
   public void hasOrientation() {
     PhysicalBehavior b = new PhysicalBehavior();
     Quaternion quat = Quaternion.IDENTITY;
-    b.setOrientation(quat);
+    b.setRotation(quat);
 
-    assertEquals(quat, b.getOrientation());
+    assertEquals(quat, b.getRotation());
   }
 
   @Test
@@ -43,6 +43,15 @@ public class PhysicalBehaviorTest {
 
     b.setSpeed(3.0f);
     assertEquals(3.0f, b.getSpeed(), 0.001);
+  }
+
+  @Test
+  public void moveRelativeToRotation_defaultFalse() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    assertFalse(b.movesRelativeToRotation());
+
+    b.moveRelativeToRotation(true);
+    assertTrue(b.movesRelativeToRotation());
   }
 
   @Test
