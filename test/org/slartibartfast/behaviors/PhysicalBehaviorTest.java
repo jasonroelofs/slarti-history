@@ -151,6 +151,63 @@ public class PhysicalBehaviorTest {
   }
 
   @Test
+  public void queueMoveForwardAtSpeed_RelativeRotation() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+    b.setTurnSpeed(90);
+    b.moveRelativeToRotation(true);
+
+    // Now facing down -X
+    b.turnLeft();
+    b.perform(1.0f);
+
+    b.moveForward();
+    b.perform(1.0f);
+
+    assertEquals(2, b.getLocation().x, 0.001);
+  }
+
+  @Test
+  public void queueMoveLeftAtSpeed_RelativeRotation() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+    b.setTurnSpeed(90);
+    b.moveRelativeToRotation(true);
+
+    // Now facing down -X
+    b.turnLeft();
+    b.perform(1.0f);
+
+    b.moveLeft();
+    b.perform(1.0f);
+
+    assertEquals(-2, b.getLocation().z, 0.001);
+  }
+
+  @Test
+  public void queueMoveUpAtSpeed_RelativeRotation() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setSpeed(2.0f);
+    b.setTurnSpeed(90);
+    b.moveRelativeToRotation(true);
+
+    // Now facing down -X
+    b.turnLeft();
+    b.perform(1.0f);
+
+    b.moveUp();
+    b.perform(1.0f);
+
+    assertEquals(2, b.getLocation().y, 0.001);
+  }
+
+  @Test
   public void queueTurnLeftAtSpeed() {
     PhysicalBehavior b = new PhysicalBehavior();
     Actor a = Factories.createActor();

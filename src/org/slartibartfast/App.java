@@ -56,9 +56,6 @@ public class App extends SimpleApplication {
     Actor station = sceneManager.createActor();
     station.useBehavior(new ConstructBehavior("default"));
 
-    //Actor player = sceneManager.createActor();
-    //player.useBehavior(new PlayerBehavior());
-
     /**
      * Setting up the camera
      *
@@ -82,6 +79,7 @@ public class App extends SimpleApplication {
     camera.useBehavior(camB);
     camB.setFOV(70);
     camB.lookAt(Vector3f.ZERO);
+
 
     Actor teapot = createTeapot(new Vector3f(0.0f, 0.0f, 0.0f));
     Actor teapot3 = createTeapot(new Vector3f(-1.0f, 0.0f, 0.0f));
@@ -139,6 +137,4 @@ public class App extends SimpleApplication {
     App app = new App();
     app.start();
   }
-
-
 }

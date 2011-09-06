@@ -130,12 +130,38 @@ public class PhysicalBehavior extends Behavior {
     //
     // Set our local knowledge
     //
-    location.addLocal(moveDelta.mult(delta));
 
     rotateDelta.multLocal(delta);
     Quaternion rotQuat = new Quaternion();
     rotQuat.fromAngles(rotateDelta.x, rotateDelta.y, rotateDelta.z);
     rotation.multLocal(rotQuat);
+
+    if(movesRelativeToRotation) {
+      Vector3f toMove = Vector3f.ZERO.clone();
+
+      // See Camera.getLeft and Camera.getDirection for the following
+      //
+      // TODO Me thinks there's an easier way to do this, possibly
+      // a single Matrix mult instead of this long-form.
+      // But! for now this works, and I'm happy
+      Vector3f left = new Vector3f();
+      rotation.getRotationColumn(0, left);
+      left.multLocal(-moveDelta.x * delta);
+
+      Vector3f dir = new Vector3f();
+      rotation.getRotationColumn(2, dir);
+      dir.multLocal(-moveDelta.z * delta);
+
+      Vector3f up = new Vector3f();
+      rotation.getRotationColumn(1, up);
+      up.multLocal(moveDelta.y * delta);
+
+      location.addLocal(left);
+      location.addLocal(dir);
+      location.addLocal(up);
+    } else {
+      location.addLocal(moveDelta.mult(delta));
+    }
 
     //
     // Sync node's spatial information to JME
