@@ -53,8 +53,8 @@ public class App extends SimpleApplication {
     /**
      * Load up station definition from sqlite
      */
-    //Actor station = sceneManager.createActor();
-    //station.useBehavior(new ConstructBehavior("default"));
+    Actor station = sceneManager.createActor();
+    station.useBehavior(new ConstructBehavior("default"));
 
     //Actor player = sceneManager.createActor();
     //player.useBehavior(new PlayerBehavior());
@@ -67,10 +67,11 @@ public class App extends SimpleApplication {
      * Hook up to FPS keybindings (flying)
      */
     Actor camera = sceneManager.createActor(new Vector3f(0, 0, 10f));
-    //camera.useBehavior(new InputBehavior("fpsMovement"));
+    camera.useBehavior(new InputBehavior("fpsMovement"));
 
     PhysicalBehavior physB = camera.getBehavior(PhysicalBehavior.class);
     physB.setSpeed(5);
+    physB.setTurnSpeed(90);
     physB.moveRelativeToRotation(true);
 
 
@@ -92,8 +93,6 @@ public class App extends SimpleApplication {
     teapot.getBehavior(PhysicalBehavior.class).setSpeed(2.0f);
 
     teapot2.useBehavior(new InputBehavior("lightMover"));
-
-    teapot3.useBehavior(new InputBehavior("fpsMovement"));
 
     Actor sun = sceneManager.createActor();
     sun.useBehavior(new DirectionalLightBehavior(
