@@ -1,5 +1,6 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import org.slartibartfast.Behavior;
@@ -18,6 +19,11 @@ public class PhysicalBehavior extends Behavior {
   private Vector3f location;
 
   /**
+   * Orientation of the current Actor
+   */
+  private Quaternion orientation;
+
+  /**
    * This keeps a running tally of all move requests
    * made to this Actor for the given frame
    */
@@ -33,6 +39,8 @@ public class PhysicalBehavior extends Behavior {
     location = Vector3f.ZERO.clone();
     moveDelta = Vector3f.ZERO.clone();
 
+    orientation = Quaternion.IDENTITY.clone();
+
     speed = 1.0f;
   }
 
@@ -42,6 +50,14 @@ public class PhysicalBehavior extends Behavior {
 
   public Vector3f getLocation() {
     return location;
+  }
+
+  public Quaternion getOrientation() {
+    return orientation;
+  }
+
+  public void setOrientation(Quaternion orientation) {
+    this.orientation = orientation;
   }
 
   public void setSpeed(float speed) {
@@ -95,5 +111,6 @@ public class PhysicalBehavior extends Behavior {
   public void moveBackward() {
     moveDelta.z -= speed;
   }
+
 
 }

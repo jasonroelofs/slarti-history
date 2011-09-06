@@ -1,5 +1,6 @@
 package org.slartibartfast.behaviors;
 
+import com.jme3.math.Quaternion;
 import org.slartibartfast.Actor;
 import com.jme3.math.Vector3f;
 import org.junit.Test;
@@ -18,6 +19,15 @@ public class PhysicalBehaviorTest {
     b.setLocation(location);
 
     assertEquals(location, b.getLocation());
+  }
+
+  @Test
+  public void hasOrientation() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Quaternion quat = Quaternion.IDENTITY;
+    b.setOrientation(quat);
+
+    assertEquals(quat, b.getOrientation());
   }
 
   @Test
