@@ -39,6 +39,10 @@ public class PhysicalBehavior extends Behavior {
    *  y = roll
    *  z = pitch
    *
+   * While technically correct, I have to say that in general use
+   * this is horribly wrong. X is pitch, Y is yaw, and Z is roll.
+   * This is what the system will use, and will convert as needed
+   * for JME to understand.
    */
   private Vector3f rotateDelta;
 
