@@ -24,7 +24,7 @@ public class InputEvent {
     this.actor = actor;
     this.event = name;
     this.pressed = pressed;
-    this.value = 0.0f;
+    this.value = pressed ? 1.0f : 0.0f;
   }
 
   public InputEvent(Actor actor, String name, float value) {

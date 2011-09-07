@@ -118,6 +118,7 @@ public class EventsTest {
   @Test
   public void turnLeftEvent() throws UnknownEventError {
     event.event = "TurnLeft";
+    event.value = 1.0f;
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
@@ -130,6 +131,7 @@ public class EventsTest {
   @Test
   public void turnRightEvent() throws UnknownEventError {
     event.event = "TurnRight";
+    event.value = 1.0f;
     PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 

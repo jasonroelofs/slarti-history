@@ -211,12 +211,20 @@ public class PhysicalBehavior extends Behavior {
     moveDelta.z += speed;
   }
 
-  public void turnLeft() {
-    rotateDelta.y += FastMath.DEG_TO_RAD * turnSpeed;
+  /**
+   * Turn left at turnRatio percentage of the turn speed.
+   * @param turnRatio How much of the turn speed to turn. Must be[0,1]
+   */
+  public void turnLeft(float turnRatio) {
+    rotateDelta.y += FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
   }
 
-  public void turnRight() {
-    rotateDelta.y -= FastMath.DEG_TO_RAD * turnSpeed;
+  /**
+   * Turn left at turnRatio percentage of the turn speed.
+   * @param turnRatio How much of the turn speed to turn. Must be[0,1]
+   */
+  public void turnRight(float turnRatio) {
+    rotateDelta.y -= FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
   }
 
 }

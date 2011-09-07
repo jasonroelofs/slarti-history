@@ -59,14 +59,14 @@ public enum Events {
     @Override
     protected void execute(InputEvent e) {
       PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
-      b.turnLeft();
+      b.turnLeft(e.value);
     }
   },
   TurnRight ("Turn Right") {
     @Override
     protected void execute(InputEvent e) {
       PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
-      b.turnRight();
+      b.turnRight(e.value);
     }
   },
   PitchUp ("Look Up") {

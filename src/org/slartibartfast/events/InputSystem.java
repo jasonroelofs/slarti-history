@@ -169,7 +169,12 @@ public class InputSystem {
         String eventName = name.split(":")[1];
 
         for(Actor a : actors) {
-          currentEvents.add(new InputEvent(a, eventName, value));
+          // JME is using analog listeners to keep sending key-down
+          // messages to act like "HOLD" events. It's also giving me
+          // per frame values automatically, which I don't want.
+          // I undo that here to get the raw value and let
+          // PhysicalBehavior take care of time-per-frame delta logic
+          currentEvents.add(new InputEvent(a, eventName, value / tpf));
         }
       }
     }

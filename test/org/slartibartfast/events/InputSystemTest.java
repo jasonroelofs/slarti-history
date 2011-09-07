@@ -154,7 +154,7 @@ public class InputSystemTest {
 
     AnalogListener listener = system.getAnalogListener();
 
-    listener.onAnalog("testScope:MoveUp", 12.7f, 0.1f);
+    listener.onAnalog("testScope:MoveUp", 12.7f, 1.0f);
 
     List<InputEvent> events = system.getCurrentEvents();
 
@@ -179,7 +179,7 @@ public class InputSystemTest {
 
     AnalogListener listener = system.getAnalogListener();
 
-    listener.onAnalog("testScope1:MoveUp", 12.7f, 0.1f);
+    listener.onAnalog("testScope1:MoveUp", 12.7f, 1.0f);
     listener.onAnalog("testScope2:MoveUp", 2.3f, 0f);
 
     List<InputEvent> events = system.getCurrentEvents();

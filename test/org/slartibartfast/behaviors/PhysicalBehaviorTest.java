@@ -160,7 +160,7 @@ public class PhysicalBehaviorTest {
     b.moveRelativeToRotation(true);
 
     // Now facing down -X
-    b.turnLeft();
+    b.turnLeft(1.0f);
     b.perform(1.0f);
 
     b.moveForward();
@@ -179,7 +179,7 @@ public class PhysicalBehaviorTest {
     b.moveRelativeToRotation(true);
 
     // Now facing down -X
-    b.turnLeft();
+    b.turnLeft(1.0f);
     b.perform(1.0f);
 
     b.moveLeft();
@@ -198,7 +198,7 @@ public class PhysicalBehaviorTest {
     b.moveRelativeToRotation(true);
 
     // Now facing down -X
-    b.turnLeft();
+    b.turnLeft(1.0f);
     b.perform(1.0f);
 
     b.moveUp();
@@ -215,7 +215,7 @@ public class PhysicalBehaviorTest {
     b.setTurnSpeed(90);
     Quaternion fromQuat = b.getRotation().clone();
 
-    b.turnLeft();
+    b.turnLeft(1.0f);
     b.perform(1.0f);
 
     Quaternion delta = new Quaternion();
@@ -234,7 +234,7 @@ public class PhysicalBehaviorTest {
     b.setTurnSpeed(90);
     Quaternion fromQuat = b.getRotation().clone();
 
-    b.turnRight();
+    b.turnRight(1.0f);
     b.perform(1.0f);
 
     Quaternion delta = new Quaternion();
