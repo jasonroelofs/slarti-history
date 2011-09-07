@@ -4,6 +4,7 @@ import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseAxisTrigger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -49,6 +50,7 @@ public class InputSystem {
     inputManager = manager;
     currentEvents = new ArrayList<InputEvent>();
     actorMapping = new HashMap<String, List<Actor>>();
+    inputManager.setCursorVisible(false);
   }
 
   /**
@@ -78,7 +80,6 @@ public class InputSystem {
   public void mapInputToActor(UserKeyMapping mapping, Actor actor) {
     List<String> events = new ArrayList<String>(mapping.size());
     String eventName;
-    List<String> eventsToMap = new ArrayList<String>();
     String scope = mapping.getScope();
     int keyCode;
 
@@ -92,6 +93,27 @@ public class InputSystem {
       inputManager.addMapping(eventName, new KeyTrigger(keyCode));
 
       inputManager.addListener(actionListener, eventName);
+//      inputManager.addListener(analogListener, eventName);
+    }
+  }
+
+  public void mapInputToActor(UserMouseMapping mapping, Actor actor) {
+    List<String> events = new ArrayList<String>(mapping.size());
+    String eventName;
+    String scope = mapping.getScope();
+    int axisCode;
+
+    for (Entry<Events, AxisDefinition> entry : mapping.entrySet()) {
+      eventName = scope + ":" + entry.getKey().name();
+      axisCode = Axis.get(entry.getValue().axis);
+
+      events.add(eventName);
+      addActorToEvent(eventName, actor);
+
+      inputManager.addMapping(eventName,
+              new MouseAxisTrigger(axisCode,
+                      entry.getValue().positiveDir));
+
       inputManager.addListener(analogListener, eventName);
     }
   }
