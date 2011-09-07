@@ -13,6 +13,10 @@ public enum Axis {
   MOUSE_X(MouseInput.AXIS_X, "MOUSE_X"),
   MOUSE_Y(MouseInput.AXIS_Y, "MOUSE_Y");
 
+  public static boolean parseDirection(String string) {
+    return string.equals("LEFT") || string.equals("DOWN");
+  }
+
   int code;
   String name;
 

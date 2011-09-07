@@ -41,9 +41,11 @@ public class SQLiteDataProvider implements IDataProvider {
 
         for(int i = 0; i < st.columnCount(); i++) {
           columnName = st.getColumnName(i);
-          columnValue = (String)st.columnValue(i);
+          if(!columnName.equals("id")) {
+            columnValue = (String)st.columnValue(i);
 
-          row.put(columnName, columnValue);
+            row.put(columnName, columnValue);
+          }
         }
 
         return row;

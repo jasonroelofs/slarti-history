@@ -85,8 +85,12 @@ public class InputSystemTest {
 
     verify(manager, atLeastOnce()).addListener(any(ActionListener.class),
         eq("testScope1:MoveUp"));
+    verify(manager, atLeastOnce()).addListener(any(AnalogListener.class),
+        eq("testScope1:MoveUp"));
 
     verify(manager, atLeastOnce()).addListener(any(ActionListener.class),
+        eq("testScope2:MoveUp"));
+     verify(manager, atLeastOnce()).addListener(any(AnalogListener.class),
         eq("testScope2:MoveUp"));
 
     verifyNoMoreInteractions(manager);

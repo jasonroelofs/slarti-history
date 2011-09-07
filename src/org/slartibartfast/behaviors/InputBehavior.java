@@ -4,6 +4,7 @@ import org.slartibartfast.UserSettings;
 import org.slartibartfast.Behavior;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.events.UserKeyMapping;
+import org.slartibartfast.events.UserMouseMapping;
 
 /**
  * Add this behavior to an Actor to hook up Input events
@@ -16,7 +17,8 @@ public class InputBehavior extends Behavior {
 
   private String scope;
 
-  private UserKeyMapping mapping;
+  private UserKeyMapping keyMapping;
+  private UserMouseMapping mouseMapping;
 
   /**
    * Create a new behavior to work on input under the given scope
@@ -27,9 +29,14 @@ public class InputBehavior extends Behavior {
   }
 
   public void initialize(InputSystem input, UserSettings settings) {
-    mapping = settings.getKeyMap(scope);
+    keyMapping = settings.getKeyMap(scope);
+    mouseMapping = settings.getMouseMap(scope);
 
-    input.mapInputToActor(mapping, actor);
+    if(keyMapping != null)
+      input.mapInputToActor(keyMapping, actor);
+
+    if(mouseMapping != null)
+      input.mapInputToActor(mouseMapping, actor);
 
     initialize();
   }

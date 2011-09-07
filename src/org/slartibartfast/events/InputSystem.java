@@ -93,8 +93,10 @@ public class InputSystem {
 
       inputManager.addMapping(eventName, new KeyTrigger(keyCode));
 
+      // We add to both Action and Analog as without Analog we
+      // don't get auto key-held-down action
       inputManager.addListener(actionListener, eventName);
-//      inputManager.addListener(analogListener, eventName);
+      inputManager.addListener(analogListener, eventName);
     }
   }
 
