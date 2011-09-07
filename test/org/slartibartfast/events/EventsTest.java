@@ -1,8 +1,5 @@
 package org.slartibartfast.events;
 
-import org.slartibartfast.events.Events;
-import org.slartibartfast.events.UnknownEventError;
-import org.slartibartfast.events.InputEvent;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import org.junit.Before;
@@ -11,6 +8,7 @@ import org.slartibartfast.Actor;
 import org.slartibartfast.Factories;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 public class EventsTest {
 
@@ -125,7 +123,7 @@ public class EventsTest {
     Events.processEvent(event);
     b.perform(1.0f);
 
-    assertNotSame(oldQuat, b.getRotation());
+    assertThat(oldQuat, not(equalTo(b.getRotation())));
   }
 
   @Test
@@ -138,6 +136,32 @@ public class EventsTest {
     Events.processEvent(event);
     b.perform(1.0f);
 
-    assertNotSame(oldQuat, b.getRotation());
+    assertThat(oldQuat, not(equalTo(b.getRotation())));
+  }
+
+    @Test
+  public void pitchUpEvent() throws UnknownEventError {
+    event.event = "PitchUp";
+    event.value = 1.0f;
+    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    Quaternion oldQuat = b.getRotation().clone();
+
+    Events.processEvent(event);
+    b.perform(1.0f);
+
+    assertThat(oldQuat, not(equalTo(b.getRotation())));
+  }
+
+  @Test
+  public void pitchDownEvent() throws UnknownEventError {
+    event.event = "PitchDown";
+    event.value = 1.0f;
+    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    Quaternion oldQuat = b.getRotation().clone();
+
+    Events.processEvent(event);
+    b.perform(1.0f);
+
+    assertThat(oldQuat, not(equalTo(b.getRotation())));
   }
 }

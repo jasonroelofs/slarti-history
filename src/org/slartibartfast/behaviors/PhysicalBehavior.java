@@ -227,4 +227,20 @@ public class PhysicalBehavior extends Behavior {
     rotateDelta.y -= FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
   }
 
+  /**
+   * Rotate up at turnRatio percentage of the turn speed.
+   * @param turnRatio How much of the turn speed to turn. Must be[0,1]
+   */
+  public void pitchUp(float turnRatio) {
+    rotateDelta.x -= FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
+  }
+
+  /**
+   * Rotate down at turnRatio percentage of the turn speed.
+   * @param turnRatio How much of the turn speed to turn. Must be[0,1]
+   */
+  public void pitchDown(float turnRatio) {
+    rotateDelta.x += FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
+  }
+
 }

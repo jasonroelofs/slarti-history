@@ -72,15 +72,15 @@ public enum Events {
   PitchUp ("Look Up") {
     @Override
     protected void execute(InputEvent e) {
-//      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
-//      b.turnLeft();
+      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      b.pitchUp(e.value);
     }
   },
   PitchDown ("Look Down") {
     @Override
     protected void execute(InputEvent e) {
-//      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
-//      b.turnRight();
+      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      b.pitchDown(e.value);
     }
   }
   ;

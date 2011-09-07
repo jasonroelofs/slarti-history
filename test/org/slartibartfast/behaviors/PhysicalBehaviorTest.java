@@ -243,8 +243,46 @@ public class PhysicalBehaviorTest {
 
     assertEquals(expected, b.getRotation());
     assertEquals(expected, a.getNode().getLocalRotation());
-
   }
+
+  @Test
+  public void queuePitchUpAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setTurnSpeed(90);
+    Quaternion fromQuat = b.getRotation().clone();
+
+    b.pitchUp(1.0f);
+    b.perform(1.0f);
+
+    Quaternion delta = new Quaternion();
+    delta.fromAngles(FastMath.DEG_TO_RAD * -90, 0, 0);
+    Quaternion expected = fromQuat.mult(delta);
+
+    assertEquals(expected, b.getRotation());
+    assertEquals(expected, a.getNode().getLocalRotation());
+  }
+
+  @Test
+  public void queuePitchDownAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setTurnSpeed(90);
+    Quaternion fromQuat = b.getRotation().clone();
+
+    b.pitchDown(1.0f);
+    b.perform(1.0f);
+
+    Quaternion delta = new Quaternion();
+    delta.fromAngles(FastMath.DEG_TO_RAD * 90, 0, 0);
+    Quaternion expected = fromQuat.mult(delta);
+
+    assertEquals(expected, b.getRotation());
+    assertEquals(expected, a.getNode().getLocalRotation());
+  }
+
 
   @Test
   public void performUpdatesNodeLocation() {
