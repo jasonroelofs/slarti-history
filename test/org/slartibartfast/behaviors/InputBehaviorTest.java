@@ -1,10 +1,10 @@
 package org.slartibartfast.behaviors;
 
-import org.slartibartfast.Events;
+import org.slartibartfast.events.Events;
 import org.slartibartfast.Actor;
-import org.slartibartfast.InputSystem;
+import org.slartibartfast.events.InputSystem;
 import org.junit.Test;
-import org.slartibartfast.UserKeyMapping;
+import org.slartibartfast.events.UserKeyMapping;
 import org.slartibartfast.UserSettings;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;

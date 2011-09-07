@@ -1,5 +1,7 @@
 package org.slartibartfast;
 
+import org.slartibartfast.events.Events;
+import org.slartibartfast.events.UserKeyMapping;
 import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;

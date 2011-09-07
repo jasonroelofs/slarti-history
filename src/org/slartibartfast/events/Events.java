@@ -1,4 +1,4 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

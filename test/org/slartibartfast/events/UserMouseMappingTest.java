@@ -1,5 +1,8 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
+import org.slartibartfast.events.AxisDefinition;
+import org.slartibartfast.events.Events;
+import org.slartibartfast.events.UserMouseMapping;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

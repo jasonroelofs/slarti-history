@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.events.InputSystem;
 import com.jme3.input.InputManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;

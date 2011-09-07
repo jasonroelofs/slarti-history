@@ -2,8 +2,8 @@ package org.slartibartfast.behaviors;
 
 import org.slartibartfast.UserSettings;
 import org.slartibartfast.Behavior;
-import org.slartibartfast.InputSystem;
-import org.slartibartfast.UserKeyMapping;
+import org.slartibartfast.events.InputSystem;
+import org.slartibartfast.events.UserKeyMapping;
 
 /**
  * Add this behavior to an Actor to hook up Input events

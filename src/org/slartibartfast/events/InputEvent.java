@@ -1,4 +1,6 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
+
+import org.slartibartfast.Actor;
 
 /**
  *

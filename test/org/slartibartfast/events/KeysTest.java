@@ -1,5 +1,6 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
+import org.slartibartfast.events.Keys;
 import com.jme3.input.KeyInput;
 import org.junit.Test;
 import static org.junit.Assert.*;

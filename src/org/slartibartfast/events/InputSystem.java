@@ -1,4 +1,4 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.slartibartfast.Actor;
 
 /**
  * This class abstracts the usage of JME's input management

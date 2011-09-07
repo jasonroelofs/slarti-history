@@ -1,4 +1,4 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
 import com.jme3.input.MouseInput;
 import java.util.EnumSet;

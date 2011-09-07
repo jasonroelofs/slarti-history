@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.PointLightBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;

@@ -1,9 +1,14 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
+import org.slartibartfast.events.Events;
+import org.slartibartfast.events.UnknownEventError;
+import org.slartibartfast.events.InputEvent;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import org.junit.Before;
 import org.junit.Test;
+import org.slartibartfast.Actor;
+import org.slartibartfast.Factories;
 import org.slartibartfast.behaviors.PhysicalBehavior;
 import static org.junit.Assert.*;
 

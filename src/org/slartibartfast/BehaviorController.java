@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.events.InputSystem;
 import com.jme3.asset.AssetManager;
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import com.jme3.asset.AssetManager;
 import org.slartibartfast.behaviors.PointLightBehavior;

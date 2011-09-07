@@ -1,5 +1,6 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
+import org.slartibartfast.events.Axis;
 import com.jme3.input.MouseInput;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -1,4 +1,4 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
 /**
  * Error thrown when reading from user_settings. If an event name

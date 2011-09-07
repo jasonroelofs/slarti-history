@@ -1,5 +1,6 @@
-package org.slartibartfast;
+package org.slartibartfast.events;
 
+import org.slartibartfast.events.UserKeyMapping;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

@@ -1,5 +1,7 @@
 package org.slartibartfast;
 
+import org.slartibartfast.events.UserKeyMapping;
+import org.slartibartfast.events.Events;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
