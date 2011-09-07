@@ -115,7 +115,7 @@ public class InputSystem {
 
       inputManager.addMapping(eventName,
               new MouseAxisTrigger(axisCode,
-                      entry.getValue().positiveDir));
+                      !entry.getValue().positiveDir));
 
       inputManager.addListener(analogListener, eventName);
     }

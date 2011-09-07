@@ -14,7 +14,7 @@ public enum Axis {
   MOUSE_Y(MouseInput.AXIS_Y, "MOUSE_Y");
 
   public static boolean parseDirection(String string) {
-    return string.equals("LEFT") || string.equals("DOWN");
+    return !(string.equals("LEFT") || string.equals("DOWN"));
   }
 
   int code;

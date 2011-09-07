@@ -235,11 +235,13 @@ public class InputSystemTest {
     verify(manager).addMapping(eq("testScope:MoveDown"),
             triggerDown.capture());
     assertEquals(MouseInput.AXIS_Y, triggerDown.getValue().getMouseAxis());
+    assertTrue(triggerDown.getValue().isNegative());
 
     // Verify we added the MoveUp event
     verify(manager).addMapping(eq("testScope:MoveUp"),
             triggerUp.capture());
     assertEquals(MouseInput.AXIS_Y, triggerUp.getValue().getMouseAxis());
+    assertFalse(triggerUp.getValue().isNegative());
   }
 
 
