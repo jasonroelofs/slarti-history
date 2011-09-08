@@ -3,10 +3,6 @@ package org.slartibartfast.events;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-/**
- *
- * @author roelofs
- */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   org.slartibartfast.events.AxisDefinitionTest.class,

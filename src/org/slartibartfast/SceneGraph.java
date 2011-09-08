@@ -11,8 +11,6 @@ import org.slartibartfast.behaviors.PhysicalBehavior;
  * A SceneGraph handles a localized set of Actors in a given
  * area for display or other uses. Takes a node which will be
  * the root node of this scene graph.
- *
- * @author roelofs
  */
 public class SceneGraph {
 

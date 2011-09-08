@@ -1,6 +1,5 @@
 package org.slartibartfast;
 
-import org.mockito.Mock;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
@@ -9,10 +8,6 @@ import org.slartibartfast.behaviors.PhysicalBehavior;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-/**
- *
- * @author roelofs
- */
 public class ActorTest {
 
   class TestBehavior extends Behavior {

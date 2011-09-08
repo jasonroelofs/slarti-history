@@ -1,10 +1,5 @@
 package org.slartibartfast.events;
 
-import org.slartibartfast.events.Events;
-import org.slartibartfast.events.UserKeyMapping;
-import org.slartibartfast.events.UserMouseMapping;
-import org.slartibartfast.events.InputEvent;
-import org.slartibartfast.events.InputSystem;
 import com.jme3.input.MouseInput;
 import org.junit.Before;
 import com.jme3.input.controls.KeyTrigger;
@@ -21,10 +16,6 @@ import org.mockito.ArgumentCaptor;
 import org.slartibartfast.Actor;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author roelofs
- */
 public class InputSystemTest {
   private InputManager manager;
   private InputSystem system;

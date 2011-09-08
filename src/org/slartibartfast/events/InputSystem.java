@@ -32,8 +32,6 @@ import org.slartibartfast.Actor;
  * On Update (per frame):
  *
  * Process all InputEvents in the Current list
- *
- * @author roelofs
  */
 public class InputSystem {
 

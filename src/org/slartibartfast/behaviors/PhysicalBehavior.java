@@ -9,8 +9,6 @@ import org.slartibartfast.Behavior;
 /**
  * This Behavior keeps track of the actual location, rotation, and
  * scale of the Actor it's added to.
- *
- * @author roelofs
  */
 public class PhysicalBehavior extends Behavior {
 
@@ -33,16 +31,7 @@ public class PhysicalBehavior extends Behavior {
   /**
    * Like moveDelta, keep track of the rotation requests
    * received so far. Kept in a vector to make it much
-   * easier to use than a Quaternion:
-   *
-   *  x = yaw
-   *  y = roll
-   *  z = pitch
-   *
-   * While technically correct, I have to say that in general use
-   * this is horribly wrong. X is pitch, Y is yaw, and Z is roll.
-   * This is what the system will use, and will convert as needed
-   * for JME to understand.
+   * easier to use than a Quaternion.
    */
   private Vector3f rotateDelta;
 
@@ -53,7 +42,7 @@ public class PhysicalBehavior extends Behavior {
   private float speed;
 
   /**
-   * Rotational speed in degrees per second
+   * Rotational speed in radians per second
    */
   private float turnSpeed;
 
@@ -69,6 +58,10 @@ public class PhysicalBehavior extends Behavior {
    */
   private boolean fixedUpAxis;
 
+  /**
+   * These flags are used to ensure perform takes into
+   * account any use of setLocation or setRotation
+   */
   private boolean forceRotationUpdate;
   private boolean forceLocationUpdate;
 
@@ -105,22 +98,34 @@ public class PhysicalBehavior extends Behavior {
     this.forceRotationUpdate = true;
   }
 
-  public void setSpeed(float speed) {
+  /**
+   * Set speed in units per second this Actor moves.
+   * @param speed Movement speed in units per second
+   */
+  public final void setSpeed(float speed) {
     this.speed = speed;
   }
 
-  public float getSpeed() {
+  public final float getSpeed() {
     return speed;
   }
 
-  public void setTurnSpeed(int speed) {
+  /**
+   * Set speed in degrees per second this Actor can rotate
+   * @param speed Rotational speed in Degrees per second
+   */
+  public final void setTurnSpeed(int speed) {
     turnSpeed = speed * FastMath.DEG_TO_RAD;
   }
 
-  public int getTurnSpeed() {
+  public final int getTurnSpeed() {
     return Math.round(turnSpeed * FastMath.RAD_TO_DEG);
   }
 
+  /**
+   * Set this Actor to yaw around a fixed Up axis (+Y)
+   * @param fix
+   */
   public void fixUpAxis(boolean fix) {
     fixedUpAxis = fix;
   }
@@ -146,8 +151,9 @@ public class PhysicalBehavior extends Behavior {
   }
 
   /**
+   * Update the current location and rotation of this Actor's Node.
    * @see Behavior.perform
-   * @param delta
+   * @param delta Seconds since last frame
    */
   @Override
   public void perform(float delta) {

@@ -8,10 +8,6 @@ import org.slartibartfast.Factories;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-/**
- *
- * @author roelofs
- */
 public class ConstructBehaviorTest {
 
   public ConstructBehaviorTest() {

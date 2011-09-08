@@ -12,8 +12,6 @@ import java.util.Map;
  * Actor behaves in the game.
  *
  * Do not instantiate this class directly. Use ActorFactory instead.
- *
- * @author roelofs
  */
 public class Actor {
 

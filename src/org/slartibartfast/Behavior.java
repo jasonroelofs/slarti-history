@@ -1,12 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.slartibartfast;
 
 /**
- *
- * @author roelofs
+ * A behavior is a concrete set of functionality that can be added
+ * to an Actor to change how it behaves in the world.
+ * Without Behaviors, Actors are nothing but shells around a JME Node.
+ * All logic to be added to an Actor must be added through a Behavior.
  */
 public abstract class Behavior {
 
@@ -20,7 +19,7 @@ public abstract class Behavior {
    *
    * By default this method does nothing
    *
-   * @param delta Time since the last frame
+   * @param delta Seconds since the last frame
    */
   public void perform(float delta) { }
 

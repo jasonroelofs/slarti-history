@@ -3,8 +3,7 @@ package org.slartibartfast.events;
 import org.slartibartfast.Actor;
 
 /**
- *
- * @author roelofs
+ * Internal representation of an event from the input system.
  */
 public class InputEvent {
 
