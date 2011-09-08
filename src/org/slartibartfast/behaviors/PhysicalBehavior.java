@@ -55,7 +55,7 @@ public class PhysicalBehavior extends Behavior {
   /**
    * Rotational speed in degrees per second
    */
-  private int turnSpeed;
+  private float turnSpeed;
 
   /**
    * Does this Actor move forward according to its rotation or
@@ -84,7 +84,7 @@ public class PhysicalBehavior extends Behavior {
     fixedUpAxis = true;
 
     speed = 1.0f;
-    turnSpeed = 180;
+    setTurnSpeed(180);
   }
 
   public void setLocation(Vector3f location) {
@@ -114,11 +114,11 @@ public class PhysicalBehavior extends Behavior {
   }
 
   public void setTurnSpeed(int speed) {
-    turnSpeed = speed;
+    turnSpeed = speed * FastMath.DEG_TO_RAD;
   }
 
   public int getTurnSpeed() {
-    return turnSpeed;
+    return Math.round(turnSpeed * FastMath.RAD_TO_DEG);
   }
 
   public void fixUpAxis(boolean fix) {
@@ -255,7 +255,7 @@ public class PhysicalBehavior extends Behavior {
    * @param turnRatio How much of the turn speed to turn. Must be[0,1]
    */
   public void turnLeft(float turnRatio) {
-    rotateDelta.y += FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
+    rotateDelta.y += turnSpeed * turnRatio;
   }
 
   /**
@@ -263,7 +263,7 @@ public class PhysicalBehavior extends Behavior {
    * @param turnRatio How much of the turn speed to turn. Must be[0,1]
    */
   public void turnRight(float turnRatio) {
-    rotateDelta.y -= FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
+    rotateDelta.y -= turnSpeed * turnRatio;
   }
 
   /**
@@ -271,7 +271,7 @@ public class PhysicalBehavior extends Behavior {
    * @param turnRatio How much of the turn speed to turn. Must be[0,1]
    */
   public void pitchUp(float turnRatio) {
-    rotateDelta.x -= FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
+    rotateDelta.x -= turnSpeed * turnRatio;
   }
 
   /**
@@ -279,15 +279,15 @@ public class PhysicalBehavior extends Behavior {
    * @param turnRatio How much of the turn speed to turn. Must be[0,1]
    */
   public void pitchDown(float turnRatio) {
-    rotateDelta.x += FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
+    rotateDelta.x += turnSpeed * turnRatio;
   }
 
   public void rollLeft() {
-    rotateDelta.z -= FastMath.DEG_TO_RAD * turnSpeed;
+    rotateDelta.z -= turnSpeed;
   }
 
   public void rollRight() {
-    rotateDelta.z += FastMath.DEG_TO_RAD * turnSpeed;
+    rotateDelta.z += turnSpeed;
   }
 
 }
