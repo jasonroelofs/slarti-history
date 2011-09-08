@@ -63,6 +63,12 @@ public class PhysicalBehavior extends Behavior {
    */
   private boolean movesRelativeToRotation;
 
+  /**
+   * Does this Actor rotate in regards to a fixed Up axis
+   * (right now always +Y) or can it rotate freely in any direction?
+   */
+  private boolean fixedUpAxis;
+
 
   public PhysicalBehavior() {
     location = Vector3f.ZERO.clone();
@@ -72,6 +78,7 @@ public class PhysicalBehavior extends Behavior {
     rotateDelta = Vector3f.ZERO.clone();
 
     movesRelativeToRotation = false;
+    fixedUpAxis = true;
 
     speed = 1.0f;
     turnSpeed = 180;
@@ -109,6 +116,14 @@ public class PhysicalBehavior extends Behavior {
     return turnSpeed;
   }
 
+  public void fixUpAxis(boolean fix) {
+    fixedUpAxis = fix;
+  }
+
+  public boolean hasFixedUpAxis() {
+    return fixedUpAxis;
+  }
+
   /**
    * Change how this behavior reacts to move commands
    * @param flag
@@ -131,33 +146,52 @@ public class PhysicalBehavior extends Behavior {
    */
   @Override
   public void perform(float delta) {
-    //
-    // Set our local knowledge
-    //
+//    if(rotateDelta.equals(Vector3f.ZERO) &&
+//            moveDelta.equals(Vector3f.ZERO)) {
+//      return;
+//    }
 
+    //
+    // Update Rotation
+    //
     rotateDelta.multLocal(delta);
-    Quaternion rotQuat = new Quaternion();
-    rotQuat.fromAngles(rotateDelta.x, rotateDelta.y, rotateDelta.z);
-    rotation.multLocal(rotQuat);
+
+    Quaternion pitch, yaw, roll;
+    Vector3f up, left, dir;
+
+    if(fixedUpAxis) {
+      up = Vector3f.UNIT_Y.clone();
+    } else {
+      up = rotation.mult(Vector3f.UNIT_Y);
+    }
+
+    left = rotation.mult(Vector3f.UNIT_X);
+    dir = rotation.mult(Vector3f.UNIT_Z);
+
+    pitch = new Quaternion();
+    pitch.fromAngleAxis(rotateDelta.x, left);
+
+    yaw = new Quaternion();
+    yaw.fromAngleAxis(rotateDelta.y, up);
+
+    roll = new Quaternion();
+    roll.fromAngleAxis(rotateDelta.z, dir);
+
+    // Order of operations matter here. The current rotation MUST be last
+    rotation = yaw.mult(pitch).mult(roll).mult(rotation);
+
+    //
+    // Update location
+    //
 
     if(movesRelativeToRotation) {
-      Vector3f toMove = Vector3f.ZERO.clone();
-
       // See Camera.getLeft and Camera.getDirection for the following
       //
       // TODO Me thinks there's an easier way to do this, possibly
       // a single Matrix mult instead of this long-form.
       // But! for now this works, and I'm happy
-      Vector3f left = new Vector3f();
-      rotation.getRotationColumn(0, left);
       left.multLocal(-moveDelta.x * delta);
-
-      Vector3f dir = new Vector3f();
-      rotation.getRotationColumn(2, dir);
       dir.multLocal(-moveDelta.z * delta);
-
-      Vector3f up = new Vector3f();
-      rotation.getRotationColumn(1, up);
       up.multLocal(moveDelta.y * delta);
 
       location.addLocal(left);
@@ -172,7 +206,7 @@ public class PhysicalBehavior extends Behavior {
     //
     Node node = actor.getNode();
     node.move(location.add(node.getWorldTranslation().negate()));
-    node.rotate(rotateDelta.x, rotateDelta.y, rotateDelta.z);
+    node.setLocalRotation(rotation);
 
     //
     // Reset deltas for next frame

@@ -65,6 +65,44 @@ public class PhysicalBehaviorTest {
   }
 
   @Test
+  public void canFixUpDirection_defaultTrue() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    assertTrue(b.hasFixedUpAxis());
+
+    b.fixUpAxis(false);
+
+    assertFalse(b.hasFixedUpAxis());
+  }
+
+  // Don't really know how best to test this.
+  // This gets values that are very, very close to each other
+  // Might just be a float-is-always-a-little-off thing
+//  @Test
+//  public void rotateAdheresToFixedUpAxis() {
+//    PhysicalBehavior b = new PhysicalBehavior();
+//    Actor a = Factories.createActor();
+//    b.setActor(a);
+//    b.setTurnSpeed(90);
+//    Quaternion fromQuat = b.getRotation().clone();
+//
+//    b.turnLeft(0.5f);
+//    b.perform(1.0f);
+//
+//    b.pitchUp(1.0f);
+//    b.perform(1.0f);
+//
+//    Quaternion delta = new Quaternion();
+//    delta.fromAngles(
+//            FastMath.DEG_TO_RAD * -90,
+//            FastMath.DEG_TO_RAD * 45,
+//            0);
+//    Quaternion expected = fromQuat.mult(delta);
+//
+//    assertEquals(expected, b.getRotation());
+//    assertEquals(expected, a.getNode().getLocalRotation());
+//  }
+
+  @Test
   public void queueMoveLeftEventAtCurrentSpeed() {
     PhysicalBehavior b = new PhysicalBehavior();
     Actor a = Factories.createActor();
@@ -282,7 +320,6 @@ public class PhysicalBehaviorTest {
     assertEquals(expected, b.getRotation());
     assertEquals(expected, a.getNode().getLocalRotation());
   }
-
 
   @Test
   public void performUpdatesNodeLocation() {
