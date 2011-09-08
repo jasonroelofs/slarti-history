@@ -7,6 +7,7 @@ import com.jme3.math.Vector3f;
 import org.junit.Test;
 import org.slartibartfast.Factories;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 public class PhysicalBehaviorTest {
 
@@ -330,15 +331,37 @@ public class PhysicalBehaviorTest {
     Actor a = Factories.createActor();
     b.setActor(a);
 
-    b.perform(0.1f);
+    b.perform(1);
 
     assertEquals(location, a.getNode().getWorldTranslation());
 
     // Multiple frames don't send it careening off.
-    b.perform(0.1f);
-    b.perform(0.1f);
+    b.perform(1);
+    b.perform(1);
 
     assertEquals(location, a.getNode().getWorldTranslation());
+  }
+
+
+  @Test
+  public void performUpdatesNodeRotation() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Quaternion rotation = new Quaternion();
+    rotation.fromAngleAxis(FastMath.PI, Vector3f.UNIT_X);
+    b.setRotation(rotation);
+
+    Actor a = Factories.createActor();
+    b.setActor(a);
+
+    b.perform(1);
+
+    assertEquals(rotation, a.getNode().getWorldRotation());
+
+    // Multiple frames don't send it careening off.
+    b.perform(1);
+    b.perform(1);
+
+    assertEquals(rotation, a.getNode().getWorldRotation());
   }
 
 }

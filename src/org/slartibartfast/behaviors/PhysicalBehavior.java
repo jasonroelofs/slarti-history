@@ -69,6 +69,9 @@ public class PhysicalBehavior extends Behavior {
    */
   private boolean fixedUpAxis;
 
+  private boolean forceRotationUpdate;
+  private boolean forceLocationUpdate;
+
 
   public PhysicalBehavior() {
     location = Vector3f.ZERO.clone();
@@ -86,6 +89,7 @@ public class PhysicalBehavior extends Behavior {
 
   public void setLocation(Vector3f location) {
     this.location = location;
+    this.forceLocationUpdate = true;
   }
 
   public Vector3f getLocation() {
@@ -98,6 +102,7 @@ public class PhysicalBehavior extends Behavior {
 
   public void setRotation(Quaternion orientation) {
     this.rotation = orientation;
+    this.forceRotationUpdate = true;
   }
 
   public void setSpeed(float speed) {
@@ -146,10 +151,10 @@ public class PhysicalBehavior extends Behavior {
    */
   @Override
   public void perform(float delta) {
-//    if(rotateDelta.equals(Vector3f.ZERO) &&
-//            moveDelta.equals(Vector3f.ZERO)) {
-//      return;
-//    }
+    if((rotateDelta.equals(Vector3f.ZERO) && !forceRotationUpdate) &&
+            (moveDelta.equals(Vector3f.ZERO) && !forceLocationUpdate)) {
+      return;
+    }
 
     //
     // Update Rotation
