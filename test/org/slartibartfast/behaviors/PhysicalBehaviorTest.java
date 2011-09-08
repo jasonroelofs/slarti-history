@@ -323,6 +323,44 @@ public class PhysicalBehaviorTest {
   }
 
   @Test
+  public void queueRollLeftAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setTurnSpeed(90);
+    Quaternion fromQuat = b.getRotation().clone();
+
+    b.rollLeft();
+    b.perform(1.0f);
+
+    Quaternion delta = new Quaternion();
+    delta.fromAngles(0, 0, FastMath.DEG_TO_RAD * -90);
+    Quaternion expected = fromQuat.mult(delta);
+
+    assertEquals(expected, b.getRotation());
+    assertEquals(expected, a.getNode().getLocalRotation());
+  }
+
+  @Test
+  public void queueRollRightAtSpeed() {
+    PhysicalBehavior b = new PhysicalBehavior();
+    Actor a = Factories.createActor();
+    b.setActor(a);
+    b.setTurnSpeed(90);
+    Quaternion fromQuat = b.getRotation().clone();
+
+    b.rollRight();
+    b.perform(1.0f);
+
+    Quaternion delta = new Quaternion();
+    delta.fromAngles(0, 0, FastMath.DEG_TO_RAD * 90);
+    Quaternion expected = fromQuat.mult(delta);
+
+    assertEquals(expected, b.getRotation());
+    assertEquals(expected, a.getNode().getLocalRotation());
+  }
+
+  @Test
   public void performUpdatesNodeLocation() {
     PhysicalBehavior b = new PhysicalBehavior();
     Vector3f location = new Vector3f(1.0f, 3.0f, 10.0f);

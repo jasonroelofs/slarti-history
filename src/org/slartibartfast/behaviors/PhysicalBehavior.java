@@ -282,4 +282,12 @@ public class PhysicalBehavior extends Behavior {
     rotateDelta.x += FastMath.DEG_TO_RAD * turnSpeed * turnRatio;
   }
 
+  public void rollLeft() {
+    rotateDelta.z -= FastMath.DEG_TO_RAD * turnSpeed;
+  }
+
+  public void rollRight() {
+    rotateDelta.z += FastMath.DEG_TO_RAD * turnSpeed;
+  }
+
 }

@@ -139,7 +139,7 @@ public class EventsTest {
     assertThat(oldQuat, not(equalTo(b.getRotation())));
   }
 
-    @Test
+  @Test
   public void pitchUpEvent() throws UnknownEventError {
     event.event = "PitchUp";
     event.value = 1.0f;
@@ -164,4 +164,31 @@ public class EventsTest {
 
     assertThat(oldQuat, not(equalTo(b.getRotation())));
   }
+
+  @Test
+  public void rollLeftEvent() throws UnknownEventError {
+    event.event = "RollLeft";
+    event.value = 1.0f;
+    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    Quaternion oldQuat = b.getRotation().clone();
+
+    Events.processEvent(event);
+    b.perform(1.0f);
+
+    assertThat(oldQuat, not(equalTo(b.getRotation())));
+  }
+
+  @Test
+  public void rollRightEvent() throws UnknownEventError {
+    event.event = "RollRight";
+    event.value = 1.0f;
+    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    Quaternion oldQuat = b.getRotation().clone();
+
+    Events.processEvent(event);
+    b.perform(1.0f);
+
+    assertThat(oldQuat, not(equalTo(b.getRotation())));
+  }
+
 }

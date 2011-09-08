@@ -82,6 +82,20 @@ public enum Events {
       PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
       b.pitchDown(e.value);
     }
+  },
+  RollLeft ("Roll Left") {
+    @Override
+    protected void execute(InputEvent e) {
+      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      b.rollLeft();
+    }
+  },
+  RollRight ("Roll Right") {
+    @Override
+    protected void execute(InputEvent e) {
+      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      b.rollRight();
+    }
   }
   ;
 
