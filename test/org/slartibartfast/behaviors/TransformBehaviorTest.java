@@ -9,14 +9,14 @@ import org.slartibartfast.Factories;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-public class PhysicalBehaviorTest {
+public class TransformBehaviorTest {
 
-  public PhysicalBehaviorTest() {
+  public TransformBehaviorTest() {
   }
 
   @Test
   public void hasLocation() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Vector3f location = Vector3f.ZERO;
     b.setLocation(location);
 
@@ -25,7 +25,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void hasOrientation() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Quaternion quat = Quaternion.IDENTITY;
     b.setRotation(quat);
 
@@ -34,13 +34,13 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void startsAtOrigin() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     assertEquals(Vector3f.ZERO, b.getLocation());
   }
 
   @Test
   public void hasSpeed_DefaultsToOne() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     assertEquals(1.0f, b.getSpeed(), 0.001);
 
     b.setSpeed(3.0f);
@@ -49,7 +49,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void hasTurnSpeed_DefaultsToOneEighty() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     assertEquals(180, b.getTurnSpeed());
 
     b.setTurnSpeed(90);
@@ -58,7 +58,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void moveRelativeToRotation_defaultFalse() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     assertFalse(b.movesRelativeToRotation());
 
     b.moveRelativeToRotation(true);
@@ -67,7 +67,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void canFixUpDirection_defaultTrue() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     assertTrue(b.hasFixedUpAxis());
 
     b.fixUpAxis(false);
@@ -80,7 +80,7 @@ public class PhysicalBehaviorTest {
   // Might just be a float-is-always-a-little-off thing
 //  @Test
 //  public void rotateAdheresToFixedUpAxis() {
-//    PhysicalBehavior b = new PhysicalBehavior();
+//    TransformBehavior b = new TransformBehavior();
 //    Actor a = Factories.createActor();
 //    b.setActor(a);
 //    b.setTurnSpeed(90);
@@ -105,7 +105,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveLeftEventAtCurrentSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -126,7 +126,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveRightAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -139,7 +139,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveUpAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -152,7 +152,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveDownAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -165,7 +165,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveForwardAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -178,7 +178,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveBackwardAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -191,7 +191,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveForwardAtSpeed_RelativeRotation() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -210,7 +210,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveLeftAtSpeed_RelativeRotation() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -229,7 +229,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueMoveUpAtSpeed_RelativeRotation() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setSpeed(2.0f);
@@ -248,7 +248,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueTurnLeftAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setTurnSpeed(90);
@@ -267,7 +267,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueTurnRightAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setTurnSpeed(90);
@@ -286,7 +286,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queuePitchUpAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setTurnSpeed(90);
@@ -305,7 +305,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queuePitchDownAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setTurnSpeed(90);
@@ -324,7 +324,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueRollLeftAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setTurnSpeed(90);
@@ -343,7 +343,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void queueRollRightAtSpeed() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Actor a = Factories.createActor();
     b.setActor(a);
     b.setTurnSpeed(90);
@@ -362,7 +362,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void performUpdatesNodeLocation() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Vector3f location = new Vector3f(1.0f, 3.0f, 10.0f);
     b.setLocation(location);
 
@@ -383,7 +383,7 @@ public class PhysicalBehaviorTest {
 
   @Test
   public void performUpdatesNodeRotation() {
-    PhysicalBehavior b = new PhysicalBehavior();
+    TransformBehavior b = new TransformBehavior();
     Quaternion rotation = new Quaternion();
     rotation.fromAngleAxis(FastMath.PI, Vector3f.UNIT_X);
     b.setRotation(rotation);

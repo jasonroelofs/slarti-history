@@ -5,7 +5,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
 import java.util.List;
-import org.slartibartfast.behaviors.PhysicalBehavior;
+import org.slartibartfast.behaviors.TransformBehavior;
 
 /**
  * A SceneGraph handles a localized set of Actors in a given
@@ -47,7 +47,7 @@ public class SceneGraph {
 
     actors.add(a);
 
-    a.useBehavior(new PhysicalBehavior());
+    a.useBehavior(new TransformBehavior());
     return a;
   }
 
@@ -56,7 +56,7 @@ public class SceneGraph {
    */
   public Actor createActor(Vector3f startingLocation) {
     Actor a = createActor();
-    PhysicalBehavior b = a.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = a.getBehavior(TransformBehavior.class);
     b.setLocation(startingLocation);
 
     return a;

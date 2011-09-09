@@ -42,7 +42,7 @@ public class CameraBehavior extends Behavior {
    */
   public void lookAt(Vector3f location) {
     camera.lookAt(location, Vector3f.UNIT_Y);
-    actor.getBehavior(PhysicalBehavior.class).setRotation(
+    actor.getBehavior(TransformBehavior.class).setRotation(
             camera.getRotation());
   }
 
@@ -54,7 +54,7 @@ public class CameraBehavior extends Behavior {
    */
   @Override
   public void perform(float delta) {
-    PhysicalBehavior phys = actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior phys = actor.getBehavior(TransformBehavior.class);
     camera.setLocation(phys.getLocation());
     camera.setRotation(phys.getRotation());
   }

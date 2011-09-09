@@ -11,7 +11,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.CameraBehavior;
 import org.slartibartfast.behaviors.ConstructBehavior;
-import org.slartibartfast.behaviors.PhysicalBehavior;
+import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 import org.slartibartfast.dataProviders.SQLiteDataProvider;
 
@@ -47,7 +47,8 @@ public class App extends SimpleApplication {
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);
     behaviorController.setDataProvider(dataProvider);
-    behaviorController.setConstructFactory(new ConstructFactory(constructDataProvider, assetManager));
+    behaviorController.setConstructFactory(
+            new ConstructFactory(constructDataProvider, assetManager));
 
     sceneManager.setBehaviorController(behaviorController);
 
@@ -67,7 +68,7 @@ public class App extends SimpleApplication {
     Actor camera = sceneManager.createActor(new Vector3f(0, 0, 10f));
     camera.useBehavior(new InputBehavior("fpsMovement"));
 
-    PhysicalBehavior physB = camera.getBehavior(PhysicalBehavior.class);
+    TransformBehavior physB = camera.getBehavior(TransformBehavior.class);
     physB.setSpeed(5);
     physB.setTurnSpeed(90);
     physB.moveRelativeToRotation(true);
@@ -89,7 +90,7 @@ public class App extends SimpleApplication {
     Actor teapot2 = createTeapot(new Vector3f(0.0f, 1.0f, 0.0f));
 
     teapot.useBehavior(new InputBehavior("lightMover"));
-    teapot.getBehavior(PhysicalBehavior.class).setSpeed(2.0f);
+    teapot.getBehavior(TransformBehavior.class).setSpeed(2.0f);
 
     teapot2.useBehavior(new InputBehavior("lightMover"));
 

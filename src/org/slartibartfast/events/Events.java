@@ -5,7 +5,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slartibartfast.behaviors.PhysicalBehavior;
+import org.slartibartfast.behaviors.TransformBehavior;
 
 /**
  * An enumeration of the various events available to input mapping.
@@ -15,35 +15,35 @@ public enum Events {
   MoveLeft  ("Move Left") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.moveLeft();
     }
   },
   MoveRight ("Move Right") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.moveRight();
     }
   },
   MoveUp    ("Move Up") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.moveUp();
     }
   },
   MoveDown  ("Move Down") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.moveDown();
     }
   },
   MoveForward ("Move Forward") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.moveForward();
 
     }
@@ -51,49 +51,49 @@ public enum Events {
   MoveBackward ("Move Backward") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.moveBackward();
     }
   },
   TurnLeft ("Turn Left") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.turnLeft(e.value);
     }
   },
   TurnRight ("Turn Right") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.turnRight(e.value);
     }
   },
   PitchUp ("Look Up") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.pitchUp(e.value);
     }
   },
   PitchDown ("Look Down") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.pitchDown(e.value);
     }
   },
   RollLeft ("Roll Left") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.rollLeft();
     }
   },
   RollRight ("Roll Right") {
     @Override
     protected void execute(InputEvent e) {
-      PhysicalBehavior b = e.actor.getBehavior(PhysicalBehavior.class);
+      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
       b.rollRight();
     }
   }

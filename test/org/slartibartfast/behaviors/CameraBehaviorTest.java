@@ -42,8 +42,8 @@ public class CameraBehaviorTest {
 
   @Test
   public void canLookAtALocation() {
-    PhysicalBehavior physB =
-            behavior.getActor().getBehavior(PhysicalBehavior.class);
+    TransformBehavior physB =
+            behavior.getActor().getBehavior(TransformBehavior.class);
     physB.setLocation(new Vector3f(0, 0, -10f));
     behavior.lookAt(Vector3f.ZERO);
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slartibartfast.behaviors.PhysicalBehavior;
+import org.slartibartfast.behaviors.TransformBehavior;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -84,7 +84,7 @@ public class ActorTest {
 
   @Test
   public void canGetAllBehaviors() {
-    actor.useBehavior(new PhysicalBehavior());
+    actor.useBehavior(new TransformBehavior());
     actor.useBehavior(new TestBehavior());
 
     ArrayList<Behavior> list = actor.getBehaviors();

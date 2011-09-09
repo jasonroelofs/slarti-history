@@ -29,7 +29,7 @@ public class PointLightBehavior extends LightBehavior {
 
   @Override
   public void perform(float delta) {
-    PhysicalBehavior b = actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     light.setPosition(b.getLocation());
   }
 

@@ -10,7 +10,7 @@ import org.slartibartfast.Behavior;
  * This Behavior keeps track of the actual location, rotation, and
  * scale of the Actor it's added to.
  */
-public class PhysicalBehavior extends Behavior {
+public class TransformBehavior extends Behavior {
 
   /**
    * World location of the current Actor
@@ -66,7 +66,7 @@ public class PhysicalBehavior extends Behavior {
   private boolean forceLocationUpdate;
 
 
-  public PhysicalBehavior() {
+  public TransformBehavior() {
     location = Vector3f.ZERO.clone();
     moveDelta = Vector3f.ZERO.clone();
 

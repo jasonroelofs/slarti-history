@@ -3,7 +3,7 @@ package org.slartibartfast;
 import com.jme3.scene.Node;
 import org.junit.Before;
 import com.jme3.math.Vector3f;
-import org.slartibartfast.behaviors.PhysicalBehavior;
+import org.slartibartfast.behaviors.TransformBehavior;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -60,7 +60,7 @@ public class SceneGraphTest {
   public void canCreateActorAndGiveInitialLocation() {
     Vector3f location = new Vector3f(2.0f, 3.0f, 4.0f);
     Actor a = graph.createActor(location);
-    PhysicalBehavior b = a.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = a.getBehavior(TransformBehavior.class);
 
     assertEquals(location, b.getLocation());
   }
@@ -79,7 +79,7 @@ public class SceneGraphTest {
   @Test
   public void createAddsPhysicalToActor() {
     Actor a = graph.createActor();
-    assertTrue(a.hasBehavior(PhysicalBehavior.class));
+    assertTrue(a.hasBehavior(TransformBehavior.class));
   }
 
   @Test

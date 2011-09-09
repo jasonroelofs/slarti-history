@@ -9,7 +9,7 @@ import org.slartibartfast.behaviors.InputBehavior;
 import org.junit.Before;
 import org.junit.Test;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
-import org.slartibartfast.behaviors.PhysicalBehavior;
+import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 import static org.junit.Assert.*;
@@ -35,8 +35,8 @@ public class BehaviorControllerTest {
 
   @Test
   public void initializesBehaviorsItReceives() {
-    PhysicalBehavior b1 = new PhysicalBehavior();
-    PhysicalBehavior b2 = new PhysicalBehavior();
+    TransformBehavior b1 = new TransformBehavior();
+    TransformBehavior b2 = new TransformBehavior();
 
     controller.registerBehavior(b1);
     controller.registerBehavior(b2);

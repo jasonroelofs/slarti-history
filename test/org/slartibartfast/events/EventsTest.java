@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slartibartfast.Actor;
 import org.slartibartfast.Factories;
-import org.slartibartfast.behaviors.PhysicalBehavior;
+import org.slartibartfast.behaviors.TransformBehavior;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -44,7 +44,7 @@ public class EventsTest {
   @Test
   public void moveLeftEvent() throws UnknownEventError {
     event.event = "MoveLeft";
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event);
@@ -56,7 +56,7 @@ public class EventsTest {
   @Test
   public void moveRightEvent() throws UnknownEventError {
     event.event = "MoveRight";
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event);
@@ -68,7 +68,7 @@ public class EventsTest {
   @Test
   public void moveUpEvent() throws UnknownEventError {
     event.event = "MoveUp";
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event);
@@ -80,7 +80,7 @@ public class EventsTest {
   @Test
   public void moveDownEvent() throws UnknownEventError {
     event.event = "MoveDown";
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event);
@@ -92,7 +92,7 @@ public class EventsTest {
   @Test
   public void moveForwardEvent() throws UnknownEventError {
     event.event = "MoveForward";
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event);
@@ -104,7 +104,7 @@ public class EventsTest {
   @Test
   public void moveBackwardEvent() throws UnknownEventError {
     event.event = "MoveBackward";
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
     Events.processEvent(event);
@@ -117,7 +117,7 @@ public class EventsTest {
   public void turnLeftEvent() throws UnknownEventError {
     event.event = "TurnLeft";
     event.value = 1.0f;
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
     Events.processEvent(event);
@@ -130,7 +130,7 @@ public class EventsTest {
   public void turnRightEvent() throws UnknownEventError {
     event.event = "TurnRight";
     event.value = 1.0f;
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
     Events.processEvent(event);
@@ -143,7 +143,7 @@ public class EventsTest {
   public void pitchUpEvent() throws UnknownEventError {
     event.event = "PitchUp";
     event.value = 1.0f;
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
     Events.processEvent(event);
@@ -156,7 +156,7 @@ public class EventsTest {
   public void pitchDownEvent() throws UnknownEventError {
     event.event = "PitchDown";
     event.value = 1.0f;
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
     Events.processEvent(event);
@@ -169,7 +169,7 @@ public class EventsTest {
   public void rollLeftEvent() throws UnknownEventError {
     event.event = "RollLeft";
     event.value = 1.0f;
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
     Events.processEvent(event);
@@ -182,7 +182,7 @@ public class EventsTest {
   public void rollRightEvent() throws UnknownEventError {
     event.event = "RollRight";
     event.value = 1.0f;
-    PhysicalBehavior b = event.actor.getBehavior(PhysicalBehavior.class);
+    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
     Events.processEvent(event);
