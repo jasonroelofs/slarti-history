@@ -36,7 +36,11 @@ public class App extends SimpleApplication {
     getFlyByCamera().setEnabled(false);
 
     bulletAppState = new BulletAppState();
+    bulletAppState.setThreadingType(BulletAppState.ThreadingType.PARALLEL);
     getStateManager().attach(bulletAppState);
+
+    // Debug the shapes
+    //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 
     sceneManager = new SceneGraph(getRootNode());
     sceneManager.setAssetManager(getAssetManager());
@@ -55,7 +59,10 @@ public class App extends SimpleApplication {
     behaviorController.setUserSettings(userSettings);
     behaviorController.setDataProvider(dataProvider);
     behaviorController.setConstructFactory(
-            new ConstructFactory(constructDataProvider, assetManager));
+            new ConstructFactory(
+                    constructDataProvider,
+                    assetManager));
+
     behaviorController.setPhysicsSpace(bulletAppState.getPhysicsSpace());
 
     sceneManager.setBehaviorController(behaviorController);
@@ -74,7 +81,7 @@ public class App extends SimpleApplication {
      * Set FOV to 70 degrees
      * Hook up to FPS keybindings (flying)
      */
-    Actor camera = sceneManager.createActor(new Vector3f(0, 0, 10f));
+    Actor camera = sceneManager.createActor(new Vector3f(10f, 0, 6f));
     camera.useBehavior(new InputBehavior("fpsMovement"));
 
     TransformBehavior physB = camera.getBehavior(TransformBehavior.class);
@@ -89,14 +96,14 @@ public class App extends SimpleApplication {
     // with an NPE as actor isn't set yet
     camera.useBehavior(camB);
     camB.setFOV(70);
-    camB.lookAt(Vector3f.ZERO);
+    camB.lookAt(new Vector3f(7f, 0, -15f));
 
 
-    Actor teapot = createTeapot(new Vector3f(0.0f, 0.0f, 0.0f));
-    Actor teapot3 = createTeapot(new Vector3f(-1.0f, 0.0f, 0.0f));
-    createTeapot(new Vector3f(1.0f, 0.0f, 0.0f));
-    createTeapot(new Vector3f(0.0f, -1.0f, 0.0f));
-    Actor teapot2 = createTeapot(new Vector3f(0.0f, 1.0f, 0.0f));
+    Actor teapot = createTeapot(new Vector3f(10.0f, 0.0f, 0.0f));
+    createTeapot(new Vector3f(9.0f, 0.0f, 0.0f));
+    createTeapot(new Vector3f(11.0f, 0.0f, 0.0f));
+    createTeapot(new Vector3f(10.0f, -1.0f, 0.0f));
+    Actor teapot2 = createTeapot(new Vector3f(10.0f, 1.0f, 0.0f));
 
     teapot.useBehavior(new InputBehavior("lightMover"));
     teapot.getBehavior(TransformBehavior.class).setSpeed(2.0f);

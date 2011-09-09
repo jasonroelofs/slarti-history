@@ -1,6 +1,5 @@
 package org.slartibartfast.behaviors;
 
-import com.jme3.scene.Geometry;
 import org.slartibartfast.Behavior;
 import org.slartibartfast.Construct;
 import org.slartibartfast.ConstructFactory;

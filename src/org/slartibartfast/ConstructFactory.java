@@ -1,7 +1,10 @@
 package org.slartibartfast;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
+import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -42,7 +45,7 @@ public class ConstructFactory {
     Construct construct = new Construct(name, constructNode);
     Node current;
     int sectionNum = 0;
-    Vector3f startPoint, endPoint;
+    Vector3f startPoint, endPoint, distance, center;
     String material;
     Geometry geo;
 
@@ -57,7 +60,13 @@ public class ConstructFactory {
       );
       material = (String)map.get("material");
 
-      geo = new Geometry("box_" + sectionNum, new Box(startPoint, endPoint));
+      distance = endPoint.subtract(startPoint);
+      center = startPoint.add(distance.divide(2f));
+
+      geo = new Geometry("box_" + sectionNum,
+              new Box(distance.x / 2, distance.y / 2, distance.z / 2));
+      geo.setLocalTranslation(center);
+
       TangentBinormalGenerator.generate(geo.getMesh(), true);
       geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
 
@@ -66,9 +75,7 @@ public class ConstructFactory {
 
       sectionNum++;
     }
-
-    System.out.println("Base node is at " + constructNode.getWorldTranslation());
-
+    
     return construct;
   }
 }
