@@ -11,7 +11,9 @@ import org.junit.runners.Suite;
   org.slartibartfast.behaviors.CameraBehaviorTest.class,
   org.slartibartfast.behaviors.InputBehaviorTest.class,
   org.slartibartfast.behaviors.TransformBehaviorTest.class,
-  org.slartibartfast.behaviors.PointLightBehaviorTest.class})
+  org.slartibartfast.behaviors.PointLightBehaviorTest.class,
+  org.slartibartfast.behaviors.PhysicsBehaviorTest.class
+})
 public class BehaviorsSuite {
 
 }

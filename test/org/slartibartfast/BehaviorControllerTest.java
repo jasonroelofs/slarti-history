@@ -3,12 +3,14 @@ package org.slartibartfast;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.PhysicsSpace;
 import org.slartibartfast.behaviors.PointLightBehavior;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.InputBehavior;
 import org.junit.Before;
 import org.junit.Test;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
+import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
@@ -214,5 +216,33 @@ public class BehaviorControllerTest {
     controller.registerBehavior(b);
 
     assertEquals(factory, b.factory);
+  }
+
+  /**
+   * Physics
+   */
+  class TestPhysicsBehavior extends PhysicsBehavior {
+    public PhysicsSpace space;
+
+    public TestPhysicsBehavior(float mass) {
+      super(mass);
+    }
+
+    @Override
+    public void initialize(PhysicsSpace space) {
+      this.space = space;
+    }
+  }
+
+  @Test
+  public void handlesPhysicsBehaviors() {
+    TestPhysicsBehavior b = new TestPhysicsBehavior(3.0f);
+    PhysicsSpace space = mock(PhysicsSpace.class);
+
+    controller.setPhysicsSpace(space);
+
+    controller.registerBehavior(b);
+
+    assertEquals(space, b.space);
   }
 }

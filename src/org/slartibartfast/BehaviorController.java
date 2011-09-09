@@ -2,12 +2,14 @@ package org.slartibartfast;
 
 import org.slartibartfast.events.InputSystem;
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.PhysicsSpace;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.InputBehavior;
+import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 
@@ -24,6 +26,7 @@ public class BehaviorController {
   private AssetManager assetManager;
   private IDataProvider dataProvider;
   private ConstructFactory constructFactory;
+  private PhysicsSpace physicsSpace;
 
   public BehaviorController() {
     behaviors = new HashMap<Class, List<Behavior>>();
@@ -47,6 +50,10 @@ public class BehaviorController {
 
   public void setConstructFactory(ConstructFactory factory) {
     this.constructFactory = factory;
+  }
+
+  public void setPhysicsSpace(PhysicsSpace space) {
+    this.physicsSpace = space;
   }
 
   /**
@@ -98,6 +105,8 @@ public class BehaviorController {
       ((VisualBehavior)b).initialize(assetManager);
     } else if(b instanceof ConstructBehavior) {
       ((ConstructBehavior)b).initialize(constructFactory);
+    } else if(b instanceof PhysicsBehavior) {
+      ((PhysicsBehavior)b).initialize(physicsSpace);
     } else {
       b.initialize();
     }

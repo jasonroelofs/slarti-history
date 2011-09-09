@@ -7,10 +7,12 @@ import org.slartibartfast.behaviors.VisualBehavior;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.bullet.BulletAppState;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.CameraBehavior;
 import org.slartibartfast.behaviors.ConstructBehavior;
+import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 import org.slartibartfast.dataProviders.SQLiteDataProvider;
@@ -27,9 +29,14 @@ public class App extends SimpleApplication {
   private IDataProvider dataProvider;
   private ConstructDataProvider constructDataProvider;
 
+  private BulletAppState bulletAppState;
+
   @Override
   public void simpleInitApp() {
     getFlyByCamera().setEnabled(false);
+
+    bulletAppState = new BulletAppState();
+    getStateManager().attach(bulletAppState);
 
     sceneManager = new SceneGraph(getRootNode());
     sceneManager.setAssetManager(getAssetManager());
@@ -49,6 +56,7 @@ public class App extends SimpleApplication {
     behaviorController.setDataProvider(dataProvider);
     behaviorController.setConstructFactory(
             new ConstructFactory(constructDataProvider, assetManager));
+    behaviorController.setPhysicsSpace(bulletAppState.getPhysicsSpace());
 
     sceneManager.setBehaviorController(behaviorController);
 
@@ -57,6 +65,7 @@ public class App extends SimpleApplication {
      */
     Actor station = sceneManager.createActor();
     station.useBehavior(new ConstructBehavior("default"));
+    station.useBehavior(new PhysicsBehavior(0));
 
     /**
      * Setting up the camera
@@ -118,6 +127,7 @@ public class App extends SimpleApplication {
     teapot.useBehavior(new VisualBehavior(
             "Models/Teapot/Teapot.obj",
             "Materials/RockyTeapot.j3m"));
+    teapot.useBehavior(new PhysicsBehavior(1));
 
     return teapot;
   }
