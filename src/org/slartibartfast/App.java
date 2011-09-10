@@ -91,7 +91,7 @@ public class App extends SimpleApplication {
 
 
     // Set up our camera that is linked to the player Actor
-    Actor camera = sceneManager.createActor(new Vector3f(10f, 0, 6f));
+    Actor camera = sceneManager.createActor();
     camera.useBehavior(new FollowingBehavior(player, Vector3f.ZERO));
     camera.useBehavior(new CameraBehavior(getCamera()));
     camera.getBehavior(CameraBehavior.class).setFOV(70);

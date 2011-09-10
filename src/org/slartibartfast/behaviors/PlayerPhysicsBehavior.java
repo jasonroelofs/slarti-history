@@ -70,6 +70,10 @@ public class PlayerPhysicsBehavior extends TransformBehavior {
     this.gravity = gravity;
   }
 
+  /**
+   * TODO: Update this to work w/ a physics tick listener?
+   * @param delta
+   */
   @Override
   public void perform(float delta) {
     // Update any settings from the previous frame
@@ -142,6 +146,9 @@ public class PlayerPhysicsBehavior extends TransformBehavior {
             getActor().getBehavior(TransformBehavior.class);
     setSpeed(transB.getSpeed());
     setTurnSpeed(transB.getTurnSpeed());
+
+    // Not sure if this is needed
+    playerControl.setPhysicsLocation(transB.getLocation());
 
     getActor().getNode().addControl(playerControl);
     space.add(playerControl);

@@ -51,6 +51,7 @@ public class PhysicsBehavior extends Behavior {
       RigidBodyControl rigidControl;
 
       rigidControl = new RigidBodyControl(mass);
+
       node.addControl(rigidControl);
       physicsSpace.add(rigidControl);
     }
