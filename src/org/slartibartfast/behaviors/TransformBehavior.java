@@ -16,7 +16,7 @@ public class TransformBehavior extends Behavior {
    * This keeps a running tally of all move requests
    * made to this Actor for the given frame
    */
-  private Vector3f moveDelta;
+  protected Vector3f moveDelta;
 
   /**
    * Like moveDelta, keep track of the rotation requests
@@ -140,9 +140,11 @@ public class TransformBehavior extends Behavior {
       return;
     }
 
-    //
-    // Update Rotation
-    //
+    performRotationUpdate(delta);
+    performLocationUpdate(delta);
+  }
+
+  protected void performRotationUpdate(float delta) {
     rotateDelta.multLocal(delta);
 
     Quaternion pitch, yaw, roll;
@@ -170,9 +172,14 @@ public class TransformBehavior extends Behavior {
     // Order of operations matter here. The current rotation MUST be last
     currentRotation = yaw.mult(pitch).mult(roll).mult(currentRotation);
 
-    //
-    // Update location
-    //
+    Node node = actor.getNode();
+    node.setLocalRotation(currentRotation);
+
+    rotateDelta = Vector3f.ZERO.clone();
+  }
+
+  protected void performLocationUpdate(float delta) {
+
     Vector3f location = getLocation();
 
     if(movesRelativeToRotation) {
@@ -181,6 +188,13 @@ public class TransformBehavior extends Behavior {
       // TODO Me thinks there's an easier way to do this, possibly
       // a single Matrix mult instead of this long-form.
       // But! for now this works, and I'm happy
+      Vector3f up, left, dir;
+      Quaternion currentRotation = getRotation();
+
+      up = currentRotation.mult(Vector3f.UNIT_Y);
+      left = currentRotation.mult(Vector3f.UNIT_X);
+      dir = currentRotation.mult(Vector3f.UNIT_Z);
+
       left.multLocal(-moveDelta.x * delta);
       dir.multLocal(-moveDelta.z * delta);
       up.multLocal(moveDelta.y * delta);
@@ -192,18 +206,10 @@ public class TransformBehavior extends Behavior {
       location.addLocal(moveDelta.mult(delta));
     }
 
-    //
-    // Sync node's spatial information to JME
-    //
     Node node = actor.getNode();
     node.setLocalTranslation(location);
-    node.setLocalRotation(currentRotation);
 
-    //
-    // Reset deltas for next frame
-    //
     moveDelta = Vector3f.ZERO.clone();
-    rotateDelta = Vector3f.ZERO.clone();
   }
 
   /**
