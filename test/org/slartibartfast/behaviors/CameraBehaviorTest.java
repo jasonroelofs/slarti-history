@@ -1,7 +1,6 @@
 package org.slartibartfast.behaviors;
 
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
+import com.jme3.scene.Node;
 import com.jme3.scene.control.CameraControl;
 import com.jme3.renderer.Camera;
 import org.junit.Before;
@@ -41,13 +40,16 @@ public class CameraBehaviorTest {
   }
 
   @Test
-  public void canLookAtALocation() {
-    TransformBehavior physB =
-            behavior.getActor().getBehavior(TransformBehavior.class);
-    physB.setLocation(new Vector3f(0, 0, -10f));
-    behavior.lookAt(Vector3f.ZERO);
+  public void initalizeSetsUpCameraControl() {
+    behavior.initialize();
 
-    assertEquals(physB.getRotation(), behavior.getCamera().getRotation());
+    Node node = behavior.getActor().getNode();
+    CameraControl control = node.getControl(CameraControl.class);
+
+    assertNotNull(control);
+    assertEquals(cameraMock, control.getCamera());
+    assertEquals(CameraControl.ControlDirection.SpatialToCamera,
+            control.getControlDir());
   }
 
 }
