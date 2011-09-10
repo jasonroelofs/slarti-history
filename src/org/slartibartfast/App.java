@@ -14,6 +14,7 @@ import org.slartibartfast.behaviors.CameraBehavior;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.PhysicsBehavior;
+import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 import org.slartibartfast.dataProviders.SQLiteDataProvider;
@@ -78,6 +79,7 @@ public class App extends SimpleApplication {
 
     Actor player = sceneManager.createActor(new Vector3f(10f, 0, 6f));
     player.useBehavior(new InputBehavior("fpsMovement"));
+    player.useBehavior(new PlayerPhysicsBehavior());
 
     TransformBehavior physB = player.getBehavior(TransformBehavior.class);
     physB.setSpeed(5);
@@ -86,7 +88,6 @@ public class App extends SimpleApplication {
     // lookAt Vector3f.ZERO does *strange* things
     physB.lookAt(new Vector3f(0, 0, -10f));
 
-//    player.useBehavior(new PlayerPhysicsBehavior(1.0f));
 
 
     // Set up our camera that is linked to the player Actor
@@ -136,7 +137,7 @@ public class App extends SimpleApplication {
     teapot.useBehavior(new VisualBehavior(
             "Models/Teapot/Teapot.obj",
             "Materials/RockyTeapot.j3m"));
-    //teapot.useBehavior(new PhysicsBehavior(1));
+    teapot.useBehavior(new PhysicsBehavior(1));
 
     return teapot;
   }
