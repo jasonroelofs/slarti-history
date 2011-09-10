@@ -1,5 +1,6 @@
 package org.slartibartfast.behaviors;
 
+import org.junit.Before;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import org.slartibartfast.Actor;
@@ -14,65 +15,70 @@ public class TransformBehaviorTest {
   public TransformBehaviorTest() {
   }
 
+  private TransformBehavior behavior;
+  private Actor actor;
+
+  @Before
+  public void setupTransform() {
+    behavior = new TransformBehavior();
+    actor = Factories.createActor();
+    behavior.setActor(actor);
+  }
+
   @Test
   public void hasLocation() {
-    TransformBehavior b = new TransformBehavior();
     Vector3f location = Vector3f.ZERO;
-    b.setLocation(location);
+    behavior.setLocation(location);
 
-    assertEquals(location, b.getLocation());
+    assertEquals(location, behavior.getLocation());
+    assertEquals(location, actor.getNode().getLocalTranslation());
   }
 
   @Test
   public void hasOrientation() {
-    TransformBehavior b = new TransformBehavior();
     Quaternion quat = Quaternion.IDENTITY;
-    b.setRotation(quat);
+    behavior.setRotation(quat);
 
-    assertEquals(quat, b.getRotation());
+    assertEquals(quat, behavior.getRotation());
+    assertEquals(quat, actor.getNode().getLocalRotation());
   }
 
   @Test
   public void startsAtOrigin() {
-    TransformBehavior b = new TransformBehavior();
-    assertEquals(Vector3f.ZERO, b.getLocation());
+    assertEquals(Vector3f.ZERO, behavior.getLocation());
   }
 
   @Test
   public void hasSpeed_DefaultsToOne() {
-    TransformBehavior b = new TransformBehavior();
-    assertEquals(1.0f, b.getSpeed(), 0.001);
+    assertEquals(1.0f, behavior.getSpeed(), 0.001);
 
-    b.setSpeed(3.0f);
-    assertEquals(3.0f, b.getSpeed(), 0.001);
+    behavior.setSpeed(3.0f);
+    assertEquals(3.0f, behavior.getSpeed(), 0.001);
   }
 
   @Test
   public void hasTurnSpeed_DefaultsToOneEighty() {
-    TransformBehavior b = new TransformBehavior();
-    assertEquals(180, b.getTurnSpeed());
+    assertEquals(180, behavior.getTurnSpeed());
 
-    b.setTurnSpeed(90);
-    assertEquals(90, b.getTurnSpeed());
+    behavior.setTurnSpeed(90);
+    assertEquals(90, behavior.getTurnSpeed());
   }
 
   @Test
   public void moveRelativeToRotation_defaultFalse() {
-    TransformBehavior b = new TransformBehavior();
-    assertFalse(b.movesRelativeToRotation());
+    assertFalse(behavior.movesRelativeToRotation());
 
-    b.moveRelativeToRotation(true);
-    assertTrue(b.movesRelativeToRotation());
+    behavior.moveRelativeToRotation(true);
+    assertTrue(behavior.movesRelativeToRotation());
   }
 
   @Test
   public void canFixUpDirection_defaultTrue() {
-    TransformBehavior b = new TransformBehavior();
-    assertTrue(b.hasFixedUpAxis());
+    assertTrue(behavior.hasFixedUpAxis());
 
-    b.fixUpAxis(false);
+    behavior.fixUpAxis(false);
 
-    assertFalse(b.hasFixedUpAxis());
+    assertFalse(behavior.hasFixedUpAxis());
   }
 
   // Don't really know how best to test this.
@@ -80,17 +86,17 @@ public class TransformBehaviorTest {
   // Might just be a float-is-always-a-little-off thing
 //  @Test
 //  public void rotateAdheresToFixedUpAxis() {
-//    TransformBehavior b = new TransformBehavior();
+//
 //    Actor a = Factories.createActor();
-//    b.setActor(a);
-//    b.setTurnSpeed(90);
-//    Quaternion fromQuat = b.getRotation().clone();
+//    behavior.setActor(a);
+//    behavior.setTurnSpeed(90);
+//    Quaternion fromQuat = behavior.getRotation().clone();
 //
-//    b.turnLeft(0.5f);
-//    b.perform(1.0f);
+//    behavior.turnLeft(0.5f);
+//    behavior.perform(1.0f);
 //
-//    b.pitchUp(1.0f);
-//    b.perform(1.0f);
+//    behavior.pitchUp(1.0f);
+//    behavior.perform(1.0f);
 //
 //    Quaternion delta = new Quaternion();
 //    delta.fromAngles(
@@ -99,307 +105,231 @@ public class TransformBehaviorTest {
 //            0);
 //    Quaternion expected = fromQuat.mult(delta);
 //
-//    assertEquals(expected, b.getRotation());
+//    assertEquals(expected, behavior.getRotation());
 //    assertEquals(expected, a.getNode().getLocalRotation());
 //  }
 
   @Test
+  public void canLookAtALocation() {
+    behavior.setLocation(new Vector3f(0, 0, -10f));
+
+    Quaternion oldRot = behavior.getRotation().clone();
+
+    behavior.lookAt(Vector3f.ZERO);
+
+    assertThat(behavior.getRotation(), not(equalTo(oldRot)));
+  }
+
+
+  @Test
   public void queueMoveLeftEventAtCurrentSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
+    behavior.setSpeed(2.0f);
 
-    b.moveLeft();
+    behavior.moveLeft();
 
-    assertEquals(Vector3f.ZERO, b.getLocation());
+    assertEquals(Vector3f.ZERO, behavior.getLocation());
 
-    b.perform(1.0f);
+    behavior.perform(1.0f);
 
-    assertEquals(new Vector3f(-2, 0, 0), b.getLocation());
+    assertEquals(new Vector3f(-2, 0, 0), behavior.getLocation());
 
     // Ensure the delta gets cleared
-    b.perform(1.0f);
+    behavior.perform(1.0f);
 
-    assertEquals(new Vector3f(-2, 0, 0), b.getLocation());
+    assertEquals(new Vector3f(-2, 0, 0), behavior.getLocation());
   }
 
   @Test
   public void queueMoveRightAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
+    behavior.setSpeed(2.0f);
 
-    b.moveRight();
-    b.perform(1.0f);
+    behavior.moveRight();
+    behavior.perform(1.0f);
 
-    assertEquals(new Vector3f(2, 0, 0), b.getLocation());
+    assertEquals(new Vector3f(2, 0, 0), behavior.getLocation());
   }
 
   @Test
   public void queueMoveUpAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
+    behavior.setSpeed(2.0f);
 
-    b.moveUp();
-    b.perform(1.0f);
+    behavior.moveUp();
+    behavior.perform(1.0f);
 
-    assertEquals(new Vector3f(0, 2, 0), b.getLocation());
+    assertEquals(new Vector3f(0, 2, 0), behavior.getLocation());
   }
 
   @Test
   public void queueMoveDownAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
+    behavior.setSpeed(2.0f);
 
-    b.moveDown();
-    b.perform(1.0f);
+    behavior.moveDown();
+    behavior.perform(1.0f);
 
-    assertEquals(new Vector3f(0, -2, 0), b.getLocation());
+    assertEquals(new Vector3f(0, -2, 0), behavior.getLocation());
   }
 
   @Test
   public void queueMoveForwardAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
+    behavior.setSpeed(2.0f);
 
-    b.moveForward();
-    b.perform(1.0f);
+    behavior.moveForward();
+    behavior.perform(1.0f);
 
-    assertEquals(new Vector3f(0, 0, -2), b.getLocation());
+    assertEquals(new Vector3f(0, 0, -2), behavior.getLocation());
   }
 
   @Test
   public void queueMoveBackwardAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
+    behavior.setSpeed(2.0f);
 
-    b.moveBackward();
-    b.perform(1.0f);
+    behavior.moveBackward();
+    behavior.perform(1.0f);
 
-    assertEquals(new Vector3f(0, 0, 2), b.getLocation());
+    assertEquals(new Vector3f(0, 0, 2), behavior.getLocation());
   }
 
   @Test
   public void queueMoveForwardAtSpeed_RelativeRotation() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
-    b.setTurnSpeed(90);
-    b.moveRelativeToRotation(true);
+    behavior.setSpeed(2.0f);
+    behavior.setTurnSpeed(90);
+    behavior.moveRelativeToRotation(true);
 
     // Now facing down -X
-    b.turnLeft(1.0f);
-    b.perform(1.0f);
+    behavior.turnLeft(1.0f);
+    behavior.perform(1.0f);
 
-    b.moveForward();
-    b.perform(1.0f);
+    behavior.moveForward();
+    behavior.perform(1.0f);
 
-    assertEquals(2, b.getLocation().x, 0.001);
+    assertEquals(2, behavior.getLocation().x, 0.001);
   }
 
   @Test
   public void queueMoveLeftAtSpeed_RelativeRotation() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
-    b.setTurnSpeed(90);
-    b.moveRelativeToRotation(true);
+    behavior.setSpeed(2.0f);
+    behavior.setTurnSpeed(90);
+    behavior.moveRelativeToRotation(true);
 
     // Now facing down -X
-    b.turnLeft(1.0f);
-    b.perform(1.0f);
+    behavior.turnLeft(1.0f);
+    behavior.perform(1.0f);
 
-    b.moveLeft();
-    b.perform(1.0f);
+    behavior.moveLeft();
+    behavior.perform(1.0f);
 
-    assertEquals(-2, b.getLocation().z, 0.001);
+    assertEquals(-2, behavior.getLocation().z, 0.001);
   }
 
   @Test
   public void queueMoveUpAtSpeed_RelativeRotation() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setSpeed(2.0f);
-    b.setTurnSpeed(90);
-    b.moveRelativeToRotation(true);
+    behavior.setSpeed(2.0f);
+    behavior.setTurnSpeed(90);
+    behavior.moveRelativeToRotation(true);
 
     // Now facing down -X
-    b.turnLeft(1.0f);
-    b.perform(1.0f);
+    behavior.turnLeft(1.0f);
+    behavior.perform(1.0f);
 
-    b.moveUp();
-    b.perform(1.0f);
+    behavior.moveUp();
+    behavior.perform(1.0f);
 
-    assertEquals(2, b.getLocation().y, 0.001);
+    assertEquals(2, behavior.getLocation().y, 0.001);
   }
 
   @Test
   public void queueTurnLeftAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setTurnSpeed(90);
-    Quaternion fromQuat = b.getRotation().clone();
+    behavior.setTurnSpeed(90);
+    Quaternion fromQuat = behavior.getRotation().clone();
 
-    b.turnLeft(1.0f);
-    b.perform(1.0f);
+    behavior.turnLeft(1.0f);
+    behavior.perform(1.0f);
 
     Quaternion delta = new Quaternion();
     delta.fromAngles(0, FastMath.DEG_TO_RAD * 90, 0);
     Quaternion expected = fromQuat.mult(delta);
 
-    assertEquals(expected, b.getRotation());
-    assertEquals(expected, a.getNode().getLocalRotation());
+    assertEquals(expected, behavior.getRotation());
+    assertEquals(expected, actor.getNode().getLocalRotation());
   }
 
   @Test
   public void queueTurnRightAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setTurnSpeed(90);
-    Quaternion fromQuat = b.getRotation().clone();
+    behavior.setTurnSpeed(90);
+    Quaternion fromQuat = behavior.getRotation().clone();
 
-    b.turnRight(1.0f);
-    b.perform(1.0f);
+    behavior.turnRight(1.0f);
+    behavior.perform(1.0f);
 
     Quaternion delta = new Quaternion();
     delta.fromAngles(0, FastMath.DEG_TO_RAD * -90, 0);
     Quaternion expected = fromQuat.mult(delta);
 
-    assertEquals(expected, b.getRotation());
-    assertEquals(expected, a.getNode().getLocalRotation());
+    assertEquals(expected, behavior.getRotation());
+    assertEquals(expected, actor.getNode().getLocalRotation());
   }
 
   @Test
   public void queuePitchUpAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setTurnSpeed(90);
-    Quaternion fromQuat = b.getRotation().clone();
+    behavior.setTurnSpeed(90);
+    Quaternion fromQuat = behavior.getRotation().clone();
 
-    b.pitchUp(1.0f);
-    b.perform(1.0f);
+    behavior.pitchUp(1.0f);
+    behavior.perform(1.0f);
 
     Quaternion delta = new Quaternion();
     delta.fromAngles(FastMath.DEG_TO_RAD * -90, 0, 0);
     Quaternion expected = fromQuat.mult(delta);
 
-    assertEquals(expected, b.getRotation());
-    assertEquals(expected, a.getNode().getLocalRotation());
+    assertEquals(expected, behavior.getRotation());
+    assertEquals(expected, actor.getNode().getLocalRotation());
   }
 
   @Test
   public void queuePitchDownAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setTurnSpeed(90);
-    Quaternion fromQuat = b.getRotation().clone();
+    behavior.setTurnSpeed(90);
+    Quaternion fromQuat = behavior.getRotation().clone();
 
-    b.pitchDown(1.0f);
-    b.perform(1.0f);
+    behavior.pitchDown(1.0f);
+    behavior.perform(1.0f);
 
     Quaternion delta = new Quaternion();
     delta.fromAngles(FastMath.DEG_TO_RAD * 90, 0, 0);
     Quaternion expected = fromQuat.mult(delta);
 
-    assertEquals(expected, b.getRotation());
-    assertEquals(expected, a.getNode().getLocalRotation());
+    assertEquals(expected, behavior.getRotation());
+    assertEquals(expected, actor.getNode().getLocalRotation());
   }
 
   @Test
   public void queueRollLeftAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setTurnSpeed(90);
-    Quaternion fromQuat = b.getRotation().clone();
+    behavior.setTurnSpeed(90);
+    Quaternion fromQuat = behavior.getRotation().clone();
 
-    b.rollLeft();
-    b.perform(1.0f);
+    behavior.rollLeft();
+    behavior.perform(1.0f);
 
     Quaternion delta = new Quaternion();
     delta.fromAngles(0, 0, FastMath.DEG_TO_RAD * -90);
     Quaternion expected = fromQuat.mult(delta);
 
-    assertEquals(expected, b.getRotation());
-    assertEquals(expected, a.getNode().getLocalRotation());
+    assertEquals(expected, behavior.getRotation());
+    assertEquals(expected, actor.getNode().getLocalRotation());
   }
 
   @Test
   public void queueRollRightAtSpeed() {
-    TransformBehavior b = new TransformBehavior();
-    Actor a = Factories.createActor();
-    b.setActor(a);
-    b.setTurnSpeed(90);
-    Quaternion fromQuat = b.getRotation().clone();
+    behavior.setTurnSpeed(90);
+    Quaternion fromQuat = behavior.getRotation().clone();
 
-    b.rollRight();
-    b.perform(1.0f);
+    behavior.rollRight();
+    behavior.perform(1.0f);
 
     Quaternion delta = new Quaternion();
     delta.fromAngles(0, 0, FastMath.DEG_TO_RAD * 90);
     Quaternion expected = fromQuat.mult(delta);
 
-    assertEquals(expected, b.getRotation());
-    assertEquals(expected, a.getNode().getLocalRotation());
+    assertEquals(expected, behavior.getRotation());
+    assertEquals(expected, actor.getNode().getLocalRotation());
   }
-
-  @Test
-  public void performUpdatesNodeLocation() {
-    TransformBehavior b = new TransformBehavior();
-    Vector3f location = new Vector3f(1.0f, 3.0f, 10.0f);
-    b.setLocation(location);
-
-    Actor a = Factories.createActor();
-    b.setActor(a);
-
-    b.perform(1);
-
-    assertEquals(location, a.getNode().getWorldTranslation());
-
-    // Multiple frames don't send it careening off.
-    b.perform(1);
-    b.perform(1);
-
-    assertEquals(location, a.getNode().getWorldTranslation());
-  }
-
-
-  @Test
-  public void performUpdatesNodeRotation() {
-    TransformBehavior b = new TransformBehavior();
-    Quaternion rotation = new Quaternion();
-    rotation.fromAngleAxis(FastMath.PI, Vector3f.UNIT_X);
-    b.setRotation(rotation);
-
-    Actor a = Factories.createActor();
-    b.setActor(a);
-
-    b.perform(1);
-
-    assertEquals(rotation, a.getNode().getWorldRotation());
-
-    // Multiple frames don't send it careening off.
-    b.perform(1);
-    b.perform(1);
-
-    assertEquals(rotation, a.getNode().getWorldRotation());
-  }
-
 }

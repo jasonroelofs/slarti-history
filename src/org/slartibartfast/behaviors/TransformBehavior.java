@@ -13,16 +13,6 @@ import org.slartibartfast.Behavior;
 public class TransformBehavior extends Behavior {
 
   /**
-   * World location of the current Actor
-   */
-  private Vector3f location;
-
-  /**
-   * Orientation of the current Actor
-   */
-  private Quaternion rotation;
-
-  /**
    * This keeps a running tally of all move requests
    * made to this Actor for the given frame
    */
@@ -58,19 +48,9 @@ public class TransformBehavior extends Behavior {
    */
   private boolean fixedUpAxis;
 
-  /**
-   * These flags are used to ensure perform takes into
-   * account any use of setLocation or setRotation
-   */
-  private boolean forceRotationUpdate;
-  private boolean forceLocationUpdate;
-
-
   public TransformBehavior() {
-    location = Vector3f.ZERO.clone();
     moveDelta = Vector3f.ZERO.clone();
 
-    rotation = Quaternion.IDENTITY.clone();
     rotateDelta = Vector3f.ZERO.clone();
 
     movesRelativeToRotation = false;
@@ -81,21 +61,19 @@ public class TransformBehavior extends Behavior {
   }
 
   public void setLocation(Vector3f location) {
-    this.location = location;
-    this.forceLocationUpdate = true;
+    getActor().getNode().setLocalTranslation(location);
   }
 
   public Vector3f getLocation() {
-    return location;
+    return getActor().getNode().getLocalTranslation();
   }
 
   public Quaternion getRotation() {
-    return rotation;
+    return getActor().getNode().getLocalRotation();
   }
 
   public void setRotation(Quaternion orientation) {
-    this.rotation = orientation;
-    this.forceRotationUpdate = true;
+    getActor().getNode().setLocalRotation(orientation);
   }
 
   /**
@@ -157,8 +135,8 @@ public class TransformBehavior extends Behavior {
    */
   @Override
   public void perform(float delta) {
-    if((rotateDelta.equals(Vector3f.ZERO) && !forceRotationUpdate) &&
-            (moveDelta.equals(Vector3f.ZERO) && !forceLocationUpdate)) {
+    if((rotateDelta.equals(Vector3f.ZERO)) &&
+            (moveDelta.equals(Vector3f.ZERO))) {
       return;
     }
 
@@ -168,16 +146,17 @@ public class TransformBehavior extends Behavior {
     rotateDelta.multLocal(delta);
 
     Quaternion pitch, yaw, roll;
+    Quaternion currentRotation = getRotation();
     Vector3f up, left, dir;
 
     if(fixedUpAxis) {
       up = Vector3f.UNIT_Y.clone();
     } else {
-      up = rotation.mult(Vector3f.UNIT_Y);
+      up = currentRotation.mult(Vector3f.UNIT_Y);
     }
 
-    left = rotation.mult(Vector3f.UNIT_X);
-    dir = rotation.mult(Vector3f.UNIT_Z);
+    left = currentRotation.mult(Vector3f.UNIT_X);
+    dir = currentRotation.mult(Vector3f.UNIT_Z);
 
     pitch = new Quaternion();
     pitch.fromAngleAxis(rotateDelta.x, left);
@@ -189,11 +168,12 @@ public class TransformBehavior extends Behavior {
     roll.fromAngleAxis(rotateDelta.z, dir);
 
     // Order of operations matter here. The current rotation MUST be last
-    rotation = yaw.mult(pitch).mult(roll).mult(rotation);
+    currentRotation = yaw.mult(pitch).mult(roll).mult(currentRotation);
 
     //
     // Update location
     //
+    Vector3f location = getLocation();
 
     if(movesRelativeToRotation) {
       // See Camera.getLeft and Camera.getDirection for the following
@@ -216,14 +196,22 @@ public class TransformBehavior extends Behavior {
     // Sync node's spatial information to JME
     //
     Node node = actor.getNode();
-    node.move(location.add(node.getWorldTranslation().negate()));
-    node.setLocalRotation(rotation);
+    node.setLocalTranslation(location);
+    node.setLocalRotation(currentRotation);
 
     //
     // Reset deltas for next frame
     //
     moveDelta = Vector3f.ZERO.clone();
     rotateDelta = Vector3f.ZERO.clone();
+  }
+
+  /**
+   * Look at a certain point in space
+   */
+  public void lookAt(Vector3f point) {
+    Quaternion rot = getRotation();
+    rot.lookAt(point, Vector3f.UNIT_Y);
   }
 
   /**
