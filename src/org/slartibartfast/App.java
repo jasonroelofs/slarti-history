@@ -76,43 +76,41 @@ public class App extends SimpleApplication {
     station.useBehavior(new PhysicsBehavior(0));
 
 
-//    Actor player = sceneManager.createActor();
-//    player.useBehavior(new InputBehavior("fpsMovement"));
-//
-//    TransformBehavior physB = player.getBehavior(TransformBehavior.class);
-//    physB.setSpeed(5);
-//    physB.setTurnSpeed(90);
-//    physB.moveRelativeToRotation(true);
-//
-//    player.useBehavior(new PhysicsBehavior(1.0f));
+    Actor player = sceneManager.createActor(new Vector3f(10f, 0, 6f));
+    player.useBehavior(new InputBehavior("fpsMovement"));
+
+    TransformBehavior physB = player.getBehavior(TransformBehavior.class);
+    physB.setSpeed(5);
+    physB.setTurnSpeed(90);
+    physB.moveRelativeToRotation(true);
+    // lookAt Vector3f.ZERO does *strange* things
+    physB.lookAt(new Vector3f(0, 0, -10f));
+
+//    player.useBehavior(new PlayerPhysicsBehavior(1.0f));
 
 
+    // Set up our camera that is linked to the player Actor
     Actor camera = sceneManager.createActor(new Vector3f(10f, 0, 6f));
-
-    // Camera starts as the player's head
-    //camera.useBehavior(new FollowingBehavior(player, 0));
-
-    CameraBehavior camB = new CameraBehavior(getCamera());
-    // TODO Figure out how we can do lookAt before useBehavior is
-    // called. If this line is put after lookAt() then this crashes
-    // with an NPE as actor isn't set yet
-    camera.useBehavior(camB);
-    camB.setFOV(70);
-    camB.lookAt(new Vector3f(7f, 0, -15f));
+    camera.useBehavior(new FollowingBehavior(player, Vector3f.ZERO));
+    camera.useBehavior(new CameraBehavior(getCamera()));
+    camera.getBehavior(CameraBehavior.class).setFOV(70);
 
 
     Actor teapot = createTeapot(new Vector3f(10.0f, 0.0f, 0.0f));
-    createTeapot(new Vector3f(9.0f, 0.0f, 0.0f));
+    Actor teapot3 = createTeapot(new Vector3f(9.0f, 0.0f, 0.0f));
     createTeapot(new Vector3f(11.0f, 0.0f, 0.0f));
     createTeapot(new Vector3f(10.0f, -1.0f, 0.0f));
     Actor teapot2 = createTeapot(new Vector3f(10.0f, 1.0f, 0.0f));
 
-    teapot.useBehavior(new InputBehavior("fpsMovement"));
-    teapot.getBehavior(TransformBehavior.class).setSpeed(2.0f);
-    teapot.getBehavior(TransformBehavior.class).moveRelativeToRotation(true);
+    teapot.useBehavior(new InputBehavior("lightMover"));
+    teapot.getBehavior(TransformBehavior.class).lookAt(Vector3f.ZERO);
+    teapot.getBehavior(TransformBehavior.class).setSpeed(2f);
 
     teapot2.useBehavior(new InputBehavior("lightMover"));
-    teapot2.useBehavior(new FollowingBehavior(teapot, new Vector3f(0, 0, -2)));
+
+    teapot3.useBehavior(new FollowingBehavior(teapot,
+            new Vector3f(0, 0, -2)));
+
 
     Actor sun = sceneManager.createActor();
     sun.useBehavior(new DirectionalLightBehavior(
