@@ -92,4 +92,16 @@ public class ActorTest {
     assertEquals(2, list.size());
   }
 
+  class SubBehavior extends TransformBehavior {
+
+  }
+
+  @Test
+  public void canReplaceABehaviorWithSubclass() {
+    SubBehavior newB = new SubBehavior();
+    actor.replaceBehavior(TransformBehavior.class, newB);
+
+    assertEquals(newB, actor.getBehavior(TransformBehavior.class));
+    assertEquals(newB, actor.getBehavior(SubBehavior.class));
+  }
 }

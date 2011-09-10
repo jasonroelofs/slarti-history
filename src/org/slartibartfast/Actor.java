@@ -84,6 +84,21 @@ public class Actor {
   }
 
   /**
+   * Replace an existing behavior on this Actor with a behavior
+   * that's a subclass of the behavior being replaced.
+   * The new behavior will be accessible through both the old
+   * superclass name and the new behavior's class name
+   *
+   * @param klass Class of the behavior to be replaced
+   * @param newBehavior Behavior to replace klass with
+   */
+  public void replaceBehavior(Class klass, Behavior newBehavior) {
+    removeBehavior(klass);
+    behaviors.put(klass, newBehavior);
+    behaviors.put(newBehavior.getClass(), newBehavior);
+  }
+
+  /**
    * Get a pointer to an existing behavior on an Actor.
    * Will return null if a behavior of the requested type
    * doesn't exist.
