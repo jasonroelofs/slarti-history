@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import com.jme3.asset.AssetManager;
@@ -237,6 +238,34 @@ public class BehaviorControllerTest {
   @Test
   public void handlesPhysicsBehaviors() {
     TestPhysicsBehavior b = new TestPhysicsBehavior(3.0f);
+    PhysicsSpace space = mock(PhysicsSpace.class);
+
+    controller.setPhysicsSpace(space);
+
+    controller.registerBehavior(b);
+
+    assertEquals(space, b.space);
+  }
+
+    /**
+   * Physics
+   */
+  class TestPlayerPhysicsBehavior extends PlayerPhysicsBehavior {
+    public PhysicsSpace space;
+
+    public TestPlayerPhysicsBehavior() {
+      super();
+    }
+
+    @Override
+    public void initialize(PhysicsSpace space) {
+      this.space = space;
+    }
+  }
+
+  @Test
+  public void handlesPlayerPhysicsBehaviors() {
+    TestPlayerPhysicsBehavior b = new TestPlayerPhysicsBehavior();
     PhysicsSpace space = mock(PhysicsSpace.class);
 
     controller.setPhysicsSpace(space);

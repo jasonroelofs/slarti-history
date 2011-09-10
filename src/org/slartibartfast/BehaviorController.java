@@ -10,6 +10,7 @@ import java.util.Map;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.PhysicsBehavior;
+import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
 
@@ -107,6 +108,8 @@ public class BehaviorController {
       ((ConstructBehavior)b).initialize(constructFactory);
     } else if(b instanceof PhysicsBehavior) {
       ((PhysicsBehavior)b).initialize(physicsSpace);
+    } else if(b instanceof PlayerPhysicsBehavior) {
+      ((PlayerPhysicsBehavior)b).initialize(physicsSpace);
     } else {
       b.initialize();
     }

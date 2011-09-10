@@ -13,7 +13,8 @@ import org.junit.runners.Suite;
   org.slartibartfast.behaviors.TransformBehaviorTest.class,
   org.slartibartfast.behaviors.PointLightBehaviorTest.class,
   org.slartibartfast.behaviors.PhysicsBehaviorTest.class,
-  org.slartibartfast.behaviors.FollowingBehaviorTest.class
+  org.slartibartfast.behaviors.FollowingBehaviorTest.class,
+  org.slartibartfast.behaviors.PlayerPhysicsBehaviorTest.class
 })
 public class BehaviorsSuite {
 
