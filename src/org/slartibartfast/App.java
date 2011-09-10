@@ -12,6 +12,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.CameraBehavior;
 import org.slartibartfast.behaviors.ConstructBehavior;
+import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.dataProviders.IDataProvider;
@@ -74,21 +75,22 @@ public class App extends SimpleApplication {
     station.useBehavior(new ConstructBehavior("default"));
     station.useBehavior(new PhysicsBehavior(0));
 
-    /**
-     * Setting up the camera
-     *
-     * Move at 5 units / second
-     * Set FOV to 70 degrees
-     * Hook up to FPS keybindings (flying)
-     */
+
+//    Actor player = sceneManager.createActor();
+//    player.useBehavior(new InputBehavior("fpsMovement"));
+//
+//    TransformBehavior physB = player.getBehavior(TransformBehavior.class);
+//    physB.setSpeed(5);
+//    physB.setTurnSpeed(90);
+//    physB.moveRelativeToRotation(true);
+//
+//    player.useBehavior(new PhysicsBehavior(1.0f));
+
+
     Actor camera = sceneManager.createActor(new Vector3f(10f, 0, 6f));
-    camera.useBehavior(new InputBehavior("fpsMovement"));
 
-    TransformBehavior physB = camera.getBehavior(TransformBehavior.class);
-    physB.setSpeed(5);
-    physB.setTurnSpeed(90);
-    physB.moveRelativeToRotation(true);
-
+    // Camera starts as the player's head
+    //camera.useBehavior(new FollowingBehavior(player, 0));
 
     CameraBehavior camB = new CameraBehavior(getCamera());
     // TODO Figure out how we can do lookAt before useBehavior is
@@ -105,10 +107,12 @@ public class App extends SimpleApplication {
     createTeapot(new Vector3f(10.0f, -1.0f, 0.0f));
     Actor teapot2 = createTeapot(new Vector3f(10.0f, 1.0f, 0.0f));
 
-    teapot.useBehavior(new InputBehavior("lightMover"));
+    teapot.useBehavior(new InputBehavior("fpsMovement"));
     teapot.getBehavior(TransformBehavior.class).setSpeed(2.0f);
+    teapot.getBehavior(TransformBehavior.class).moveRelativeToRotation(true);
 
     teapot2.useBehavior(new InputBehavior("lightMover"));
+    teapot2.useBehavior(new FollowingBehavior(teapot, new Vector3f(0, 0, -2)));
 
     Actor sun = sceneManager.createActor();
     sun.useBehavior(new DirectionalLightBehavior(
@@ -134,7 +138,7 @@ public class App extends SimpleApplication {
     teapot.useBehavior(new VisualBehavior(
             "Models/Teapot/Teapot.obj",
             "Materials/RockyTeapot.j3m"));
-    teapot.useBehavior(new PhysicsBehavior(1));
+    //teapot.useBehavior(new PhysicsBehavior(1));
 
     return teapot;
   }
