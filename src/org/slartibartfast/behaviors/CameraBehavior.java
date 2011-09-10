@@ -29,7 +29,7 @@ public class CameraBehavior extends Behavior {
   public void setFOV(int degrees) {
     camera.setFrustumPerspective(degrees,
             camera.getWidth() / camera.getHeight(),
-            1.0f, 10000.0f);
+            0.1f, 10000.0f);
   }
 
   /**

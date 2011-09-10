@@ -36,7 +36,7 @@ public class CameraBehaviorTest {
 
     behavior.setFOV(70);
 
-    verify(cameraMock).setFrustumPerspective(70, 1024 / 768, 1.0f, 10000.0f);
+    verify(cameraMock).setFrustumPerspective(70, 1024 / 768, 0.1f, 10000.0f);
   }
 
   @Test
