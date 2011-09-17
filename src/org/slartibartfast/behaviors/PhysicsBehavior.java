@@ -16,6 +16,8 @@ import org.slartibartfast.Behavior;
  * Physics takes COMPLETE control over the location and rotation
  * of the actor. To manually transform the actor you'll need to disable
  * physics for this Actor, move the Actor, then re-enable physics.
+ *
+ * FIXME: Hook up a physics tick listener instead of using perform()
  */
 public class PhysicsBehavior extends Behavior {
 

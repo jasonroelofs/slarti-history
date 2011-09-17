@@ -3,7 +3,6 @@ package org.slartibartfast;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,7 +10,9 @@ import java.util.Map;
  * be given any number of Behaviors who will be used to determine how the
  * Actor behaves in the game.
  *
- * Do not instantiate this class directly. Use ActorFactory instead.
+ * Do not instantiate this class directly. Use a SceneGraph instead.
+ *
+ * FIXME: Refactor to not know about the behavior controller
  */
 public class Actor {
 
@@ -88,6 +89,9 @@ public class Actor {
    * that's a subclass of the behavior being replaced.
    * The new behavior will be accessible through both the old
    * superclass name and the new behavior's class name
+   *
+   * FIXME: This probably breaks behavior controller handling
+   * of the behaviors in question.
    *
    * @param klass Class of the behavior to be replaced
    * @param newBehavior Behavior to replace klass with

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
@@ -26,7 +25,6 @@ public class BehaviorController {
   private UserSettings userSettings;
   private AssetManager assetManager;
   private IDataProvider dataProvider;
-  private ConstructFactory constructFactory;
   private PhysicsSpace physicsSpace;
 
   public BehaviorController() {
@@ -47,10 +45,6 @@ public class BehaviorController {
 
   public void setDataProvider(IDataProvider data) {
     this.dataProvider = data;
-  }
-
-  public void setConstructFactory(ConstructFactory factory) {
-    this.constructFactory = factory;
   }
 
   public void setPhysicsSpace(PhysicsSpace space) {
@@ -104,8 +98,6 @@ public class BehaviorController {
       ((InputBehavior)b).initialize(inputSystem, userSettings);
     } else if(b instanceof VisualBehavior) {
       ((VisualBehavior)b).initialize(assetManager);
-    } else if(b instanceof ConstructBehavior) {
-      ((ConstructBehavior)b).initialize(constructFactory);
     } else if(b instanceof PhysicsBehavior) {
       ((PhysicsBehavior)b).initialize(physicsSpace);
     } else if(b instanceof PlayerPhysicsBehavior) {

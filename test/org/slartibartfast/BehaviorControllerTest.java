@@ -14,7 +14,6 @@ import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
-import org.slartibartfast.dataProviders.IDataProvider;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -190,33 +189,6 @@ public class BehaviorControllerTest {
     controller.registerBehavior(b);
 
     assertEquals(manager, b.manager);
-  }
-
-  /**
-   * Constructs
-   */
-  class TestConstructBehavior extends ConstructBehavior {
-    public ConstructFactory factory;
-
-    public TestConstructBehavior(String constructName) {
-      super(constructName);
-    }
-
-    public void initialize(ConstructFactory f) {
-      this.factory = f;
-    }
-  }
-
-  @Test
-  public void handlesConstructBehaviors() {
-    TestConstructBehavior b = new TestConstructBehavior("conName");
-    ConstructFactory factory = mock(ConstructFactory.class);
-
-    controller.setConstructFactory(factory);
-
-    controller.registerBehavior(b);
-
-    assertEquals(factory, b.factory);
   }
 
   /**

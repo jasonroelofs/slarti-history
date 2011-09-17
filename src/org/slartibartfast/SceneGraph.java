@@ -1,6 +1,5 @@
 package org.slartibartfast;
 
-import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import org.slartibartfast.behaviors.TransformBehavior;
 public class SceneGraph {
 
   private Node rootNode;
-  private AssetManager assetManager;
 
   private long nextActorId = 0;
 
@@ -81,10 +79,6 @@ public class SceneGraph {
 
   private long getNextId() {
     return nextActorId++;
-  }
-
-  public void setAssetManager(AssetManager assetManager) {
-    this.assetManager = assetManager;
   }
 
   public void setBehaviorController(BehaviorController behaviorController) {

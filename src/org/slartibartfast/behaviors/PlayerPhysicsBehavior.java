@@ -21,6 +21,8 @@ import com.jme3.math.Vector3f;
  *
  * Not the happiest with this name, may rename if I come up with something
  * better.
+ *
+ * FIXME: Hook up a physics tick listener instead of using perform()
  */
 public class PlayerPhysicsBehavior extends TransformBehavior {
 

@@ -3,10 +3,8 @@ package org.slartibartfast.behaviors;
 import com.jme3.scene.Node;
 import org.slartibartfast.Construct;
 import org.junit.Test;
-import org.slartibartfast.ConstructFactory;
 import org.slartibartfast.Factories;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class ConstructBehaviorTest {
 
@@ -14,8 +12,9 @@ public class ConstructBehaviorTest {
   }
 
   @Test
-  public void canBeConstructedWithName() {
-    ConstructBehavior b = new ConstructBehavior("constructName");
+  public void canBeConstructedWithConstruct() {
+    ConstructBehavior b = new ConstructBehavior(
+            new Construct("name", new Node("name")));
   }
 
   class TestConstruct extends Construct {
@@ -33,16 +32,14 @@ public class ConstructBehaviorTest {
 
   @Test
   public void initializesItselfWithFactory() {
-    ConstructFactory factory = mock(ConstructFactory.class);
-    ConstructBehavior b = new ConstructBehavior("constructName");
     TestConstruct con = new TestConstruct("", new Node());
 
+    ConstructBehavior b = new ConstructBehavior(con);
     b.setActor(Factories.createActor());
 
-    stub(factory.getConstruct("constructName")).toReturn(con);
-
-    b.initialize(factory);
+    b.initialize();
 
     assertEquals(b.getActor().getNode(), con.node);
+    assertTrue(b.isInitialized());
   }
 }

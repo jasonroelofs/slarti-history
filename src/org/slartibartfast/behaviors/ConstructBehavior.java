@@ -2,7 +2,6 @@ package org.slartibartfast.behaviors;
 
 import org.slartibartfast.Behavior;
 import org.slartibartfast.Construct;
-import org.slartibartfast.ConstructFactory;
 
 /**
  * Adding this behavior to an Actor will cause the system
@@ -11,18 +10,16 @@ import org.slartibartfast.ConstructFactory;
  */
 public class ConstructBehavior extends Behavior {
 
-  /** Name of the construct to associate */
-  private final String constructName;
+  private final Construct construct;
 
-  public ConstructBehavior(String constructName) {
-    this.constructName = constructName;
+  public ConstructBehavior(Construct construct) {
+    this.construct = construct;
   }
 
-  public void initialize(ConstructFactory factory) {
-    Construct construct = factory.getConstruct(constructName);
+  @Override
+  public void initialize() {
     construct.attachTo(actor.getNode());
-
-    initialize();
+    super.initialize();
   }
 
 }
