@@ -1,14 +1,9 @@
 package org.slartibartfast.events;
 
-import org.slartibartfast.Actor;
-
 /**
  * Internal representation of an event from the input system.
  */
 public class InputEvent {
-
-  // Actor that should be given this input event
-  public Actor actor;
 
   // Name of the event sent
   public String event;
@@ -19,26 +14,16 @@ public class InputEvent {
   // Analog: the distance travelled, [0,1]
   public float value;
 
-  public InputEvent(Actor actor, String name, boolean pressed) {
-    this.actor = actor;
+  public InputEvent(String name, boolean pressed) {
     this.event = name;
     this.pressed = pressed;
     this.value = pressed ? 1.0f : 0.0f;
   }
 
-  public InputEvent(Actor actor, String name, float value) {
-    this.actor = actor;
+  public InputEvent(String name, float value) {
     this.event = name;
     this.value = value;
     this.pressed = false;
-  }
-
-  /**
-   * TODO: Find a better way of sending InputEvents
-   * to the Event system.
-   */
-  public void process() {
-    Events.processEvent(this);
   }
 
 }

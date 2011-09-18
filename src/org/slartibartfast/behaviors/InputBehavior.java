@@ -2,6 +2,9 @@ package org.slartibartfast.behaviors;
 
 import org.slartibartfast.UserSettings;
 import org.slartibartfast.Behavior;
+import org.slartibartfast.events.Events;
+import org.slartibartfast.events.IInputListener;
+import org.slartibartfast.events.InputEvent;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.events.UserKeyMapping;
 import org.slartibartfast.events.UserMouseMapping;
@@ -13,7 +16,7 @@ import org.slartibartfast.events.UserMouseMapping;
  * one scope, so to add multiple scopes to a single Actor, add
  * multiple behaviors.
  */
-public class InputBehavior extends Behavior {
+public class InputBehavior extends Behavior implements IInputListener {
 
   private String scope;
 
@@ -28,20 +31,22 @@ public class InputBehavior extends Behavior {
     this.scope = scope;
   }
 
+  public String getScope() {
+    return scope;
+  }
+
+  @Override
+  public void handleInputEvent(InputEvent event) {
+    Events.processEvent(getActor(), event);
+  }
+
   public void initialize(InputSystem input, UserSettings settings) {
     keyMapping = settings.getKeyMap(scope);
     mouseMapping = settings.getMouseMap(scope);
 
-    if(keyMapping != null)
-      input.mapInputToActor(keyMapping, actor);
-
-    if(mouseMapping != null)
-      input.mapInputToActor(mouseMapping, actor);
+    input.registerInputListener(this, keyMapping, mouseMapping);
 
     initialize();
   }
 
-  public String getScope() {
-    return scope;
-  }
 }

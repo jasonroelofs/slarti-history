@@ -7,11 +7,9 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.slartibartfast.Actor;
 
 /**
  * This class abstracts the usage of JME's input management
@@ -37,98 +35,94 @@ public class InputSystem {
 
   private final InputManager inputManager;
 
-  private List<InputEvent> currentEvents;
-
   /**
-   * Map which keeps track of which actor is supposed to
-   * receive which input event.
+   * Keep track of which listeners want to receive the
+   * given event type. Key is a String to match what we
+   * get back from jME's input system.
    */
-  private Map<String, List<Actor>> actorMapping;
+  private Map<String, List<IInputListener>> listenerMap;
 
   public InputSystem(InputManager manager) {
     inputManager = manager;
-    currentEvents = new ArrayList<InputEvent>();
-    actorMapping = new HashMap<String, List<Actor>>();
     inputManager.setCursorVisible(false);
+
+    listenerMap = new HashMap<String, List<IInputListener>>();
   }
 
   /**
-   * Per-frame update call. Take all queued events and
-   * execute them for the current frame.
+   * Register an input listener with the passed in key and mouse
+   * mappings.
+   *
+   * TODO Possibly find a way to combine the two mapping types
+   * together. The reason there's two types is that Axis definitions
+   * need the Axis and the direction, while Key definitions just
+   * need the Key.
+   *
+   * @param listener IInputListener object
+   * @param keyMapping Key bindings to events
+   * @param mouseMapping Mouse axis bindings to events
    */
-  public void update(float delta) {
-    if(currentEvents.isEmpty()) {
-      return;
-    }
+  public void registerInputListener(
+          IInputListener listener,
+          UserKeyMapping keyMapping,
+          UserMouseMapping mouseMapping) {
+    List<String> actionEvents = new ArrayList<String>();
+    List<String> analogEvents = new ArrayList<String>();
+    String eventKey;
+    String scope = keyMapping.getScope();
+    int keyCode, axisCode;
 
-    // Should events get pulled inside, or at least
-    // pulled out of the Enum system it's currently in?
-    // This feels cludgy
-    for(InputEvent e : currentEvents) {
-      e.process();
-    }
-
-    currentEvents.clear();
-  }
-
-  /**
-   * Given a UserKeyMapping, set up all required key mappings
-   * for inputs to be properly forwarded.
-   * @param mapping
-   */
-  public void mapInputToActor(UserKeyMapping mapping, Actor actor) {
-    List<String> events = new ArrayList<String>(mapping.size());
-    String eventName;
-    String scope = mapping.getScope();
-    int keyCode;
-
-    for(Entry<Events, String> entry : mapping.entrySet()) {
-      eventName = scope + ":" + entry.getKey().name();
+    /**
+     * Build up internal handling of all key mappings
+     */
+    for(Entry<Events, String> entry : keyMapping.entrySet()) {
+      eventKey = scope + ":" + entry.getKey().name();
       keyCode = Keys.get(entry.getValue());
 
-      events.add(eventName);
-      addActorToEvent(eventName, actor);
+      // Hold is handled as an analog event so we need to work
+      // both for key presses
+      analogEvents.add(eventKey);
+      actionEvents.add(eventKey);
 
-      inputManager.addMapping(eventName, new KeyTrigger(keyCode));
+      inputManager.addMapping(eventKey, new KeyTrigger(keyCode));
 
-      // We add to both Action and Analog as without Analog we
-      // don't get auto key-held-down action
-      inputManager.addListener(actionListener, eventName);
-      inputManager.addListener(analogListener, eventName);
+      addListenerForEvent(eventKey, listener);
     }
-  }
 
-  public void mapInputToActor(UserMouseMapping mapping, Actor actor) {
-    List<String> events = new ArrayList<String>(mapping.size());
-    String eventName;
-    String scope = mapping.getScope();
-    int axisCode;
-
-    for (Entry<Events, AxisDefinition> entry : mapping.entrySet()) {
-      eventName = scope + ":" + entry.getKey().name();
+    /**
+     * And all internal handling of axis movement mappings
+     */
+    scope = mouseMapping.getScope();
+    for(Entry<Events, AxisDefinition> entry : mouseMapping.entrySet()) {
+      eventKey = scope + ":" + entry.getKey().name();
       axisCode = Axis.get(entry.getValue().axis);
 
-      events.add(eventName);
-      addActorToEvent(eventName, actor);
+      analogEvents.add(eventKey);
 
-      inputManager.addMapping(eventName,
-              new MouseAxisTrigger(axisCode,
-                      !entry.getValue().positiveDir));
+      inputManager.addMapping(eventKey,
+        new MouseAxisTrigger(axisCode,
+                !entry.getValue().positiveDir));
 
-      inputManager.addListener(analogListener, eventName);
-    }
-  }
-
-  private void addActorToEvent(String eventName, Actor actor) {
-    if(actorMapping.get(eventName) == null) {
-      actorMapping.put(eventName, new LinkedList<Actor>());
+      addListenerForEvent(eventKey, listener);
     }
 
-    actorMapping.get(eventName).add(actor);
+    inputManager.addListener(actionListener,
+            actionEvents.toArray(new String[actionEvents.size()]));
+    inputManager.addListener(analogListener,
+            analogEvents.toArray(new String[analogEvents.size()]));
   }
 
-  private List<Actor> getActors(String eventName) {
-    return actorMapping.get(eventName);
+  private void addListenerForEvent(String event, IInputListener listener) {
+    List<IInputListener> current = getListenersFor(event);
+    current.add(listener);
+  }
+
+  private List<IInputListener> getListenersFor(String event) {
+    if(!listenerMap.containsKey(event)) {
+      listenerMap.put(event, new ArrayList<IInputListener>());
+    }
+
+    return listenerMap.get(event);
   }
 
   /**
@@ -138,17 +132,16 @@ public class InputSystem {
   private ActionListener actionListener = new ActionListener() {
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-      List<Actor> actors = getActors(name);
-      if(actors != null) {
+      List<IInputListener> listeners = getListenersFor(name);
 
-        // The event name is prefixed by the scope the event
-        // is registered under. Remove the scope string when
-        // creating the event
-        String eventName = name.split(":")[1];
+      // The event name is prefixed by the scope the event
+      // is registered under. Remove the scope string when
+      // creating the event
+      String eventName = name.split(":")[1];
 
-        for(Actor a : actors) {
-          currentEvents.add(new InputEvent(a, eventName, isPressed));
-        }
+      for(int i = 0; i < listeners.size(); i++) {
+        listeners.get(i).handleInputEvent(
+                new InputEvent(eventName, isPressed));
       }
     }
   };
@@ -160,27 +153,23 @@ public class InputSystem {
   private AnalogListener analogListener = new AnalogListener() {
     @Override
     public void onAnalog(String name, float value, float tpf) {
-      List<Actor> actors = getActors(name);
-      if(actors != null) {
+      List<IInputListener> listeners = getListenersFor(name);
 
-        // See actionListener
-        String eventName = name.split(":")[1];
+      // See actionListener
+      String eventName = name.split(":")[1];
 
-        for(Actor a : actors) {
-          // JME is using analog listeners to keep sending key-down
-          // messages to act like "HOLD" events. It's also giving me
-          // per frame values automatically, which I don't want.
-          // I undo that here to get the raw value and let
-          // PhysicalBehavior take care of time-per-frame delta logic
-          currentEvents.add(new InputEvent(a, eventName, value / tpf));
-        }
+      for(int i = 0; i < listeners.size(); i++) {
+        // JME is using analog listenerMap to keep sending key-down
+        // messages to act like "HOLD" events. It's also giving me
+        // per frame values automatically, which I don't want.
+        // I undo that here to get the raw value and let
+        // TransformBehavior take care of time-per-frame delta logic
+
+        listeners.get(i).handleInputEvent(
+                new InputEvent(eventName, value / tpf));
       }
     }
   };
-
-  public List<InputEvent> getCurrentEvents() {
-    return currentEvents;
-  }
 
   public ActionListener getActionListener() {
     return actionListener;

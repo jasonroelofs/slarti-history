@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slartibartfast.Actor;
 import org.slartibartfast.behaviors.TransformBehavior;
 
 /**
@@ -14,92 +15,92 @@ import org.slartibartfast.behaviors.TransformBehavior;
 public enum Events {
   MoveLeft  ("Move Left") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.moveLeft();
     }
   },
   MoveRight ("Move Right") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.moveRight();
     }
   },
   MoveUp    ("Move Up") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.moveUp();
     }
   },
   MoveDown  ("Move Down") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.moveDown();
     }
   },
   MoveForward ("Move Forward") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.moveForward();
 
     }
   },
   MoveBackward ("Move Backward") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.moveBackward();
     }
   },
   TurnLeft ("Turn Left") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.turnLeft(e.value);
     }
   },
   TurnRight ("Turn Right") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.turnRight(e.value);
     }
   },
   PitchUp ("Look Up") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.pitchUp(e.value);
     }
   },
   PitchDown ("Look Down") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.pitchDown(e.value);
     }
   },
   RollLeft ("Roll Left") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.rollLeft();
     }
   },
   RollRight ("Roll Right") {
     @Override
-    protected void execute(InputEvent e) {
-      TransformBehavior b = e.actor.getBehavior(TransformBehavior.class);
+    protected void execute(Actor actor, InputEvent e) {
+      TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.rollRight();
     }
   }
   ;
 
-  protected abstract void execute(InputEvent e);
+  protected abstract void execute(Actor actor, InputEvent e);
 
   public String humanName;
 
@@ -145,12 +146,12 @@ public enum Events {
     return allNames;
   }
 
-  public static void processEvent(InputEvent e) {
+  public static void processEvent(Actor actor, InputEvent e) {
     try {
-      Events.get(e.event).execute(e);
+      Events.get(e.event).execute(actor, e);
     } catch (UnknownEventError error) {
       // TODO get the logger and let people know what's up
-      // For now STDERR it goes!
+      // For now to STDERR it goes!
       System.err.println("Error executing event: " + error.getMessage());
     }
   }

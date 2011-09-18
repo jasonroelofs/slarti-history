@@ -21,7 +21,7 @@ public class EventsTest {
   @Before
   public void setupActorAndEvent() {
     actor = Factories.createActor();
-    event = new InputEvent(actor, null, true);
+    event = new InputEvent(null, true);
   }
 
   @Test
@@ -44,10 +44,10 @@ public class EventsTest {
   @Test
   public void moveLeftEvent() throws UnknownEventError {
     event.event = "MoveLeft";
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertTrue(b.getLocation().x < oldLoc.x);
@@ -56,10 +56,10 @@ public class EventsTest {
   @Test
   public void moveRightEvent() throws UnknownEventError {
     event.event = "MoveRight";
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertTrue(b.getLocation().x > oldLoc.x);
@@ -68,10 +68,10 @@ public class EventsTest {
   @Test
   public void moveUpEvent() throws UnknownEventError {
     event.event = "MoveUp";
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertTrue(b.getLocation().y > oldLoc.y);
@@ -80,10 +80,10 @@ public class EventsTest {
   @Test
   public void moveDownEvent() throws UnknownEventError {
     event.event = "MoveDown";
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertTrue(b.getLocation().y < oldLoc.y);
@@ -92,10 +92,10 @@ public class EventsTest {
   @Test
   public void moveForwardEvent() throws UnknownEventError {
     event.event = "MoveForward";
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertTrue(b.getLocation().z < oldLoc.z);
@@ -104,10 +104,10 @@ public class EventsTest {
   @Test
   public void moveBackwardEvent() throws UnknownEventError {
     event.event = "MoveBackward";
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Vector3f oldLoc = b.getLocation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertTrue(b.getLocation().z > oldLoc.z);
@@ -117,10 +117,10 @@ public class EventsTest {
   public void turnLeftEvent() throws UnknownEventError {
     event.event = "TurnLeft";
     event.value = 1.0f;
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertThat(oldQuat, not(equalTo(b.getRotation())));
@@ -130,10 +130,10 @@ public class EventsTest {
   public void turnRightEvent() throws UnknownEventError {
     event.event = "TurnRight";
     event.value = 1.0f;
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertThat(oldQuat, not(equalTo(b.getRotation())));
@@ -143,10 +143,10 @@ public class EventsTest {
   public void pitchUpEvent() throws UnknownEventError {
     event.event = "PitchUp";
     event.value = 1.0f;
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertThat(oldQuat, not(equalTo(b.getRotation())));
@@ -156,10 +156,10 @@ public class EventsTest {
   public void pitchDownEvent() throws UnknownEventError {
     event.event = "PitchDown";
     event.value = 1.0f;
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertThat(oldQuat, not(equalTo(b.getRotation())));
@@ -169,10 +169,10 @@ public class EventsTest {
   public void rollLeftEvent() throws UnknownEventError {
     event.event = "RollLeft";
     event.value = 1.0f;
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertThat(oldQuat, not(equalTo(b.getRotation())));
@@ -182,10 +182,10 @@ public class EventsTest {
   public void rollRightEvent() throws UnknownEventError {
     event.event = "RollRight";
     event.value = 1.0f;
-    TransformBehavior b = event.actor.getBehavior(TransformBehavior.class);
+    TransformBehavior b = actor.getBehavior(TransformBehavior.class);
     Quaternion oldQuat = b.getRotation().clone();
 
-    Events.processEvent(event);
+    Events.processEvent(actor, event);
     b.perform(1.0f);
 
     assertThat(oldQuat, not(equalTo(b.getRotation())));

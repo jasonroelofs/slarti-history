@@ -24,37 +24,21 @@ public class InputBehaviorTest {
   @Test
   public void initializesTheKeyMappings() {
     InputBehavior b = new InputBehavior("scope");
-    UserKeyMapping mapping = new UserKeyMapping("testScope");
-    mapping.put(Events.MoveUp, "Key");
+    
+    UserKeyMapping keyMapping = new UserKeyMapping("testScope");
+    keyMapping.put(Events.MoveUp, "Key");
+
+    UserMouseMapping mouseMapping = new UserMouseMapping("testScope");
+    mouseMapping.put(Events.MoveUp, "Key", true);
 
     UserSettings settings = mock(UserSettings.class);
-    when(settings.getKeyMap("scope")).thenReturn(mapping);
+    when(settings.getKeyMap("scope")).thenReturn(keyMapping);
+    when(settings.getMouseMap("scope")).thenReturn(mouseMapping);
 
     InputSystem system = mock(InputSystem.class);
-    Actor a = new Actor();
 
-    b.setActor(a);
     b.initialize(system, settings);
 
-    verify(system).mapInputToActor(mapping, a);
-  }
-
-
-  @Test
-  public void initializesTheMouseMappings() {
-    InputBehavior b = new InputBehavior("scope");
-    UserMouseMapping mapping = new UserMouseMapping("testScope");
-    mapping.put(Events.MoveUp, "Key", true);
-
-    UserSettings settings = mock(UserSettings.class);
-    when(settings.getMouseMap("scope")).thenReturn(mapping);
-
-    InputSystem system = mock(InputSystem.class);
-    Actor a = new Actor();
-
-    b.setActor(a);
-    b.initialize(system, settings);
-
-    verify(system).mapInputToActor(mapping, a);
+    verify(system).registerInputListener(b, keyMapping, mouseMapping);
   }
 }

@@ -1,5 +1,7 @@
 package org.slartibartfast.events;
 
+import org.mockito.ArgumentMatcher;
+import java.util.ArrayList;
 import com.jme3.input.MouseInput;
 import org.junit.Before;
 import com.jme3.input.controls.KeyTrigger;
@@ -13,13 +15,13 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.slartibartfast.Actor;
 import static org.junit.Assert.*;
 
 public class InputSystemTest {
   private InputManager manager;
   private InputSystem system;
-  private Actor actor;
+  private UserKeyMapping keyMapping;
+  private UserMouseMapping mouseMapping;
 
   public InputSystemTest() {
   }
@@ -30,210 +32,184 @@ public class InputSystemTest {
     system = new InputSystem(manager);
     verify(manager).setCursorVisible(false);
 
-    actor = new Actor();
+
+    keyMapping = new UserKeyMapping("testScope1");
+    keyMapping.put(Events.MoveUp, "UP");
+    keyMapping.put(Events.MoveDown, "DOWN");
+
+    mouseMapping = new UserMouseMapping("testScope1");
+    mouseMapping.put(Events.TurnLeft, "MOUSE_X", true);
+    mouseMapping.put(Events.TurnRight, "MOUSE_X", false);
+  }
+
+  class IncludesAllMatcher extends ArgumentMatcher {
+    private String[] toCheck;
+
+    public IncludesAllMatcher(String ... strings) {
+      this.toCheck = strings;
+    }
+
+    @Override
+    public boolean matches(Object argument) {
+      return false;
+    }
+
   }
 
   @Test
-  public void updateExecutesAllExistingEvents() {
-    List<InputEvent> events = system.getCurrentEvents();
-    InputEvent e1 = mock(InputEvent.class);
-    InputEvent e2 = mock(InputEvent.class);
-    events.add(e1);
-    events.add(e2);
+  public void registersListenerForEvents() {
+    IInputListener listener = mock(IInputListener.class);
 
-    system.update(1.0f);
+    system.registerInputListener(listener, keyMapping, mouseMapping);
 
-    verify(e1, atMost(1)).process();
-    verify(e2, atMost(1)).process();
-
-    verifyNoMoreInteractions(e1, e2);
-
-    // Make sure the list gets cleared up and we don't
-    // duplicate events
-    system.update(0.5f);
-
-    verifyNoMoreInteractions(e1, e2);
-  }
-
-  @Test
-  public void mapsKeyEventsToActorsByScope() {
-    Actor a1 = new Actor();
-    Actor a2 = new Actor();
-
-    UserKeyMapping mapping1 = new UserKeyMapping("testScope1");
-    mapping1.put(Events.MoveUp, "UP");
-
-    UserKeyMapping mapping2 = new UserKeyMapping("testScope2");
-    mapping2.put(Events.MoveUp, "DOWN");
-
-    system.mapInputToActor(mapping1, a1);
-    system.mapInputToActor(mapping2, a2);
-
+    /**
+     * Verify hooking up key actions to JME
+     */
     verify(manager).addMapping(eq("testScope1:MoveUp"),
-            any(KeyTrigger.class));
-    verify(manager).addMapping(eq("testScope2:MoveUp"),
+        any(KeyTrigger.class));
+    verify(manager).addMapping(eq("testScope1:MoveDown"),
             any(KeyTrigger.class));
 
-    verify(manager, atLeastOnce()).addListener(any(ActionListener.class),
-        eq("testScope1:MoveUp"));
-    verify(manager, atLeastOnce()).addListener(any(AnalogListener.class),
-        eq("testScope1:MoveUp"));
 
-    verify(manager, atLeastOnce()).addListener(any(ActionListener.class),
-        eq("testScope2:MoveUp"));
-     verify(manager, atLeastOnce()).addListener(any(AnalogListener.class),
-        eq("testScope2:MoveUp"));
+    /**
+     * Verify hooking up mouse actions to JME
+     */
+    verify(manager).addMapping(eq("testScope1:TurnLeft"),
+        any(MouseAxisTrigger.class));
+    verify(manager).addMapping(eq("testScope1:TurnRight"),
+            any(MouseAxisTrigger.class));
+
+    ArgumentCaptor<String> captor1, captor2, captor3, captor4;
+
+    captor1 = ArgumentCaptor.forClass(String.class);
+    captor2 = ArgumentCaptor.forClass(String.class);
+    captor3 = ArgumentCaptor.forClass(String.class);
+    captor4 = ArgumentCaptor.forClass(String.class);
+
+    /**
+     * Verify action and analog listeners called
+     */
+    verify(manager).addListener(any(ActionListener.class),
+            captor1.capture(), captor2.capture());
+
+    // Can't figure out a nicer way to do this, vararg but
+    // random order of the arguments =/
+    assertTrue(captor1.getValue().equals("testScope1:MoveUp") ||
+            captor1.getValue().equals("testScope1:MoveDown"));
+    assertTrue(captor2.getValue().equals("testScope1:MoveUp") ||
+            captor2.getValue().equals("testScope1:MoveDown"));
+
+    verify(manager).addListener(any(AnalogListener.class),
+            captor1.capture(), captor2.capture(),
+            captor3.capture(), captor4.capture());
+
+    // BARF
+    assertTrue(
+        captor1.getValue().equals("testScope1:MoveUp") ||
+        captor1.getValue().equals("testScope1:MoveDown") ||
+        captor1.getValue().equals("testScope1:TurnRight") ||
+        captor1.getValue().equals("testScope1:TurnLeft"));
+
+    assertTrue(
+        captor2.getValue().equals("testScope1:MoveUp") ||
+        captor2.getValue().equals("testScope1:MoveDown") ||
+        captor2.getValue().equals("testScope1:TurnRight") ||
+        captor2.getValue().equals("testScope1:TurnLeft"));
+
+    assertTrue(
+        captor3.getValue().equals("testScope1:MoveUp") ||
+        captor3.getValue().equals("testScope1:MoveDown") ||
+        captor3.getValue().equals("testScope1:TurnRight") ||
+        captor3.getValue().equals("testScope1:TurnLeft"));
+
+    assertTrue(
+        captor4.getValue().equals("testScope1:MoveUp") ||
+        captor4.getValue().equals("testScope1:MoveDown") ||
+        captor4.getValue().equals("testScope1:TurnRight") ||
+        captor4.getValue().equals("testScope1:TurnLeft"));
 
     verifyNoMoreInteractions(manager);
   }
 
-  @Test
-  public void mapsMouseEventsToActorsByScope() {
-    Actor a1 = new Actor();
-    Actor a2 = new Actor();
+  class TestListener implements IInputListener {
+    public List<InputEvent> received;
 
-    UserMouseMapping mapping1 = new UserMouseMapping("testScope1");
-    mapping1.put(Events.MoveUp, "MOUSE_X", true);
+    public TestListener() {
+      received = new ArrayList<InputEvent>();
+    }
 
-    UserMouseMapping mapping2 = new UserMouseMapping("testScope2");
-    mapping2.put(Events.MoveUp, "MOUSE_X", false);
+    @Override
+    public void handleInputEvent(InputEvent event) {
+      received.add(event);
+    }
 
-    system.mapInputToActor(mapping1, a1);
-    system.mapInputToActor(mapping2, a2);
-
-    verify(manager).addMapping(eq("testScope1:MoveUp"),
-            any(MouseAxisTrigger.class));
-    verify(manager).addMapping(eq("testScope2:MoveUp"),
-            any(MouseAxisTrigger.class));
-
-    verify(manager, atLeastOnce()).addListener(any(AnalogListener.class),
-        eq("testScope1:MoveUp"));
-
-    verify(manager, atLeastOnce()).addListener(any(AnalogListener.class),
-        eq("testScope2:MoveUp"));
-
-    verifyNoMoreInteractions(manager);
   }
 
   @Test
-  public void sendsActionEventsToMappedActors() {
-    UserKeyMapping mapping = new UserKeyMapping("testScope");
-    mapping.put(Events.MoveUp, "UP");
+  public void sendsActionEventsToRegisteredListeners() {
+    TestListener tester = new TestListener();
 
-    system.mapInputToActor(mapping, actor);
+    system.registerInputListener(tester, keyMapping, mouseMapping);
 
     ActionListener listener = system.getActionListener();
 
-    listener.onAction("testScope:MoveUp", true, 0.1f);
+    listener.onAction("testScope1:MoveUp", true, 0.1f);
 
-    List<InputEvent> events = system.getCurrentEvents();
+    List<InputEvent> events = tester.received;
 
     assertEquals(1, events.size());
 
     InputEvent evt = events.get(0);
     assertEquals("MoveUp", evt.event);
     assertTrue(evt.pressed);
-    assertEquals(actor, evt.actor);
   }
 
   @Test
-  public void sendsAnalogEventsToMappedActors() {
-    UserMouseMapping mapping = new UserMouseMapping("testScope");
-    mapping.put(Events.MoveUp, "MOUSE_X", true);
+  public void sendsAnalogEventsToRegisteredListeners() {
+    TestListener tester = new TestListener();
 
-    system.mapInputToActor(mapping, actor);
+    system.registerInputListener(tester, keyMapping, mouseMapping);
 
     AnalogListener listener = system.getAnalogListener();
 
-    listener.onAnalog("testScope:MoveUp", 12.7f, 1.0f);
+    listener.onAnalog("testScope1:TurnLeft", 12.7f, 1.0f);
 
-    List<InputEvent> events = system.getCurrentEvents();
+    List<InputEvent> events = tester.received;
 
     InputEvent evt = events.get(0);
+    assertEquals("TurnLeft", evt.event);
     assertEquals(12.7f, evt.value, 0.01f);
-    assertEquals(actor, evt.actor);
   }
 
   @Test
   public void properlyDelegatesAccordingToScope() {
-    Actor a1 = new Actor();
-    Actor a2 = new Actor();
+    TestListener tester1 = new TestListener();
+    TestListener tester2 = new TestListener();
 
-    UserKeyMapping mapping1 = new UserKeyMapping("testScope1");
-    mapping1.put(Events.MoveUp, "UP");
+    UserKeyMapping key2 = new UserKeyMapping("testScope2");
+    key2.put(Events.MoveUp, "UP");
+    key2.put(Events.MoveUp, "DOWN");
 
-    UserKeyMapping mapping2 = new UserKeyMapping("testScope2");
-    mapping2.put(Events.MoveUp, "DOWN");
+    UserMouseMapping mouse2 = new UserMouseMapping("testScope2");
 
-    system.mapInputToActor(mapping1, a1);
-    system.mapInputToActor(mapping2, a2);
+    system.registerInputListener(tester1, keyMapping, mouseMapping);
+    system.registerInputListener(tester2, key2, mouse2);
 
-    AnalogListener listener = system.getAnalogListener();
+    ActionListener listener = system.getActionListener();
 
-    listener.onAnalog("testScope1:MoveUp", 12.7f, 1.0f);
-    listener.onAnalog("testScope2:MoveUp", 2.3f, 0f);
+    listener.onAction("testScope1:MoveUp", true, 1.0f);
+    listener.onAction("testScope2:MoveUp", false, 0f);
 
-    List<InputEvent> events = system.getCurrentEvents();
-    assertEquals(2, events.size());
+    List<InputEvent> events;
 
-    InputEvent evt = events.get(0);
-    assertEquals(a1, evt.actor);
+    events = tester1.received;
+    assertEquals(1, events.size());
+    assertEquals("MoveUp", events.get(0).event);
+    assertEquals(1.0f, events.get(0).value, 0.001);
 
-    evt = events.get(1);
-    assertEquals(a2, evt.actor);
+    events = tester2.received;
+    assertEquals(1, events.size());
+    assertEquals("MoveUp", events.get(0).event);
+    assertEquals(0.0f, events.get(0).value, 0.001);
   }
-
-  @Test
-  public void canMapInputToActor_KeyMappings() {
-    UserKeyMapping mapping = new UserKeyMapping("testScope");
-    mapping.put(Events.MoveUp, "UP");
-    mapping.put(Events.MoveDown, "DOWN");
-
-    // Call to set up the mapping
-    system.mapInputToActor(mapping, actor);
-
-    ArgumentCaptor<KeyTrigger> triggerUp =
-            ArgumentCaptor.forClass(KeyTrigger.class);
-    ArgumentCaptor<KeyTrigger> triggerDown =
-            ArgumentCaptor.forClass(KeyTrigger.class);
-
-    // Verify we added the MoveDown event
-    verify(manager).addMapping(eq("testScope:MoveDown"),
-            triggerDown.capture());
-    assertEquals(KeyInput.KEY_DOWN, triggerDown.getValue().getKeyCode());
-
-    // Verify we added the MoveUp event
-    verify(manager).addMapping(eq("testScope:MoveUp"),
-            triggerUp.capture());
-    assertEquals(KeyInput.KEY_UP, triggerUp.getValue().getKeyCode());
-  }
-
-  @Test
-  public void canMapInputToActor_MouseMappings() {
-    UserMouseMapping mapping = new UserMouseMapping("testScope");
-    mapping.put(Events.MoveUp, "MOUSE_Y", true);
-    mapping.put(Events.MoveDown, "MOUSE_Y", false);
-
-    // Call to set up the mapping
-    system.mapInputToActor(mapping, actor);
-
-    ArgumentCaptor<MouseAxisTrigger> triggerUp =
-            ArgumentCaptor.forClass(MouseAxisTrigger.class);
-    ArgumentCaptor<MouseAxisTrigger> triggerDown =
-            ArgumentCaptor.forClass(MouseAxisTrigger.class);
-
-    // Verify we added the MoveDown event
-    verify(manager).addMapping(eq("testScope:MoveDown"),
-            triggerDown.capture());
-    assertEquals(MouseInput.AXIS_Y, triggerDown.getValue().getMouseAxis());
-    assertTrue(triggerDown.getValue().isNegative());
-
-    // Verify we added the MoveUp event
-    verify(manager).addMapping(eq("testScope:MoveUp"),
-            triggerUp.capture());
-    assertEquals(MouseInput.AXIS_Y, triggerUp.getValue().getMouseAxis());
-    assertFalse(triggerUp.getValue().isNegative());
-  }
-
-
 }

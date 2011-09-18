@@ -28,16 +28,23 @@ public class App extends SimpleApplication {
 
   private BulletAppState bulletAppState;
 
+  //private GameAppState gamePlayState;
+  //private EditorAppState editorState;
+
   @Override
   public void simpleInitApp() {
     getFlyByCamera().setEnabled(false);
 
     //bulletAppState = new BulletAppState();
-    //bulletAppState.setThreadingType(BulletAppState.ThreadingType.PARALLEL);
+    //bulletAppState.setThreadingType(
+    //  BulletAppState.ThreadingType.PARALLEL);
     //getStateManager().attach(bulletAppState);
 
     // Debug the shapes
     //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
+
+    //getStateManager().attach(editorState);
+    //getStateManager().attach(gamePlayState);
 
     sceneManager = new SceneGraph(getRootNode());
 
@@ -110,7 +117,6 @@ public class App extends SimpleApplication {
 
   @Override
   public void simpleUpdate(float delta) {
-    inputSystem.update(delta);
     sceneManager.update(delta);
   }
 
