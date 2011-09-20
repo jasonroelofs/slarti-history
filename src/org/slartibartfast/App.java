@@ -62,16 +62,6 @@ public class App extends SimpleApplication {
             getDataStoreFor(Construct.class);
     Construct defaultConstruct = constructStore.load("default");
 
-//
-//    dataProvider = new SQLiteDataProvider();
-//    UserSettings userSettings = new UserSettings(dataProvider);
-//
-//    constructDataProvider = new ConstructDataProvider();
-//
-//    ConstructFactory constructFactory = new ConstructFactory(
-//                    constructDataProvider,
-//                    assetManager);
-
     // TODO This is starting to feel verbose
     behaviorController = new BehaviorController();
     behaviorController.setAssetManager(assetManager);

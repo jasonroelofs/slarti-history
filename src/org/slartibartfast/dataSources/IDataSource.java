@@ -1,4 +1,4 @@
-package org.slartibartfast.dataStores;
+package org.slartibartfast.dataSources;
 
 import org.slartibartfast.dataProviders.DataResults;
 

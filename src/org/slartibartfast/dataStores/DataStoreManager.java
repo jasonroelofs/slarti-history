@@ -1,7 +1,9 @@
 package org.slartibartfast.dataStores;
 
+import org.slartibartfast.dataSources.IDataSource;
 import org.slartibartfast.Construct;
 import org.slartibartfast.UserSettings;
+import org.slartibartfast.dataSources.SQLiteDataSource;
 
 /**
  * This class acts as the entry point and factory to all the
@@ -9,8 +11,10 @@ import org.slartibartfast.UserSettings;
  */
 public class DataStoreManager {
 
-  public DataStoreManager() {
+  private IDataSource dataSource;
 
+  public DataStoreManager() {
+    dataSource = new SQLiteDataSource();
   }
 
   /**
@@ -18,10 +22,9 @@ public class DataStoreManager {
    */
   public IDataStore getDataStoreFor(Class klass) {
     if(klass == UserSettings.class) {
-      return new UserSettingsDataStore();
+      return new UserSettingsDataStore(dataSource);
     } else if(klass == Construct.class) {
-//      return new ConstructDataStore();
-      return null;
+      return new ConstructDataStore(dataSource);
     } else {
       return null;
     }

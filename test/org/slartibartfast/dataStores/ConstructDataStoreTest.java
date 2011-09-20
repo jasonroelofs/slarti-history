@@ -1,5 +1,6 @@
 package org.slartibartfast.dataStores;
 
+import org.slartibartfast.dataSources.IDataSource;
 import org.slartibartfast.Part;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.dataProviders.DataResults;

@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.slartibartfast.BaseSuite;
 import org.slartibartfast.behaviors.BehaviorsSuite;
 import org.slartibartfast.dataProviders.DataProvidersSuite;
+import org.slartibartfast.dataStores.DataStoresSuite;
 import org.slartibartfast.events.EventsSuite;
 
 /**
@@ -16,7 +17,8 @@ import org.slartibartfast.events.EventsSuite;
   BaseSuite.class,
   BehaviorsSuite.class,
   DataProvidersSuite.class,
-  EventsSuite.class
+  EventsSuite.class,
+  DataStoresSuite.class
 })
 public class AllTests {
 
