@@ -2,10 +2,8 @@ package org.slartibartfast.events;
 
 import org.mockito.ArgumentMatcher;
 import java.util.ArrayList;
-import com.jme3.input.MouseInput;
 import org.junit.Before;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.KeyInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.ActionListener;
 import java.util.List;

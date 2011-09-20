@@ -11,8 +11,8 @@ import org.slartibartfast.behaviors.CameraBehavior;
 import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
-import org.slartibartfast.dataProviders.IDataProvider;
-import org.slartibartfast.dataProviders.SQLiteDataProvider;
+import org.slartibartfast.dataStores.DataStoreManager;
+import org.slartibartfast.dataStores.IDataStore;
 
 /**
  * The central runner. This class sets everything up
@@ -23,8 +23,8 @@ public class App extends SimpleApplication {
   private SceneGraph sceneManager;
   private InputSystem inputSystem;
   private BehaviorController behaviorController;
-  private IDataProvider dataProvider;
-  private ConstructDataProvider constructDataProvider;
+
+  private DataStoreManager dataStoreManager;
 
   private BulletAppState bulletAppState;
 
@@ -50,21 +50,34 @@ public class App extends SimpleApplication {
 
     inputSystem = new InputSystem(getInputManager());
 
-    dataProvider = new SQLiteDataProvider();
-    UserSettings userSettings = new UserSettings(dataProvider);
+    dataStoreManager = new DataStoreManager();
 
-    constructDataProvider = new ConstructDataProvider();
+    IDataStore<UserSettings> settingsStore =
+            dataStoreManager.getDataStoreFor(UserSettings.class);
+//    UserSettings userSettings = settingsStore.load();
 
-    ConstructFactory constructFactory = new ConstructFactory(
-                    constructDataProvider,
-                    assetManager);
+//    settingsStore.save(userSettings);
+
+    IDataStore<Construct> constructStore = dataStoreManager.
+            getDataStoreFor(Construct.class);
+    Construct defaultConstruct = constructStore.load("default");
+
+//
+//    dataProvider = new SQLiteDataProvider();
+//    UserSettings userSettings = new UserSettings(dataProvider);
+//
+//    constructDataProvider = new ConstructDataProvider();
+//
+//    ConstructFactory constructFactory = new ConstructFactory(
+//                    constructDataProvider,
+//                    assetManager);
 
     // TODO This is starting to feel verbose
     behaviorController = new BehaviorController();
     behaviorController.setAssetManager(assetManager);
     behaviorController.setInputSystem(inputSystem);
-    behaviorController.setUserSettings(userSettings);
-    behaviorController.setDataProvider(dataProvider);
+//    behaviorController.setUserSettings(userSettings);
+//    behaviorController.setDataProvider(dataProvider);
 
     //behaviorController.setPhysicsSpace(bulletAppState.getPhysicsSpace());
 
@@ -108,7 +121,6 @@ public class App extends SimpleApplication {
      * Load up station definition from sqlite
      */
     Actor station = sceneManager.createActor();
-    Construct defaultConstruct = constructFactory.getConstruct("default");
     station.useBehavior(new ConstructBehavior(defaultConstruct));
 
 
@@ -122,8 +134,7 @@ public class App extends SimpleApplication {
 
   @Override
   public void stop(boolean waitFor) {
-    dataProvider.shutdown();
-    constructDataProvider.shutdown();
+//    dataStoreManager.shutdown();
     super.stop(waitFor);
   }
 

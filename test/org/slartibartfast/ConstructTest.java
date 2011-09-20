@@ -11,6 +11,24 @@ public class ConstructTest {
   }
 
   @Test
+  public void hasAName() {
+    Construct c = new Construct("nameMe");
+    assertEquals("nameMe", c.getName());
+  }
+
+  @Test
+  public void hasManyParts() {
+    Construct c = new Construct("nameMe");
+    assertEquals(0, c.getParts().size());
+
+    Part part = new Part(Vector3f.ZERO, Vector3f.ZERO, "This");
+    c.addPart(part);
+
+    assertEquals(1, c.getParts().size());
+    assertEquals(part, c.getParts().get(0));
+  }
+
+  @Test
   public void canAttachGeometryGraphToNode() {
     String name = "Construct name";
     Node node = new Node("Construct Root");
