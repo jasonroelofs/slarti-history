@@ -17,12 +17,10 @@ import org.slartibartfast.dataStores.DataResults;
  */
 public class ConstructFactory {
 
-  private ConstructDataProvider dataProvider;
   private AssetManager assetManager;
 
-  public ConstructFactory(ConstructDataProvider dataProvider, AssetManager manager) {
+  public ConstructFactory(AssetManager manager) {
     this.assetManager = manager;
-    this.dataProvider = dataProvider;
   }
 
   /**
@@ -36,7 +34,7 @@ public class ConstructFactory {
   }
 
   private Construct buildConstructByName(String name) {
-    ConstructData data = dataProvider.getConstructDataFor(name);
+    ConstructData data; // = dataProvider.getConstructDataFor(name);
     Node constructNode = new Node(name + "_construct");
     Construct construct = new Construct(name, constructNode);
     Node current;
@@ -45,32 +43,32 @@ public class ConstructFactory {
     String material;
     Geometry geo;
 
-    for(HashMap<String, Object> map : data.parts) {
-      current = new Node(constructNode.getName() + "_section_" + sectionNum);
-
-      startPoint = Construct.gridToLocal(
-              DataResults.parseVector(map.get("start_point"))
-      );
-      endPoint = Construct.gridToLocal(
-              DataResults.parseVector(map.get("end_point"))
-      );
-      material = (String)map.get("material");
-
-      distance = endPoint.subtract(startPoint);
-      center = startPoint.add(distance.divide(2f));
-
-      geo = new Geometry("box_" + sectionNum,
-              new Box(distance.x / 2, distance.y / 2, distance.z / 2));
-      geo.setLocalTranslation(center);
-
-      TangentBinormalGenerator.generate(geo.getMesh(), true);
-      geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
-
-      current.attachChild(geo);
-      constructNode.attachChild(current);
-
-      sectionNum++;
-    }
+//    for(HashMap<String, Object> map : data.parts) {
+//      current = new Node(constructNode.getName() + "_section_" + sectionNum);
+//
+//      startPoint = Construct.gridToLocal(
+//              DataResults.parseVector(map.get("start_point"))
+//      );
+//      endPoint = Construct.gridToLocal(
+//              DataResults.parseVector(map.get("end_point"))
+//      );
+//      material = (String)map.get("material");
+//
+//      distance = endPoint.subtract(startPoint);
+//      center = startPoint.add(distance.divide(2f));
+//
+//      geo = new Geometry("box_" + sectionNum,
+//              new Box(distance.x / 2, distance.y / 2, distance.z / 2));
+//      geo.setLocalTranslation(center);
+//
+//      TangentBinormalGenerator.generate(geo.getMesh(), true);
+//      geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
+//
+//      current.attachChild(geo);
+//      constructNode.attachChild(current);
+//
+//      sectionNum++;
+//    }
 
     return construct;
   }
