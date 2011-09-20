@@ -20,4 +20,9 @@ public interface IDataSource {
    * @return
    */
   public DataResults query(String database, String query, Object ... params);
+
+  /**
+   * Let the data source implement how to shut itself down.
+   */
+  public void shutdown();
 }

@@ -17,6 +17,10 @@ public class DataStoreManager {
     dataSource = new SQLiteDataSource();
   }
 
+  public void shutdown() {
+    dataSource.shutdown();
+  }
+
   /**
    * Get a data store implementation for the given class
    */
@@ -28,5 +32,10 @@ public class DataStoreManager {
     } else {
       return null;
     }
+  }
+
+  // For testing
+  public void setDataSource(IDataSource source) {
+    dataSource = source;
   }
 }

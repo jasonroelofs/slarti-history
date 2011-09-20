@@ -121,7 +121,7 @@ public class App extends SimpleApplication {
 
   @Override
   public void stop(boolean waitFor) {
-//    dataStoreManager.shutdown();
+    dataStoreManager.shutdown();
     super.stop(waitFor);
   }
 

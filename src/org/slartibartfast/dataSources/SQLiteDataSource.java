@@ -16,6 +16,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.slartibartfast.dataStores.DataResults;
 
+/**
+ * This data store talks with SQLite databases stored in
+ * ~/.slartibartfast/ to load and save data as requested.
+ *
+ * This also takes care of default state, copying database files from
+ * assets/databases/ into the home directory.
+ */
 public class SQLiteDataSource implements IDataSource {
   private static final Logger logger =
           Logger.getLogger(SQLiteDataSource.class.getName());
@@ -30,9 +37,21 @@ public class SQLiteDataSource implements IDataSource {
     queueMap = new HashMap<String, SQLiteQueue>();
   }
 
+  /**
+   * Nicely shut down all the sqlite worker queues.
+   */
+  @Override
+  public void shutdown() {
+    for(Map.Entry<String, SQLiteQueue> e : queueMap.entrySet()) {
+      e.getValue().stop(true);
+    }
+  }
+
   @Override
   public DataResults query(
-          final String database, final String query, final Object... params) {
+          final String database,
+          final String query,
+          final Object... params) {
 
     SQLiteQueue queue;
     try {

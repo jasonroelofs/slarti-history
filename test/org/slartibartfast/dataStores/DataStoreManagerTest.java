@@ -1,11 +1,13 @@
 package org.slartibartfast.dataStores;
 
+import org.slartibartfast.dataSources.IDataSource;
 import org.slartibartfast.dataSources.SQLiteDataSource;
 import org.slartibartfast.Construct;
 import org.slartibartfast.UserSettings;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.mockito.Mockito.*;
 
 public class DataStoreManagerTest {
 
@@ -42,5 +44,14 @@ public class DataStoreManagerTest {
   public void askingForUnknownClassReturnsNull() {
     IDataStore store = manager.getDataStoreFor(String.class);
     assertNull(store);
+  }
+
+  @Test
+  public void canShutDownDataSource() {
+    IDataSource source = mock(IDataSource.class);
+    manager.setDataSource(source);
+    manager.shutdown();
+
+    verify(source).shutdown();
   }
 }
