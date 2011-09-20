@@ -10,16 +10,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.slartibartfast.dataProviders.DataResults;
-import org.slartibartfast.dataProviders.IDataProvider;
+import org.slartibartfast.dataStores.DataResults;
 import org.slartibartfast.dataProviders.SQLiteDataProvider;
 
-public class ConstructDataProvider implements IDataProvider {
+public class ConstructDataProvider { //implements IDataProvider {
   private static final Logger logger = Logger.getLogger(SQLiteDataProvider.class.getName());
 
   private SQLiteQueue queue;
 
-  @Override
+  //@Override
   public void open(String dbName) {
     try {
       queue = new SQLiteQueue(SQLiteDataProvider.getDbFile(dbName));
@@ -29,12 +28,12 @@ public class ConstructDataProvider implements IDataProvider {
     queue.start();
   }
 
-  @Override
+  //@Override
   public DataResults getAll(String collectionName) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
-  @Override
+  //@Override
   public void shutdown() {
     if(queue != null) {
       queue.stop(true);

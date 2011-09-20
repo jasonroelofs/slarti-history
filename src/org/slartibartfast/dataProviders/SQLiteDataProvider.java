@@ -1,5 +1,6 @@
 package org.slartibartfast.dataProviders;
 
+import org.slartibartfast.dataStores.DataResults;
 import com.almworks.sqlite4java.SQLiteConnection;
 import com.almworks.sqlite4java.SQLiteException;
 import com.almworks.sqlite4java.SQLiteJob;
@@ -14,12 +15,12 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SQLiteDataProvider implements IDataProvider {
+public class SQLiteDataProvider { //implements IDataProvider {
   private static final Logger logger = Logger.getLogger(SQLiteDataProvider.class.getName());
 
   private SQLiteQueue queue;
 
-  @Override
+  //@Override
   public void open(String dbName) {
     try {
       queue = new SQLiteQueue(SQLiteDataProvider.getDbFile(dbName));
@@ -29,7 +30,7 @@ public class SQLiteDataProvider implements IDataProvider {
     queue.start();
   }
 
-  @Override
+  //@Override
   public DataResults getAll(final String collectionName) {
     return queue.execute(new SQLiteJob<DataResults>() {
 
@@ -72,7 +73,7 @@ public class SQLiteDataProvider implements IDataProvider {
     }).complete();
   }
 
-  @Override
+  //@Override
   public void shutdown() {
     queue.stop(true);
   }

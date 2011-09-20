@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  org.slartibartfast.dataProviders.DataResultsTest.class})
+  org.slartibartfast.dataStores.DataResultsTest.class})
 public class DataProvidersSuite {
 
 }

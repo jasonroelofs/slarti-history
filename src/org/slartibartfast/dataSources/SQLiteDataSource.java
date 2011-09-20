@@ -1,6 +1,6 @@
 package org.slartibartfast.dataSources;
 
-import org.slartibartfast.dataProviders.DataResults;
+import org.slartibartfast.dataStores.DataResults;
 
 public class SQLiteDataSource implements IDataSource {
 

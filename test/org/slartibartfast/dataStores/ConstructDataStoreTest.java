@@ -1,9 +1,9 @@
 package org.slartibartfast.dataStores;
 
+import org.junit.Before;
 import org.slartibartfast.dataSources.IDataSource;
 import org.slartibartfast.Part;
 import com.jme3.math.Vector3f;
-import org.slartibartfast.dataProviders.DataResults;
 import java.util.HashMap;
 import org.slartibartfast.Construct;
 import org.junit.Test;
@@ -15,7 +15,8 @@ public class ConstructDataStoreTest {
   private ConstructDataStore store;
   private IDataSource dataSource;
 
-  public ConstructDataStoreTest() {
+  @Before
+  public void setupDataSource() {
     dataSource = mock(IDataSource.class);
     store = new ConstructDataStore(dataSource);
   }
@@ -35,7 +36,7 @@ public class ConstructDataStoreTest {
     return map;
   }
 
-    private HashMap<String, Object> buildConstruct(
+  private HashMap<String, Object> buildConstruct(
           String id, String name) {
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("id", id);

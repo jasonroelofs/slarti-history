@@ -1,4 +1,4 @@
-package org.slartibartfast.dataProviders;
+package org.slartibartfast.dataStores;
 
 import com.jme3.math.Vector3f;
 import java.util.ArrayList;

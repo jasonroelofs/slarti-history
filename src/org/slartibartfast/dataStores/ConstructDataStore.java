@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.slartibartfast.Construct;
 import org.slartibartfast.Part;
-import org.slartibartfast.dataProviders.DataResults;
 
 /**
  * This data store handles the loading and saving of Constructs and
@@ -46,5 +45,10 @@ public class ConstructDataStore implements IDataStore<Construct> {
     }
 
     return construct;
+  }
+
+  @Override
+  public Construct load() {
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 }

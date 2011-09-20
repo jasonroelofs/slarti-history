@@ -2,7 +2,6 @@ package org.slartibartfast;
 
 import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
 import org.slartibartfast.events.InputSystem;
-import org.slartibartfast.behaviors.ConstructBehavior;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import org.slartibartfast.behaviors.PointLightBehavior;

@@ -54,9 +54,7 @@ public class App extends SimpleApplication {
 
     IDataStore<UserSettings> settingsStore =
             dataStoreManager.getDataStoreFor(UserSettings.class);
-//    UserSettings userSettings = settingsStore.load();
-
-//    settingsStore.save(userSettings);
+    UserSettings userSettings = settingsStore.load();
 
     IDataStore<Construct> constructStore = dataStoreManager.
             getDataStoreFor(Construct.class);
@@ -66,8 +64,7 @@ public class App extends SimpleApplication {
     behaviorController = new BehaviorController();
     behaviorController.setAssetManager(assetManager);
     behaviorController.setInputSystem(inputSystem);
-//    behaviorController.setUserSettings(userSettings);
-//    behaviorController.setDataProvider(dataProvider);
+    behaviorController.setUserSettings(userSettings);
 
     //behaviorController.setPhysicsSpace(bulletAppState.getPhysicsSpace());
 

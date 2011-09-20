@@ -7,7 +7,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.util.TangentBinormalGenerator;
 import java.util.HashMap;
-import org.slartibartfast.dataProviders.DataResults;
+import org.slartibartfast.dataStores.DataResults;
 
 /**
  * This factory handles loading of all constructs needed for

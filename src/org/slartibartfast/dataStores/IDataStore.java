@@ -7,6 +7,8 @@ import org.slartibartfast.dataSources.IDataSource;
  */
 public interface IDataStore<T> {
 
+  public T load();
+
   public T load(String key);
 
   public IDataSource getDataSource();

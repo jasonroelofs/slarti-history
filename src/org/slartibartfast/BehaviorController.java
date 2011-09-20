@@ -11,7 +11,6 @@ import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
-import org.slartibartfast.dataProviders.IDataProvider;
 
 /**
  * This class takes care of managing all Behaviors in a system.
@@ -24,7 +23,6 @@ public class BehaviorController {
   private InputSystem inputSystem;
   private UserSettings userSettings;
   private AssetManager assetManager;
-  private IDataProvider dataProvider;
   private PhysicsSpace physicsSpace;
 
   public BehaviorController() {
@@ -41,10 +39,6 @@ public class BehaviorController {
 
   public void setAssetManager(AssetManager manager) {
     this.assetManager = manager;
-  }
-
-  public void setDataProvider(IDataProvider data) {
-    this.dataProvider = data;
   }
 
   public void setPhysicsSpace(PhysicsSpace space) {

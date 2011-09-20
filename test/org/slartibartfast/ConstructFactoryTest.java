@@ -6,7 +6,7 @@ import com.jme3.math.Vector3f;
 import java.util.HashMap;
 import com.jme3.scene.Node;
 import org.junit.Test;
-import org.slartibartfast.dataProviders.DataResults;
+import org.slartibartfast.dataStores.DataResults;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 

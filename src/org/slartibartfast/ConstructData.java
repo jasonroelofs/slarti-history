@@ -1,6 +1,6 @@
 package org.slartibartfast;
 
-import org.slartibartfast.dataProviders.DataResults;
+import org.slartibartfast.dataStores.DataResults;
 
 /**
  * ConstructData is an internal representation object of a Construct
