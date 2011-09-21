@@ -2,6 +2,7 @@ package org.slartibartfast.behaviors;
 
 import org.slartibartfast.Behavior;
 import org.slartibartfast.Construct;
+import org.slartibartfast.GeometryFactory;
 
 /**
  * Adding this behavior to an Actor will cause the system
@@ -16,10 +17,9 @@ public class ConstructBehavior extends Behavior {
     this.construct = construct;
   }
 
-  @Override
-  public void initialize() {
-    construct.attachTo(actor.getNode());
-    super.initialize();
+  public void initialize(GeometryFactory geoFac) {
+    getActor().getNode().attachChild(geoFac.buildGeometryFor(construct));
+    initialize();
   }
 
 }

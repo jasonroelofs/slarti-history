@@ -60,11 +60,14 @@ public class App extends SimpleApplication {
             getDataStoreFor(Construct.class);
     Construct defaultConstruct = constructStore.load("default");
 
+    GeometryFactory geometryFactory = new GeometryFactory(assetManager);
+
     // TODO This is starting to feel verbose
     behaviorController = new BehaviorController();
     behaviorController.setAssetManager(assetManager);
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);
+    behaviorController.setGeometryFactory(geometryFactory);
 
     //behaviorController.setPhysicsSpace(bulletAppState.getPhysicsSpace());
 

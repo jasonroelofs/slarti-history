@@ -5,12 +5,14 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  org.slartibartfast.ConstructTest.class,
-  org.slartibartfast.BehaviorControllerTest.class,
-  org.slartibartfast.SceneGraphTest.class,
-  org.slartibartfast.ConstructFactoryTest.class,
-  org.slartibartfast.UserSettingsTest.class,
-  org.slartibartfast.ActorTest.class})
+  ActorTest.class,
+  BehaviorControllerTest.class,
+  ConstructTest.class,
+  GeometryFactoryTest.class,
+  PartTest.class,
+  SceneGraphTest.class,
+  UserSettingsTest.class
+})
 public class BaseSuite {
 
 }

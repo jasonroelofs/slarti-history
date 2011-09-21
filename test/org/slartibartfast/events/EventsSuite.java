@@ -5,13 +5,14 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  org.slartibartfast.events.AxisDefinitionTest.class,
-  org.slartibartfast.events.UserKeyMappingTest.class,
-  org.slartibartfast.events.AxisTest.class,
-  org.slartibartfast.events.EventsTest.class,
-  org.slartibartfast.events.InputSystemTest.class,
-  org.slartibartfast.events.UserMouseMappingTest.class,
-  org.slartibartfast.events.KeysTest.class})
+  AxisDefinitionTest.class,
+  AxisTest.class,
+  EventsTest.class,
+  InputSystemTest.class,
+  KeysTest.class,
+  UserKeyMappingTest.class,
+  UserMouseMappingTest.class
+})
 public class EventsSuite {
 
 }

@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
 import org.slartibartfast.events.InputSystem;
 import com.jme3.asset.AssetManager;
@@ -10,7 +11,6 @@ import org.slartibartfast.behaviors.InputBehavior;
 import org.junit.Before;
 import org.junit.Test;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
-import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.behaviors.VisualBehavior;
 import static org.junit.Assert.*;
@@ -191,31 +191,32 @@ public class BehaviorControllerTest {
   }
 
   /**
-   * Physics
+   * Construct
    */
-  class TestPhysicsBehavior extends PhysicsBehavior {
-    public PhysicsSpace space;
+  class TestConstructBehavior extends ConstructBehavior {
+    public GeometryFactory factory;
 
-    public TestPhysicsBehavior(float mass) {
-      super(mass);
+    public TestConstructBehavior(Construct construct) {
+      super(construct);
     }
 
     @Override
-    public void initialize(PhysicsSpace space) {
-      this.space = space;
+    public void initialize(GeometryFactory factory) {
+      this.factory = factory;
     }
   }
 
   @Test
-  public void handlesPhysicsBehaviors() {
-    TestPhysicsBehavior b = new TestPhysicsBehavior(3.0f);
-    PhysicsSpace space = mock(PhysicsSpace.class);
+  public void handlesConstructBehaviors() {
+    TestConstructBehavior b = new TestConstructBehavior(
+            new Construct("This and That"));
+    GeometryFactory factory = mock(GeometryFactory.class);
 
-    controller.setPhysicsSpace(space);
+    controller.setGeometryFactory(factory);
 
     controller.registerBehavior(b);
 
-    assertEquals(space, b.space);
+    assertEquals(factory, b.factory);
   }
 
     /**

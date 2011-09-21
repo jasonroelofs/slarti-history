@@ -1,10 +1,12 @@
 package org.slartibartfast.behaviors;
 
+import org.slartibartfast.GeometryFactory;
 import com.jme3.scene.Node;
 import org.slartibartfast.Construct;
 import org.junit.Test;
 import org.slartibartfast.Factories;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class ConstructBehaviorTest {
 
@@ -17,29 +19,20 @@ public class ConstructBehaviorTest {
             new Construct("name", new Node("name")));
   }
 
-  class TestConstruct extends Construct {
-    public Node node;
-
-    public TestConstruct(String name, Node root) {
-      super(name, root);
-    }
-
-    @Override
-    public void attachTo(Node node) {
-      this.node = node;
-    }
-  }
-
   @Test
   public void initializesItselfWithFactory() {
-    TestConstruct con = new TestConstruct("", new Node());
+    Construct con = new Construct("name");
 
     ConstructBehavior b = new ConstructBehavior(con);
     b.setActor(Factories.createActor());
 
-    b.initialize();
+    GeometryFactory factory = mock(GeometryFactory.class);
 
-    assertEquals(b.getActor().getNode(), con.node);
+    when(factory.buildGeometryFor(con)).thenReturn(new Node("Parent"));
+
+    b.initialize(factory);
+
+    assertNotNull(b.getActor().getNode().getChild("Parent"));
     assertTrue(b.isInitialized());
   }
 }

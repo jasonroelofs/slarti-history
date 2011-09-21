@@ -5,16 +5,16 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  org.slartibartfast.behaviors.ConstructBehaviorTest.class,
-  org.slartibartfast.behaviors.DirectionalLightBehaviorTest.class,
-  org.slartibartfast.behaviors.VisualBehaviorTest.class,
-  org.slartibartfast.behaviors.CameraBehaviorTest.class,
-  org.slartibartfast.behaviors.InputBehaviorTest.class,
-  org.slartibartfast.behaviors.TransformBehaviorTest.class,
-  org.slartibartfast.behaviors.PointLightBehaviorTest.class,
-  org.slartibartfast.behaviors.PhysicsBehaviorTest.class,
-  org.slartibartfast.behaviors.FollowingBehaviorTest.class,
-  org.slartibartfast.behaviors.PlayerPhysicsBehaviorTest.class
+  CameraBehaviorTest.class,
+  ConstructBehaviorTest.class,
+  DirectionalLightBehaviorTest.class,
+  FollowingBehaviorTest.class,
+  InputBehaviorTest.class,
+  PointLightBehaviorTest.class,
+  PhysicsBehaviorTest.class,
+  PlayerPhysicsBehaviorTest.class,
+  TransformBehaviorTest.class,
+  VisualBehaviorTest.class
 })
 public class BehaviorsSuite {
 

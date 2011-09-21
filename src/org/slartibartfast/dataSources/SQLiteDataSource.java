@@ -1,6 +1,7 @@
 package org.slartibartfast.dataSources;
 
 import com.almworks.sqlite4java.SQLiteConnection;
+import com.almworks.sqlite4java.SQLiteConstants;
 import com.almworks.sqlite4java.SQLiteException;
 import com.almworks.sqlite4java.SQLiteJob;
 import com.almworks.sqlite4java.SQLiteQueue;
@@ -76,11 +77,16 @@ public class SQLiteDataSource implements IDataSource {
 
         for(int i = 0; i < st.columnCount(); i++) {
           columnName = st.getColumnName(i);
-          if(!columnName.equals("id")) {
-            columnValue = (String)st.columnValue(i);
-
-            row.put(columnName, columnValue);
+          switch(st.columnType(i)) {
+            case SQLiteConstants.SQLITE_INTEGER:
+              columnValue = ((Integer)st.columnValue(i)).toString();
+              break;
+            default:
+              columnValue = (String)st.columnValue(i);
+              break;
           }
+
+          row.put(columnName, columnValue);
         }
 
         return row;

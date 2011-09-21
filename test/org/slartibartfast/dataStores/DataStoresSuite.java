@@ -5,8 +5,10 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+  ConstructDataStoreTest.class,
+  DataResultsTest.class,
   DataStoreManagerTest.class,
-  ConstructDataStoreTest.class
+  UserSettingsDataStoreTest.class
 })
 public class DataStoresSuite {
 

@@ -15,8 +15,8 @@ import org.slartibartfast.events.EventsSuite;
 @Suite.SuiteClasses({
   BaseSuite.class,
   BehaviorsSuite.class,
-  EventsSuite.class,
-  DataStoresSuite.class
+  DataStoresSuite.class,
+  EventsSuite.class
 })
 public class AllTests {
 

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.PhysicsBehavior;
 import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
@@ -24,6 +25,7 @@ public class BehaviorController {
   private UserSettings userSettings;
   private AssetManager assetManager;
   private PhysicsSpace physicsSpace;
+  private GeometryFactory geometryFactory;
 
   public BehaviorController() {
     behaviors = new HashMap<Class, List<Behavior>>();
@@ -43,6 +45,10 @@ public class BehaviorController {
 
   public void setPhysicsSpace(PhysicsSpace space) {
     this.physicsSpace = space;
+  }
+
+  public void setGeometryFactory(GeometryFactory factory) {
+    this.geometryFactory = factory;
   }
 
   /**
@@ -96,11 +102,10 @@ public class BehaviorController {
       ((PhysicsBehavior)b).initialize(physicsSpace);
     } else if(b instanceof PlayerPhysicsBehavior) {
       ((PlayerPhysicsBehavior)b).initialize(physicsSpace);
+    } else if(b instanceof ConstructBehavior) {
+      ((ConstructBehavior)b).initialize(geometryFactory);
     } else {
       b.initialize();
     }
   }
-
-
-
 }
