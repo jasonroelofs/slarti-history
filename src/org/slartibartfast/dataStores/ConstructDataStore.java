@@ -35,7 +35,7 @@ public class ConstructDataStore implements IDataStore<Construct> {
             "select * from parts where construct_id = ?", constructId);
     Construct construct = new Construct(name);
 
-    for(HashMap<String, Object> map : parts) {
+    for(HashMap<String, String> map : parts) {
       construct.addPart(new Part(
               DataResults.parseVector(map.get("start_point")),
               DataResults.parseVector(map.get("end_point")),

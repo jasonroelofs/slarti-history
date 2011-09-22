@@ -49,11 +49,11 @@ public class UserSettingsDataStore implements IDataStore<UserSettings> {
     DataResults results = dataSource.query("user_settings",
             "select * from key_mappings");
 
-    for(HashMap<String, Object> map : results) {
+    for(HashMap<String, String> map : results) {
       userSettings.addKeyMap(
-              (String)map.get("scope"),
-              Events.get((String)map.get("event")),
-              (String)map.get("key"));
+              map.get("scope"),
+              Events.get(map.get("event")),
+              map.get("key"));
 
       logger.log(Level.INFO, "Found key mapping: {0} / {1} => {2}",
               new Object[]{
@@ -66,12 +66,12 @@ public class UserSettingsDataStore implements IDataStore<UserSettings> {
     results = dataSource.query("user_settings",
         "select * from mouse_mappings");
 
-    for(HashMap<String, Object> map : results) {
+    for(HashMap<String, String> map : results) {
       userSettings.addMouseMap(
-              (String)map.get("scope"),
-              Events.get((String)map.get("event")),
-              (String)map.get("axis"),
-              Axis.parseDirection((String)map.get("direction")));
+              map.get("scope"),
+              Events.get(map.get("event")),
+              map.get("axis"),
+              Axis.parseDirection(map.get("direction")));
 
       logger.log(Level.INFO,
               "Found mouse mapping: {0} / {1} => {2} ({3})",

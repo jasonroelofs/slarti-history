@@ -66,12 +66,12 @@ public class SQLiteDataSource implements IDataSource {
 
       /**
        * Build up internal representation of a row into a hash map of
-       * effectively <String, String>, and let the code deal with
+       * <String, String>, and let the code deal with
        * the actual data
        */
-      private HashMap<String, Object> getRow(SQLiteStatement st)
+      private HashMap<String, String> getRow(SQLiteStatement st)
               throws SQLiteException {
-        HashMap<String, Object> row = new HashMap<String, Object>();
+        HashMap<String, String> row = new HashMap<String, String>();
         String columnName, columnValue;
 
 

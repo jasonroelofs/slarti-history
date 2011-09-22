@@ -30,8 +30,9 @@ public class UserSettingsDataStoreTest {
     assertEquals(dataSource, store.getDataSource());
   }
 
-  private HashMap<String, Object> buildKeyMap(String scope, String event, String key) {
-    HashMap<String, Object> map = new HashMap<String, Object>();
+  private HashMap<String, String> buildKeyMap(
+          String scope, String event, String key) {
+    HashMap<String, String> map = new HashMap<String, String>();
     map.put("scope", scope);
     map.put("event", event);
     map.put("key", key);
@@ -66,8 +67,9 @@ public class UserSettingsDataStoreTest {
     assertEquals(carMap, settings.getKeyMap("car"));
   }
 
-  private HashMap<String, Object> buildMouseMap(String scope, String event, String axis, String direction) {
-    HashMap<String, Object> map = new HashMap<String, Object>();
+  private HashMap<String, String> buildMouseMap(
+          String scope, String event, String axis, String direction) {
+    HashMap<String, String> map = new HashMap<String, String>();
     map.put("scope", scope);
     map.put("event", event);
     map.put("axis", axis);

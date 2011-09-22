@@ -4,16 +4,7 @@ import com.jme3.math.Vector3f;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DataResults extends ArrayList<HashMap<String, Object>> {
-
-  public static Vector3f parseVector(Object object) {
-    if(object instanceof String) {
-      return parseVector((String) object);
-    } else {
-      throw new UnsupportedOperationException("Unknown type to try to parse: " +
-              object.getClass().getCanonicalName());
-    }
-  }
+public class DataResults extends ArrayList<HashMap<String, String>> {
 
   public static Vector3f parseVector(String s) {
     int x, y, z;

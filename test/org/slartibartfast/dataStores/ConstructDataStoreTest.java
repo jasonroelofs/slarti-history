@@ -27,18 +27,18 @@ public class ConstructDataStoreTest {
     assertEquals(dataSource, store.getDataSource());
   }
 
-  private HashMap<String, Object> buildPart(
+  private HashMap<String, String> buildPart(
           String fromPoint, String toPoint, String material) {
-    HashMap<String, Object> map = new HashMap<String, Object>();
+    HashMap<String, String> map = new HashMap<String, String>();
     map.put("start_point", fromPoint);
     map.put("end_point", toPoint);
     map.put("material", material);
     return map;
   }
 
-  private HashMap<String, Object> buildConstruct(
+  private HashMap<String, String> buildConstruct(
           String id, String name) {
-    HashMap<String, Object> map = new HashMap<String, Object>();
+    HashMap<String, String> map = new HashMap<String, String>();
     map.put("id", id);
     map.put("name", name);
     return map;
