@@ -1,7 +1,6 @@
 package org.slartibartfast;
 
 import org.slartibartfast.events.InputSystem;
-import com.jme3.input.InputManager;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -30,26 +29,26 @@ public class EditorGameStateTest {
 
   @Test
   public void startsDisabled() {
-    assertFalse(editorState.isEnabled());
+    assertFalse(editorState.isEditing());
   }
 
   @Test
   public void canEnableAndDisableEditorMode() {
-    editorState.enable();
-    assertTrue(editorState.isEnabled());
+    editorState.startEditing();
+    assertTrue(editorState.isEditing());
 
-    editorState.disable();
-    assertFalse(editorState.isEnabled());
+    editorState.doneEditing();
+    assertFalse(editorState.isEditing());
   }
 
   @Test
   public void hooksIntoInputSystem() {
-    editorState.enable();
+    editorState.startEditing();
 
     verify(inputSystem).showMouseCursor();
     verify(inputSystem).registerInputListener(editorState, null, null);
 
-    editorState.disable();
+    editorState.doneEditing();
 
     verify(inputSystem).hideMouseCursor();
     verify(inputSystem).unregisterInputListener(editorState);

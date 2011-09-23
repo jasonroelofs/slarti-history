@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * This class abstracts the usage of JME's input management
@@ -47,14 +46,14 @@ public class InputSystem {
     inputManager = manager;
     listenerMap = new HashMap<String, List<IInputListener>>();
 
-    hideMouseCursor();
+    inputManager.setCursorVisible(false);
   }
 
-  public final void showMouseCursor() {
+  public void showMouseCursor() {
     inputManager.setCursorVisible(true);
   }
 
-  public final void hideMouseCursor() {
+  public void hideMouseCursor() {
     inputManager.setCursorVisible(false);
   }
 

@@ -12,8 +12,8 @@ import org.slartibartfast.events.InputSystem;
 public class EditorGameState implements IInputListener {
 
   private boolean enabled;
-  private final InputSystem inputSystem;
-  private final SceneGraph sceneGraph;
+  private InputSystem inputSystem;
+  private SceneGraph sceneGraph;
 
   public EditorGameState(InputSystem input, SceneGraph scene) {
     enabled = false;
@@ -21,7 +21,7 @@ public class EditorGameState implements IInputListener {
     sceneGraph = scene;
   }
 
-  public boolean isEnabled() {
+  public boolean isEditing() {
     return enabled;
   }
 
@@ -43,7 +43,7 @@ public class EditorGameState implements IInputListener {
    * Inform this object to hook up what's needed to start working
    * in Editor Mode for the current Construct
    */
-  public void enable() {
+  public void startEditing() {
     inputSystem.showMouseCursor();
     inputSystem.registerInputListener(this, null, null);
 
@@ -53,7 +53,7 @@ public class EditorGameState implements IInputListener {
   /**
    * Shut down for now and let the normal play mode resume
    */
-  public void disable() {
+  public void doneEditing() {
     inputSystem.hideMouseCursor();
     inputSystem.unregisterInputListener(this);
 
