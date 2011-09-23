@@ -28,8 +28,7 @@ public class App extends SimpleApplication {
 
   private BulletAppState bulletAppState;
 
-  //private GameAppState gamePlayState;
-  //private EditorAppState editorState;
+  private EditorGameState editorState;
 
   @Override
   public void simpleInitApp() {
@@ -43,8 +42,7 @@ public class App extends SimpleApplication {
     // Debug the shapes
     //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 
-    //getStateManager().attach(editorState);
-    //getStateManager().attach(gamePlayState);
+    //editorState = new EditorGameState();
 
     sceneManager = new SceneGraph(getRootNode());
 

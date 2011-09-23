@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * This class abstracts the usage of JME's input management
@@ -47,6 +48,14 @@ public class InputSystem {
     inputManager.setCursorVisible(false);
 
     listenerMap = new HashMap<String, List<IInputListener>>();
+  }
+
+  public void showMouseCursor() {
+    throw new NotImplementedException();
+  }
+
+  public void hideMouseCursor() {
+    throw new NotImplementedException();
   }
 
   /**
@@ -110,6 +119,15 @@ public class InputSystem {
             actionEvents.toArray(new String[actionEvents.size()]));
     inputManager.addListener(analogListener,
             analogEvents.toArray(new String[analogEvents.size()]));
+  }
+
+  /**
+   * Unregister a previously registered input listener. This will
+   * stop the passed in object from receiving any more inputs.
+   * @param listener The listener to shut down
+   */
+  public void unregisterInputListener(IInputListener listener) {
+    throw new NotImplementedException();
   }
 
   private void addListenerForEvent(String event, IInputListener listener) {
