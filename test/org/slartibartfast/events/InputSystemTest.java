@@ -40,18 +40,17 @@ public class InputSystemTest {
     mouseMapping.put(Events.TurnRight, "MOUSE_X", false);
   }
 
-  class IncludesAllMatcher extends ArgumentMatcher {
-    private String[] toCheck;
+  @Test
+  public void canShowAndHideMouseCursor() {
+    system.showMouseCursor();
 
-    public IncludesAllMatcher(String ... strings) {
-      this.toCheck = strings;
-    }
+    verify(manager).setCursorVisible(true);
 
-    @Override
-    public boolean matches(Object argument) {
-      return false;
-    }
+    system.hideMouseCursor();
 
+    // Default is to hide it, see that we get 2 calls
+    // in this case
+    verify(manager, times(2)).setCursorVisible(false);
   }
 
   @Test
@@ -209,5 +208,10 @@ public class InputSystemTest {
     assertEquals(1, events.size());
     assertEquals("MoveUp", events.get(0).event);
     assertEquals(0.0f, events.get(0).value, 0.001);
+  }
+
+  @Test
+  public void canUnregisterInputListener() {
+
   }
 }

@@ -45,17 +45,17 @@ public class InputSystem {
 
   public InputSystem(InputManager manager) {
     inputManager = manager;
-    inputManager.setCursorVisible(false);
-
     listenerMap = new HashMap<String, List<IInputListener>>();
+
+    hideMouseCursor();
   }
 
   public void showMouseCursor() {
-    throw new NotImplementedException();
+    inputManager.setCursorVisible(true);
   }
 
   public void hideMouseCursor() {
-    throw new NotImplementedException();
+    inputManager.setCursorVisible(false);
   }
 
   /**
