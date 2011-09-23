@@ -212,6 +212,19 @@ public class InputSystemTest {
 
   @Test
   public void canUnregisterInputListener() {
+    TestListener tester = new TestListener();
 
+    system.registerInputListener(tester, keyMapping, mouseMapping);
+
+    system.unregisterInputListener(tester);
+
+    ActionListener listener = system.getActionListener();
+
+    listener.onAction("testScope1:MoveUp", true, 0.1f);
+
+    List<InputEvent> events = tester.received;
+
+    // No events for joo!
+    assertEquals(0, events.size());
   }
 }

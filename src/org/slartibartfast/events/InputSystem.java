@@ -50,11 +50,11 @@ public class InputSystem {
     hideMouseCursor();
   }
 
-  public void showMouseCursor() {
+  public final void showMouseCursor() {
     inputManager.setCursorVisible(true);
   }
 
-  public void hideMouseCursor() {
+  public final void hideMouseCursor() {
     inputManager.setCursorVisible(false);
   }
 
@@ -127,7 +127,23 @@ public class InputSystem {
    * @param listener The listener to shut down
    */
   public void unregisterInputListener(IInputListener listener) {
-    throw new NotImplementedException();
+    // TODO As we keep information in a call-optimized manner, removing
+    // a listener is a bit convoluted. If this is getting called a
+    // lot (which I doubt it will), potentially refactor into something
+    // nicer.
+    for(Entry<String, List<IInputListener>> e : listenerMap.entrySet()) {
+      for(IInputListener l : e.getValue()) {
+        if(l.equals(listener)) {
+          e.getValue().remove(l);
+          break;
+        }
+      }
+    }
+
+    // Also note: we don't unregister anything from JME right now
+    // Could check to see if the listener list for a given Event
+    // is empty after this and then unregister, but that's
+    // to be dealt with later if needed
   }
 
   private void addListenerForEvent(String event, IInputListener listener) {
