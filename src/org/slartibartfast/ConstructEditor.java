@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.events.Events;
 import org.slartibartfast.events.IInputListener;
 import org.slartibartfast.events.InputEvent;
 
@@ -7,7 +8,9 @@ public class ConstructEditor implements IInputListener {
 
   @Override
   public void handleInputEvent(InputEvent event) {
-    System.out.println("ConstructEditor.inputEvent: " + event.event);
+    if(event.is(Events.Select) && event.isRelease()) {
+      System.out.println("ConstructEditor.inputEvent: " + event.event);
+    }
   }
 
   /**
