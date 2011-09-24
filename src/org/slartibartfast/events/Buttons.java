@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Enumeration of JME's KeyInput values.
  */
-public enum Keys {
+public enum Buttons {
   KEY_ESCAPE (KeyInput.KEY_ESCAPE, "ESCAPE"),
   KEY_1 (KeyInput.KEY_1, "1"),
   KEY_2 (KeyInput.KEY_2, "2"),
@@ -146,22 +146,22 @@ public enum Keys {
   public String keyName;
   public boolean isMouseButton;
 
-  Keys(int code, String keyName) {
+  Buttons(int code, String keyName) {
     this.code = code;
     this.keyName = keyName;
     this.isMouseButton = false;
   }
 
-  Keys(int code, String keyName, boolean isMouse) {
+  Buttons(int code, String keyName, boolean isMouse) {
     this(code, keyName);
     isMouseButton = isMouse;
   }
 
-  private static final Map<String, Keys> lookup =
-          new HashMap<String, Keys>();
+  private static final Map<String, Buttons> lookup =
+          new HashMap<String, Buttons>();
 
   static {
-    for(Keys k : EnumSet.allOf(Keys.class)) {
+    for(Buttons k : EnumSet.allOf(Buttons.class)) {
       lookup.put(k.keyName, k);
     }
   }
@@ -172,7 +172,7 @@ public enum Keys {
    * @param keyName Name of the key, as defined above
    * @return Value saved by the appropriate KeyInput.KEY_VALUE
    */
-  public static Keys get(String keyName) {
+  public static Buttons get(String keyName) {
     return lookup.get(keyName);
   }
 }

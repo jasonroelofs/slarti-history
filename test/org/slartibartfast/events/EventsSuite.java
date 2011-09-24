@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
   AxisTest.class,
   EventsTest.class,
   InputSystemTest.class,
-  KeysTest.class,
+  ButtonsTest.class,
   UserKeyMappingTest.class,
   UserMouseMappingTest.class
 })

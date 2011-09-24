@@ -3,13 +3,13 @@ package org.slartibartfast.events;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class KeysTest {
+public class ButtonsTest {
 
-  public KeysTest() {
+  public ButtonsTest() {
   }
 
   @Test
   public void testGet() {
-    assertEquals(Keys.KEY_HOME, Keys.get("HOME"));
+    assertEquals(Buttons.KEY_HOME, Buttons.get("HOME"));
   }
 }

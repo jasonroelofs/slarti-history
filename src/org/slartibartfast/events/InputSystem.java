@@ -81,7 +81,7 @@ public class InputSystem {
     List<String> analogEvents = new ArrayList<String>();
     String eventKey;
     String scope;
-    Keys found;
+    Buttons found;
     int keyCode, axisCode;
     Trigger trigger;
 
@@ -92,7 +92,7 @@ public class InputSystem {
       scope = keyMapping.getScope();
       for(Entry<Events, String> entry : keyMapping.entrySet()) {
         eventKey = scope + ":" + entry.getKey().name();
-        found = Keys.get(entry.getValue());
+        found = Buttons.get(entry.getValue());
         keyCode = found.code;
 
         // Hold is handled as an analog event so we need to work
