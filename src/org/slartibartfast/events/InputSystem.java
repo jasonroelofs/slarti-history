@@ -7,6 +7,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -140,11 +141,14 @@ public class InputSystem {
     // a listener is a bit convoluted. If this is getting called a
     // lot (which I doubt it will), potentially refactor into something
     // nicer.
+    Iterator<IInputListener> iterator;
+
     for(Entry<String, List<IInputListener>> e : listenerMap.entrySet()) {
-      for(IInputListener l : e.getValue()) {
-        if(l.equals(listener)) {
-          e.getValue().remove(l);
-          break;
+      iterator = e.getValue().iterator();
+
+      while(iterator.hasNext()) {
+        if(iterator.next().equals(listener)) {
+          iterator.remove();
         }
       }
     }

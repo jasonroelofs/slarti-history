@@ -20,9 +20,6 @@ public class InputBehavior extends Behavior implements IInputListener {
 
   private String scope;
 
-  private UserKeyMapping keyMapping;
-  private UserMouseMapping mouseMapping;
-
   /**
    * Create a new behavior to work on input under the given scope
    * @param scope
@@ -37,16 +34,23 @@ public class InputBehavior extends Behavior implements IInputListener {
 
   @Override
   public void handleInputEvent(InputEvent event) {
+    System.out.println("Got input event! " + event.event);
     Events.processEvent(getActor(), event);
   }
 
   public void initialize(InputSystem input, UserSettings settings) {
-    keyMapping = settings.getKeyMap(scope);
-    mouseMapping = settings.getMouseMap(scope);
+    UserKeyMapping keyMapping = settings.getKeyMap(scope);
+    UserMouseMapping mouseMapping = settings.getMouseMap(scope);
 
     input.registerInputListener(this, keyMapping, mouseMapping);
 
     initialize();
+  }
+
+  public void shutdown(InputSystem input) {
+    input.unregisterInputListener(this);
+
+    shutdown();
   }
 
 }

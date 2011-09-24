@@ -40,6 +40,14 @@ public abstract class Behavior {
     initialized = true;
   }
 
+  /**
+   * Called when the behavior has been removed from its
+   * actor and needs to do some cleanup work.
+   */
+  public void shutdown() {
+    initialized = false;
+  }
+
   public Actor getActor() {
     return actor;
   }

@@ -24,7 +24,7 @@ public class InputBehaviorTest {
   @Test
   public void initializesTheKeyMappings() {
     InputBehavior b = new InputBehavior("scope");
-    
+
     UserKeyMapping keyMapping = new UserKeyMapping("testScope");
     keyMapping.put(Events.MoveUp, "Key");
 
@@ -40,5 +40,17 @@ public class InputBehaviorTest {
     b.initialize(system, settings);
 
     verify(system).registerInputListener(b, keyMapping, mouseMapping);
+    assertTrue(b.isInitialized());
+  }
+
+  @Test
+  public void shutdownRemovesListener() {
+    InputBehavior b = new InputBehavior("scope");
+    InputSystem system = mock(InputSystem.class);
+
+    b.shutdown(system);
+
+    verify(system).unregisterInputListener(b);
+    assertFalse(b.isInitialized());
   }
 }

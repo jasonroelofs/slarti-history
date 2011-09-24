@@ -77,6 +77,8 @@ public class BehaviorController {
     if(behaviorsForClass != null) {
       behaviorsForClass.remove(b);
     }
+
+    shutdownBehavior(b);
   }
 
   /**
@@ -92,6 +94,11 @@ public class BehaviorController {
 
   /**
    * Behavior Initializers, keyed by the class
+   *
+   * TODO: Is there a good refactoring that can be done here
+   * and shutdownBehavior to remove this if branch and casting mess?
+   * A refactoring that doesn't introduce a ton of new objects that
+   * have to themselves be given a bunch of data?
    */
   private void initializeBehavior(Behavior b) {
     if(b instanceof InputBehavior) {
@@ -106,6 +113,14 @@ public class BehaviorController {
       ((ConstructBehavior)b).initialize(geometryFactory);
     } else {
       b.initialize();
+    }
+  }
+
+  private void shutdownBehavior(Behavior b) {
+    if(b instanceof InputBehavior) {
+      ((InputBehavior)b).shutdown(inputSystem);
+    } else {
+      b.shutdown();
     }
   }
 }

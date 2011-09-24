@@ -72,6 +72,9 @@ public class BehaviorControllerTest {
 
     assertEquals(1.0f, b1.delta, 0.01f);
     assertEquals(2.0f, b2.delta, 0.01f);
+
+    // And be sure the behavior was shut down
+    assertFalse(b1.isInitialized());
   }
 
   /**
@@ -88,6 +91,7 @@ public class BehaviorControllerTest {
   class TestInputBehavior extends InputBehavior {
     public InputSystem system;
     public UserSettings settings;
+    private InputSystem shutdownSystem;
 
     public TestInputBehavior(String scope) {
       super(scope);
@@ -97,6 +101,11 @@ public class BehaviorControllerTest {
     public void initialize(InputSystem system, UserSettings settings) {
       this.system = system;
       this.settings = settings;
+    }
+
+    @Override
+    public void shutdown(InputSystem system) {
+      this.shutdownSystem = system;
     }
   }
 
@@ -113,6 +122,10 @@ public class BehaviorControllerTest {
 
     assertEquals(input, b.system);
     assertEquals(settings, b.settings);
+
+    controller.unregisterBehavior(b);
+
+    assertEquals(input, b.shutdownSystem);
   }
 
   /**
