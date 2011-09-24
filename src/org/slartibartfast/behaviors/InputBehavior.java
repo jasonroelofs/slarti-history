@@ -34,7 +34,6 @@ public class InputBehavior extends Behavior implements IInputListener {
 
   @Override
   public void handleInputEvent(InputEvent event) {
-    System.out.println("Got input event! " + event.event);
     Events.processEvent(getActor(), event);
   }
 
