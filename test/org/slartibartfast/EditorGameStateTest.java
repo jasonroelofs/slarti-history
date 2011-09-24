@@ -1,8 +1,13 @@
 package org.slartibartfast;
 
+import com.jme3.math.Vector3f;
 import org.slartibartfast.events.InputSystem;
 import org.junit.Before;
 import org.junit.Test;
+import org.slartibartfast.behaviors.FollowingBehavior;
+import org.slartibartfast.behaviors.InputBehavior;
+import org.slartibartfast.events.UserKeyMapping;
+import org.slartibartfast.events.UserMouseMapping;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -11,13 +16,25 @@ public class EditorGameStateTest {
   private EditorGameState editorState;
   private InputSystem inputSystem;
   private SceneGraph sceneGraph;
+  private Actor player;
+  private Actor camera;
+  private UserSettings userSettings;
 
   @Before
   public void setup() {
     inputSystem = mock(InputSystem.class);
     sceneGraph = mock(SceneGraph.class);
 
-    editorState = new EditorGameState(inputSystem, sceneGraph);
+    player = Factories.createActor();
+    player.useBehavior(new InputBehavior("testing"));
+
+    camera = Factories.createActor();
+    camera.useBehavior(new FollowingBehavior(player, Vector3f.ZERO));
+
+    userSettings = new UserSettings();
+
+    editorState = new EditorGameState(
+            inputSystem, sceneGraph, player, camera, userSettings);
   }
 
   @Test
@@ -46,11 +63,12 @@ public class EditorGameStateTest {
     editorState.startEditing();
 
     verify(inputSystem).showMouseCursor();
-    verify(inputSystem).registerInputListener(editorState, null, null);
+    verify(inputSystem).registerInputListener(any(ConstructEditor.class),
+            any(UserKeyMapping.class), any(UserMouseMapping.class));
 
     editorState.doneEditing();
 
     verify(inputSystem).hideMouseCursor();
-    verify(inputSystem).unregisterInputListener(editorState);
+    verify(inputSystem).unregisterInputListener(any(ConstructEditor.class));
   }
 }

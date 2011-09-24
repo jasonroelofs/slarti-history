@@ -1,6 +1,14 @@
 package org.slartibartfast;
 
-public class ConstructEditor { //implements MouseMovementListener {
+import org.slartibartfast.events.IInputListener;
+import org.slartibartfast.events.InputEvent;
+
+public class ConstructEditor implements IInputListener {
+
+  @Override
+  public void handleInputEvent(InputEvent event) {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 
   /**
    * Responsibilities:

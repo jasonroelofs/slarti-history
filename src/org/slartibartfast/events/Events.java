@@ -97,10 +97,11 @@ public enum Events {
       TransformBehavior b = actor.getBehavior(TransformBehavior.class);
       b.rollRight();
     }
-  }
+  },
+  ToggleEditor ("Toggle Editing")
   ;
 
-  protected abstract void execute(Actor actor, InputEvent e);
+  protected void execute(Actor actor, InputEvent e) { }
 
   public String humanName;
 

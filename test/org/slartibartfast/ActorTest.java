@@ -54,9 +54,10 @@ public class ActorTest {
     TestBehavior b = new TestBehavior();
     actor.useBehavior(b);
 
-    actor.removeBehavior(TestBehavior.class);
+    TestBehavior dropped = actor.removeBehavior(TestBehavior.class);
 
     assertFalse(actor.hasBehavior(TestBehavior.class));
+    assertEquals(dropped, b);
   }
 
   @Test

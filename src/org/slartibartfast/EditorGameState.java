@@ -1,24 +1,47 @@
 package org.slartibartfast;
 
-import org.slartibartfast.events.IInputListener;
+import org.slartibartfast.behaviors.FollowingBehavior;
+import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.events.InputEvent;
 import org.slartibartfast.events.InputSystem;
+import org.slartibartfast.events.UserKeyMapping;
+import org.slartibartfast.events.UserMouseMapping;
 
 /**
  * This app state manages the Editor interface and underlying
  * Construct editing systems. The app moves into this state when the
  * player has chosen to edit a given construct or blueprint.
  */
-public class EditorGameState implements IInputListener {
+public class EditorGameState {
 
   private boolean enabled;
   private InputSystem inputSystem;
   private SceneGraph sceneGraph;
+  private Actor player;
+  private Actor camera;
+  private UserSettings userSettings;
 
-  public EditorGameState(InputSystem input, SceneGraph scene) {
+  private ConstructEditor constructEditor;
+  private final UserKeyMapping keyMapping;
+  private final UserMouseMapping mouseMapping;
+
+  // The following are behaviors removed when editing begins
+  // so they can be re-added on editor close
+  private FollowingBehavior oldFollow;
+  private InputBehavior playerInput;
+
+  public EditorGameState(InputSystem input, SceneGraph scene, Actor player, Actor camera, UserSettings userSettings) {
     enabled = false;
     inputSystem = input;
     sceneGraph = scene;
+
+    this.player = player;
+    this.camera = camera;
+    this.userSettings = userSettings;
+
+    // Pre-pull all key and mouse bindings for the Editor and save
+    keyMapping = userSettings.getKeyMap("editor");
+    mouseMapping = userSettings.getMouseMap("editor");
   }
 
   public boolean isEditing() {
@@ -45,7 +68,30 @@ public class EditorGameState implements IInputListener {
    */
   public void startEditing() {
     inputSystem.showMouseCursor();
-    inputSystem.registerInputListener(this, null, null);
+    inputSystem.registerInputListener(
+            constructEditor, keyMapping, mouseMapping);
+
+    /**
+     * Need's the Player and Camera actors
+     * This method needs to take a Construct
+     *  - Construct needs pointer to Node tree
+     *  - Part needs pointer to Geometry node
+     * Tell camera to stop following player
+     * Tell camera to move to position to view construct
+     * Hook up new mappings based on some new editor scope
+     *  - These mappings should be built on creation
+     *
+     * Go go go!
+     *
+     * Get ConstructEditor working w/ construct passed in
+     * ConstructEditor is the input listener?
+     */
+
+    // Disconenct camera
+    oldFollow = camera.removeBehavior(FollowingBehavior.class);
+
+    // Stop Input events on Player
+    playerInput = player.removeBehavior(InputBehavior.class);
 
     enabled = true;
   }
@@ -55,7 +101,11 @@ public class EditorGameState implements IInputListener {
    */
   public void doneEditing() {
     inputSystem.hideMouseCursor();
-    inputSystem.unregisterInputListener(this);
+    inputSystem.unregisterInputListener(constructEditor);
+
+    // Re-instate saved behaviors
+    camera.useBehavior(oldFollow);
+    player.useBehavior(playerInput);
 
     enabled = false;
   }
@@ -64,9 +114,22 @@ public class EditorGameState implements IInputListener {
    * IInputListener hook
    * @param event
    */
-  @Override
+//  @Override
   public void handleInputEvent(InputEvent event) {
     throw new UnsupportedOperationException("Not supported yet.");
+
+    /**
+     * Need to handle mouse-click => ray pick to get part
+     * Add selected material overlay to Part's Geometry node
+     * Keep track of currently selected Part(s)
+     * On mouse movement after click / hold, resize / move part
+     * Make sure part's Node info and part's local info stay sync'd
+     * Hook into datastore to save stuff on changes.
+     *
+     * Later: Undo Redo support
+     *
+     * Most of this should be handled by the ConstructEditor
+     */
   }
 
 

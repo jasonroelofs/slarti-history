@@ -77,47 +77,57 @@ public class InputSystem {
     List<String> actionEvents = new ArrayList<String>();
     List<String> analogEvents = new ArrayList<String>();
     String eventKey;
-    String scope = keyMapping.getScope();
+    String scope;
     int keyCode, axisCode;
 
-    /**
-     * Build up internal handling of all key mappings
-     */
-    for(Entry<Events, String> entry : keyMapping.entrySet()) {
-      eventKey = scope + ":" + entry.getKey().name();
-      keyCode = Keys.get(entry.getValue());
+    if(keyMapping != null) {
+      /**
+       * Build up internal handling of all key mappings
+       */
+      scope = keyMapping.getScope();
+      for(Entry<Events, String> entry : keyMapping.entrySet()) {
+        eventKey = scope + ":" + entry.getKey().name();
+        keyCode = Keys.get(entry.getValue());
 
-      // Hold is handled as an analog event so we need to work
-      // both for key presses
-      analogEvents.add(eventKey);
-      actionEvents.add(eventKey);
+        // Hold is handled as an analog event so we need to work
+        // both for key presses
+        analogEvents.add(eventKey);
+        actionEvents.add(eventKey);
 
-      inputManager.addMapping(eventKey, new KeyTrigger(keyCode));
+        inputManager.addMapping(eventKey, new KeyTrigger(keyCode));
 
-      addListenerForEvent(eventKey, listener);
+        addListenerForEvent(eventKey, listener);
+      }
     }
 
     /**
      * And all internal handling of axis movement mappings
      */
-    scope = mouseMapping.getScope();
-    for(Entry<Events, AxisDefinition> entry : mouseMapping.entrySet()) {
-      eventKey = scope + ":" + entry.getKey().name();
-      axisCode = Axis.get(entry.getValue().axis);
+    if(mouseMapping != null) {
+      scope = mouseMapping.getScope();
+      for(Entry<Events, AxisDefinition> entry : mouseMapping.entrySet()) {
+        eventKey = scope + ":" + entry.getKey().name();
+        axisCode = Axis.get(entry.getValue().axis);
 
-      analogEvents.add(eventKey);
+        analogEvents.add(eventKey);
 
-      inputManager.addMapping(eventKey,
-        new MouseAxisTrigger(axisCode,
-                !entry.getValue().positiveDir));
+        inputManager.addMapping(eventKey,
+          new MouseAxisTrigger(axisCode,
+                  !entry.getValue().positiveDir));
 
-      addListenerForEvent(eventKey, listener);
+        addListenerForEvent(eventKey, listener);
+      }
     }
 
-    inputManager.addListener(actionListener,
-            actionEvents.toArray(new String[actionEvents.size()]));
-    inputManager.addListener(analogListener,
+    if(actionEvents.size() > 0) {
+      inputManager.addListener(actionListener,
+              actionEvents.toArray(new String[actionEvents.size()]));
+    }
+
+    if(analogEvents.size() > 0) {
+      inputManager.addListener(analogListener,
             analogEvents.toArray(new String[analogEvents.size()]));
+    }
   }
 
   /**

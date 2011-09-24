@@ -75,13 +75,16 @@ public class Actor {
    * the Behavior.
    * @param aClass The class of the Behavior to remove. If this Actor does not
    *               have the requested Behavior this request is ignored.
+   * @return The behavior being removed
    */
-  public void removeBehavior(Class klass) {
+  public <T> T removeBehavior(Class<T> klass) {
     Behavior b = behaviors.remove(klass);
 
     if(behaviorController != null) {
       behaviorController.unregisterBehavior(b);
     }
+
+    return (T)b;
   }
 
   /**

@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import org.slartibartfast.events.InputEvent;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
@@ -13,12 +14,16 @@ import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.dataStores.DataStoreManager;
 import org.slartibartfast.dataStores.IDataStore;
+import org.slartibartfast.events.IInputListener;
+import org.slartibartfast.events.UserKeyMapping;
 
 /**
  * The central runner. This class sets everything up
  * and then gives control to JME.
+ *
+ * TODO: Move most of this logic into a GameState
  */
-public class App extends SimpleApplication {
+public class App extends SimpleApplication implements IInputListener {
 
   private SceneGraph sceneManager;
   private InputSystem inputSystem;
@@ -42,8 +47,6 @@ public class App extends SimpleApplication {
     // Debug the shapes
     //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 
-    //editorState = new EditorGameState();
-
     sceneManager = new SceneGraph(getRootNode());
 
     inputSystem = new InputSystem(getInputManager());
@@ -60,6 +63,7 @@ public class App extends SimpleApplication {
 
     GeometryFactory geometryFactory = new GeometryFactory(assetManager);
 
+
     // TODO This is starting to feel verbose
     behaviorController = new BehaviorController();
     behaviorController.setAssetManager(assetManager);
@@ -71,6 +75,11 @@ public class App extends SimpleApplication {
 
     sceneManager.setBehaviorController(behaviorController);
 
+    /**
+     * Hook up global input events
+     */
+    UserKeyMapping globalMap = userSettings.getKeyMap("global");
+    inputSystem.registerInputListener(this, globalMap, null);
 
     /**
      * The player
@@ -84,7 +93,6 @@ public class App extends SimpleApplication {
     physB.moveRelativeToRotation(true);
     // lookAt Vector3f.ZERO does *strange* things
     physB.lookAt(new Vector3f(0, 0, -10f));
-
 
     /**
      * Our camera acts as the player's ... heart? by default
@@ -113,6 +121,11 @@ public class App extends SimpleApplication {
 
 
 
+    editorState = new EditorGameState(
+            inputSystem, sceneManager,
+            player, camera,
+            userSettings);
+
   }
 
   @Override
@@ -129,5 +142,23 @@ public class App extends SimpleApplication {
   public static void main(String[] args) {
     App app = new App();
     app.start();
+  }
+
+  /**
+   * Input listener for game-state change requests through input
+   * @param event
+   */
+  @Override
+  public void handleInputEvent(InputEvent event) {
+    // On key-up, only event through here right now is ToggleEditor
+    if(event.value == 0) {
+
+      if(editorState.isEditing()) {
+        editorState.doneEditing();
+      } else {
+        editorState.startEditing();
+      }
+
+    }
   }
 }
