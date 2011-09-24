@@ -98,7 +98,8 @@ public enum Events {
       b.rollRight();
     }
   },
-  ToggleEditor ("Toggle Editing")
+  ToggleEditor ("Toggle Editing"),
+  Select ("Select / Shoot")
   ;
 
   protected void execute(Actor actor, InputEvent e) { }

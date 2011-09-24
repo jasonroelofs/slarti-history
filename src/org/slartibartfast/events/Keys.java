@@ -133,22 +133,36 @@ public enum Keys {
   KEY_RMETA (KeyInput.KEY_RMETA, "RMETA"),
   KEY_APPS (KeyInput.KEY_APPS, "APPS"),
   KEY_POWER (KeyInput.KEY_POWER, "POWER"),
-  KEY_SLEEP (KeyInput.KEY_SLEEP, "SLEEP");
+  KEY_SLEEP (KeyInput.KEY_SLEEP, "SLEEP"),
+
+  // Mouse buttons
+  MOUSE_LEFT (0, "MOUSE_LEFT", true),
+  MOUSE_RIGHT (1, "MOUSE_RIGHT", true),
+  MOUSE_MIDDLE (2, "MOUSE_MIDDLE", true),
+  MOUSE_4 (3, "MOUSE_4", true),
+  MOUSE_5 (4, "MOUSE_5", true);
 
   public int code;
   public String keyName;
+  public boolean isMouseButton;
 
   Keys(int code, String keyName) {
     this.code = code;
     this.keyName = keyName;
+    this.isMouseButton = false;
   }
 
-  private static final Map<String, Integer> lookup =
-          new HashMap<String, Integer>();
+  Keys(int code, String keyName, boolean isMouse) {
+    this(code, keyName);
+    isMouseButton = isMouse;
+  }
+
+  private static final Map<String, Keys> lookup =
+          new HashMap<String, Keys>();
 
   static {
     for(Keys k : EnumSet.allOf(Keys.class)) {
-      lookup.put(k.keyName, k.code);
+      lookup.put(k.keyName, k);
     }
   }
 
@@ -158,7 +172,7 @@ public enum Keys {
    * @param keyName Name of the key, as defined above
    * @return Value saved by the appropriate KeyInput.KEY_VALUE
    */
-  public static int get(String keyName) {
+  public static Keys get(String keyName) {
     return lookup.get(keyName);
   }
 }

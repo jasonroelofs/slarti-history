@@ -1,7 +1,5 @@
 package org.slartibartfast.events;
 
-import org.slartibartfast.events.Keys;
-import com.jme3.input.KeyInput;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -12,6 +10,6 @@ public class KeysTest {
 
   @Test
   public void testGet() {
-    assertEquals(KeyInput.KEY_HOME, Keys.get("HOME"));
+    assertEquals(Keys.KEY_HOME, Keys.get("HOME"));
   }
 }

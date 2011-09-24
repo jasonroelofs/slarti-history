@@ -5,6 +5,8 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
+import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.input.controls.Trigger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -79,7 +81,9 @@ public class InputSystem {
     List<String> analogEvents = new ArrayList<String>();
     String eventKey;
     String scope;
+    Keys found;
     int keyCode, axisCode;
+    Trigger trigger;
 
     if(keyMapping != null) {
       /**
@@ -88,15 +92,21 @@ public class InputSystem {
       scope = keyMapping.getScope();
       for(Entry<Events, String> entry : keyMapping.entrySet()) {
         eventKey = scope + ":" + entry.getKey().name();
-        keyCode = Keys.get(entry.getValue());
+        found = Keys.get(entry.getValue());
+        keyCode = found.code;
 
         // Hold is handled as an analog event so we need to work
         // both for key presses
         analogEvents.add(eventKey);
         actionEvents.add(eventKey);
 
-        inputManager.addMapping(eventKey, new KeyTrigger(keyCode));
+        if(found.isMouseButton) {
+          trigger = new MouseButtonTrigger(keyCode);
+        } else {
+          trigger = new KeyTrigger(keyCode);
+        }
 
+        inputManager.addMapping(eventKey, trigger);
         addListenerForEvent(eventKey, listener);
       }
     }
