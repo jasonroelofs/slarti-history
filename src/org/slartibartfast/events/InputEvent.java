@@ -26,4 +26,20 @@ public class InputEvent {
     this.pressed = false;
   }
 
+  public boolean is(Events event) {
+    return Events.get(this.event) == event;
+  }
+
+  public boolean isRelease() {
+    return value == 0;
+  }
+
+  public boolean isPress() {
+    return value == 1;
+  }
+
+  public boolean isHold() {
+    return value > 0 && value < 1;
+  }
+
 }
