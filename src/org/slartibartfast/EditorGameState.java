@@ -67,6 +67,8 @@ public class EditorGameState {
    * in Editor Mode for the current Construct
    */
   public void startEditing() {
+    constructEditor = new ConstructEditor();
+
     inputSystem.showMouseCursor();
     inputSystem.registerInputListener(
             constructEditor, keyMapping, mouseMapping);
@@ -100,6 +102,9 @@ public class EditorGameState {
    * Shut down for now and let the normal play mode resume
    */
   public void doneEditing() {
+    constructEditor.shutdown();
+    constructEditor = null;
+
     inputSystem.hideMouseCursor();
     inputSystem.unregisterInputListener(constructEditor);
 

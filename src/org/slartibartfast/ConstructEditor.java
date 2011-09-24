@@ -7,7 +7,16 @@ public class ConstructEditor implements IInputListener {
 
   @Override
   public void handleInputEvent(InputEvent event) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    System.out.println("ConstructEditor.inputEvent: " + event.event);
+  }
+
+  /**
+   * Give this object a chance to clean itself up before
+   * editing mode is completely removed.
+   * Once this method is called this object should be GC-able.
+   */
+  public void shutdown() {
+
   }
 
   /**
