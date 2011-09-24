@@ -102,11 +102,11 @@ public class EditorGameState {
    * Shut down for now and let the normal play mode resume
    */
   public void doneEditing() {
-    constructEditor.shutdown();
-    constructEditor = null;
-
     inputSystem.hideMouseCursor();
     inputSystem.unregisterInputListener(constructEditor);
+
+    constructEditor.shutdown();
+    constructEditor = null;
 
     // Re-instate saved behaviors
     camera.useBehavior(oldFollow);

@@ -63,12 +63,12 @@ public class EditorGameStateTest {
     editorState.startEditing();
 
     verify(inputSystem).showMouseCursor();
-    verify(inputSystem).registerInputListener(any(ConstructEditor.class),
+    verify(inputSystem).registerInputListener(isA(ConstructEditor.class),
             any(UserKeyMapping.class), any(UserMouseMapping.class));
 
     editorState.doneEditing();
 
     verify(inputSystem).hideMouseCursor();
-    verify(inputSystem).unregisterInputListener(any(ConstructEditor.class));
+    verify(inputSystem).unregisterInputListener(isA(ConstructEditor.class));
   }
 }
