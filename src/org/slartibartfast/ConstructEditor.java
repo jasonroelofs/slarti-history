@@ -9,6 +9,10 @@ public class ConstructEditor implements IInputListener {
   @Override
   public void handleInputEvent(InputEvent event) {
     if(event.is(Events.Select) && event.isRelease()) {
+      // Do a ray cast at current mouse location to find Part
+      // in question
+
+      // Do something if we find said Part
       System.out.println("ConstructEditor.inputEvent: " + event.event);
     }
   }

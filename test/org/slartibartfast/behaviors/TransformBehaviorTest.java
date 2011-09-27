@@ -332,4 +332,29 @@ public class TransformBehaviorTest {
     assertEquals(expected, behavior.getRotation());
     assertEquals(expected, actor.getNode().getLocalRotation());
   }
+
+  @Test
+  public void canCopyDetailsFromAnotherTransform() {
+    TransformBehavior from = new TransformBehavior();
+    from.setActor(Factories.createActor());
+
+    from.setLocation(new Vector3f(1, 2, 3));
+    from.setRotation(Quaternion.IDENTITY);
+    from.setSpeed(10f);
+    from.setTurnSpeed(45);
+    from.moveRelativeToRotation(true);
+
+    behavior.copyFrom(from);
+
+    assertEquals(new Vector3f(1, 2, 3), behavior.getLocation());
+    assertEquals(Quaternion.IDENTITY, behavior.getRotation());
+    assertEquals(10f, behavior.getSpeed(), 0.0001);
+    assertEquals(45, behavior.getTurnSpeed());
+    assertTrue(behavior.movesRelativeToRotation());
+
+    // And sanity check that vectors were cloned.
+    from.getLocation().x = 10;
+
+    assertThat(behavior.getLocation(), not(new Vector3f(10, 2, 3)));
+  }
 }

@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import com.jme3.scene.Node;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.events.InputSystem;
 import org.junit.Before;
@@ -23,7 +24,7 @@ public class EditorGameStateTest {
   @Before
   public void setup() {
     inputSystem = mock(InputSystem.class);
-    sceneGraph = mock(SceneGraph.class);
+    sceneGraph = new SceneGraph(new Node("root"));
 
     player = Factories.createActor();
     player.useBehavior(new InputBehavior("testing"));

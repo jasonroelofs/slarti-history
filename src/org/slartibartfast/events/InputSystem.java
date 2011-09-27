@@ -97,12 +97,12 @@ public class InputSystem {
 
         // Hold is handled as an analog event so we need to work
         // both for key presses
-        analogEvents.add(eventKey);
         actionEvents.add(eventKey);
 
         if(found.isMouseButton) {
           trigger = new MouseButtonTrigger(keyCode);
         } else {
+          analogEvents.add(eventKey);
           trigger = new KeyTrigger(keyCode);
         }
 

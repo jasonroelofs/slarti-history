@@ -99,7 +99,8 @@ public enum Events {
     }
   },
   ToggleEditor ("Toggle Editing"),
-  Select ("Select / Shoot")
+  Select ("Select / Shoot"),
+  RotateCamera ("Rotate Camera Lock")
   ;
 
   protected void execute(Actor actor, InputEvent e) { }

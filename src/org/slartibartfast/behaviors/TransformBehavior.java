@@ -290,4 +290,14 @@ public class TransformBehavior extends Behavior {
     rotateDelta.z += turnSpeed;
   }
 
+  public void copyFrom(TransformBehavior from) {
+    setLocation(from.getLocation());
+    setRotation(from.getRotation());
+
+    setSpeed(from.getSpeed());
+    setTurnSpeed(from.getTurnSpeed());
+
+    moveRelativeToRotation(from.movesRelativeToRotation());
+  }
+
 }

@@ -1,7 +1,11 @@
 package org.slartibartfast;
 
+import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.InputBehavior;
+import org.slartibartfast.behaviors.TransformBehavior;
+import org.slartibartfast.events.Events;
+import org.slartibartfast.events.IInputListener;
 import org.slartibartfast.events.InputEvent;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.events.UserKeyMapping;
@@ -12,7 +16,7 @@ import org.slartibartfast.events.UserMouseMapping;
  * Construct editing systems. The app moves into this state when the
  * player has chosen to edit a given construct or blueprint.
  */
-public class EditorGameState {
+public class EditorGameState implements IInputListener {
 
   private boolean enabled;
   private InputSystem inputSystem;
@@ -30,6 +34,14 @@ public class EditorGameState {
   private FollowingBehavior oldFollow;
   private InputBehavior playerInput;
 
+  private Actor editorActor;
+
+  private UserKeyMapping fpsKeyMapping;
+  private UserMouseMapping fpsMouseMapping;
+  private boolean mouseHeld;
+  private TransformBehavior editorTransform;
+
+
   public EditorGameState(InputSystem input, SceneGraph scene, Actor player, Actor camera, UserSettings userSettings) {
     enabled = false;
     inputSystem = input;
@@ -42,6 +54,16 @@ public class EditorGameState {
     // Pre-pull all key and mouse bindings for the Editor and save
     keyMapping = userSettings.getKeyMap("editor");
     mouseMapping = userSettings.getMouseMap("editor");
+
+    // Camera movement mappings for the Editor
+    fpsKeyMapping = userSettings.getKeyMap("fpsMovement");
+    fpsMouseMapping = userSettings.getMouseMap("fpsMovement");
+
+    // Actor that represents the user in Editing mode
+    editorActor = sceneGraph.createActor();
+    editorTransform = editorActor.getBehavior(TransformBehavior.class);
+
+    mouseHeld = false;
   }
 
   public boolean isEditing() {
@@ -73,6 +95,8 @@ public class EditorGameState {
     inputSystem.registerInputListener(
             constructEditor, keyMapping, mouseMapping);
 
+    inputSystem.registerInputListener(this, fpsKeyMapping, fpsMouseMapping);
+
     /**
      * Need's the Player and Camera actors
      * This method needs to take a Construct
@@ -95,6 +119,15 @@ public class EditorGameState {
     // Stop Input events on Player
     playerInput = player.removeBehavior(InputBehavior.class);
 
+    // Set the editor at the player's location and tell the camera to follow it
+    // instead
+    TransformBehavior playerTransform =
+            player.getBehavior(TransformBehavior.class);
+
+    editorTransform.copyFrom(playerTransform);
+
+    camera.useBehavior(new FollowingBehavior(editorActor, Vector3f.ZERO));
+
     enabled = true;
   }
 
@@ -104,9 +137,13 @@ public class EditorGameState {
   public void doneEditing() {
     inputSystem.hideMouseCursor();
     inputSystem.unregisterInputListener(constructEditor);
+    inputSystem.unregisterInputListener(this);
 
     constructEditor.shutdown();
     constructEditor = null;
+
+    // No longer following EditorActor
+    camera.removeBehavior(FollowingBehavior.class);
 
     // Re-instate saved behaviors
     camera.useBehavior(oldFollow);
@@ -119,9 +156,26 @@ public class EditorGameState {
    * IInputListener hook
    * @param event
    */
-//  @Override
+  @Override
   public void handleInputEvent(InputEvent event) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    if(event.is(Events.RotateCamera)) {
+      if(event.isPress()) {
+        inputSystem.hideMouseCursor();
+        mouseHeld = true;
+      } else if (event.isRelease()) {
+        inputSystem.showMouseCursor();
+        mouseHeld = false;
+      }
+    }
+
+    if(!mouseHeld &&
+            (event.is(Events.TurnLeft) || event.is(Events.TurnRight)
+            || event.is(Events.PitchDown) || event.is(Events.PitchUp))) {
+      // Do nothing, camera rotation is locked
+    } else {
+      // Forward off event as necessary
+      Events.processEvent(editorActor, event);
+    }
 
     /**
      * Need to handle mouse-click => ray pick to get part
