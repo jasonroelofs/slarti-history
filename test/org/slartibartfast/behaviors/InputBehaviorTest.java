@@ -2,7 +2,6 @@ package org.slartibartfast.behaviors;
 
 import org.slartibartfast.events.UserMouseMapping;
 import org.slartibartfast.events.Events;
-import org.slartibartfast.Actor;
 import org.slartibartfast.events.InputSystem;
 import org.junit.Test;
 import org.slartibartfast.events.UserKeyMapping;

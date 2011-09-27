@@ -89,7 +89,7 @@ public class EditorGameState implements InputListener {
    * in Editor Mode for the current Construct
    */
   public void startEditing() {
-    constructEditor = new ConstructEditor();
+    constructEditor = new ConstructEditor(camera, sceneGraph);
 
     inputSystem.showMouseCursor();
     inputSystem.registerInputListener(

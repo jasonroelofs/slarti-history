@@ -1,5 +1,9 @@
 package org.slartibartfast;
 
+import com.jme3.scene.Geometry;
+import com.jme3.math.Ray;
+import com.jme3.collision.CollisionResults;
+import com.jme3.math.Vector2f;
 import com.jme3.scene.Node;
 import org.junit.Before;
 import com.jme3.math.Vector3f;
@@ -88,4 +92,16 @@ public class SceneGraphTest {
 
     verify(behaviorController).update(1.0f);
   }
+
+//  @Test
+//  public void canFindClosestNodeForPicking() {
+//    Actor camera = Factories.createActor();
+//    Vector2f pos = new Vector2f(1, 2);
+//    Node root = mock(Node.class);
+//    graph.setRootNode(root);
+//
+//    when(root.collideWith(any(Ray.class), any(CollisionResults.class))).thenReturn(1);
+//
+//    Geometry found = graph.getClosestNode(camera, pos);
+//  }
 }

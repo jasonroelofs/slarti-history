@@ -1,6 +1,5 @@
 package org.slartibartfast.events;
 
-import org.mockito.ArgumentMatcher;
 import java.util.ArrayList;
 import org.junit.Before;
 import com.jme3.input.controls.KeyTrigger;
@@ -10,10 +9,11 @@ import java.util.List;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.math.Vector2f;
+import org.hamcrest.CoreMatchers;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import static org.junit.Assert.*;
 
 public class InputSystemTest {
@@ -189,5 +189,14 @@ public class InputSystemTest {
 
     // No events for joo!
     assertEquals(0, events.size());
+  }
+
+  @Test
+  public void canGetCurrentMouseCoords() {
+    when(manager.getCursorPosition()).thenReturn(new Vector2f(1, 2));
+
+    Vector2f got = system.getCurrentMouseCoords();
+
+    assertThat(got, CoreMatchers.is(new Vector2f(1, 2)));
   }
 }

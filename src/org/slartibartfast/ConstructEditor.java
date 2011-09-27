@@ -1,19 +1,41 @@
 package org.slartibartfast;
 
+import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import org.slartibartfast.events.Events;
 import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.InputEvent;
+import org.slartibartfast.events.InputSystem;
 
 public class ConstructEditor implements InputListener {
 
+  private final SceneGraph sceneGraph;
+  private final Actor camera;
+
+  public ConstructEditor(Actor camera, SceneGraph graph) {
+    this.sceneGraph = graph;
+    this.camera = camera;
+  }
+
+  /**
+   * TODO Testing this interation handling
+   * @param event
+   * @param inputSystem
+   */
   @Override
   public void handleInputEvent(InputEvent event, InputSystem inputSystem) {
     if(event.is(Events.Select) && event.isRelease()) {
       // Do a ray cast at current mouse location to find Part
       // in question
+      Geometry found = sceneGraph.getClosestNode(
+              camera,
+              inputSystem.getCurrentMouseCoords());
 
       // Do something if we find said Part
       System.out.println("ConstructEditor.inputEvent: " + event.event);
+      if(found != null) {
+        System.out.println("Found node? " + found.getName());
+      }
     }
 
 

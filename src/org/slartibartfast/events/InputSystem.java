@@ -7,6 +7,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.input.controls.Trigger;
+import com.jme3.math.Vector2f;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -65,6 +66,13 @@ public class InputSystem {
 
   public void hideMouseCursor() {
     inputManager.setCursorVisible(false);
+  }
+
+  /**
+   * Get the 2d vector containing current mouse coords
+   */
+  public Vector2f getCurrentMouseCoords() {
+    return inputManager.getCursorPosition();
   }
 
   /**
