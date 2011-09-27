@@ -89,14 +89,16 @@ public class InputSystemTest {
 
   class TestListener implements InputListener {
     public List<InputEvent> received;
+    public InputSystem system;
 
     public TestListener() {
       received = new ArrayList<InputEvent>();
     }
 
     @Override
-    public void handleInputEvent(InputEvent event) {
+    public void handleInputEvent(InputEvent event, InputSystem inputSystem) {
       received.add(event);
+      system = inputSystem;
     }
 
   }
@@ -118,6 +120,7 @@ public class InputSystemTest {
     InputEvent evt = events.get(0);
     assertEquals("MoveUp", evt.event);
     assertTrue(evt.pressed);
+    assertEquals(system, tester.system);
   }
 
   @Test
@@ -135,6 +138,7 @@ public class InputSystemTest {
     InputEvent evt = events.get(0);
     assertEquals("TurnLeft", evt.event);
     assertEquals(12.7f, evt.value, 0.01f);
+    assertEquals(system, tester.system);
   }
 
   @Test

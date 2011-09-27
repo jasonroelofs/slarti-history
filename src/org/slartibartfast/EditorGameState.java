@@ -163,7 +163,7 @@ public class EditorGameState implements InputListener {
    * @param event
    */
   @Override
-  public void handleInputEvent(InputEvent event) {
+  public void handleInputEvent(InputEvent event, InputSystem inputSystem) {
     if(event.is(Events.RotateCamera)) {
       if(event.isPress()) {
         inputSystem.hideMouseCursor();

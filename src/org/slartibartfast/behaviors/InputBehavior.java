@@ -33,7 +33,7 @@ public class InputBehavior extends Behavior implements InputListener {
   }
 
   @Override
-  public void handleInputEvent(InputEvent event) {
+  public void handleInputEvent(InputEvent event, InputSystem inputSystem) {
     Events.processEvent(getActor(), event);
   }
 

@@ -45,11 +45,18 @@ public class InputSystem {
    */
   private Map<String, List<InputListener>> listenerMap;
 
+  /**
+   * Keep a pointer to ourselves to use in the listeners
+   */
+  private final InputSystem self;
+
   public InputSystem(InputManager manager) {
     inputManager = manager;
     listenerMap = new HashMap<String, List<InputListener>>();
 
     inputManager.setCursorVisible(false);
+
+    self = this;
   }
 
   public void showMouseCursor() {
@@ -198,7 +205,7 @@ public class InputSystem {
 
       for(int i = 0; i < listeners.size(); i++) {
         listeners.get(i).handleInputEvent(
-                new InputEvent(eventName, isPressed));
+                new InputEvent(eventName, isPressed), self);
       }
     }
   };
@@ -223,7 +230,7 @@ public class InputSystem {
         // TransformBehavior take care of time-per-frame delta logic
 
         listeners.get(i).handleInputEvent(
-                new InputEvent(eventName, value / tpf));
+                new InputEvent(eventName, value / tpf), self);
       }
     }
   };

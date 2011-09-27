@@ -149,7 +149,7 @@ public class App extends SimpleApplication implements InputListener {
    * @param event
    */
   @Override
-  public void handleInputEvent(InputEvent event) {
+  public void handleInputEvent(InputEvent event, InputSystem inputSystem) {
     // On key-up, only event through here right now is ToggleEditor
     if(event.value == 0) {
 

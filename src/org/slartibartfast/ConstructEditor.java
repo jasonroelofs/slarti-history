@@ -7,7 +7,7 @@ import org.slartibartfast.events.InputEvent;
 public class ConstructEditor implements InputListener {
 
   @Override
-  public void handleInputEvent(InputEvent event) {
+  public void handleInputEvent(InputEvent event, InputSystem inputSystem) {
     if(event.is(Events.Select) && event.isRelease()) {
       // Do a ray cast at current mouse location to find Part
       // in question
