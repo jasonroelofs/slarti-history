@@ -14,7 +14,7 @@ import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.dataStores.DataStoreManager;
 import org.slartibartfast.dataStores.IDataStore;
-import org.slartibartfast.events.IInputListener;
+import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.UserKeyMapping;
 
 /**
@@ -23,7 +23,7 @@ import org.slartibartfast.events.UserKeyMapping;
  *
  * TODO: Move most of this logic into a GameState
  */
-public class App extends SimpleApplication implements IInputListener {
+public class App extends SimpleApplication implements InputListener {
 
   private SceneGraph sceneManager;
   private InputSystem inputSystem;

@@ -3,10 +3,10 @@ package org.slartibartfast.dataSources;
 import org.slartibartfast.dataStores.DataResults;
 
 /**
- * The IDataSource interface to the raw data provider, whether it
+ * The DataSource interface to the raw data provider, whether it
  * be raw file system, sqlite, or what not.
  */
-public interface IDataSource {
+public interface DataSource {
 
   /**
    * Run a query against this data store specifying the database to

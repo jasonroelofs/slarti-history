@@ -8,7 +8,7 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import org.junit.Before;
-import org.slartibartfast.dataSources.IDataSource;
+import org.slartibartfast.dataSources.DataSource;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -16,11 +16,11 @@ import static org.mockito.Mockito.*;
 public class UserSettingsDataStoreTest {
 
   private UserSettingsDataStore store;
-  private IDataSource dataSource;
+  private DataSource dataSource;
 
   @Before
   public void setupDataSource() {
-    dataSource = mock(IDataSource.class);
+    dataSource = mock(DataSource.class);
     store = new UserSettingsDataStore(dataSource);
   }
 

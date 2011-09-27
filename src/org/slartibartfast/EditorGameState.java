@@ -5,7 +5,7 @@ import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.events.Events;
-import org.slartibartfast.events.IInputListener;
+import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.InputEvent;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.events.UserKeyMapping;
@@ -16,7 +16,7 @@ import org.slartibartfast.events.UserMouseMapping;
  * Construct editing systems. The app moves into this state when the
  * player has chosen to edit a given construct or blueprint.
  */
-public class EditorGameState implements IInputListener {
+public class EditorGameState implements InputListener {
 
   private boolean enabled;
   private InputSystem inputSystem;
@@ -153,7 +153,13 @@ public class EditorGameState implements IInputListener {
   }
 
   /**
-   * IInputListener hook
+   * InputListener hook
+   *
+   * TODO: Needs to be tested
+   *
+   * Also, should this logic be in a Component added to the
+   * editorActor instead of here?
+   *
    * @param event
    */
   @Override
@@ -176,19 +182,6 @@ public class EditorGameState implements IInputListener {
       // Forward off event as necessary
       Events.processEvent(editorActor, event);
     }
-
-    /**
-     * Need to handle mouse-click => ray pick to get part
-     * Add selected material overlay to Part's Geometry node
-     * Keep track of currently selected Part(s)
-     * On mouse movement after click / hold, resize / move part
-     * Make sure part's Node info and part's local info stay sync'd
-     * Hook into datastore to save stuff on changes.
-     *
-     * Later: Undo Redo support
-     *
-     * Most of this should be handled by the ConstructEditor
-     */
   }
 
 

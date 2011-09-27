@@ -1,6 +1,6 @@
 package org.slartibartfast.dataStores;
 
-import org.slartibartfast.dataSources.IDataSource;
+import org.slartibartfast.dataSources.DataSource;
 import org.slartibartfast.dataSources.SQLiteDataSource;
 import org.slartibartfast.Construct;
 import org.slartibartfast.UserSettings;
@@ -48,7 +48,7 @@ public class DataStoreManagerTest {
 
   @Test
   public void canShutDownDataSource() {
-    IDataSource source = mock(IDataSource.class);
+    DataSource source = mock(DataSource.class);
     manager.setDataSource(source);
     manager.shutdown();
 

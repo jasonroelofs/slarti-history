@@ -1,6 +1,6 @@
 package org.slartibartfast.events;
 
-public interface IInputListener {
+public interface InputListener {
 
   /**
    * This listener will receive events from the input system

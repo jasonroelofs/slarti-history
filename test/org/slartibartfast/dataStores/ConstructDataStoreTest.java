@@ -1,7 +1,7 @@
 package org.slartibartfast.dataStores;
 
 import org.junit.Before;
-import org.slartibartfast.dataSources.IDataSource;
+import org.slartibartfast.dataSources.DataSource;
 import org.slartibartfast.Part;
 import com.jme3.math.Vector3f;
 import java.util.HashMap;
@@ -13,11 +13,11 @@ import static org.junit.Assert.*;
 public class ConstructDataStoreTest {
 
   private ConstructDataStore store;
-  private IDataSource dataSource;
+  private DataSource dataSource;
 
   @Before
   public void setupDataSource() {
-    dataSource = mock(IDataSource.class);
+    dataSource = mock(DataSource.class);
     store = new ConstructDataStore(dataSource);
   }
 

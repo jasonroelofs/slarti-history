@@ -43,11 +43,11 @@ public class InputSystem {
    * given event type. Key is a String to match what we
    * get back from jME's input system.
    */
-  private Map<String, List<IInputListener>> listenerMap;
+  private Map<String, List<InputListener>> listenerMap;
 
   public InputSystem(InputManager manager) {
     inputManager = manager;
-    listenerMap = new HashMap<String, List<IInputListener>>();
+    listenerMap = new HashMap<String, List<InputListener>>();
 
     inputManager.setCursorVisible(false);
   }
@@ -69,12 +69,12 @@ public class InputSystem {
    * need the Axis and the direction, while Key definitions just
    * need the Key.
    *
-   * @param listener IInputListener object
+   * @param listener InputListener object
    * @param keyMapping Key bindings to events
    * @param mouseMapping Mouse axis bindings to events
    */
   public void registerInputListener(
-          IInputListener listener,
+          InputListener listener,
           UserKeyMapping keyMapping,
           UserMouseMapping mouseMapping) {
     List<String> actionEvents = new ArrayList<String>();
@@ -146,14 +146,14 @@ public class InputSystem {
    * stop the passed in object from receiving any more inputs.
    * @param listener The listener to shut down
    */
-  public void unregisterInputListener(IInputListener listener) {
+  public void unregisterInputListener(InputListener listener) {
     // TODO As we keep information in a call-optimized manner, removing
     // a listener is a bit convoluted. If this is getting called a
     // lot (which I doubt it will), potentially refactor into something
     // nicer.
-    Iterator<IInputListener> iterator;
+    Iterator<InputListener> iterator;
 
-    for(Entry<String, List<IInputListener>> e : listenerMap.entrySet()) {
+    for(Entry<String, List<InputListener>> e : listenerMap.entrySet()) {
       iterator = e.getValue().iterator();
 
       while(iterator.hasNext()) {
@@ -169,14 +169,14 @@ public class InputSystem {
     // to be dealt with later if needed
   }
 
-  private void addListenerForEvent(String event, IInputListener listener) {
-    List<IInputListener> current = getListenersFor(event);
+  private void addListenerForEvent(String event, InputListener listener) {
+    List<InputListener> current = getListenersFor(event);
     current.add(listener);
   }
 
-  private List<IInputListener> getListenersFor(String event) {
+  private List<InputListener> getListenersFor(String event) {
     if(!listenerMap.containsKey(event)) {
-      listenerMap.put(event, new ArrayList<IInputListener>());
+      listenerMap.put(event, new ArrayList<InputListener>());
     }
 
     return listenerMap.get(event);
@@ -189,7 +189,7 @@ public class InputSystem {
   private ActionListener actionListener = new ActionListener() {
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-      List<IInputListener> listeners = getListenersFor(name);
+      List<InputListener> listeners = getListenersFor(name);
 
       // The event name is prefixed by the scope the event
       // is registered under. Remove the scope string when
@@ -210,7 +210,7 @@ public class InputSystem {
   private AnalogListener analogListener = new AnalogListener() {
     @Override
     public void onAnalog(String name, float value, float tpf) {
-      List<IInputListener> listeners = getListenersFor(name);
+      List<InputListener> listeners = getListenersFor(name);
 
       // See actionListener
       String eventName = name.split(":")[1];

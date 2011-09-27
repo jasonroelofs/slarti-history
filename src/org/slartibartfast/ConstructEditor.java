@@ -1,10 +1,10 @@
 package org.slartibartfast;
 
 import org.slartibartfast.events.Events;
-import org.slartibartfast.events.IInputListener;
+import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.InputEvent;
 
-public class ConstructEditor implements IInputListener {
+public class ConstructEditor implements InputListener {
 
   @Override
   public void handleInputEvent(InputEvent event) {
@@ -15,6 +15,18 @@ public class ConstructEditor implements IInputListener {
       // Do something if we find said Part
       System.out.println("ConstructEditor.inputEvent: " + event.event);
     }
+
+
+    /**
+     * Need to handle mouse-click => ray pick to get part
+     * Add selected material overlay to Part's Geometry node
+     * Keep track of currently selected Part(s)
+     * On mouse movement after click / hold, resize / move part
+     * Make sure part's Node info and part's local info stay sync'd
+     * Hook into datastore to save stuff on changes.
+     *
+     * Later: Undo Redo support
+     */
   }
 
   /**

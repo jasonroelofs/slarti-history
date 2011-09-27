@@ -1,6 +1,6 @@
 package org.slartibartfast.dataStores;
 
-import org.slartibartfast.dataSources.IDataSource;
+import org.slartibartfast.dataSources.DataSource;
 import org.slartibartfast.Construct;
 import org.slartibartfast.UserSettings;
 import org.slartibartfast.dataSources.SQLiteDataSource;
@@ -11,7 +11,7 @@ import org.slartibartfast.dataSources.SQLiteDataSource;
  */
 public class DataStoreManager {
 
-  private IDataSource dataSource;
+  private DataSource dataSource;
 
   public DataStoreManager() {
     dataSource = new SQLiteDataSource();
@@ -35,7 +35,7 @@ public class DataStoreManager {
   }
 
   // For testing
-  public void setDataSource(IDataSource source) {
+  public void setDataSource(DataSource source) {
     dataSource = source;
   }
 }

@@ -57,7 +57,7 @@ public class InputSystemTest {
 
   @Test
   public void registersListenerForEvents() {
-    IInputListener listener = mock(IInputListener.class);
+    InputListener listener = mock(InputListener.class);
 
     system.registerInputListener(listener, keyMapping, mouseMapping);
 
@@ -87,7 +87,7 @@ public class InputSystemTest {
     // Previous attempt was too fragile.
   }
 
-  class TestListener implements IInputListener {
+  class TestListener implements InputListener {
     public List<InputEvent> received;
 
     public TestListener() {

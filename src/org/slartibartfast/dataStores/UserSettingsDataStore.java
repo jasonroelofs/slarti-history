@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.slartibartfast.UserSettings;
-import org.slartibartfast.dataSources.IDataSource;
+import org.slartibartfast.dataSources.DataSource;
 import org.slartibartfast.events.Axis;
 import org.slartibartfast.events.Events;
 
@@ -20,14 +20,14 @@ public class UserSettingsDataStore implements IDataStore<UserSettings> {
   private static final Logger logger = Logger.getLogger(
           UserSettingsDataStore.class.getName());
 
-  private final IDataSource dataSource;
+  private final DataSource dataSource;
 
-  public UserSettingsDataStore(IDataSource dataSource) {
+  public UserSettingsDataStore(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 
   @Override
-  public IDataSource getDataSource() {
+  public DataSource getDataSource() {
     return dataSource;
   }
 

@@ -24,7 +24,7 @@ import org.slartibartfast.dataStores.DataResults;
  * This also takes care of default state, copying database files from
  * assets/databases/ into the home directory.
  */
-public class SQLiteDataSource implements IDataSource {
+public class SQLiteDataSource implements DataSource {
   private static final Logger logger =
           Logger.getLogger(SQLiteDataSource.class.getName());
 

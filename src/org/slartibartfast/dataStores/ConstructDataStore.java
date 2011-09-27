@@ -1,6 +1,6 @@
 package org.slartibartfast.dataStores;
 
-import org.slartibartfast.dataSources.IDataSource;
+import org.slartibartfast.dataSources.DataSource;
 import java.util.HashMap;
 import org.slartibartfast.Construct;
 import org.slartibartfast.Part;
@@ -11,14 +11,14 @@ import org.slartibartfast.Part;
  */
 public class ConstructDataStore implements IDataStore<Construct> {
 
-  private final IDataSource dataSource;
+  private final DataSource dataSource;
 
-  public ConstructDataStore(IDataSource dataSource) {
+  public ConstructDataStore(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 
   @Override
-  public IDataSource getDataSource() {
+  public DataSource getDataSource() {
     return dataSource;
   }
 

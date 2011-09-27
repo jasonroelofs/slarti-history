@@ -3,7 +3,7 @@ package org.slartibartfast.behaviors;
 import org.slartibartfast.UserSettings;
 import org.slartibartfast.Behavior;
 import org.slartibartfast.events.Events;
-import org.slartibartfast.events.IInputListener;
+import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.InputEvent;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.events.UserKeyMapping;
@@ -16,7 +16,7 @@ import org.slartibartfast.events.UserMouseMapping;
  * one scope, so to add multiple scopes to a single Actor, add
  * multiple behaviors.
  */
-public class InputBehavior extends Behavior implements IInputListener {
+public class InputBehavior extends Behavior implements InputListener {
 
   private String scope;
 
