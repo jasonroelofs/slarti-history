@@ -17,9 +17,12 @@ public class ConstructBehavior extends Behavior {
     this.construct = construct;
   }
 
-  public void initialize(GeometryFactory geoFac) {
-    getActor().getNode().attachChild(geoFac.buildGeometryFor(construct));
-    initialize();
+  @Override
+  public void initialize() {
+    getActor().getNode().attachChild(
+            GeometryFactory.get().buildGeometryFor(construct));
+
+    super.initialize();
   }
 
 }

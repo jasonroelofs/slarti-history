@@ -1,7 +1,7 @@
 package org.slartibartfast;
 
+import com.jme3.material.Material;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
 import org.slartibartfast.events.Events;
 import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.InputEvent;
@@ -11,10 +11,17 @@ public class ConstructEditor implements InputListener {
 
   private final SceneGraph sceneGraph;
   private final Actor camera;
+  private Material selectedMaterial;
+
+  private Geometry selected;
+  private Material oldMaterial;
 
   public ConstructEditor(Actor camera, SceneGraph graph) {
     this.sceneGraph = graph;
     this.camera = camera;
+
+    selectedMaterial = MaterialFactory.get().load(
+            "Textures/Terrain/BrickWall/BrickWall.j3m");
   }
 
   /**
@@ -35,6 +42,9 @@ public class ConstructEditor implements InputListener {
       System.out.println("ConstructEditor.inputEvent: " + event.event);
       if(found != null) {
         System.out.println("Found node? " + found.getName());
+        select(found);
+      } else {
+        deselect();
       }
     }
 
@@ -49,6 +59,21 @@ public class ConstructEditor implements InputListener {
      *
      * Later: Undo Redo support
      */
+  }
+
+  public void select(Geometry node) {
+    deselect();
+    selected = node;
+    oldMaterial = selected.getMaterial();
+    node.setMaterial(selectedMaterial);
+  }
+
+  public void deselect() {
+    if(selected != null) {
+      selected.setMaterial(oldMaterial);
+      selected = null;
+      oldMaterial = null;
+    }
   }
 
   /**

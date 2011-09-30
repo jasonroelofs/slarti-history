@@ -27,10 +27,11 @@ public class ConstructBehaviorTest {
     b.setActor(Factories.createActor());
 
     GeometryFactory factory = mock(GeometryFactory.class);
+    GeometryFactory.set(factory);
 
     when(factory.buildGeometryFor(con)).thenReturn(new Node("Parent"));
 
-    b.initialize(factory);
+    b.initialize();
 
     assertNotNull(b.getActor().getNode().getChild("Parent"));
     assertTrue(b.isInitialized());

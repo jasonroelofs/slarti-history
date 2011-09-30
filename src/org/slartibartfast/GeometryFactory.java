@@ -17,8 +17,28 @@ public class GeometryFactory {
 
   private AssetManager assetManager;
 
+  private static GeometryFactory instance;
+
+  @SuppressWarnings("LeakingThisInConstructor")
   public GeometryFactory(AssetManager manager) {
     this.assetManager = manager;
+    instance = this;
+  }
+
+  public static GeometryFactory get() {
+    return instance;
+  }
+
+  // For ease of testing mainly
+  public static void set(GeometryFactory factory) {
+    instance = factory;
+  }
+
+  /**
+   * Load the requested Mesh, returning a Geometry of that mesh
+   */
+  public Geometry load(String path) {
+    return (Geometry) assetManager.loadModel(path);
   }
 
   /**

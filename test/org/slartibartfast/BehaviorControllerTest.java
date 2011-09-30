@@ -1,9 +1,7 @@
 package org.slartibartfast;
 
-import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.PlayerPhysicsBehavior;
 import org.slartibartfast.events.InputSystem;
-import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import org.slartibartfast.behaviors.PointLightBehavior;
 import com.jme3.math.Vector3f;
@@ -12,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
-import org.slartibartfast.behaviors.VisualBehavior;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -176,61 +173,6 @@ public class BehaviorControllerTest {
     assertTrue(b.isInitialized());
   }
 
-  /**
-   * Visual
-   */
-  class TestVisualBehavior extends VisualBehavior {
-    public AssetManager manager;
-
-    public TestVisualBehavior(String a, String b) {
-      super(a, b);
-    }
-
-    public void initialize(AssetManager manager) {
-      this.manager = manager;
-    }
-  }
-
-  @Test
-  public void handlesVisualBehaviors() {
-    TestVisualBehavior b = new TestVisualBehavior("a", "b");
-    AssetManager manager = mock(AssetManager.class);
-
-    controller.setAssetManager(manager);
-
-    controller.registerBehavior(b);
-
-    assertEquals(manager, b.manager);
-  }
-
-  /**
-   * Construct
-   */
-  class TestConstructBehavior extends ConstructBehavior {
-    public GeometryFactory factory;
-
-    public TestConstructBehavior(Construct construct) {
-      super(construct);
-    }
-
-    @Override
-    public void initialize(GeometryFactory factory) {
-      this.factory = factory;
-    }
-  }
-
-  @Test
-  public void handlesConstructBehaviors() {
-    TestConstructBehavior b = new TestConstructBehavior(
-            new Construct("This and That"));
-    GeometryFactory factory = mock(GeometryFactory.class);
-
-    controller.setGeometryFactory(factory);
-
-    controller.registerBehavior(b);
-
-    assertEquals(factory, b.factory);
-  }
 
     /**
    * Physics

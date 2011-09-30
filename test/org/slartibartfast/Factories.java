@@ -24,5 +24,4 @@ public class Factories {
   static InputSystem createInputSystem() {
     return new InputSystem(mock(InputManager.class));
   }
-
 }

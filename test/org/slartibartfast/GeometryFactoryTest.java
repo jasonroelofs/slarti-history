@@ -1,5 +1,7 @@
 package org.slartibartfast;
 
+import com.jme3.scene.Geometry;
+import org.junit.Before;
 import com.jme3.material.Material;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
@@ -9,16 +11,34 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class GeometryFactoryTest {
+  private AssetManager manager;
+  private GeometryFactory factory;
 
   public GeometryFactoryTest() {
   }
 
+  @Before
+  public void setup() {
+    manager = mock(AssetManager.class);
+    factory = new GeometryFactory(manager);
+  }
+
+  @Test
+  public void isASingleton() {
+    assertSame(factory, GeometryFactory.get());
+  }
+
+  @Test
+  public void loadsAMeshFromTheGivenPath_returnsGeometry() {
+    String path = "/path/to/model";
+    Geometry geo = new Geometry("testGeo");
+    when(manager.loadModel(path)).thenReturn(geo);
+
+    assertEquals(geo, factory.load(path));
+  }
+
   @Test
   public void buildsAndReturnsNodeTreeFromConstruct() {
-    AssetManager manager = mock(AssetManager.class);
-
-    GeometryFactory factory = new GeometryFactory(manager);
-
     Construct construct = new Construct("construct");
     construct.addPart(
             new Part(Vector3f.ZERO, new Vector3f(4, 4, 4), "Steel"));
@@ -40,4 +60,5 @@ public class GeometryFactoryTest {
 
     // TODO Test the size of the box?
   }
+
 }

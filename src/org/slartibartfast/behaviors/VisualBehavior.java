@@ -8,6 +8,8 @@ import com.jme3.scene.Spatial;
 import com.jme3.util.TangentBinormalGenerator;
 import org.slartibartfast.Actor;
 import org.slartibartfast.Behavior;
+import org.slartibartfast.GeometryFactory;
+import org.slartibartfast.MaterialFactory;
 
 /**
  * This behavior deals with the visual representation of the Actor. Use
@@ -22,15 +24,16 @@ public class VisualBehavior extends Behavior {
     this.materialPath = materialPath;
   }
 
-  public void initialize(AssetManager assetManager) {
-    Geometry newSpatial = (Geometry) assetManager.loadModel(modelPath);
+  @Override
+  public void initialize() {
+    Geometry newSpatial = (Geometry) GeometryFactory.get().load(modelPath);
     TangentBinormalGenerator.generate(newSpatial.getMesh(), true);
 
-    Material mat = assetManager.loadMaterial(materialPath);
+    Material mat = MaterialFactory.get().load(materialPath);
     newSpatial.setMaterial(mat);
 
     actor.getNode().attachChild(newSpatial);
 
-    initialize();
+    super.initialize();
   }
 }

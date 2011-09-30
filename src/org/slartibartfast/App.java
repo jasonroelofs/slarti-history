@@ -61,15 +61,20 @@ public class App extends SimpleApplication implements InputListener {
             getDataStoreFor(Construct.class);
     Construct defaultConstruct = constructStore.load("default");
 
-    GeometryFactory geometryFactory = new GeometryFactory(assetManager);
+    /**
+     * Initialize the few singletons we have in the system
+     * These are only singletons because they are the classes that bridge
+     * into JME's systems, and as such there will only ever be one "JME"
+     * running, so we only need one bridge running.
+     */
+    new GeometryFactory(assetManager);
+    new MaterialFactory(assetManager);
 
 
     // TODO This is starting to feel verbose
     behaviorController = new BehaviorController();
-    behaviorController.setAssetManager(assetManager);
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);
-    behaviorController.setGeometryFactory(geometryFactory);
 
     //behaviorController.setPhysicsSpace(bulletAppState.getPhysicsSpace());
 

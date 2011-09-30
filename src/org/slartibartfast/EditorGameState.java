@@ -41,7 +41,6 @@ public class EditorGameState implements InputListener {
   private boolean mouseHeld;
   private TransformBehavior editorTransform;
 
-
   public EditorGameState(InputSystem input, SceneGraph scene, Actor player, Actor camera, UserSettings userSettings) {
     enabled = false;
     inputSystem = input;

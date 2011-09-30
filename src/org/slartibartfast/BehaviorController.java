@@ -23,9 +23,7 @@ public class BehaviorController {
 
   private InputSystem inputSystem;
   private UserSettings userSettings;
-  private AssetManager assetManager;
   private PhysicsSpace physicsSpace;
-  private GeometryFactory geometryFactory;
 
   public BehaviorController() {
     behaviors = new HashMap<Class, List<Behavior>>();
@@ -39,16 +37,8 @@ public class BehaviorController {
     this.userSettings = settings;
   }
 
-  public void setAssetManager(AssetManager manager) {
-    this.assetManager = manager;
-  }
-
   public void setPhysicsSpace(PhysicsSpace space) {
     this.physicsSpace = space;
-  }
-
-  public void setGeometryFactory(GeometryFactory factory) {
-    this.geometryFactory = factory;
   }
 
   /**
@@ -103,14 +93,10 @@ public class BehaviorController {
   private void initializeBehavior(Behavior b) {
     if(b instanceof InputBehavior) {
       ((InputBehavior)b).initialize(inputSystem, userSettings);
-    } else if(b instanceof VisualBehavior) {
-      ((VisualBehavior)b).initialize(assetManager);
     } else if(b instanceof PhysicsBehavior) {
       ((PhysicsBehavior)b).initialize(physicsSpace);
     } else if(b instanceof PlayerPhysicsBehavior) {
       ((PlayerPhysicsBehavior)b).initialize(physicsSpace);
-    } else if(b instanceof ConstructBehavior) {
-      ((ConstructBehavior)b).initialize(geometryFactory);
     } else {
       b.initialize();
     }
