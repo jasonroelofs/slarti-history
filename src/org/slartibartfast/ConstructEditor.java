@@ -1,6 +1,7 @@
 package org.slartibartfast;
 
 import com.jme3.material.Material;
+import com.jme3.math.Vector2f;
 import com.jme3.scene.Geometry;
 import org.slartibartfast.events.Events;
 import org.slartibartfast.events.InputListener;
@@ -20,8 +21,7 @@ public class ConstructEditor implements InputListener {
     this.sceneGraph = graph;
     this.camera = camera;
 
-    selectedMaterial = MaterialFactory.get().load(
-            "Textures/Terrain/BrickWall/BrickWall.j3m");
+    selectedMaterial = MaterialFactory.get().load("Materials/Selected.j3m");
   }
 
   /**
@@ -66,10 +66,15 @@ public class ConstructEditor implements InputListener {
     selected = node;
     oldMaterial = selected.getMaterial();
     node.setMaterial(selectedMaterial);
+
+    node.getMesh().scaleTextureCoordinates(new Vector2f(4, 4));
   }
 
   public void deselect() {
     if(selected != null) {
+
+      selected.getMesh().scaleTextureCoordinates(new Vector2f(0.25f, 0.25f));
+
       selected.setMaterial(oldMaterial);
       selected = null;
       oldMaterial = null;
