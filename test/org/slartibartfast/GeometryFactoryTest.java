@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import com.jme3.bounding.BoundingBox;
 import com.jme3.scene.Geometry;
 import org.junit.Before;
 import com.jme3.material.Material;
@@ -55,15 +56,30 @@ public class GeometryFactoryTest {
     assertNotNull("construct_parent", node.getName());
     assertEquals(2, node.getChildren().size());
 
+    Geometry geo1 = (Geometry) node.getChild(0);
+    Geometry geo2 = (Geometry) node.getChild(1);
+
     assertEquals(new Vector3f(0.5f, 0.5f, 0.5f),
-            node.getChild(0).getLocalTranslation());
+            geo1.getLocalTranslation());
     assertEquals(new Vector3f(1f, 1f, 1f),
-            node.getChild(1).getLocalTranslation());
+            geo2.getLocalTranslation());
 
-    assertEquals(part1, node.getChild(0).getUserData("part"));
-    assertEquals(part2, node.getChild(1).getUserData("part"));
+    assertEquals(part1, geo1.getUserData("part"));
+    assertEquals(part2, geo2.getUserData("part"));
 
-    // TODO Test the size of the box?
+    assertEquals(geo1, part1.getGeometry());
+    assertEquals(geo2, part2.getGeometry());
+
+    BoundingBox box;
+    box = (BoundingBox) geo1.getWorldBound();
+    assertEquals(0.5, box.getXExtent(), 0.001);
+    assertEquals(0.5, box.getYExtent(), 0.001);
+    assertEquals(0.5, box.getZExtent(), 0.001);
+
+    box = (BoundingBox) geo2.getWorldBound();
+    assertEquals(1, box.getXExtent(), 0.001);
+    assertEquals(1, box.getYExtent(), 0.001);
+    assertEquals(1, box.getZExtent(), 0.001);
   }
 
 }

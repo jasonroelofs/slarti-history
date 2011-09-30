@@ -4,6 +4,7 @@ import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.export.Savable;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
 import java.io.IOException;
 
 /**
@@ -28,6 +29,12 @@ public class Part implements Savable {
    * to parent construct center
    */
   private Vector3f endPoint;
+
+  /**
+   * Link to the specific Geometry node that visually represents
+   * this Part
+   */
+  private Geometry geometry;
 
   private String material;
 
@@ -78,5 +85,33 @@ public class Part implements Savable {
   public void setMaterial(String material) {
     this.material = material;
   }
+
+
+  /**
+   * @return the geometry
+   */
+  public Geometry getGeometry() {
+    return geometry;
+  }
+
+  /**
+   * @param geometry the geometry to set
+   */
+  public void setGeometry(Geometry geometry) {
+    this.geometry = geometry;
+  }
+
+  // Savable
+  @Override
+  public void write(JmeExporter ex) throws IOException {
+    // do nothing
+  }
+
+  // Savable
+  @Override
+  public void read(JmeImporter im) throws IOException {
+    // do nothing
+  }
+
 
 }

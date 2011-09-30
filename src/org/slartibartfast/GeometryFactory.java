@@ -71,6 +71,7 @@ public class GeometryFactory {
       geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
 
       geo.setUserData("part", part);
+      part.setGeometry(geo);
 
       parentNode.attachChild(geo);
 
