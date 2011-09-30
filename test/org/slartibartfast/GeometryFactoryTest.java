@@ -40,10 +40,12 @@ public class GeometryFactoryTest {
   @Test
   public void buildsAndReturnsNodeTreeFromConstruct() {
     Construct construct = new Construct("construct");
-    construct.addPart(
-            new Part(Vector3f.ZERO, new Vector3f(4, 4, 4), "Steel"));
-    construct.addPart(
-            new Part(Vector3f.ZERO, new Vector3f(8, 8, 8), "Steel"));
+    Part part1 = new Part(Vector3f.ZERO, new Vector3f(4, 4, 4), "Steel");
+    Part part2 = new Part(Vector3f.ZERO, new Vector3f(8, 8, 8), "Steel");
+
+    construct.addPart(part1);
+    construct.addPart(part2);
+
 
     when(manager.loadMaterial(anyString())).thenReturn(new Material());
 
@@ -53,10 +55,13 @@ public class GeometryFactoryTest {
     assertNotNull("construct_parent", node.getName());
     assertEquals(2, node.getChildren().size());
 
-    assertEquals(new Vector3f(0,0,0),
+    assertEquals(new Vector3f(0.5f, 0.5f, 0.5f),
             node.getChild(0).getLocalTranslation());
-    assertEquals(new Vector3f(0,0,0),
+    assertEquals(new Vector3f(1f, 1f, 1f),
             node.getChild(1).getLocalTranslation());
+
+    assertEquals(part1, node.getChild(0).getUserData("part"));
+    assertEquals(part2, node.getChild(1).getUserData("part"));
 
     // TODO Test the size of the box?
   }

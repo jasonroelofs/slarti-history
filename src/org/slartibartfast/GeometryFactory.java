@@ -50,15 +50,12 @@ public class GeometryFactory {
    */
   public Node buildGeometryFor(Construct construct) {
     Node parentNode = new Node(construct.getName() + "_parent");
-    Node current;
     int sectionNum = 0;
     Vector3f startPoint, endPoint, distance, center;
     String material;
     Geometry geo;
 
     for(Part part : construct.getParts()) {
-      current = new Node(parentNode.getName() + "_section_" + sectionNum);
-
       startPoint = Construct.gridToLocal(part.getStartPoint());
       endPoint = Construct.gridToLocal(part.getEndPoint());
       material = part.getMaterial();
@@ -66,15 +63,16 @@ public class GeometryFactory {
       distance = endPoint.subtract(startPoint);
       center = startPoint.add(distance.divide(2f));
 
-      geo = new Geometry("box_" + sectionNum,
+      geo = new Geometry(parentNode.getName() + "_part_" + sectionNum,
               new Box(distance.x / 2, distance.y / 2, distance.z / 2));
       geo.setLocalTranslation(center);
 
       TangentBinormalGenerator.generate(geo.getMesh(), true);
       geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
 
-      current.attachChild(geo);
-      parentNode.attachChild(current);
+      geo.setUserData("part", part);
+
+      parentNode.attachChild(geo);
 
       sectionNum++;
     }

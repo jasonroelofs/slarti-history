@@ -1,13 +1,21 @@
 package org.slartibartfast;
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
+import com.jme3.export.Savable;
 import com.jme3.math.Vector3f;
+import java.io.IOException;
 
 /**
  * A Part is simply a single part of a Construct, whether that be a
  * wall, a floor, a decoration, anything
- * @author roelofs
+ *
+ *
+ * The Savable interface is only used because we want to make use of
+ * set/getUserData on Spatial, which requires either a native type
+ * or an object that implements Savable
  */
-public class Part {
+public class Part implements Savable {
 
   /**
    * Local-space grid location of this part's start point, relative
