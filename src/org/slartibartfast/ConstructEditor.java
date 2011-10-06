@@ -2,7 +2,9 @@ package org.slartibartfast;
 
 import com.jme3.material.Material;
 import com.jme3.math.Vector2f;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Mesh.Mode;
 import org.slartibartfast.events.Events;
 import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.InputEvent;
@@ -12,16 +14,14 @@ public class ConstructEditor implements InputListener {
 
   private final SceneGraph sceneGraph;
   private final Actor camera;
-  private Material selectedMaterial;
 
-  private Geometry selected;
-  private Material oldMaterial;
+  private Part selectedPart;
+  private Geometry selectedNode;
 
   public ConstructEditor(Actor camera, SceneGraph graph) {
     this.sceneGraph = graph;
     this.camera = camera;
 
-    selectedMaterial = MaterialFactory.get().load("Materials/Selected.j3m");
   }
 
   /**
@@ -40,7 +40,7 @@ public class ConstructEditor implements InputListener {
 
       // Do something if we find said Part
       System.out.println("ConstructEditor.inputEvent: " + event.event);
-      if(found != null) {
+      if(found != null && found != selectedNode) {
         System.out.println("Found node? " + found.getName());
         select(found);
       } else {
@@ -63,21 +63,16 @@ public class ConstructEditor implements InputListener {
 
   public void select(Geometry node) {
     deselect();
-    selected = node;
-    oldMaterial = selected.getMaterial();
-    node.setMaterial(selectedMaterial);
-
-    node.getMesh().scaleTextureCoordinates(new Vector2f(4, 4));
+    selectedNode = node;
+    selectedPart = (Part)node.getUserData("part");
+    //selectedPart.select();
   }
 
   public void deselect() {
-    if(selected != null) {
-
-      selected.getMesh().scaleTextureCoordinates(new Vector2f(0.25f, 0.25f));
-
-      selected.setMaterial(oldMaterial);
-      selected = null;
-      oldMaterial = null;
+    if(selectedPart != null) {
+      //selectedPart.deselect();
+      selectedPart = null;
+      selectedNode = null;
     }
   }
 

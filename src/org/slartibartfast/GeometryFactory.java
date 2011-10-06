@@ -1,9 +1,11 @@
 package org.slartibartfast;
 
 import com.jme3.asset.AssetManager;
-import com.jme3.math.Vector2f;
+import com.jme3.bounding.BoundingBox;
+import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.util.TangentBinormalGenerator;
@@ -45,6 +47,10 @@ public class GeometryFactory {
   /**
    * Given a construct, build up a Node tree containing geometric
    * information for this construct.
+   *
+   * TODO: Possibly move creation logic into Part? Or keep the JME specific
+   * stuff here, haven't decided. Part does need to know how to resize itself.
+   *
    * @param construct The construct to build geometry data for
    * @return Node The root node of the new tree to attach to the scene
    */
@@ -52,13 +58,14 @@ public class GeometryFactory {
     Node parentNode = new Node(construct.getName() + "_parent");
     int sectionNum = 0;
     Vector3f startPoint, endPoint, distance, center;
-    String material;
+    String materialName;
+    Material partMat;
     Geometry geo;
 
     for(Part part : construct.getParts()) {
       startPoint = Construct.gridToLocal(part.getStartPoint());
       endPoint = Construct.gridToLocal(part.getEndPoint());
-      material = part.getMaterial();
+      materialName = part.getMaterial();
 
       distance = endPoint.subtract(startPoint);
       center = startPoint.add(distance.divide(2f));
@@ -68,7 +75,10 @@ public class GeometryFactory {
       geo.setLocalTranslation(center);
 
       TangentBinormalGenerator.generate(geo.getMesh(), true);
-      geo.setMaterial(assetManager.loadMaterial("Materials/RockyTeapot.j3m"));
+      partMat = new Material(assetManager, "Materials/Part.j3md");
+      partMat.setTexture("Texture", assetManager.loadTexture("Textures/playing.png"));
+
+      geo.setMaterial(partMat);
 
       geo.setUserData("part", part);
       part.setGeometry(geo);
@@ -79,5 +89,25 @@ public class GeometryFactory {
     }
 
     return parentNode;
+  }
+
+  /*
+   * Given a geometry node, build a selection box to wrap the
+   * selected node.
+   */
+  public Geometry buildSelectionBoxAround(Geometry geometry) {
+    BoundingBox box = (BoundingBox) geometry.getWorldBound();
+    Geometry selectionGeo = new Geometry();
+
+    float x = box.getXExtent();
+    float y = box.getYExtent();
+    float z = box.getZExtent();
+
+    Mesh newMesh = geometry.getMesh().clone();
+
+    selectionGeo.setMesh(newMesh);
+    selectionGeo.setMaterial(assetManager.loadMaterial("Materials/Selected.j3m"));
+
+    return selectionGeo;
   }
 }

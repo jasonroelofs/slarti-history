@@ -1,7 +1,17 @@
-Material Selected Grid : Common/MatDefs/Misc/Unshaded.j3md {
+Material Selected Grid : Common/MatDefs/Light/Lighting.j3md {
+  Transparent On
+
   MaterialParameters {
 
-    ColorMap: Repeat Textures/grid.png
+    DiffuseMap: Repeat Textures/grid.png
+    UseMaterialColors: true
 
+    UseAlpha: true
+    AlphaDiscardThreshold: 0.5
+
+    Ambient: 1 1 1 1
+    Diffuse: 1 1 1 1
+    Specular: 0 0 0 1
+    Shininess: 16
   }
 }

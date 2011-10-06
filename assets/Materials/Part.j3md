@@ -1,0 +1,14 @@
+MaterialDef Part {
+  MaterialParameters {
+    Texture2D Texture
+  }
+
+  Technique {
+    VertexShader GLSL120: Shaders/Part/Part.vert
+    FragmentShader GLSL120: Shaders/Part/Part.frag
+
+    WorldParameters {
+      WorldViewProjectionMatrix
+    }
+  }
+}
