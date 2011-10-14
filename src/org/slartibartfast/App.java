@@ -13,7 +13,7 @@ import org.slartibartfast.behaviors.ConstructBehavior;
 import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.dataStores.DataStoreManager;
-import org.slartibartfast.dataStores.IDataStore;
+import org.slartibartfast.dataStores.DataRepository;
 import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.UserKeyMapping;
 
@@ -53,11 +53,11 @@ public class App extends SimpleApplication implements InputListener {
 
     dataStoreManager = new DataStoreManager();
 
-    IDataStore<UserSettings> settingsStore =
+    DataRepository<UserSettings> settingsStore =
             dataStoreManager.getDataStoreFor(UserSettings.class);
     UserSettings userSettings = settingsStore.load();
 
-    IDataStore<Construct> constructStore = dataStoreManager.
+    DataRepository<Construct> constructStore = dataStoreManager.
             getDataStoreFor(Construct.class);
     Construct defaultConstruct = constructStore.load("default");
 
@@ -71,7 +71,6 @@ public class App extends SimpleApplication implements InputListener {
     new MaterialFactory(assetManager);
 
 
-    // TODO This is starting to feel verbose
     behaviorController = new BehaviorController();
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);

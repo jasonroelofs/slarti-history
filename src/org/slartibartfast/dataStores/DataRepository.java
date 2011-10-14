@@ -3,9 +3,9 @@ package org.slartibartfast.dataStores;
 import org.slartibartfast.dataSources.DataSource;
 
 /**
- * Public interface of all data store implementers
+ * Public interface of all data repository implementers
  */
-public interface IDataStore<T> {
+public interface DataRepository<T> {
 
   public T load();
 

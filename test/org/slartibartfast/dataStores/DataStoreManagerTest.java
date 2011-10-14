@@ -24,7 +24,7 @@ public class DataStoreManagerTest {
 
   @Test
   public void canGetUserSettingsDataStore() {
-    IDataStore store = manager.getDataStoreFor(UserSettings.class);
+    DataRepository store = manager.getDataStoreFor(UserSettings.class);
     assertNotNull(store);
     assertThat(store, is(UserSettingsDataStore.class));
 
@@ -33,7 +33,7 @@ public class DataStoreManagerTest {
 
   @Test
   public void canGetConstructDataStore() {
-    IDataStore store = manager.getDataStoreFor(Construct.class);
+    DataRepository store = manager.getDataStoreFor(Construct.class);
     assertNotNull(store);
     assertThat(store, is(ConstructDataStore.class));
 
@@ -42,7 +42,7 @@ public class DataStoreManagerTest {
 
   @Test
   public void askingForUnknownClassReturnsNull() {
-    IDataStore store = manager.getDataStoreFor(String.class);
+    DataRepository store = manager.getDataStoreFor(String.class);
     assertNull(store);
   }
 

@@ -9,7 +9,7 @@ import org.slartibartfast.Part;
  * This data store handles the loading and saving of Constructs and
  * their parts
  */
-public class ConstructDataStore implements IDataStore<Construct> {
+public class ConstructDataStore implements DataRepository<Construct> {
 
   private final DataSource dataSource;
 

@@ -24,7 +24,7 @@ public class DataStoreManager {
   /**
    * Get a data store implementation for the given class
    */
-  public IDataStore getDataStoreFor(Class klass) {
+  public DataRepository getDataStoreFor(Class klass) {
     if(klass == UserSettings.class) {
       return new UserSettingsDataStore(dataSource);
     } else if(klass == Construct.class) {

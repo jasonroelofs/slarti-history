@@ -16,7 +16,7 @@ import org.slartibartfast.events.Events;
  *   mouse mappings
  *
  */
-public class UserSettingsDataStore implements IDataStore<UserSettings> {
+public class UserSettingsDataStore implements DataRepository<UserSettings> {
   private static final Logger logger = Logger.getLogger(
           UserSettingsDataStore.class.getName());
 
