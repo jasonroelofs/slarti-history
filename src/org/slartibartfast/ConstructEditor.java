@@ -50,6 +50,9 @@ public class ConstructEditor implements InputListener {
       } else {
         deselect();
       }
+
+    // YUCK! Find a clean way to abstract this kind of logic.
+    // Need to add a lot more input handling to this system.
     } else if(event.is(Events.MoveUp) && event.isRelease()) {
       partManipulator.move(0, 1, 0);
     } else if(event.is(Events.MoveDown) && event.isRelease()) {
@@ -76,7 +79,7 @@ public class ConstructEditor implements InputListener {
    * Once this method is called this object should be GC-able.
    */
   public void shutdown() {
-    partManipulator.deselectAll();
+    deselect();
   }
 
 }
