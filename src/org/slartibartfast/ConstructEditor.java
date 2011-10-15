@@ -44,6 +44,14 @@ public class ConstructEditor implements InputListener {
       } else {
         deselect();
       }
+    } else if(event.is(Events.MoveUp) && event.isRelease()) {
+      partManipulator.move(0, 1, 0);
+    } else if(event.is(Events.MoveDown) && event.isRelease()) {
+      partManipulator.move(0, -1, 0);
+    } else if(event.is(Events.MoveLeft) && event.isRelease()) {
+      partManipulator.move(-1, 0, 0);
+    } else if(event.is(Events.MoveRight) && event.isRelease()) {
+      partManipulator.move(1, 0, 0);
     }
   }
 
@@ -64,7 +72,7 @@ public class ConstructEditor implements InputListener {
    * Once this method is called this object should be GC-able.
    */
   public void shutdown() {
-
+    partManipulator.deselectAll();
   }
 
 }

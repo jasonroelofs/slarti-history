@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import com.jme3.math.Vector3f;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,6 +47,16 @@ public class PartManipulator {
     selected.clear();
   }
 
+  /**
+   * Part movement methods
+   */
+
+  public void move(int xGrid, int yGrid, int zGrid) {
+    for(Part p : selected) {
+      p.getGeometry().setLocalTranslation(
+              p.getGeometry().getLocalTranslation().add(new Vector3f(xGrid, yGrid, zGrid)));
+    }
+  }
 
   private void useSelectedMaterialOn(Part part) {
     part.getGeometry().getMaterial().setTexture(
