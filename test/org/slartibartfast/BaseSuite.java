@@ -10,6 +10,7 @@ import org.junit.runners.Suite;
   ConstructTest.class,
   EditorGameStateTest.class,
   GeometryFactoryTest.class,
+  GridTest.class,
   MaterialFactoryTest.class,
   PartTest.class,
   SceneGraphTest.class,

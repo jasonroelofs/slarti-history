@@ -76,10 +76,4 @@ public class Construct {
   public void attachTo(Node node) {
     node.attachChild(root);
   }
-
-
-  public static Vector3f gridToLocal(Vector3f startPoint) {
-    return startPoint.mult(0.25f);
-  }
-
 }

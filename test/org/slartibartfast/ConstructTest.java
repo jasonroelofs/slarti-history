@@ -40,11 +40,4 @@ public class ConstructTest {
 
     assertEquals(node, attachTo.getChild("Construct Root"));
   }
-
-  @Test
-  public void canConvertGridCoordsToLocalCoords() {
-    assertEquals(new Vector3f(0, 0, 0), Construct.gridToLocal(Vector3f.ZERO));
-    assertEquals(new Vector3f(1, 1, 1), Construct.gridToLocal(new Vector3f(4, 4, 4)));
-    assertEquals(new Vector3f(0.5f, 0.5f, 0.5f), Construct.gridToLocal(new Vector3f(2, 2, 2)));
-  }
 }

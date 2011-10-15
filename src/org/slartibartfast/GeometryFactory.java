@@ -63,8 +63,8 @@ public class GeometryFactory {
     Geometry geo;
 
     for(Part part : construct.getParts()) {
-      startPoint = Construct.gridToLocal(part.getStartPoint());
-      endPoint = Construct.gridToLocal(part.getEndPoint());
+      startPoint = Grid.toWorldSpace(part.getStartPoint());
+      endPoint = Grid.toWorldSpace(part.getEndPoint());
       materialName = part.getMaterial();
 
       distance = endPoint.subtract(startPoint);
