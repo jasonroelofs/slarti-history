@@ -2,6 +2,7 @@ package org.slartibartfast;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.texture.Texture;
 
 /**
  * This factory class is a singleton that deals with any communication
@@ -35,5 +36,11 @@ public class MaterialFactory {
     return assetManager.loadMaterial(path);
   }
 
+  /**
+   * Load a texture according to the path given
+   */
+  public Texture loadTexture(String path) {
+    return assetManager.loadTexture(path);
+  }
 
 }

@@ -21,7 +21,13 @@ public class Factories {
     return createSceneGraph().createActor(position);
   }
 
-  static InputSystem createInputSystem() {
+  public static InputSystem createInputSystem() {
     return new InputSystem(mock(InputManager.class));
+  }
+
+  public static MaterialFactory getMaterialFactoryMock() {
+    MaterialFactory fac = mock(MaterialFactory.class);
+    MaterialFactory.set(fac);
+    return fac;
   }
 }

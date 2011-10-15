@@ -1,5 +1,6 @@
 package org.slartibartfast;
 
+import com.jme3.texture.Texture;
 import com.jme3.material.Material;
 import org.junit.Before;
 import com.jme3.asset.AssetManager;
@@ -32,5 +33,15 @@ public class MaterialFactoryTest {
     when(manager.loadMaterial(path)).thenReturn(mat);
 
     assertEquals(mat, factory.load(path));
+  }
+
+  @Test
+  public void loadATextureFromGivenPath_returnsTexture() {
+    String path = "/path/to/texture";
+    Texture tex = mock(Texture.class);
+    when(manager.loadTexture(path)).thenReturn(tex);
+
+    assertEquals(tex, factory.loadTexture(path));
+
   }
 }

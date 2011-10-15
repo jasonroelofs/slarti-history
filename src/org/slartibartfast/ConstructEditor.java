@@ -1,10 +1,6 @@
 package org.slartibartfast;
 
-import com.jme3.material.Material;
-import com.jme3.math.Vector2f;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Mesh.Mode;
 import org.slartibartfast.events.Events;
 import org.slartibartfast.events.InputListener;
 import org.slartibartfast.events.InputEvent;
@@ -15,13 +11,14 @@ public class ConstructEditor implements InputListener {
   private final SceneGraph sceneGraph;
   private final Actor camera;
 
-  private Part selectedPart;
-  private Geometry selectedNode;
+  private final PartManipulator partManipulator;
 
+  // TODO Pull camera out of scene graph instead of passing it in?
   public ConstructEditor(Actor camera, SceneGraph graph) {
     this.sceneGraph = graph;
     this.camera = camera;
 
+    this.partManipulator = new PartManipulator();
   }
 
   /**
@@ -40,40 +37,25 @@ public class ConstructEditor implements InputListener {
 
       // Do something if we find said Part
       System.out.println("ConstructEditor.inputEvent: " + event.event);
-      if(found != null && found != selectedNode) {
+
+      if(found != null) {
         System.out.println("Found node? " + found.getName());
         select(found);
       } else {
         deselect();
       }
     }
-
-
-    /**
-     * Need to handle mouse-click => ray pick to get part
-     * Add selected material overlay to Part's Geometry node
-     * Keep track of currently selected Part(s)
-     * On mouse movement after click / hold, resize / move part
-     * Make sure part's Node info and part's local info stay sync'd
-     * Hook into datastore to save stuff on changes.
-     *
-     * Later: Undo Redo support
-     */
   }
 
   public void select(Geometry node) {
     deselect();
-    selectedNode = node;
-    selectedPart = (Part)node.getUserData("part");
-    //selectedPart.select();
+
+    Part part = (Part)node.getUserData("part");
+    partManipulator.select(part);
   }
 
   public void deselect() {
-    if(selectedPart != null) {
-      //selectedPart.deselect();
-      selectedPart = null;
-      selectedNode = null;
-    }
+    partManipulator.deselectAll();
   }
 
   /**
@@ -85,23 +67,4 @@ public class ConstructEditor implements InputListener {
 
   }
 
-  /**
-   * Responsibilities:
-   *
-   * Takes a construct to edit
-   * Listens to input events (something higher up does this?)
-   *
-   * Knows what part is selected
-   *  - CRUD parts
-   *
-   * Initiate save of changes to Construct
-   *
-   * Undo / Redo of these changes
-   *
-   * Preview-mode of construct?
-   *
-   * Later:
-   *
-   * Handling of Blueprint constructs
-   */
 }
