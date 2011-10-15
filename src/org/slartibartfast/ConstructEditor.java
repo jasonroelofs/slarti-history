@@ -39,6 +39,12 @@ public class ConstructEditor implements InputListener {
       System.out.println("ConstructEditor.inputEvent: " + event.event);
 
       if(found != null) {
+
+        // Shift key allows multi-select
+        if(!event.shift()) {
+          deselect();
+        }
+
         System.out.println("Found node? " + found.getName());
         select(found);
       } else {
@@ -56,8 +62,6 @@ public class ConstructEditor implements InputListener {
   }
 
   public void select(Geometry node) {
-    deselect();
-
     Part part = (Part)node.getUserData("part");
     partManipulator.select(part);
   }
