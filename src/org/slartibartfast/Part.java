@@ -6,6 +6,7 @@ import com.jme3.export.Savable;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import java.io.IOException;
+import lombok.Data;
 
 /**
  * A Part is simply a single part of a Construct, whether that be a
@@ -16,6 +17,7 @@ import java.io.IOException;
  * set/getUserData on Spatial, which requires either a native type
  * or an object that implements Savable
  */
+@Data
 public class Part implements Savable {
 
   /**
@@ -42,63 +44,6 @@ public class Part implements Savable {
     this.startPoint = startPoint;
     this.endPoint = endPoint;
     this.material = material;
-  }
-
-  /**
-   * @return the startPoint
-   */
-  public Vector3f getStartPoint() {
-    return startPoint;
-  }
-
-  /**
-   * @param startPoint the startPoint to set
-   */
-  public void setStartPoint(Vector3f startPoint) {
-    this.startPoint = startPoint;
-  }
-
-  /**
-   * @return the endPoint
-   */
-  public Vector3f getEndPoint() {
-    return endPoint;
-  }
-
-  /**
-   * @param endPoint the endPoint to set
-   */
-  public void setEndPoint(Vector3f endPoint) {
-    this.endPoint = endPoint;
-  }
-
-  /**
-   * @return the material
-   */
-  public String getMaterial() {
-    return material;
-  }
-
-  /**
-   * @param material the material to set
-   */
-  public void setMaterial(String material) {
-    this.material = material;
-  }
-
-
-  /**
-   * @return the geometry
-   */
-  public Geometry getGeometry() {
-    return geometry;
-  }
-
-  /**
-   * @param geometry the geometry to set
-   */
-  public void setGeometry(Geometry geometry) {
-    this.geometry = geometry;
   }
 
   // Savable
