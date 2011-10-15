@@ -7,6 +7,7 @@ import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.ActionListener;
 import java.util.List;
 import com.jme3.input.InputManager;
+import com.jme3.input.KeyInput;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.Vector2f;
@@ -198,5 +199,20 @@ public class InputSystemTest {
     Vector2f got = system.getCurrentMouseCoords();
 
     assertThat(got, CoreMatchers.is(new Vector2f(1, 2)));
+  }
+
+  @Test
+  public void includesAnyModifierKeyInInputEvents() {
+    TestListener tester1 = new TestListener();
+    system.registerInputListener(tester1, keyMapping, mouseMapping);
+
+    system.getModifierListener().onAction("ALT", true, 1.0f);
+    system.getModifierListener().onAction("CTRL", true, 1.0f);
+    system.getModifierListener().onAction("SHIFT", true, 1.0f);
+    system.getActionListener().onAction("testScope1:MoveUp", true, 0.1f);
+
+    assertTrue(tester1.received.get(0).alt());
+    assertTrue(tester1.received.get(0).shift());
+    assertTrue(tester1.received.get(0).ctrl());
   }
 }

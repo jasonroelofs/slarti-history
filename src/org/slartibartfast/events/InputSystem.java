@@ -1,6 +1,7 @@
 package org.slartibartfast.events;
 
 import com.jme3.input.InputManager;
+import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -46,11 +47,20 @@ public class InputSystem {
    */
   private Map<String, List<InputListener>> listenerMap;
 
+  /**
+   * Keep track of the current state of the modifier keys
+   */
+  private ModifierState currentModifiers;
+
   public InputSystem(InputManager manager) {
     inputManager = manager;
     listenerMap = new HashMap<String, List<InputListener>>();
 
     inputManager.setCursorVisible(false);
+
+    currentModifiers = new ModifierState();
+    
+    registerMetaKeys();
   }
 
   public void showMouseCursor() {
@@ -67,6 +77,7 @@ public class InputSystem {
   public Vector2f getCurrentMouseCoords() {
     return inputManager.getCursorPosition();
   }
+
 
   /**
    * Register an input listener with the passed in key and mouse
@@ -206,7 +217,8 @@ public class InputSystem {
 
       for(int i = 0; i < listeners.size(); i++) {
         listeners.get(i).handleInputEvent(
-                new InputEvent(eventName, isPressed), InputSystem.this);
+                new InputEvent(eventName, isPressed, currentModifiers),
+                InputSystem.this);
       }
     }
   };
@@ -231,8 +243,37 @@ public class InputSystem {
         // TransformBehavior take care of time-per-frame delta logic
 
         listeners.get(i).handleInputEvent(
-                new InputEvent(eventName, value / tpf), InputSystem.this);
+                new InputEvent(eventName, value / tpf, currentModifiers),
+                InputSystem.this);
       }
+    }
+  };
+
+  // Hook up a listener to report if modifier keys are held down or not
+  private void registerMetaKeys() {
+    inputManager.addMapping(ModifierState.SHIFT,
+        new KeyTrigger(KeyInput.KEY_LSHIFT),
+        new KeyTrigger(KeyInput.KEY_RSHIFT));
+
+    inputManager.addMapping(ModifierState.CTRL,
+        new KeyTrigger(KeyInput.KEY_RCONTROL),
+        new KeyTrigger(KeyInput.KEY_LCONTROL));
+
+    inputManager.addMapping(ModifierState.ALT,
+        new KeyTrigger(KeyInput.KEY_LMENU),
+        new KeyTrigger(KeyInput.KEY_RMENU));
+
+    inputManager.addListener(modifierListener,
+            new String[] { "SHIFT", "CTRL", "ALT" });
+  }
+
+  /**
+   * Special action listener just for Modifier keys
+   */
+  private ActionListener modifierListener = new ActionListener() {
+    @Override
+    public void onAction(String name, boolean isPressed, float tpf) {
+      currentModifiers.update(name, isPressed);
     }
   };
 
@@ -242,5 +283,9 @@ public class InputSystem {
 
   public AnalogListener getAnalogListener() {
     return analogListener;
+  }
+
+  public ActionListener getModifierListener() {
+    return modifierListener;
   }
 }

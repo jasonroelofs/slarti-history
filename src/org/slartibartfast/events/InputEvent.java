@@ -14,16 +14,21 @@ public class InputEvent {
   // Analog: the distance travelled, [0,1]
   public float value;
 
-  public InputEvent(String name, boolean pressed) {
+  // Knows current state of modifier keys
+  private final ModifierState modifiers;
+
+  public InputEvent(String name, boolean pressed, ModifierState state) {
     this.event = name;
     this.pressed = pressed;
     this.value = pressed ? 1.0f : 0.0f;
+    this.modifiers = state;
   }
 
-  public InputEvent(String name, float value) {
+  public InputEvent(String name, float value, ModifierState state) {
     this.event = name;
     this.value = value;
     this.pressed = false;
+    this.modifiers = state;
   }
 
   public boolean is(Events event) {
@@ -42,4 +47,15 @@ public class InputEvent {
     return value > 0 && value < 1;
   }
 
+  public boolean shift() {
+    return modifiers.shift;
+  }
+
+  public boolean alt() {
+    return modifiers.alt;
+  }
+
+  public boolean ctrl() {
+    return modifiers.ctrl;
+  }
 }

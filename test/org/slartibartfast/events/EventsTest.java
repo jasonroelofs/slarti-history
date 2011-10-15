@@ -21,7 +21,7 @@ public class EventsTest {
   @Before
   public void setupActorAndEvent() {
     actor = Factories.createActor();
-    event = new InputEvent(null, true);
+    event = new InputEvent(null, true, null);
   }
 
   @Test
