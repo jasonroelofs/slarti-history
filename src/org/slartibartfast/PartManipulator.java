@@ -54,7 +54,8 @@ public class PartManipulator {
   public void move(int xGrid, int yGrid, int zGrid) {
     for(Part p : selected) {
       p.getGeometry().setLocalTranslation(
-              p.getGeometry().getLocalTranslation().add(new Vector3f(xGrid, yGrid, zGrid)));
+              p.getGeometry().getLocalTranslation().add(
+                Grid.toWorldSpace(new Vector3f(xGrid, yGrid, zGrid))));
     }
   }
 
