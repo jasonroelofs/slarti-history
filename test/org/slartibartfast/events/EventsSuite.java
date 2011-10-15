@@ -7,9 +7,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
   AxisDefinitionTest.class,
   AxisTest.class,
+  ButtonsTest.class,
   EventsTest.class,
   InputSystemTest.class,
-  ButtonsTest.class,
+  ModifierStateTest.class,
   UserKeyMappingTest.class,
   UserMouseMappingTest.class
 })
