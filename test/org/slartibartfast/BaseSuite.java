@@ -8,7 +8,6 @@ import org.junit.runners.Suite;
   ActorTest.class,
   BehaviorControllerTest.class,
   ConstructTest.class,
-  EditorGameStateTest.class,
   GeometryFactoryTest.class,
   GridTest.class,
   MaterialFactoryTest.class,

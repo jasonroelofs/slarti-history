@@ -23,7 +23,7 @@ import org.slartibartfast.events.UserKeyMapping;
  *
  * TODO: Move most of this logic into a GameState
  */
-public class App extends SimpleApplication implements InputListener {
+public class App extends SimpleApplication {
 
   private SceneGraph sceneManager;
   private InputSystem inputSystem;
@@ -32,8 +32,6 @@ public class App extends SimpleApplication implements InputListener {
   private DataStoreManager dataStoreManager;
 
   private BulletAppState bulletAppState;
-
-  private EditorGameState editorState;
 
   @Override
   public void simpleInitApp() {
@@ -80,12 +78,6 @@ public class App extends SimpleApplication implements InputListener {
     sceneManager.setBehaviorController(behaviorController);
 
     /**
-     * Hook up global input events
-     */
-    UserKeyMapping globalMap = userSettings.getKeyMap("global");
-    inputSystem.registerInputListener(this, globalMap, null);
-
-    /**
      * The player
      */
     Actor player = sceneManager.createActor(new Vector3f(10f, 0, 6f));
@@ -122,14 +114,6 @@ public class App extends SimpleApplication implements InputListener {
      */
     Actor station = sceneManager.createActor();
     station.useBehavior(new ConstructBehavior(defaultConstruct));
-
-
-
-    editorState = new EditorGameState(
-            inputSystem, sceneManager,
-            player, camera,
-            userSettings);
-
   }
 
   @Override
@@ -146,23 +130,5 @@ public class App extends SimpleApplication implements InputListener {
   public static void main(String[] args) {
     App app = new App();
     app.start();
-  }
-
-  /**
-   * Input listener for game-state change requests through input
-   * @param event
-   */
-  @Override
-  public void handleInputEvent(InputEvent event, InputSystem inputSystem) {
-    // On key-up, only event through here right now is ToggleEditor
-    if(event.value == 0) {
-
-      if(editorState.isEditing()) {
-        editorState.doneEditing();
-      } else {
-        editorState.startEditing();
-      }
-
-    }
   }
 }
