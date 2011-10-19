@@ -7,5 +7,5 @@ public interface InputListener {
    * one at a time through this callback.
    * @param event The event to handle
    */
-  public void handleInputEvent(InputEvent event, InputSystem inputSystem);
+  public void handleInputEvent(InputEvent event);
 }

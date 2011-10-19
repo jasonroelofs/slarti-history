@@ -1,12 +1,10 @@
 package org.slartibartfast;
 
-import org.slartibartfast.events.InputEvent;
 import org.slartibartfast.events.InputSystem;
 import org.slartibartfast.behaviors.InputBehavior;
 import org.slartibartfast.behaviors.DirectionalLightBehavior;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Vector3f;
 import org.slartibartfast.behaviors.CameraBehavior;
 import org.slartibartfast.behaviors.ConstructBehavior;
@@ -14,8 +12,6 @@ import org.slartibartfast.behaviors.FollowingBehavior;
 import org.slartibartfast.behaviors.TransformBehavior;
 import org.slartibartfast.dataStores.DataStoreManager;
 import org.slartibartfast.dataStores.DataRepository;
-import org.slartibartfast.events.InputListener;
-import org.slartibartfast.events.UserKeyMapping;
 
 /**
  * The central runner. This class sets everything up
@@ -31,19 +27,9 @@ public class App extends SimpleApplication {
 
   private DataStoreManager dataStoreManager;
 
-  private BulletAppState bulletAppState;
-
   @Override
   public void simpleInitApp() {
     getFlyByCamera().setEnabled(false);
-
-    //bulletAppState = new BulletAppState();
-    //bulletAppState.setThreadingType(
-    //  BulletAppState.ThreadingType.PARALLEL);
-    //getStateManager().attach(bulletAppState);
-
-    // Debug the shapes
-    //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 
     sceneManager = new SceneGraph(getRootNode());
 
@@ -72,8 +58,6 @@ public class App extends SimpleApplication {
     behaviorController = new BehaviorController();
     behaviorController.setInputSystem(inputSystem);
     behaviorController.setUserSettings(userSettings);
-
-    //behaviorController.setPhysicsSpace(bulletAppState.getPhysicsSpace());
 
     sceneManager.setBehaviorController(behaviorController);
 

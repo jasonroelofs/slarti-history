@@ -59,7 +59,7 @@ public class InputSystem {
     inputManager.setCursorVisible(false);
 
     currentModifiers = new ModifierState();
-    
+
     registerMetaKeys();
   }
 
@@ -217,8 +217,7 @@ public class InputSystem {
 
       for(int i = 0; i < listeners.size(); i++) {
         listeners.get(i).handleInputEvent(
-                new InputEvent(eventName, isPressed, currentModifiers),
-                InputSystem.this);
+                new InputEvent(eventName, isPressed, currentModifiers));
       }
     }
   };
@@ -243,8 +242,7 @@ public class InputSystem {
         // TransformBehavior take care of time-per-frame delta logic
 
         listeners.get(i).handleInputEvent(
-                new InputEvent(eventName, value / tpf, currentModifiers),
-                InputSystem.this);
+                new InputEvent(eventName, value / tpf, currentModifiers));
       }
     }
   };
