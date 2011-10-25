@@ -12,7 +12,7 @@ class Construct
     @parts << p
   end
 
-  def drop_part(p)
+  def delete_part(p)
     @parts = @parts.reject {|part| part == p }
   end
 
