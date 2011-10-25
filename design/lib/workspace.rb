@@ -26,4 +26,11 @@ class Workspace
     @brush.deselect @construct.find_part_at(x, y, z)
   end
 
+  def delete_selected_parts
+    @brush.parts.each do |p|
+      @construct.delete_part p
+    end
+    @brush.deselect_all
+  end
+
 end

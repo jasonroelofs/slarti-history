@@ -90,17 +90,17 @@ describe Workspace do
       @workspace.deselect_part_at 0, 0, 0
     end
 
-#    it "can add a new Part to the Construct"
-#
-#    describe "multi-select" do
-#
-#      it "can find multiple Parts at once"
-#
-#      it "can move multiple Parts at once"
-#
-#      it "can resize mutilple Parts at once"
-#
-#    end
+    # MOCK: Brush#parts -> Array
+    # MOCK: Brush#deselect_all
+    # MOCK: Construct#delete_part(Part)
+    it "can delete the selected parts entirely" do
+      p = Part.new
+      @brush.expect(:parts, [p], [])
+      @brush.expect(:deselect_all, nil, [])
+      @construct.expect(:delete_part, nil, [p])
+
+      @workspace.delete_selected_parts
+    end
 
   end
 

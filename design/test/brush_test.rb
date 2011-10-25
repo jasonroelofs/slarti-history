@@ -14,6 +14,7 @@ describe Brush do
     @brush.wont_be_nil
   end
 
+  # TEST: Brush#parts -> Array
   it "has a list of parts" do
     @brush.parts.must_equal []
   end
@@ -42,7 +43,6 @@ describe Brush do
     @brush.parts.must_equal []
   end
 
-  # TEST: Brush#deselect(nil)
   it "handles requests to remove nil part from list" do
     p = Part.new
     @brush.select p
@@ -51,6 +51,7 @@ describe Brush do
     @brush.parts.must_equal [p]
   end
 
+  # TEST: Brush#deselect_all
   it "can be told to deselect all parts" do
     p = Part.new
     @brush.select p

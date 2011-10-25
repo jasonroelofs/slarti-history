@@ -1,0 +1,30 @@
+require 'rake/testtask'
+
+task :default => [:test, :contracts]
+
+Rake::TestTask.new do |t|
+  t.pattern = "test/*_test.rb"
+end
+
+desc "List out missing contract tests"
+task :contracts do
+  mocks = `grep -rh MOCK test/*`.split("\n").map(&:strip)
+  tests = `grep -rh TEST test/*`.split("\n").map(&:strip)
+
+  mock_strings = mocks.map {|s| s.gsub("# MOCK: ", "") }
+  test_strings = tests.map {|s| s.gsub("# TEST: ", "") }
+
+  puts "", "MOCK with no matching TEST:"
+  found = []
+  mock_strings.each do |mock|
+    found << mock unless test_strings.include?(mock)
+  end
+  p found
+
+  puts "", "TEST with no matching MOCK:"
+  found = []
+  test_strings.each do |test|
+    found << test unless mock_strings.include?(test)
+  end
+  p found
+end

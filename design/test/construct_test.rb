@@ -37,7 +37,7 @@ describe Construct do
       c.parts.must_equal [p]
     end
 
-    # TEST: Construct#delete_part(p)
+    # TEST: Construct#delete_part(Part)
     it "can be told to drop a part" do
       p1 = Part.new
       p2 = Part.new
@@ -48,7 +48,6 @@ describe Construct do
       c.parts.must_equal [p2]
     end
 
-    # TEST: Construct#delete_part(nil)
     it "ignores requests to delete the nil part" do
       p1 = Part.new
       c = Construct.new [p1]
